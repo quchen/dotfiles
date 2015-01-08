@@ -1,0 +1,102 @@
+[user]
+      name = David Luposchainsky
+      email = dluposchainsky@gmail.com
+[push]
+      default = matching
+[branch]
+      autosetuprebase = always
+[color]
+      status = auto
+      branch = auto
+      diff = auto
+[color "diff"]
+      whitespace = red reverse
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 659
+	main-window-view = HistoryView
+	show-graph = true
+	file-view-vpane-position = 924
+[alias]
+      # Pretty graphs
+
+            # Up to current commit, medium commit info
+            g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %cr (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
+
+            # Long, full commit info
+            gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%cr (%ai)%n%an <%ae>%n' --date=relative
+
+            # All commits, medium commit info
+            gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %cr (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
+
+            # All commits, full commit info
+            ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%cr (%ai)%n%an <%ae>%n' --date=relative --all
+
+      s = status
+      d = diff
+      dd = diff --word-diff=color
+      dt = !~/bin/git-meld.pl
+      push-m = push origin master
+      push-d = push origin develop
+[diff]
+      tool = meld
+[merge]
+      tool = meld
+
+      # Don't fast forward by default
+	ff = false
+
+# Possible placeholders:
+# - '%%': a raw '%'
+# - '%ad': author date (format respects --date= option)
+# - '%aD': author date, RFC2822 style
+# - '%ae': author email
+# - '%aE': author email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+# - '%ai': author date, ISO 8601 format
+# - '%an': author name
+# - '%aN': author name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+# - '%ar': author date, relative
+# - '%at': author date, UNIX timestamp
+# - '%b': body
+# - '%B': raw body (unwrapped subject and body)
+# - '%C(...)': color specification, as described in color.branch.* config option
+# - '%Cblue': switch color to blue
+# - '%cd': committer date
+# - '%cD': committer date, RFC2822 style
+# - '%ce': committer email
+# - '%cE': committer email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+# - '%Cgreen': switch color to green
+# - '%ci': committer date, ISO 8601 format
+# - '%cn': committer name
+# - '%cN': committer name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+# - '%cr': committer date, relative
+# - '%Cred': switch color to red
+# - '%Creset': reset color
+# - '%ct': committer date, UNIX timestamp
+# - '%d': ref names, like the --decorate option of linkgit:git-log[1]
+# - '%e': encoding
+# - '%f': sanitized subject line, suitable for a filename
+# - '%gD': reflog selector, e.g., `refs/stash@\{1\}`
+# - '%gd': shortened reflog selector, e.g., `stash@\{1\}`
+# - '%ge': reflog identity email
+# - '%gE': reflog identity email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+# - '%gn': reflog identity name
+# - '%gN': reflog identity name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+# - '%gs': reflog subject
+# - '%h': abbreviated commit hash
+# - '%H': commit hash
+# - '%m': left, right or boundary mark
+# - '%N': commit notes
+# - '%n': newline
+# - '%p': abbreviated parent hashes
+# - '%P': parent hashes
+# - '%s': subject
+# - '%t': abbreviated tree hash
+# - '%T': tree hash
+# - '%w([<w>[,<i1>[,<i2>]]])': switch line wrapping, like the -w option of nkgit:git-shortlog[1].
+
+
+
+[core]
+	editor = vim
