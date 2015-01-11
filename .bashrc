@@ -123,8 +123,8 @@ export PATH
 
 ## MANPATH
 
-if [ -d "$HOME/Programs/haskell/ghc-7.6.3/share/man" ] ; then
-    MANPATH="$HOME/Programs/haskell/ghc-7.6.3/share/man:$MANPATH"
+if [ -d "$HOME/Programs/haskell/ghc-7.8.4/share/man" ] ; then
+    MANPATH="$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH"
 fi
 export MANPATH
 
