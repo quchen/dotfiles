@@ -35,6 +35,7 @@
 
       s = status
       d = diff
+      co = checkout
       dd = diff --word-diff=color
       dt = !~/bin/git-meld.pl
       push-m = push origin master
