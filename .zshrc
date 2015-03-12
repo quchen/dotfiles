@@ -243,17 +243,16 @@ prompt_status() {
     symbols=""
 
     # Print exit code
-    [[ "$RETVAL" -ne 3 ]] && symbols+="%{%F{black}%}$RETVAL"
+
+    [[ $RETVAL != 0 ]] && symbols+="%{%F{black}%}$RETVAL"
     # [[ $UID -eq 0 ]] && SYMBOLS+="%{%F{yellow}%}⚡"
     [[ -n "$symbols" ]] && prompt_segment red default "$symbols"
 
 }
 
 build_prompt() {
-echo $?
-    RETVAL=$?
+    RETVAL=%?
     SEGMENT_SEPARATOR=$RIGHT_ARROW
-    echo -n "$RETVAL>"
     prompt_status
     prompt_dir
     prompt_end
