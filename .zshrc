@@ -194,6 +194,9 @@ setopt RM_STAR_WAIT # 10 second waiting period before deleting *
 autoload -Uz promptinit
 promptinit
 
+# Run parameter expansion in prompt variables before interpreting them
+setopt PROMPT_SUBST
+
 # Fancy arrows supported by some fonts supported by WhatTheFont
 RIGHT_ARROW=""       # echo -e "\xEE\x82\xB0"                                                                                                                                                          19:23:53 
 RIGHT_ARROW_EMPTY="" # echo -e "\xEE\x82\xB1"                                                                                                                                                          19:23:53 
@@ -229,21 +232,19 @@ prompt_end() {
 }
 
 
-
 prompt_dir() {
     prompt_segment black blue '%~'
 }
 prompt_time() {
     local DATE
-    DATE=$(date "+%H:%M:%S")
-    prompt_segment blue black $DATE
+    DATE='$(date "+%H:%M:%S")'
+    prompt_segment blue black "$DATE"
 }
 prompt_status() {
     local symbols
     symbols=""
 
     # Print exit code
-
     [[ $RETVAL != 0 ]] && symbols+="%{%F{black}%}$RETVAL"
     # [[ $UID -eq 0 ]] && SYMBOLS+="%{%F{yellow}%}⚡"
     [[ -n "$symbols" ]] && prompt_segment red default "$symbols"
