@@ -237,34 +237,34 @@ prompt_dir() {
 }
 prompt_time() {
     local DATE
-    DATE='$(date "+%H:%M:%S")'
-    prompt_segment blue black "$DATE"
+    DATE="$(date "+%H:%M:%S")"
+    prompt_segment black blue "$DATE"
 }
 prompt_status() {
-    local symbols
-    symbols=""
+    local SYMBOLS
+    SYMBOLS=()
 
     # Print exit code
-    [[ $RETVAL != 0 ]] && symbols+="%{%F{black}%}$RETVAL"
+    [[ $1 -ne 0 ]] && SYMBOLS+="%{%F{black}%}$1"
     # [[ $UID -eq 0 ]] && SYMBOLS+="%{%F{yellow}%}⚡"
-    [[ -n "$symbols" ]] && prompt_segment red default "$symbols"
+    [[ -n "$SYMBOLS" ]] && prompt_segment red default "$SYMBOLS"
 
 }
 
 build_prompt() {
-    RETVAL=%?
+    RETVAL=$?
     SEGMENT_SEPARATOR=$RIGHT_ARROW
-    prompt_status
+    prompt_status $RETVAL
     prompt_dir
     prompt_end
 }
 build_rprompt() {
-    SEGMENT_SEPARATOR=$LEFT_ARROW
+    SEGMENT_SEPARATOR=$RIGHT_ARROW
     prompt_time
     prompt_end
 }
 
 # f/b/k: reset foreground/bold/background
 NEWLINE=$'\n'
-PROMPT="%{%f%b%k%}$(build_prompt)${NEWLINE}λ. "
-RPROMPT="%{%f%b%k%}$(build_rprompt)"
+PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}λ. '
+RPROMPT='%{%f%b%k%}$(build_rprompt)'
