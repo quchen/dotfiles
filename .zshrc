@@ -255,6 +255,13 @@ prompt_whoami() {
         prompt_segment blue black "%(!.%{%F{yellow}%}.)$USER@%m"
     fi
 }
+prompt_bol() {
+    if [[ $UID -eq 0 ]]; then
+        echo "%{%F{red}%}Λ. "
+    else
+        echo "λ. "
+    fi
+}
 
 build_prompt() {
     RETVAL=$?
@@ -272,5 +279,5 @@ build_rprompt() {
 
 # f/b/k: reset foreground/bold/background
 NEWLINE=$'\n'
-PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}λ. '
+PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol) '
 RPROMPT='%{%f%b%k%}$(build_rprompt)'
