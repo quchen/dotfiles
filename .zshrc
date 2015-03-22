@@ -250,6 +250,11 @@ prompt_status() {
     [[ -n "$SYMBOLS" ]] && prompt_segment red default "$SYMBOLS"
 
 }
+prompt_whoami() {
+    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+        prompt_segment blue black "%(!.%{%F{yellow}%}.)$USER@%m"
+    fi
+}
 
 build_prompt() {
     RETVAL=$?
@@ -261,6 +266,7 @@ build_prompt() {
 build_rprompt() {
     SEGMENT_SEPARATOR=$RIGHT_ARROW
     prompt_time
+    prompt_whoami
     prompt_end
 }
 
