@@ -150,13 +150,19 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 
-# Commands
+# Modifiers
 alias -g G=" | grep "
 alias -g L=" | less "
+
+# Commands
 LS_COMMON="--group-directories-first --color=always"
 alias -g l="ls -lFh $LS_COMMON"  # Long view, no hidden
 alias -g ll="ls -lAh $LS_COMMON" # Long view, show hidden
 alias -g lh="ls -AF $LS_COMMON"  # Compact view, show hidden
+
+# Helpers
+alias df='df -h' # Disk free, human readable
+alias du='du -hc' # Disk usage for folder, human readable
 
 
 
@@ -281,3 +287,23 @@ build_rprompt() {
 NEWLINE=$'\n'
 PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 RPROMPT='%{%f%b%k%}$(build_rprompt)'
+
+
+
+
+
+###############################################################################
+###  Environment   ############################################################
+###############################################################################
+
+# Paths
+export PATH=$HOME/.cabal/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+export MANPATH=$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH
+
+# Programs
+export EDITOR=vim
+
+# Program options
+export GREP_OPTIONS='--color=auto'
+export LESS='--LINE-NUMBERS --RAW-CONTROL-CHARS --ignore-case --no-init'
+    # no-init: don't clear screen on exit
