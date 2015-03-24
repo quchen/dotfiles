@@ -279,5 +279,5 @@ build_rprompt() {
 
 # f/b/k: reset foreground/bold/background
 NEWLINE=$'\n'
-PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol) '
+PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 RPROMPT='%{%f%b%k%}$(build_rprompt)'
