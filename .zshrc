@@ -91,13 +91,10 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
+zstyle ':completion:*' menu select=long # Highlighted autocomplete selections. <N>: that many entries before it starts; "long": more than fit on screen.
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-
-# Color-code completion
-zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
 # Fancy kill completion, not sure whether I need it
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
