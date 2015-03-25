@@ -100,8 +100,8 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
 # Fancy kill completion, not sure whether I need it
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-# zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
 
