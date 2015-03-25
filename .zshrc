@@ -17,6 +17,7 @@ setopt EXTENDED_GLOB
 
 
 
+
 ###############################################################################
 ###  Environment   ############################################################
 ###############################################################################
@@ -24,11 +25,29 @@ setopt EXTENDED_GLOB
 export EDITOR=vim
 
 export PAGER=less
+export LESS='--LINE-NUMBERS --RAW-CONTROL-CHARS --ignore-case --no-init'
+
+export GREP_OPTIONS='--color=auto'
+    # no-init: don't clear screen on exit
 
 declare -U PATH # Remove duplicates from $PATH
-PATH="$HOME/bin:$PATH"
-PATH="$HOME/.cabal/bin:$PATH"
+PATH=""
+PATH+=:$HOME/.cabal/bin
+PATH+=:$HOME/bin
+PATH+=:/usr/local/sbin
+PATH+=:/usr/local/bin
+PATH+=:/usr/sbin
+PATH+=:/usr/bin
+PATH+=:/sbin
+PATH+=:/bin
+PATH+=:/usr/games
+PATH+=:/usr/local/games
 export PATH
+
+
+MANPATH=$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH
+export MANPATH
+
 
 MANPATH="$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH"
 export MANPATH
@@ -49,6 +68,7 @@ setopt HIST_IGNORE_ALL_DUPS # Don't store *any* duplicates in history
 setopt HIST_IGNORE_DUPS # Don't store consecutive duplicates in history
 setopt SHARE_HISTORY # Share history between shells
 setopt HIST_VERIFY # When using a hist thing, make a newline show the change before executing it.
+
 
 
 
@@ -82,6 +102,8 @@ zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 # Fancy kill completion, not sure whether I need it
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+
 
 
 
@@ -137,6 +159,10 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
+
+
+
+
 ###############################################################################
 ###  Aliases  ################################################################
 ###############################################################################
@@ -189,6 +215,7 @@ setopt PUSHD_IGNORE_DUPS # Don't push duplicates
 setopt PUSHD_MINUS # Reverse +/- operators
 
 setopt RM_STAR_WAIT # 10 second waiting period before deleting *
+
 
 
 
@@ -287,23 +314,3 @@ build_rprompt() {
 NEWLINE=$'\n'
 PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 RPROMPT='%{%f%b%k%}$(build_rprompt)'
-
-
-
-
-
-###############################################################################
-###  Environment   ############################################################
-###############################################################################
-
-# Paths
-export PATH=$HOME/.cabal/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-export MANPATH=$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH
-
-# Programs
-export EDITOR=vim
-
-# Program options
-export GREP_OPTIONS='--color=auto'
-export LESS='--LINE-NUMBERS --RAW-CONTROL-CHARS --ignore-case --no-init'
-    # no-init: don't clear screen on exit
