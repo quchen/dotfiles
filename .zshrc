@@ -25,10 +25,10 @@ setopt EXTENDED_GLOB
 export EDITOR=vim
 
 export PAGER=less
-export LESS='--LINE-NUMBERS --RAW-CONTROL-CHARS --ignore-case --no-init'
-
-export GREP_OPTIONS='--color=auto'
+export LESS='--RAW-CONTROL-CHARS --ignore-case --no-init'
     # no-init: don't clear screen on exit
+
+export GREP_OPTIONS='-E --color=auto'
 
 declare -U PATH # Remove duplicates from $PATH
 PATH=""
