@@ -1,3 +1,3 @@
 set show-line-numbers    = yes
 set line-number-interval = 5
-set line-graphics        = utf-8
+set line-graphics        = default
