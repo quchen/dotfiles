@@ -189,6 +189,13 @@ alias -g lh="ls -AF $LS_COMMON"  # Compact view, show hidden
 alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
 
+alias ghci-core="ghci -ddump-simpl \
+                      -dsuppress-idinfo \
+                      -dsuppress-coercions \
+                      -dsuppress-type-applications \
+                      -dsuppress-uniques \
+                      -dsuppress-module-prefixes"
+
 
 
 
