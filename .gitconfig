@@ -20,16 +20,16 @@
       # Pretty graphs
 
             # Up to current commit, medium commit info
-            g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %cr (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
+            g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
 
             # Long, full commit info
-            gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%cr (%ai)%n%an <%ae>%n' --date=relative
+            gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative
 
             # All commits, medium commit info
-            gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %cr (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
+            gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
 
             # All commits, full commit info
-            ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%cr (%ai)%n%an <%ae>%n' --date=relative --all
+            ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
 
       s = status
       d = diff
