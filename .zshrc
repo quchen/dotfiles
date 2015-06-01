@@ -81,6 +81,10 @@ setopt HIST_VERIFY # When using a hist thing, make a newline show the change bef
 
 # I don't understand this section very well.
 
+# Some third party completions, e.g. Cabal, GHC
+# Taken from e.g. https://github.com/zsh-users/zsh-completions
+fpath=($HOME/Programs/zsh-completions/src $fpath)
+
 autoload -Uz compinit
 compinit
 
@@ -101,6 +105,9 @@ zstyle ':completion:*' verbose true
 # Fancy kill completion, not sure whether I need it
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+
+
 
 
 
@@ -185,6 +192,8 @@ alias -g l="ls -lFh $LS_COMMON"  # Long view, no hidden
 alias -g ll="ls -lAh $LS_COMMON" # Long view, show hidden
 alias -g lh="ls -AF $LS_COMMON"  # Compact view, show hidden
 
+alias -g ta="tig --all"
+
 # Helpers
 alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
@@ -195,6 +204,14 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-type-applications \
                       -dsuppress-uniques \
                       -dsuppress-module-prefixes"
+
+
+# Git
+# alias -g gg="git g"
+# alias -g ggg="git gg"
+# alias -g gs="git s"
+# alias -g gd="git d"
+# alias -g gdd="git dd"
 
 
 
