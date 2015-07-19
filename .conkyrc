@@ -100,7 +100,7 @@ TEXT
 ${color0}CPU ${hr 2}${color}
 ${cpugraph cpu0 32,384 204dde 2478ef -t}
 ${voffset -30}
-${color #2478ef}${alignc}${cpubar cpu1 4,43} ${cpubar cpu2 4,43} ${cpubar cpu3 4,43} ${cpubar cpu4 4,43} ${cpubar cpu5 4,43} ${cpubar cpu6 4,43} ${cpubar cpu7 4,43} ${cpubar cpu8 4,43}${color}
+${color #2478ef}${alignc}${cpubar cpu1 4,92} ${cpubar cpu2 4,92} ${cpubar cpu3 4,92} ${cpubar cpu4 4,92}${color}
 ${voffset -25}
 ${cpu cpu} %${alignr}${hwmon 0 temp 1} °C, fan ${hwmon 1 fan 1}/min
 
