@@ -2,7 +2,7 @@
       name = David Luposchainsky
       email = dluposchainsky@gmail.com
 [push]
-      default = matching
+      default = current
 [color]
       status = auto
       branch = auto
