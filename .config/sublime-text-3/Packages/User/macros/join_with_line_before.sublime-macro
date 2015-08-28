@@ -1,0 +1,4 @@
+[
+    {"command": "move", "args": {"by": "lines", "forward": false}},
+    {"command": "comments_aware_join_lines"}
+]
