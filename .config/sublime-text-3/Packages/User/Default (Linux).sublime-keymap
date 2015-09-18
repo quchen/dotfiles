@@ -125,7 +125,6 @@
     { "keys": ["ctrl+p", "ctrl+f"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} }, // pf = find
 	{ "keys": ["ctrl+shift+p"], "command": "goto_symbol_in_project" },
 
-
     // Line swapping
     { "keys": ["ctrl+shift+up"], "command": "swap_line_up" },
     { "keys": ["ctrl+shift+down"], "command": "swap_line_down" },
@@ -299,5 +298,9 @@
 
     { "keys": ["tab"], "command": "commit_completion", "context":
         [{ "key": "auto_complete_visible" }]
-    }
+    },
+
+    // Macros
+    { "keys": ["ctrl+p", "ctrl+m"], "command": "run_macro" }
+
 ]
