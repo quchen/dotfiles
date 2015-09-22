@@ -60,7 +60,6 @@
     { "keys": ["ctrl+shift+k"], "command": "find_under_expand_skip" },
     { "keys": ["ctrl+shift+l"], "command": "split_selection_into_lines" },
     { "keys": ["ctrl+t"],       "command": "transpose" }, // Cycle selections' contents
-    { "keys": ["ctrl+shift+k"], "command": "expand_selection", "args": {"to": "scope"} },
 
     { "keys": ["shift+enter"], "command": "run_macro_file", "args": {"file": "Packages/User/macros/add_line_after.sublime-macro"} },
     { "keys": ["ctrl+shift+enter"], "command": "run_macro_file", "args": {"file": "Packages/User/macros/add_line_before.sublime-macro"} },
