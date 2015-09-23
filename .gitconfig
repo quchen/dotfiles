@@ -38,7 +38,7 @@
       dt = !~/bin/git-meld.pl
       push-m = push origin master
       push-d = push origin develop
-      fix = commit -a --amend
+      fix = commit --amend
 [diff]
       tool = meld
 [merge]
