@@ -117,11 +117,12 @@
           [{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }] },
 
     // Goto menus
+    { "keys": ["ctrl+p", "ctrl+d"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} }, // pd = definition
+    { "keys": ["ctrl+p", "ctrl+f"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} }, // pf = find
+    { "keys": ["ctrl+p", "ctrl+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} }, // pl = line
     { "keys": ["ctrl+p", "ctrl+o"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} }, // po = Open
     { "keys": ["ctrl+p", "ctrl+p"], "command": "show_overlay", "args": {"overlay": "command_palette"} }, // pp -> menu stuff
-    { "keys": ["ctrl+p", "ctrl+d"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} }, // pd = definition
-    { "keys": ["ctrl+p", "ctrl+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} }, // pl = line
-    { "keys": ["ctrl+p", "ctrl+f"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} }, // pf = find
+    { "keys": ["ctrl+p", "ctrl+s"], "command": "show_scope_name" },
 	{ "keys": ["ctrl+shift+p"], "command": "goto_symbol_in_project" },
 
     // Line swapping
