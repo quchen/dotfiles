@@ -71,8 +71,8 @@
     // Navigating through documents
     { "keys": ["ctrl+up"],         "command": "scroll_lines", "args": {"amount": 1.0 } },
     { "keys": ["ctrl+down"],       "command": "scroll_lines", "args": {"amount": -1.0 } },
-    { "keys": ["ctrl+tab"],        "command": "next_view_in_stack" }, // Cycle through tabs in current view
-    { "keys": ["ctrl+shift+tab"],  "command": "prev_view_in_stack" },
+    { "keys": ["ctrl+tab"],        "command": "next_view" },
+    { "keys": ["ctrl+shift+tab"],  "command": "prev_view" },
     { "keys": ["ctrl+-"],          "command": "jump_back" },
     { "keys": ["ctrl+shift+-"],    "command": "jump_forward" },
 
