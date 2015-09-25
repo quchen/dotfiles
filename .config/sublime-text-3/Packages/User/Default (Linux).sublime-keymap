@@ -88,8 +88,8 @@
     { "keys": ["ctrl+d"], "command": "duplicate_line" },
 
     // Matching parentheses
-    { "keys": ["ctrl+m"], "command": "move_to", "args": {"to": "brackets"} },
-    { "keys": ["ctrl+shift+m"], "command": "expand_selection", "args": {"to": "brackets"} },
+    { "keys": ["ctrl+shift+m"], "command": "move_to", "args": {"to": "brackets"} },
+    { "keys": ["ctrl+m"], "command": "expand_selection", "args": {"to": "brackets"} },
 
      // Pair () around selection
     { "keys": ["ctrl+8", "ctrl+8"], "command": "insert_snippet", "args": {"contents": "(${0:$SELECTION})"}, "context":
