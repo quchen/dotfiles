@@ -44,9 +44,6 @@
 [merge]
       tool = meld
 
-      # Don't fast forward by default
-	ff = false
-
 # Possible placeholders:
 # - '%%': a raw '%'
 # - '%ad': author date (format respects --date= option)
