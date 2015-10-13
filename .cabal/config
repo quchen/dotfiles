@@ -11,10 +11,10 @@
 -- require-sandbox: False
 -- ignore-sandbox: False
 remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
-remote-repo-cache: /home/main/.cabal/packages
+remote-repo-cache: $prefix/packages
 -- local-repo:
 -- logs-dir:
-world-file: /home/main/.cabal/world
+world-file: $prefix/world
 -- verbose: 1
 -- compiler: ghc
 -- with-compiler:
@@ -37,7 +37,7 @@ library-profiling: True
 -- flags:
 -- extra-include-dirs:
 -- extra-lib-dirs:
-extra-prog-path: /home/main/.cabal/bin
+extra-prog-path: $prefix/bin
 -- tests: False
 -- library-coverage: False
 -- exact-configuration: False
@@ -58,7 +58,7 @@ documentation: True
 -- upgrade-dependencies: False
 -- root-cmd:
 -- symlink-bindir:
-build-summary: /home/main/.cabal/logs/build.log
+build-summary: $prefix/logs/build.log
 -- build-log:
 remote-build-reporting: anonymous
 -- one-shot: False
@@ -83,7 +83,7 @@ haddock
   -- contents-location:
 
 install-dirs user
-  -- prefix: /home/main/.cabal
+  -- prefix: $prefix
   -- bindir: $prefix/bin
   -- libdir: $prefix/lib
   -- libsubdir: $arch-$os-$compiler/$pkgid
