@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+LENGTH=16
+
+# Non-space ASCII characters ecluding
+# \ ' "`  (commonly escaped characters)
+# & < >   (HTML entities)
+# ALPHABET="!#$%()*+,-./0123456789:;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{|}~"
+
+# Numbers/letters, no O and j
+# ALPHABET="0123456789ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz"
+
+# Numbers/lower case letters
+ALPHABET="0-9a-z"
+
+echo "length: $LENGTH; alphabet: $ALPHABET"
+echo "===================================="
+
+stdbuf -o0 -i0 tr -dc $ALPHABET < /dev/urandom | head -c${1:-$LENGTH}
+# cat /dev/urandom | stdbuf -o0 -i0 tr -dc [:graph:] | head -c32
+#                  ^ tr buffers, hence using random would take forever
+#                                      ^ dc = complement + delete non-matching
+echo # for newline
+
+echo "===================================="
+
