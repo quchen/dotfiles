@@ -39,6 +39,7 @@
       push-m = push origin master
       push-d = push origin develop
       fix = commit --amend
+      up = pull --rebase
 [diff]
       tool = meld
 [merge]
