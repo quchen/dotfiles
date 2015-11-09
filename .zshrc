@@ -206,12 +206,7 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-module-prefixes"
 
 
-# Git
-# alias -g gg="git g"
-# alias -g ggg="git gg"
-# alias -g gs="git s"
-# alias -g gd="git d"
-# alias -g gdd="git dd"
+alias o='xdg-open .'
 
 
 
