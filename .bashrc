@@ -194,3 +194,6 @@ _ghc()
     COMPREPLY=( $( compgen -W "$envs" -- $cur ) )
 }
 complete -F _ghc -o default ghc
+
+
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh

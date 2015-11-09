@@ -208,6 +208,8 @@ alias ghci-core="ghci -ddump-simpl \
 
 alias o='xdg-open .'
 
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+
 
 
 
