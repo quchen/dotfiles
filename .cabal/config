@@ -11,10 +11,10 @@
 -- require-sandbox: False
 -- ignore-sandbox: False
 remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
-remote-repo-cache: $prefix/packages
+remote-repo-cache: /home/david/packages
 -- local-repo:
 -- logs-dir:
-world-file: $prefix/world
+world-file: /home/david/world
 -- verbose: 1
 -- compiler: ghc
 -- with-compiler:
@@ -37,7 +37,7 @@ library-profiling: True
 -- flags:
 -- extra-include-dirs:
 -- extra-lib-dirs:
-extra-prog-path: $prefix/bin
+extra-prog-path: /home/david/bin
 -- tests: False
 -- library-coverage: False
 -- exact-configuration: False
@@ -58,7 +58,7 @@ documentation: True
 -- upgrade-dependencies: False
 -- root-cmd:
 -- symlink-bindir:
-build-summary: $prefix/logs/build.log
+build-summary: /home/david/logs/build.log
 -- build-log:
 remote-build-reporting: anonymous
 -- one-shot: False
