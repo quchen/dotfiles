@@ -25,10 +25,6 @@ setopt EXTENDED_GLOB
 export EDITOR=vim
 
 export PAGER=less
-export LESS='--RAW-CONTROL-CHARS --ignore-case --no-init'
-    # Raw control chars: don't escape control chars. Allows colors, for example.
-    # ignore case: When searches don't contain upper case letters, they're case-insensitive
-    # no-init: don't clear screen on exit
 
 export GREP_OPTIONS='-E --color=auto'
 

@@ -1,14 +1,14 @@
 [user]
-      name = David Luposchainsky
-      email = dluposchainsky@gmail.com
+    name = David Luposchainsky
+    email = dluposchainsky@gmail.com
 [push]
-      default = current
+    default = current
 [color]
-      status = auto
-      branch = auto
-      diff = auto
+    status = auto
+    branch = auto
+    diff = auto
 [color "diff"]
-      whitespace = red reverse
+    whitespace = red reverse
 [giggle]
 	main-window-maximized = true
 	main-window-geometry = 0x0+0+0
@@ -17,33 +17,34 @@
 	show-graph = true
 	file-view-vpane-position = 924
 [alias]
-      # Pretty graphs
+    # Pretty graphs
 
-            # Up to current commit, medium commit info
-            g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
+        # Up to current commit, medium commit info
+        g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
 
-            # Long, full commit info
-            gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative
+        # Long, full commit info
+        gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative
 
-            # All commits, medium commit info
-            gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
+        # All commits, medium commit info
+        gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
 
-            # All commits, full commit info
-            ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
+        # All commits, full commit info
+        ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
 
-      s = status
-      d = diff
-      co = checkout
-      dd = diff --word-diff=color
-      dt = !~/bin/git-meld.pl
-      push-m = push origin master
-      push-d = push origin develop
-      fix = commit --amend
-      up = pull --rebase
+    s = status -sb
+    d = diff
+    co = checkout
+    dd = diff --word-diff=color
+    dt = !~/bin/git-meld.pl
+    push-m = push origin master
+    push-d = push origin develop
+    fix = commit --amend
+    up = pull --rebase
+    unstage = reset HEAD --
 [diff]
-      tool = meld
+    tool = meld
 [merge]
-      tool = meld
+    tool = meld
 
 # Possible placeholders:
 # - '%%': a raw '%'
