@@ -201,6 +201,7 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-uniques \
                       -dsuppress-module-prefixes"
 
+alias g=git
 
 
 ###############################################################################
