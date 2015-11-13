@@ -202,6 +202,7 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-module-prefixes"
 
 alias g=git
+alias zz="source $HOME/.zshrc"
 
 
 ###############################################################################
