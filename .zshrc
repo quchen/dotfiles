@@ -202,7 +202,20 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-module-prefixes"
 
 
-alias o='xdg-open .'
+
+###############################################################################
+###  Navigation  ##############################################################
+###############################################################################
+
+# Open file, directory, or current directory if no args present
+open() {
+    if [[ $# -ne 0 ]]; then
+        xdg-open "$@"
+    else
+        xdg-open .
+    fi
+}
+alias o=open
 
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 
