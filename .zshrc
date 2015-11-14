@@ -170,7 +170,8 @@ fi
 ###############################################################################
 
 # Autocompletion for aliases
-setopt COMPLETE_ALIASES
+# setopt COMPLETE_ALIASES
+unsetopt COMPLETE_ALIASES
 
 # Filesystem
 alias ..='cd ..'
