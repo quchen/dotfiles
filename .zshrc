@@ -185,11 +185,13 @@ alias -g L=" | less "
 
 # Commands
 LS_COMMON="--group-directories-first --color=always"
-alias -g l="ls -lFh $LS_COMMON"  # Long view, no hidden
-alias -g ll="ls -lAh $LS_COMMON" # Long view, show hidden
-alias -g lh="ls -AF $LS_COMMON"  # Compact view, show hidden
+alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
+alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
+alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
 
-alias -g ta="tig --all"
+alias g=git
+alias -g save="branch save_$(date +%Y-%m-%d_%H-%M-%S)"
+alias ta="tig --all"
 
 # Helpers
 alias df='df -h' # Disk free, human readable
@@ -202,7 +204,6 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-uniques \
                       -dsuppress-module-prefixes"
 
-alias g=git
 alias zz="source $HOME/.zshrc"
 
 
@@ -220,7 +221,9 @@ open() {
 }
 alias o=open
 
-[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+if [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]]; then
+    source $HOME/.autojump/etc/profile.d/autojump.sh
+fi
 
 
 
