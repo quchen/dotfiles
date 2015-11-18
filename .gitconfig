@@ -46,6 +46,8 @@
     tool = meld
 [merge]
     tool = meld
+[fetch]
+    prune = true
 
 # Possible placeholders:
 # - '%%': a raw '%'
