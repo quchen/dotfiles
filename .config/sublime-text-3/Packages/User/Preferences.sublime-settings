@@ -119,6 +119,7 @@
 		100,
 		120
 	],
+	"save_on_focus_lost": true,
 	"scroll_past_end": true,
 	"scroll_speed": 3.0,
 	"shift_tab_unindent": true,
