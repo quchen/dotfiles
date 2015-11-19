@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+TICKDIR="$HOME/.selfmonitoring/upticks"
+
+mkdir -p $TICKDIR
+while true
+do
+    date "+%Y-%m-%d, %H:%M" >> "$TICKDIR/ticks_$(date "+%Y-%m-%d_%A")"
+    sleep 60
+done
