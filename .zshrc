@@ -213,7 +213,7 @@ alias zz="source $HOME/.zshrc"
 
 # Open file, directory, or current directory if no args present
 open() {
-    if [[ $# -ne 0 ]]; then
+    if [[ "$#" -ne 0 ]]; then
         xdg-open "$@"
     else
         xdg-open .
