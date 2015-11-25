@@ -1,3 +1,20 @@
 #!/usr/bin/env bash
 
-echo "$@" | xsel --clipboard
+set -euo pipefail
+
+CLIPBOARD="xsel --clipboard"
+
+if [[ "$#" -eq 1 && "$1" == "--help" ]]; then
+    echo "Copy text to the clipboard."
+    echo ""
+    echo "Usage:"
+    echo "    a) Pipe to this"
+    echo "    b) Provide text as arguments"
+    exit 0
+fi
+
+if [[ "$#" -ne 0 ]]; then
+    echo "$@" | $CLIPBOARD
+else
+    $CLIPBOARD <&0
+fi
