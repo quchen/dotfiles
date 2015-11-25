@@ -169,8 +169,7 @@ fi
 ###############################################################################
 
 # Autocompletion for aliases
-# setopt COMPLETE_ALIASES
-unsetopt COMPLETE_ALIASES
+unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
 
 # Filesystem
 alias ..='cd ..'
@@ -190,6 +189,7 @@ alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
 alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
 
 alias g=git
+alias s=sublime
 alias -g save="branch save_$(date +%Y-%m-%d_%H-%M-%S)"
 alias ta="tig --all"
 
