@@ -50,38 +50,21 @@
 	"enable_telemetry": "false",
 	"file_exclude_patterns":
 	[
-		"*.pyc",
-		"*.pyo",
-		"*.exe",
-		"*.dll",
-		"*.obj",
-		"*.o",
 		"*.a",
-		"*.lib",
+		"*.hi",
+		"*.o",
 		"*.so",
-		"*.dylib",
-		"*.ncb",
-		"*.sdf",
-		"*.suo",
-		"*.pdb",
-		"*.idb",
-		".DS_Store",
-		"*.class",
-		"*.psd",
-		"*.db",
-		"*.sublime-*"
+		"*.sublime-workspace",
+		"*.sublime-project"
 	],
 	"find_selected_text": true,
 	"fold_buttons": false,
 	"folder_exclude_patterns":
 	[
-		".svn",
 		".git",
-		".hg",
-		"CVS"
+		".cabal-sandbox"
 	],
 	"font_size": 9,
-	"gpu_window_buffer": "auto",
 	"gutter": true,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
