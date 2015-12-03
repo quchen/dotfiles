@@ -48,7 +48,7 @@
 [fetch]
     prune = true
 [core]
-    editor = vim
+    editor = sublime -w
 [url "git://github.com/ghc/packages-"]
     insteadOf = git://github.com/ghc/packages/
 [url "http://github.com/ghc/packages-"]
