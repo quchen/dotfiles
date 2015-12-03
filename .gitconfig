@@ -36,6 +36,7 @@
     co = checkout
     dd = diff --word-diff=color
     dt = difftool --dir-diff
+    mt = mergetool --no-prompt
     fix = commit --amend
     up = pull --rebase
     sup = submodule update
