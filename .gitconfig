@@ -10,26 +10,26 @@
 [color "diff"]
     whitespace = red reverse
 [giggle]
-	main-window-maximized = true
-	main-window-geometry = 0x0+0+0
-	history-view-vpane-position = 659
-	main-window-view = HistoryView
-	show-graph = true
-	file-view-vpane-position = 924
+    main-window-maximized = true
+    main-window-geometry = 0x0+0+0
+    history-view-vpane-position = 659
+    main-window-view = HistoryView
+    show-graph = true
+    file-view-vpane-position = 924
 [alias]
     # Pretty graphs
 
-        # Up to current commit, medium commit info
-        g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
+    # Up to current commit, medium commit info
+    g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
 
-        # Long, full commit info
-        gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative
+    # Long, full commit info
+    gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative
 
-        # All commits, medium commit info
-        gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
+    # All commits, medium commit info
+    gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
 
-        # All commits, full commit info
-        ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
+    # All commits, full commit info
+    ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
 
     s = status -sb
     d = diff
@@ -48,6 +48,21 @@
     tool = meld
 [fetch]
     prune = true
+[core]
+    editor = vim
+[url "git://github.com/ghc/packages-"]
+    insteadOf = git://github.com/ghc/packages/
+[url "http://github.com/ghc/packages-"]
+    insteadOf = http://github.com/ghc/packages/
+[url "https://github.com/ghc/packages-"]
+    insteadOf = https://github.com/ghc/packages/
+[url "ssh://git@github.com/ghc/packages-"]
+    insteadOf = ssh://git@github.com/ghc/packages/
+[url "git@github.com:/ghc/packages-"]
+    insteadOf = git@github.com:/ghc/packages/
+
+
+
 
 # Possible placeholders:
 # - '%%': a raw '%'
@@ -97,18 +112,3 @@
 # - '%t': abbreviated tree hash
 # - '%T': tree hash
 # - '%w([<w>[,<i1>[,<i2>]]])': switch line wrapping, like the -w option of nkgit:git-shortlog[1].
-
-
-
-[core]
-	editor = vim
-[url "git://github.com/ghc/packages-"]
-	insteadOf = git://github.com/ghc/packages/
-[url "http://github.com/ghc/packages-"]
-	insteadOf = http://github.com/ghc/packages/
-[url "https://github.com/ghc/packages-"]
-	insteadOf = https://github.com/ghc/packages/
-[url "ssh://git@github.com/ghc/packages-"]
-	insteadOf = ssh://git@github.com/ghc/packages/
-[url "git@github.com:/ghc/packages-"]
-	insteadOf = git@github.com:/ghc/packages/
