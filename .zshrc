@@ -23,10 +23,10 @@ setopt EXTENDED_GLOB
 ###############################################################################
 
 export EDITOR=vim
-
 export PAGER=less
-
 export GREP_OPTIONS='-E --color=auto'
+
+
 
 declare -U PATH # Remove duplicates from $PATH
 PATH=""
@@ -43,11 +43,11 @@ PATH+=:/usr/local/games
 export PATH
 
 
-MANPATH=$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH
-export MANPATH
 
-
-MANPATH="$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH"
+declare -U MANPATH # Remove duplicates from $MANPATH
+for mandir in $(find "$HOME/Programs" -type d -name man); do
+    MANPATH="$mandir:$MANPATH"
+done
 export MANPATH
 
 
