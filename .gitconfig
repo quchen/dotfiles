@@ -35,7 +35,7 @@
     d = diff
     co = checkout
     dd = diff --word-diff=color
-    dt = !~/bin/git-meld.pl
+    dt = difftool --dir-diff
     push-m = push origin master
     push-d = push origin develop
     fix = commit --amend
