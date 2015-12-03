@@ -28,7 +28,7 @@ export GREP_OPTIONS='-E --color=auto'
 
 
 
-declare -U PATH # Remove duplicates from $PATH
+declare -Ux PATH # U = no duplicates, x = export
 PATH=""
 PATH+=:$HOME/.cabal/bin
 PATH+=:$HOME/bin
@@ -40,15 +40,13 @@ PATH+=:/sbin
 PATH+=:/bin
 PATH+=:/usr/games
 PATH+=:/usr/local/games
-export PATH
 
 
 
-declare -U MANPATH # Remove duplicates from $MANPATH
+declare -Ux MANPATH # U = no duplicates, x = export
 for mandir in $(find "$HOME/Programs" -type d -name man); do
     MANPATH="$mandir:$MANPATH"
 done
-export MANPATH
 
 
 
