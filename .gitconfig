@@ -36,8 +36,6 @@
     co = checkout
     dd = diff --word-diff=color
     dt = difftool --dir-diff
-    push-m = push origin master
-    push-d = push origin develop
     fix = commit --amend
     up = pull --rebase
     sup = submodule update
