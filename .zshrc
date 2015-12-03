@@ -373,7 +373,7 @@ RPROMPT='%{%f%b%k%}$(build_rprompt)'
 
 # Some users of this script might want individual additional config
 
-$localZshrc="$HOME/.zshrc-local"
+localZshrc="$HOME/.zshrc-local"
 if [[ -e "$localZshrc" ]]; then
     source "$localZshrc"
 fi
