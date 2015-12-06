@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+backupdir="/media/truecrypt1/backup/david_home"
+if [[ -d "$backupdir" ]]; then
+    # --archive = -rlptgoD
+    #        -r = recursive
+    #        -l = copy links as links
+    #        -p = preserve permissions
+    #        -t = preserve modification times,
+    #        -g = preserve group,
+    #        -o = preserve owner,
+    #        -D = preserve devices and special files
+    # --human-readable = numbers in human-readable format
+    # --delete = delete extraneous files in target dir
+    # --progress = show progress
+    rsync "$HOME" "$backupdir"              \
+        --archive                           \
+        --human-readable                    \
+        --delete                            \
+        --progress                          \
+        --exclude "/Videos/***"             \
+        --exclude "/temp/***"               \
+        --exclude "/Downloads/***"          \
+        --exclude "/.local/share/Trash/***" \
+        --exclude "/.cache/***"
+else
+    echo -e "\e[31mBackup dir not found: $backupdir\e[0m"
+    exit 1
+fi
