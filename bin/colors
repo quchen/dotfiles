@@ -3,18 +3,25 @@
 echo "General syntax:"
 echo "\\e[<style>;<foreground>;<background>m"
 
+function pprColor {
+    echo -ne "\e[$1"   # Actual color code
+    echo -ne "\\\e[$1" # Print the code
+    echo -ne "\e[0m "  # Reset
+}
+
 for style in 0 1 4; do
     echo
     echo -n "$style: "
-    case $style in
+    case "$style" in
         0) echo "normal" ;;
         1) echo "bold" ;;
         4) echo "underlined" ;;
         *) echo "bad \$style value"; exit 1 ;;
     esac
     for fg in $(seq 30 37); do
+        pprColor "$style;${fg}m"
         for bg in $(seq 40 47); do
-            echo -ne "\e[$style;$fg;$bg""m\\\e[$style;$fg;$bg""m\e[0m "
+            pprColor "$style;${fg};${bg}m"
         done
         echo
     done
