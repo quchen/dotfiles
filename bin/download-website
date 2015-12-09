@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ "$#" -ne 1 ]]; then
+    echo "Usage: $(basename $0) URL"
+    exit 1
+fi
+
+# --recursive           Download sub-pages
+# --no-clobber          Don't overwrite existing files (useful for resuming)
+# --page-requisites     Also get aux files, e.g. CSS, JS, images
+# --html-extension      Add .html extensions
+# --convert-links       Re-write links to point to the local files
+# --domains example.com Don't follow links outside of this
+# --no-parent           Don't follow links to parents of the requested page
+wget \
+    --recursive           \
+    --no-clobber          \
+    --page-requisites     \
+    --html-extension      \
+    --convert-links       \
+    --domains example.com \
+    --no-parent           \
+    "$1"
