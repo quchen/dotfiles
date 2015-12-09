@@ -115,6 +115,9 @@
     // Pair * around selection
     { "keys": ["ctrl+8", "ctrl++"], "command": "insert_snippet", "args": {"contents": "*${0:$SELECTION}*"}, "context":
           [{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }] },
+    // Remove brackets
+    { "keys": ["ctrl+9"], "command": "swap_brackets" },
+    { "keys": ["ctrl+0"], "command": "bh_remove_brackets" },
 
     // Goto menus
     { "keys": ["ctrl+p", "ctrl+d"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} }, // pd = definition
