@@ -30,8 +30,6 @@ export GREP_OPTIONS='-E --color=auto'
 
 declare -Ux PATH # U = no duplicates, x = export
 PATH=""
-PATH+=:$HOME/.cabal/bin
-PATH+=:$HOME/bin
 PATH+=:/usr/local/sbin
 PATH+=:/usr/local/bin
 PATH+=:/usr/sbin
@@ -40,6 +38,10 @@ PATH+=:/sbin
 PATH+=:/bin
 PATH+=:/usr/games
 PATH+=:/usr/local/games
+for bindir in $(find $HOME/bin -type d); do
+    PATH="$bindir:$PATH"
+done
+PATH="$HOME/.cabal/bin:$PATH"
 
 
 
