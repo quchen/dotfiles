@@ -16,11 +16,10 @@ ALPHABET="0-9a-z"
 echo "length: $LENGTH; alphabet: $ALPHABET"
 echo "===================================="
 
-stdbuf -o0 -i0 tr -dc $ALPHABET < /dev/urandom | head -c${1:-$LENGTH}
-# cat /dev/urandom | stdbuf -o0 -i0 tr -dc [:graph:] | head -c32
-#                  ^ tr buffers, hence using random would take forever
-#                                      ^ dc = complement + delete non-matching
-echo # for newline
+pass="$(cat /dev/urandom | tr -dc $ALPHABET | head -c${1:-$LENGTH})"
+echo "$pass"
+echo "$pass" | tr -d "\n" | clipboard
 
 echo "===================================="
+echo "(Copied to clipboard)"
 
