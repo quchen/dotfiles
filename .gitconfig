@@ -41,6 +41,7 @@
     up = pull --rebase
     sup = submodule update
     unstage = reset HEAD --
+    ci = commit -v
 [diff]
     tool = meld
 [merge]
