@@ -81,8 +81,8 @@ setopt HIST_VERIFY # When using a hist thing, make a newline show the change bef
 # Taken from e.g. https://github.com/zsh-users/zsh-completions
 fpath=($HOME/Programs/zsh-completions/src $fpath)
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
 
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -100,6 +100,10 @@ zstyle ':completion:*' verbose true
 # Fancy kill completion, not sure whether I need it
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+
+
+hash stack 2>/dev/null && { eval "$(stack --bash-completion-script stack)" }
 
 
 
