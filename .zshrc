@@ -213,6 +213,8 @@ alias pped=tig
 alias s=sublime
 alias ta="tig --all"
 
+alias -g save="branch save_\$(git rev-parse --abbrev-ref HEAD)_\$(date +%Y-%m-%d_%H-%M-%S)"
+
 # Helpers
 alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
