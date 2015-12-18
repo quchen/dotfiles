@@ -208,6 +208,8 @@ alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
 alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
 
 alias g=git
+alias depp=git
+alias pped=tig
 alias s=sublime
 alias -g save="branch save_$(git rev-parse --abbrev-ref HEAD)_$(date +%Y-%m-%d_%H-%M-%S)"
 alias ta="tig --all"

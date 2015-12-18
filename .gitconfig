@@ -42,6 +42,19 @@
     sup = submodule update
     unstage = reset HEAD --
     ci = commit -v
+
+    zustand                    = status -sb
+    unterschied                = diff
+    wortunterschied            = diff --word-diff=color
+    ausweisen                  = checkout
+    unterschiedswerkzeug       = difftool --dir-diff
+    vereinigungswerkzeug       = mergetool --no-prompt
+    repariere                  = commit --amend
+    rauf                       = pull --rebase
+    unterkomponentenerneuerung = submodule update
+    rausnehmen                 = reset HEAD --
+    einweisen                  = commit -v
+
 [diff]
     tool = meld
 [merge]
