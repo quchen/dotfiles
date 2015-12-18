@@ -31,17 +31,17 @@
     # All commits, full commit info
     ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
 
-    s = status -sb
-    d = diff
-    co = checkout
-    dd = diff --word-diff=color
-    dt = difftool --dir-diff
-    mt = mergetool --no-prompt
-    fix = commit --amend
-    up = pull --rebase
-    sup = submodule update
+    ci      = commit --verbose
+    fix     = commit --verbose --amend
+    co      = checkout
+    d       = diff
+    dd      = diff --word-diff=color
+    dt      = difftool --dir-diff
+    mt      = mergetool --no-prompt
+    s       = status --short --branch
+    sup     = submodule update
     unstage = reset HEAD --
-    ci = commit -v
+    up      = pull --rebase
 
     zustand                    = status -sb
     unterschied                = diff
