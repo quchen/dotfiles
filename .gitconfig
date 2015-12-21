@@ -63,6 +63,9 @@
     prune = true
 [core]
     editor = sublime -w
+[rerere]
+    enabled = true
+    autoupdate = true # Automaticall stage rerere-fixed conflicts
 [url "git://github.com/ghc/packages-"]
     insteadOf = git://github.com/ghc/packages/
 [url "http://github.com/ghc/packages-"]
