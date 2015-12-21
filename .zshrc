@@ -201,7 +201,7 @@ alias -g G=" | grep "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
 
-# Commands
+# List files
 LS_COMMON="--group-directories-first --color=always"
 alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
 alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
@@ -213,9 +213,11 @@ alias pped=tig
 alias s=sublime
 alias ta="tig --all"
 
-alias -g save="branch save_\$(git rev-parse --abbrev-ref HEAD)_\$(date +%Y-%m-%d_%H-%M-%S)"
+# Store/delete commits, useful for keeping backups when rebasing
+alias -g save='branch save_$(git rev-parse --abbrev-ref HEAD)_$(date +%Y-%m-%d_%H-%M-%S)'
+alias delete-all-saves='for savedBranch in $(git branch | grep save_ | sed '"'"'s,\s,,g'"'"'); do git branch -D "$savedBranch"; done'
 
-# Helpers
+# Disk usage
 alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
 
@@ -226,6 +228,7 @@ alias ghci-core="ghci -ddump-simpl \
                       -dsuppress-uniques \
                       -dsuppress-module-prefixes"
 
+# Re-sourcing shortcut
 alias zz="source $HOME/.zshrc"
 
 
