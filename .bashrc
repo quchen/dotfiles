@@ -136,40 +136,40 @@ export MANPATH
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
-    # Handcoded pretty prompt
-    #
-    # cBlack="\[\033[0;30m\]"
-    # cRed="\[\033[0;31m\]"
-    # cGreen="\[\033[0;32m\]"
-    # cYellow="\[\033[0;33m\]"
-    # cBlue="\[\033[0;34m\]"
-    # cPink="\[\033[0;35m\]"
-    # cCyan="\[\033[0;36m\]"
-    # cGray="\[\033[0;37m\]"
-    # cDGray="\[\033[0;38m\]"
-    # cReset="\[\033[0m\]"
-    # if [[ ${EUID} == 0 ]]
-    #       then # Root
-    #             cLine=$cRed;
-    #       else
-    #             cLine=$cDGray;
-    # fi
-    # lineUL="\342\224\214"
-    # lineBL="\342\224\224"
-    # lineU="\342\224\200"
-    # lineEndR="\342\225\274"
-    # # Show cross-out symbol if last command failed
-    # # crossOut="\342\234\227"
-    # # status="\$([[ \$? != 0 ]] && echo \"$cLine$lineU[$cRed$crossOut$cLine]\")"
-    # timeBox="$cLine$lineU[$cBlack\t$cLine]"
-    # userBox="$cLine$lineU[$cBlack\u$cLine@$cBlack\h$cLine]"
-    # currentDir="$cLine$lineU[$cBlue\w$cLine]"
-    # # Print exit code of last command if it was unsuccessful
-    # status="\$(lastStatus=\$? && [[ \$lastStatus != 0 ]] && echo \"$cLine$lineU[$cRed$(echo \$lastStatus)$cLine]\")"
-    # PS1="$cLine$lineUL$timeBox$userBox$currentDir$status\n$cLine$lineBL$lineU$lineU$lineEndR$cReset "
+    Handcoded pretty prompt
 
-      PROMPT_COMMAND="Prompt \$?"
-      PS1="└──╼ "
+    cBlack="\[\033[0;30m\]"
+    cRed="\[\033[0;31m\]"
+    cGreen="\[\033[0;32m\]"
+    cYellow="\[\033[0;33m\]"
+    cBlue="\[\033[0;34m\]"
+    cPink="\[\033[0;35m\]"
+    cCyan="\[\033[0;36m\]"
+    cGray="\[\033[0;37m\]"
+    cDGray="\[\033[0;38m\]"
+    cReset="\[\033[0m\]"
+    if [[ ${EUID} == 0 ]]
+          then # Root
+                cLine=$cRed;
+          else
+                cLine=$cDGray;
+    fi
+    lineUL="\342\224\214"
+    lineBL="\342\224\224"
+    lineU="\342\224\200"
+    lineEndR="\342\225\274"
+    # Show cross-out symbol if last command failed
+    # crossOut="\342\234\227"
+    # status="\$([[ \$? != 0 ]] && echo \"$cLine$lineU[$cRed$crossOut$cLine]\")"
+    timeBox="$cLine$lineU[$cBlack\t$cLine]"
+    userBox="$cLine$lineU[$cBlack\u$cLine@$cBlack\h$cLine]"
+    currentDir="$cLine$lineU[$cBlue\w$cLine]"
+    # Print exit code of last command if it was unsuccessful
+    status="\$(lastStatus=\$? && [[ \$lastStatus != 0 ]] && echo \"$cLine$lineU[$cRed$(echo \$lastStatus)$cLine]\")"
+    PS1="$cLine$lineUL$timeBox$userBox$currentDir$status\n$cLine$lineBL$lineU$lineU$lineEndR$cReset "
+
+    # PROMPT_COMMAND="Prompt \$?"
+    # PS1="└──╼ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
