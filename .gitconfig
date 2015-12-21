@@ -41,6 +41,7 @@
     s       = status --short --branch
     sup     = submodule update
     unstage = reset HEAD --
+    untrack = rm --cached
     up      = pull --rebase
 
     zustand                    = status -sb
@@ -53,6 +54,7 @@
     rauf                       = pull --rebase
     unterkomponentenerneuerung = submodule update
     rausnehmen                 = reset HEAD --
+    nichtmehrverfolgen         = rm --cached
     einweisen                  = commit -v
 
 [diff]
