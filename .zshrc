@@ -178,22 +178,15 @@ unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
 # Filesystem
 alias ..='cd ..'
 
-alias ..2='cd ../..'
-alias ..3='cd ../../..'
-alias ..4='cd ../../../..'
-alias ..5='cd ../../../../..'
-alias ..6='cd ../../../../../..'
-alias ..7='cd ../../../../../../..'
-alias ..8='cd ../../../../../../../..'
-
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias .......='cd ../../../../../..'
-alias ........='cd ../../../../../../..'
-alias .........='cd ../../../../../../../..'
-alias ..........='cd ../../../../../../../../..'
+# "multi-.. aliases"
+# ..2 = cd ../..
+# ...= cd ../../..
+for i in $(seq 2 15); do
+    local dots=$(printf '.%.0s' {1..$(($i+1))})
+    local dotdots=$(printf '/..%.0s' {1..$(($i-1))})
+    alias "$dots=cd ..$dotdots"
+    alias "..$i=cd ..$dotdots"
+done
 
 
 # Modifiers
