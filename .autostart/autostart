@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+IFS=$'\n'
+for program in $(find . \( -type f -or -type l \) -not -name "$(basename "$0")"); do
+    echo "Running $program"
+    "$program" &
+done
