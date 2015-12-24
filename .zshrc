@@ -203,7 +203,17 @@ alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
 alias g=git
 alias depp=git
 alias pped=tig
+
 alias s=sublime
+sublimeAdd() {
+    if [[ "$#" -ne 0 ]]; then
+        sublime -a "$@"
+    else
+        sublime -a .
+    fi
+}
+alias sa=sublimeAdd
+
 alias ta="tig --all"
 
 # Store/delete commits, useful for keeping backups when rebasing
@@ -223,6 +233,8 @@ alias ghci-core="ghci -ddump-simpl \
 
 # Re-sourcing shortcut
 alias zz="source $HOME/.zshrc"
+# Edit shortcut
+alias ze="s -w $HOME/.zshrc && zz"
 
 
 ###############################################################################
