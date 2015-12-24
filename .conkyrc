@@ -38,7 +38,7 @@ minimum_size 384
 maximum_width 384
 
 # Draw shades?
-draw_shades yes
+draw_shades no
 
 # Draw outlines?
 draw_outline no
@@ -104,16 +104,25 @@ ${color #2478ef}${alignc}${cpubar cpu1 4,92} ${cpubar cpu2 4,92} ${cpubar cpu3 4
 ${voffset -25}
 ${cpu cpu} %${alignr}${hwmon 0 temp 1} °C, fan ${hwmon 1 fan 1}/min
 
+${top name 1}${alignr}${top cpu 1} %
+${top name 2}${alignr}${top cpu 2} %
+${top name 3}${alignr}${top cpu 3} %
+
 ${color1}Memory ${hr 2}${color}
 ${alignr}${memgraph 32,384 23cb08 1c8c09 -t}
 ${voffset -8}${memperc} %${alignr}${mem} / ${memmax}
 
+${top_mem name 1}${tab 120}${top_mem mem_res 1}${alignr}${top_mem mem 1} %
+${top_mem name 2}${tab 120}${top_mem mem_res 2}${alignr}${top_mem mem 2} %
+${top_mem name 3}${tab 120}${top_mem mem_res 3}${alignr}${top_mem mem 3} %
+
 ${color2}Hard drive ${hr 2}${color}
-/${alignr}${fs_used /} / ${fs_size /} (${fs_used_perc /} %)
-~${alignr}${fs_used /home} / ${fs_size /home} (${fs_used_perc /home} %)
-Swap ${alignr}${swap} / ${swapmax} (${swapperc} %)
+Mount${tab 64}Used${tab 80}Max${tab 120}%
+/${tab 64}${fs_used /}${tab 80}${fs_size /}${tab 120}${fs_used_perc /}
+~${tab 64}${fs_used /home}${tab 80}${fs_size /home}${tab 120}${fs_used_perc /home}
+Swap ${tab 64}${swap}${tab 80}${swapmax}${tab 120}${swapperc}
 ${diskiograph_read 32,185 ffa180 d44637 10000 -t}${alignr}${diskiograph_write 32,185 ffa180 d44637 30000 -t}
-${voffset -30}${tab 2,0}R${tab 101,0}W
+${voffset -30}${tab 2}R${tab 101}W
 ${alignc}Load
 ${voffset -30}
 
@@ -122,18 +131,18 @@ ${if_existing /proc/net/route wlan0}
 ${voffset -35}
 wlan0 ${alignr} ${addr wlan0}
 ${upspeedgraph wlan0 32,185 f1bb00 f19900 120 -t}${alignr}${downspeedgraph wlan0 32,185 f1bb00 f19900 2048 -t}
-${voffset -30}↑${tab 99,0}↓
-${upspeedf wlan0} KiB/s${tab 87,0}Rate${alignr}${downspeedf wlan0} KiB/s
-${totalup wlan0}${tab 84,0}Traffic${alignr}${totaldown wlan0}
+${voffset -30}↑${tab 99}↓
+${upspeedf wlan0} KiB/s${tab 87}Rate${alignr}${downspeedf wlan0} KiB/s
+${totalup wlan0}${tab 84}Traffic${alignr}${totaldown wlan0}
 ${voffset -45}
 ${else}
 ${if_existing /proc/net/route eth0}
 ${voffset -55}
 eth0 ${alignr} ${addr eth0}
 ${upspeedgraph eth0 32,185 f1bb00 f19900 120 -t}${alignr}${downspeedgraph eth0 32,185 f1bb00 f19900 1800 -t}
-${voffset -30}↑${tab 99,0}↓
-${upspeedf eth0} KiB/s${tab 87,0}Rate${alignr}${downspeedf eth0} KiB/s
-${totalup eth0}${tab 84,0}Traffic${alignr}${totaldown eth0}
+${voffset -30}↑${tab 99}↓
+${upspeedf eth0} KiB/s${tab 87}Rate${alignr}${downspeedf eth0} KiB/s
+${totalup eth0}${tab 84}Traffic${alignr}${totaldown eth0}
 ${voffset -70}
 ${endif}
 ${else}
