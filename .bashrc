@@ -112,20 +112,23 @@ fi
 
 ## PATH
 
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/.cabal/bin" ] ; then
-    PATH="$HOME/.cabal/bin:$PATH"
-fi
+PATH=""
+PATH+=:/usr/local/sbin
+PATH+=:/usr/local/bin
+PATH+=:/usr/sbin
+PATH+=:/usr/bin
+PATH+=:/sbin
+PATH+=:/bin
+PATH+=:/usr/games
+PATH+=:/usr/local/games
+for bindir in $(find $HOME/bin -type d); do
+    PATH="$bindir:$PATH"
+done
+PATH="$HOME/.cabal/bin:$PATH"
 export PATH
-
-
-## MANPATH
-
-if [ -d "$HOME/Programs/haskell/ghc-7.8.4/share/man" ] ; then
-    MANPATH="$HOME/Programs/haskell/ghc-7.8.4/share/man:$MANPATH"
-fi
+for mandir in $(find "$HOME/Programs" -type d -name man); do
+    MANPATH="$mandir:$MANPATH"
+done
 export MANPATH
 
 #################################
