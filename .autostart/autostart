@@ -3,7 +3,7 @@
 set -euo pipefail
 
 IFS=$'\n'
-for program in $(find $(dirname "$0") \( -type f -or -type l \) -not -name "$(basename "$0")"); do
+for program in $(find "$HOME/.autostart" \( -type f \) -not -name "$(basename "$0")"); do
     echo "Running $program"
     "$program" &
 done
