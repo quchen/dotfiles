@@ -109,27 +109,11 @@ fi
 ## Environmental variables
 #################################
 
+## PATH/MANPATH are set in .profile
 
-## PATH
 
-PATH=""
-PATH+=:/usr/local/sbin
-PATH+=:/usr/local/bin
-PATH+=:/usr/sbin
-PATH+=:/usr/bin
-PATH+=:/sbin
-PATH+=:/bin
-PATH+=:/usr/games
-PATH+=:/usr/local/games
-for bindir in $(find $HOME/bin -type d); do
-    PATH="$bindir:$PATH"
-done
-PATH="$HOME/.cabal/bin:$PATH"
-export PATH
-for mandir in $(find "$HOME/Programs" -type d -name man); do
-    MANPATH="$mandir:$MANPATH"
-done
-export MANPATH
+
+
 
 #################################
 ## Prompt
