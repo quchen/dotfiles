@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+SELFDIR="$(dirname "$0")/.autostart"
 
-IFS=$'\n'
-for program in $(find "$HOME/.autostart" \( -type f \) -not -name "$(basename "$0")"); do
-    echo "Running $program"
-    "$program" &
-done
+"$SELFDIR/TempClean" &
