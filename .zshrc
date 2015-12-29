@@ -26,7 +26,13 @@ export EDITOR=vim
 export PAGER=less
 export GREP_OPTIONS='-E --color=auto'
 
-# PATH/MANPATH are set in .profile
+
+
+declare -Ux PATH # U = no duplicates, x = export
+declare -Ux MANPATH
+PATH=""
+MANPATH=""
+. "$HOME/.path"
 
 
 

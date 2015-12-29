@@ -109,7 +109,11 @@ fi
 ## Environmental variables
 #################################
 
-## PATH/MANPATH are set in .profile
+PATH=""
+MANPATH=""
+. "$HOME/.path"
+export PATH
+export MANPATH
 
 
 
