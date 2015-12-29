@@ -32,7 +32,24 @@ declare -Ux PATH # U = no duplicates, x = export
 declare -Ux MANPATH
 PATH=""
 MANPATH=""
-. "$HOME/.path"
+
+PATH="/usr/local/sbin:$PATH"
+PATH="/usr/local/bin:$PATH"
+PATH="/usr/sbin:$PATH"
+PATH="/usr/bin:$PATH"
+PATH="/sbin:$PATH"
+PATH="/bin:$PATH"
+PATH="/usr/games:$PATH"
+PATH="/usr/local/games:$PATH"
+for bindir in $(find "$HOME/bin" -type d); do
+    PATH="$bindir:$PATH"
+done
+PATH="$HOME/.cabal/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
+
+for mandir in $(find "$HOME/Programs" -type d -name man); do
+    MANPATH="$mandir:$MANPATH"
+done
 
 
 
