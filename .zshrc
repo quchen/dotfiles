@@ -350,12 +350,12 @@ prompt_status() {
 }
 prompt_whoami() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-        prompt_segment blue black "%(!.%{%F{yellow}%}.)$USER@%m"
+        prompt_segment blue black "%(!.%{%F{red}%}.)$USER@%m"
     fi
 }
 prompt_bol() {
     if [[ $UID -eq 0 ]]; then
-        echo "%{%F{red}%}Λ. "
+        echo "%{%F{red}%}Λ.%{%f%} "
     else
         echo "λ. "
     fi
