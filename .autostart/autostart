@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-SELFDIR="$(dirname "$0")/.autostart"
-
-"$SELFDIR/TempClean" &
