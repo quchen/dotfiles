@@ -43,6 +43,7 @@
     unstage = reset HEAD --
     untrack = rm --cached
     up      = pull --rebase
+    fa      = fetch --all
 
     zustand                    = status -sb
     unterschied                = diff
@@ -56,6 +57,7 @@
     rausnehmen                 = reset HEAD --
     nichtmehrverfolgen         = rm --cached
     einweisen                  = commit -v
+    holalle                    = fetch --all
 
 [diff]
     tool = meld
