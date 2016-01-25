@@ -53,6 +53,7 @@
     vereinigungswerkzeug       = mergetool --no-prompt
     repariere                  = commit --amend
     rauf                       = pull --rebase
+    aufpfropfen                = rebase
     unterkomponentenerneuerung = submodule update
     rausnehmen                 = reset HEAD --
     nichtmehrverfolgen         = rm --cached
