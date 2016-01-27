@@ -1,0 +1,50 @@
+"*":
+  "atom-alignment": {}
+  "autocomplete-plus":
+    backspaceTriggersAutocomplete: true
+    confirmCompletion: "tab"
+    suggestionListFollows: "Cursor"
+  autosave:
+    enabled: true
+  "bracket-matcher":
+    autocompleteBrackets: false
+    autocompleteSmartQuotes: false
+  core:
+    audioBeep: false
+    closeEmptyWindows: false
+    disabledPackages: [
+      "metrics"
+      "spell-check"
+      "ide-haskell-cabal"
+      "ide-haskell-hasktags"
+    ]
+    ignoredNames: [
+      ".git"
+      ".stack-work"
+    ]
+    themes: [
+      "one-light-ui"
+      "solarized-light-syntax"
+    ]
+  editor:
+    backUpBeforeSaving: true
+    fontSize: 15
+    invisibles: {}
+    scrollPastEnd: true
+    showIndentGuide: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "25c55c56-3b58-a937-cff5-87d347e0479e"
+  "haskell-ghc-mod": {}
+  hex: {}
+  "ide-haskell":
+    onSavePrettify: true
+  minimap:
+    plugins:
+      "highlight-selected": true
+  "spell-check": {}
+  "status-bar": {}
+  welcome:
+    showOnStartup: false
+  whitespace:
+    keepMarkdownLineBreakWhitespace: false

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dumpname="installed-packages_apm-list-dump"
+
+echo "Dumping installed packages to $dumpname"
+apm list -i > "$dumpname"
