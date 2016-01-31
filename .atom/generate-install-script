@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dumpname="sync-packages"
+
+echo "Writing package sync command to $dumpname"
+echo -n "apm install " > "$dumpname"
+apm list -bi | tr "\n" " " | sed -e 's#\s\+$##' >> "$dumpname"
