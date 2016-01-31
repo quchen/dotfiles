@@ -15,8 +15,6 @@
     disabledPackages: [
       "metrics"
       "spell-check"
-      "ide-haskell-cabal"
-      "ide-haskell-hasktags"
     ]
     ignoredNames: [
       ".git"
@@ -28,13 +26,13 @@
     ]
   editor:
     backUpBeforeSaving: true
-    fontSize: 15
+    fontSize: 13
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
     tabLength: 4
   "exception-reporting":
-    userId: "25c55c56-3b58-a937-cff5-87d347e0479e"
+    userId: "cee3fb9f-d13c-9501-85fe-30221f79a93c"
   "haskell-ghc-mod": {}
   hex: {}
   "ide-haskell":
@@ -42,9 +40,22 @@
   minimap:
     plugins:
       "highlight-selected": true
+  "one-light-ui": {}
   "spell-check": {}
   "status-bar": {}
   welcome:
     showOnStartup: false
   whitespace:
+    ensureSingleTrailingNewline: false
+    ignoreWhitespaceOnCurrentLine: false
     keepMarkdownLineBreakWhitespace: false
+    removeTrailingWhitespace: true
+"source.cabal":
+  whitespace:
+    ensureSingleTrailingNewline: true
+"source.haskell":
+  whitespace:
+    ensureSingleTrailingNewline: true
+"text.haskell.latex.tex":
+  whitespace:
+    ensureSingleTrailingNewline: true
