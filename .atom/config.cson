@@ -1,4 +1,5 @@
 "*":
+  "Sublime-Style-Column-Selection": {}
   "atom-alignment": {}
   "autocomplete-plus":
     backspaceTriggersAutocomplete: true
@@ -15,6 +16,7 @@
     disabledPackages: [
       "metrics"
       "spell-check"
+      "exception-reporting"
     ]
     ignoredNames: [
       ".git"
@@ -26,23 +28,34 @@
     ]
   editor:
     backUpBeforeSaving: true
-    fontSize: 13
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
     tabLength: 4
   "exception-reporting":
     userId: "cee3fb9f-d13c-9501-85fe-30221f79a93c"
+  "git-diff": {}
   "haskell-ghc-mod": {}
   hex: {}
   "ide-haskell":
     onSavePrettify: true
   minimap:
     plugins:
+      codeglance: true
       "highlight-selected": true
+  "minimap-codeglance":
+    decorations: false
+    numberOfLines: 20
+    softWrap: "never"
   "one-light-ui": {}
+  "save-session":
+    dataSaveFolder: "/home/david/.atom/packages/save-session/projects"
   "spell-check": {}
   "status-bar": {}
+  tabs:
+    enableVcsColoring: true
+    tabScrolling: false
+    usePreviewTabs: true
   welcome:
     showOnStartup: false
   whitespace:
@@ -50,6 +63,7 @@
     ignoreWhitespaceOnCurrentLine: false
     keepMarkdownLineBreakWhitespace: false
     removeTrailingWhitespace: true
+  wordcount: {}
 "source.cabal":
   whitespace:
     ensureSingleTrailingNewline: true
