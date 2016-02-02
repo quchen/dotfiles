@@ -32,7 +32,6 @@
     fontSize: 15
     invisibles: {}
     scrollPastEnd: true
-    showIndentGuide: true
     tabLength: 4
   "exception-reporting":
     userId: "cee3fb9f-d13c-9501-85fe-30221f79a93c"
