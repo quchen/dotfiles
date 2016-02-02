@@ -17,7 +17,6 @@
       "metrics"
       "spell-check"
       "exception-reporting"
-      "save-session"
     ]
     ignoredNames: [
       ".git"
