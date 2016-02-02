@@ -17,6 +17,7 @@
       "metrics"
       "spell-check"
       "exception-reporting"
+      "save-session"
     ]
     ignoredNames: [
       ".git"
@@ -28,6 +29,8 @@
     ]
   editor:
     backUpBeforeSaving: true
+    fontFamily: "\"Hasklig\""
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
