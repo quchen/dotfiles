@@ -58,6 +58,8 @@
     enableVcsColoring: true
     tabScrolling: false
     usePreviewTabs: true
+  "tree-view":
+    squashDirectoryNames: true
   welcome:
     showOnStartup: false
   whitespace:
