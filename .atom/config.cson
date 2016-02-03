@@ -56,14 +56,12 @@
     ensureSingleTrailingNewline: false
     ignoreWhitespaceOnCurrentLine: false
     keepMarkdownLineBreakWhitespace: false
-    removeTrailingWhitespace: true
-  wordcount: {}
-"source.cabal":
+".cabal.source":
   whitespace:
     ensureSingleTrailingNewline: true
-"source.haskell":
+".haskell.latex.tex.text":
   whitespace:
     ensureSingleTrailingNewline: true
-"text.haskell.latex.tex":
+".haskell.source":
   whitespace:
     ensureSingleTrailingNewline: true
