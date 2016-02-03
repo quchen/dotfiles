@@ -18,6 +18,7 @@
       "metrics"
       "spell-check"
       "exception-reporting"
+      "open-on-github"
     ]
     ignoredNames: [
       ".git"
