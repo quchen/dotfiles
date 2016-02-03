@@ -1,6 +1,4 @@
 "*":
-  "Sublime-Style-Column-Selection": {}
-  "atom-alignment": {}
   "autocomplete-plus":
     backspaceTriggersAutocomplete: true
     confirmCompletion: "tab"
@@ -29,15 +27,9 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "\"Hasklig\""
-    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     tabLength: 4
-  "exception-reporting":
-    userId: "cee3fb9f-d13c-9501-85fe-30221f79a93c"
-  "git-diff": {}
-  "haskell-ghc-mod": {}
-  hex: {}
   "ide-haskell":
     expressionTypeInterval: 86400000
     onSavePrettify: true
@@ -49,11 +41,6 @@
     decorations: false
     numberOfLines: 20
     softWrap: "never"
-  "one-light-ui": {}
-  "save-session":
-    dataSaveFolder: "/home/david/.atom/packages/save-session/projects"
-  "spell-check": {}
-  "status-bar": {}
   tabs:
     enableVcsColoring: true
     tabScrolling: false
