@@ -39,6 +39,7 @@
   "haskell-ghc-mod": {}
   hex: {}
   "ide-haskell":
+    expressionTypeInterval: 86400000
     onSavePrettify: true
   minimap:
     plugins:

@@ -1,0 +1,16 @@
+.editor.is-focused .cursor {
+    transition: opacity .5s;
+    &.blink-off {
+        visibility: visible;
+        opacity: 0;
+  }
+}
+
+.tree-view {
+    font-size: 12px;
+}
+
+atom-text-editor {
+    // Enable font ligatures
+    text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,9 @@
+# Haskell stuff
+'atom-workspace atom-text-editor[data-grammar~="haskell"]':
+  'ctrl-h ctrl-t': 'haskell-ghc-mod:show-type'
+  'ctrl-h ctrl-h': 'haskell-ghc-mod:insert-type'
+  'ctrl-h ctrl-i': 'haskell-ghc-mod:show-info'
+
+'atom-workspace atom-text-editor:not([mini])':
+  'shift-enter': 'editor:newline-below'
+  'ctrl-shift-enter': 'editor:newline-above'
