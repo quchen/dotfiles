@@ -1,16 +1,19 @@
-.editor.is-focused .cursor {
-    transition: opacity .5s;
-    &.blink-off {
-        visibility: visible;
-        opacity: 0;
-  }
+// Cursor customization
+atom-text-editor::shadow .cursor {
+    border-width: 2px;
+    transition: opacity .3s;
 }
 
+// File tree
 .tree-view {
     font-size: 12px;
 }
 
 atom-text-editor {
-    // Enable font ligatures
+    // Font ligatures
     text-rendering: optimizeLegibility;
+}
+
+atom-text-editor::shadow .selection .region {
+    background-color: #073642;
 }
