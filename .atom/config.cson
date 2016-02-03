@@ -8,6 +8,9 @@
   "bracket-matcher":
     autocompleteBrackets: false
     autocompleteSmartQuotes: false
+  "color-picker":
+    preferredFormat: "HEX"
+    randomColor: false
   core:
     audioBeep: false
     closeEmptyWindows: false
