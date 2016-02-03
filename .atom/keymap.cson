@@ -7,3 +7,5 @@
 'atom-workspace atom-text-editor:not([mini])':
   'shift-enter': 'editor:newline-below'
   'ctrl-shift-enter': 'editor:newline-above'
+  'ctrl-t': 'swap-selection:right'
+  'ctrl-shift-T': 'swap-selection:left'

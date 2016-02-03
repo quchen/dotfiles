@@ -23,6 +23,9 @@
       ".git"
       ".stack-work"
     ]
+    packagesWithKeymapsDisabled: [
+      "swap-selection"
+    ]
     themes: [
       "one-light-ui"
       "solarized-light-syntax"
