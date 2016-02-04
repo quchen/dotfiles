@@ -1,6 +1,5 @@
 apm install \
     Sublime-Style-Column-Selection@1.5.1 \
-    atom-alignment@0.12.1 \
     autocomplete-haskell@0.6.2 \
     box-edit@0.1.3 \
     color-picker@2.1.1 \
@@ -18,8 +17,10 @@ apm install \
     minimap@4.19.0 \
     minimap-codeglance@0.4.5 \
     minimap-highlight-selected@4.3.1 \
-    pigments@0.23.0 \
+    pigments@0.23.1 \
+    simple-align@0.1.0 \
     sort-lines@0.14.0 \
     swap-selection@0.3.0 \
+    test-package@0.0.0 \
     todo-show@1.3.0 \
     wordcount@2.6.0

@@ -13,6 +13,7 @@
     randomColor: false
   core:
     audioBeep: false
+    autoHideMenuBar: true
     closeEmptyWindows: false
     disabledPackages: [
       "metrics"
@@ -26,6 +27,7 @@
     ]
     packagesWithKeymapsDisabled: [
       "swap-selection"
+      "simple-align"
     ]
     themes: [
       "one-light-ui"
@@ -34,6 +36,7 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "\"Hasklig\""
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     tabLength: 4
