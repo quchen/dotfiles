@@ -15,20 +15,20 @@
 	"auto_match_enabled": false,
 	"binary_file_patterns":
 	[
-        "*.class",
-        "*.dds",
-        "*.eot",
-        "*.gif",
-        "*.ico",
-        "*.jar",
-        "*.jpeg",
-        "*.jpg",
-        "*.pdf",
-        "*.png",
-        "*.swf",
-        "*.tga",
-        "*.ttf",
-        "*.zip"
+		"*.class",
+		"*.dds",
+		"*.eot",
+		"*.gif",
+		"*.ico",
+		"*.jar",
+		"*.jpeg",
+		"*.jpg",
+		"*.pdf",
+		"*.png",
+		"*.swf",
+		"*.tga",
+		"*.ttf",
+		"*.zip"
 	],
 	"bold_folder_labels": true,
 	"caret_extra_bottom": 0,
@@ -63,7 +63,7 @@
 	"folder_exclude_patterns":
 	[
 		".git",
-        ".cabal-sandbox",
+		".cabal-sandbox",
 		".stack-work"
 	],
 	"font_size": 10,
