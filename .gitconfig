@@ -36,6 +36,7 @@
     co      = checkout
     d       = diff
     dd      = diff --word-diff=color
+    dw      = diff --color-words="[^[:space:],;:_-]+"
     dt      = difftool --dir-diff
     mt      = mergetool --no-prompt
     s       = status --short --branch
