@@ -2,4 +2,4 @@
 
 # Remove files from ~/temp/ if they haven't been modified for X days.
 # (gvfs-trash is Thunar's trash can.)
-find "$HOME/temp" -maxdepth 0 -mtime +10 -print0 | xargs -0 trash
+find "$HOME/temp" -maxdepth 1 -mtime +10 -print0 | xargs -0 trash
