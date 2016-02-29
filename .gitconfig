@@ -20,16 +20,66 @@
     # Pretty graphs
 
     # Up to current commit, medium commit info
-    g = log -10 --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative
+    g = log -10 --graph --pretty=format:'%C(bold)%h%C(reset)%C(yellow)%d%C(reset) %C(red)%s%C(reset)%n        %ar (%ai)%n        %an <%ae>'
 
     # Long, full commit info
-    gl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative
+    gl = log --graph --pretty=format:'%C(bold)%h%C(reset)%n%H%n%C(yellow)%d%C(reset) %C(red)%s%C(reset)%n%n%b%n%nAuthor%n    %ar (%ai)%n    %an <%ae>%nCommitter%n    %cr (%ci)%n    %cn <%ce>%n'
 
     # All commits, medium commit info
-    gg = log --graph --pretty=format:'%C(bold)%h%Creset%C(yellow)%d%Creset %C(red)%s%Creset%n        %ar (%ai)%n        %an <%ae>' --abbrev-commit --date=relative --all
+    gg = log --graph --all --pretty=format:'%C(bold)%h%C(reset)%C(yellow)%d%C(reset) %C(red)%s%C(reset)%n        %ar (%ai)%n        %an <%ae>'
 
     # All commits, full commit info
-    ggl = log --graph --pretty=format:'%C(bold)%H%Creset%n%C(yellow)%d%Creset %C(red)%s%Creset%n%n%b%n%n%ar (%ai)%n%an <%ae>%n' --date=relative --all
+    ggl = log --graph --all --pretty=format:'%C(bold)%h%C(reset)%n%H%n%C(yellow)%d%C(reset) %C(red)%s%C(reset)%n%n%b%n%nAuthor%n    %ar (%ai)%n    %an <%ae>%nCommitter%n    %cr (%ci)%n    %cn <%ce>%n'
+
+    # Possible placeholders:
+    # - '%%': a raw '%'
+    # - '%ad': author date (format respects --date= option)
+    # - '%aD': author date, RFC2822 style
+    # - '%ae': author email
+    # - '%aE': author email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+    # - '%ai': author date, ISO 8601 format
+    # - '%an': author name
+    # - '%aN': author name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+    # - '%ar': author date, relative
+    # - '%at': author date, UNIX timestamp
+    # - '%b': body
+    # - '%B': raw body (unwrapped subject and body)
+    # - '%C(...)': color specification, as described in color.branch.* config option
+    # - '%C(red)': switch color to red
+    # - '%C(reset)': reset color
+    # - '%C(green)': switch color to green
+    # - '%C(blue)': switch color to blue
+    # - '%cd': committer date
+    # - '%cD': committer date, RFC2822 style
+    # - '%ce': committer email
+    # - '%cE': committer email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+    # - '%ci': committer date, ISO 8601 format
+    # - '%cn': committer name
+    # - '%cN': committer name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+    # - '%cr': committer date, relative
+    # - '%ct': committer date, UNIX timestamp
+    # - '%d': ref names, like the --decorate option of linkgit:git-log[1]
+    # - '%e': encoding
+    # - '%f': sanitized subject line, suitable for a filename
+    # - '%gD': reflog selector, e.g., `refs/stash@\{1\}`
+    # - '%gd': shortened reflog selector, e.g., `stash@\{1\}`
+    # - '%ge': reflog identity email
+    # - '%gE': reflog identity email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+    # - '%gn': reflog identity name
+    # - '%gN': reflog identity name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
+    # - '%gs': reflog subject
+    # - '%h': abbreviated commit hash
+    # - '%H': commit hash
+    # - '%m': left, right or boundary mark
+    # - '%N': commit notes
+    # - '%n': newline
+    # - '%p': abbreviated parent hashes
+    # - '%P': parent hashes
+    # - '%s': subject
+    # - '%t': abbreviated tree hash
+    # - '%T': tree hash
+    # - '%w([<w>[,<i1>[,<i2>]]])': switch line wrapping, like the -w option of nkgit:git-shortlog[1].
+
 
     ci      = commit --verbose
     fix     = commit --verbose --amend
@@ -85,53 +135,3 @@
 
 [include]
     path = .gitconfig-local
-
-
-# Possible placeholders:
-# - '%%': a raw '%'
-# - '%ad': author date (format respects --date= option)
-# - '%aD': author date, RFC2822 style
-# - '%ae': author email
-# - '%aE': author email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
-# - '%ai': author date, ISO 8601 format
-# - '%an': author name
-# - '%aN': author name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
-# - '%ar': author date, relative
-# - '%at': author date, UNIX timestamp
-# - '%b': body
-# - '%B': raw body (unwrapped subject and body)
-# - '%C(...)': color specification, as described in color.branch.* config option
-# - '%Cblue': switch color to blue
-# - '%cd': committer date
-# - '%cD': committer date, RFC2822 style
-# - '%ce': committer email
-# - '%cE': committer email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
-# - '%Cgreen': switch color to green
-# - '%ci': committer date, ISO 8601 format
-# - '%cn': committer name
-# - '%cN': committer name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
-# - '%cr': committer date, relative
-# - '%Cred': switch color to red
-# - '%Creset': reset color
-# - '%ct': committer date, UNIX timestamp
-# - '%d': ref names, like the --decorate option of linkgit:git-log[1]
-# - '%e': encoding
-# - '%f': sanitized subject line, suitable for a filename
-# - '%gD': reflog selector, e.g., `refs/stash@\{1\}`
-# - '%gd': shortened reflog selector, e.g., `stash@\{1\}`
-# - '%ge': reflog identity email
-# - '%gE': reflog identity email (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
-# - '%gn': reflog identity name
-# - '%gN': reflog identity name (respecting .mailmap, see linkgit:git-shortlog[1] or linkgit:git-blame[1])
-# - '%gs': reflog subject
-# - '%h': abbreviated commit hash
-# - '%H': commit hash
-# - '%m': left, right or boundary mark
-# - '%N': commit notes
-# - '%n': newline
-# - '%p': abbreviated parent hashes
-# - '%P': parent hashes
-# - '%s': subject
-# - '%t': abbreviated tree hash
-# - '%T': tree hash
-# - '%w([<w>[,<i1>[,<i2>]]])': switch line wrapping, like the -w option of nkgit:git-shortlog[1].
