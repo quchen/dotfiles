@@ -81,8 +81,8 @@
     # - '%w([<w>[,<i1>[,<i2>]]])': switch line wrapping, like the -w option of nkgit:git-shortlog[1].
 
 
-    ci      = commit --verbose
-    fix     = commit --verbose --amend
+    ci      = commit
+    fix     = commit --amend
     co      = checkout
     d       = diff
     dd      = diff --word-diff=color
