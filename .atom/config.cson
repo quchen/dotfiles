@@ -41,13 +41,17 @@
     invisibles: {}
     scrollPastEnd: true
     tabLength: 4
+  "git-blame":
+    ignoreWhiteSpaceDiffs: true
   "ide-haskell":
     expressionTypeInterval: 86400000
     onSavePrettify: true
   minimap:
     plugins:
       codeglance: true
+      codeglanceDecorationsZIndex: 0
       "highlight-selected": true
+      "highlight-selectedDecorationsZIndex": 0
   "minimap-codeglance":
     decorations: false
     numberOfLines: 20
