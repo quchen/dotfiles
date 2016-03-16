@@ -5,7 +5,7 @@ apm install \
     color-picker@2.1.1 \
     file-icons@1.6.18 \
     git-blame@0.4.8 \
-    haskell-ghc-mod@1.11.1 \
+    haskell-ghc-mod@1.11.2 \
     hex@0.6.2 \
     highlight-selected@0.11.2 \
     ide-haskell@1.5.4 \

@@ -3,6 +3,9 @@
   'ctrl-h ctrl-t': 'haskell-ghc-mod:show-type'
   'ctrl-h ctrl-h': 'haskell-ghc-mod:insert-type'
   'ctrl-h ctrl-i': 'haskell-ghc-mod:show-info'
+  'ctrl-h ctrl-s': 'haskell-ghc-mod:case-split'
+  'ctrl-h ctrl-m': 'haskell-ghc-mod:insert-import'
+  'ctrl-h ctrl-d': 'haskell-ghc-mod:go-to-declaration'
 
 'atom-workspace atom-text-editor:not([mini])':
   'shift-enter': 'editor:newline-below'
