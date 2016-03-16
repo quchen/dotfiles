@@ -12,3 +12,9 @@
   'ctrl-shift-enter': 'editor:newline-above'
   'ctrl-t': 'swap-selection:right'
   'ctrl-shift-T': 'swap-selection:left'
+
+  'ctrl-l': 'editor:delete-line'
+  'ctrl-d': 'editor:duplicate-lines'
+
+  'ctrl-k': 'find-and-replace:select-next'
+  'ctrl-shift-k': 'find-and-replace:select-skip'
