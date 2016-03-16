@@ -15,6 +15,7 @@
 
     'ctrl-l': 'editor:delete-line'
     'ctrl-d': 'editor:duplicate-lines'
+    'ctrl-j': 'editor:join-lines'
 
     'ctrl-k': 'find-and-replace:select-next'
     'ctrl-shift-k': 'find-and-replace:select-skip'
