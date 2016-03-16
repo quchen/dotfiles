@@ -1,20 +1,20 @@
 # Haskell stuff
 'atom-workspace atom-text-editor[data-grammar~="haskell"]':
-  'ctrl-h ctrl-t': 'haskell-ghc-mod:show-type'
-  'ctrl-h ctrl-h': 'haskell-ghc-mod:insert-type'
-  'ctrl-h ctrl-i': 'haskell-ghc-mod:show-info'
-  'ctrl-h ctrl-s': 'haskell-ghc-mod:case-split'
-  'ctrl-h ctrl-m': 'haskell-ghc-mod:insert-import'
-  'ctrl-h ctrl-d': 'haskell-ghc-mod:go-to-declaration'
+    'ctrl-h ctrl-t': 'haskell-ghc-mod:show-type'
+    'ctrl-h ctrl-h': 'haskell-ghc-mod:insert-type'
+    'ctrl-h ctrl-i': 'haskell-ghc-mod:show-info'
+    'ctrl-h ctrl-s': 'haskell-ghc-mod:case-split'
+    'ctrl-h ctrl-m': 'haskell-ghc-mod:insert-import'
+    'ctrl-h ctrl-d': 'haskell-ghc-mod:go-to-declaration'
 
 'atom-workspace atom-text-editor:not([mini])':
-  'shift-enter': 'editor:newline-below'
-  'ctrl-shift-enter': 'editor:newline-above'
-  'ctrl-t': 'swap-selection:right'
-  'ctrl-shift-T': 'swap-selection:left'
+    'shift-enter': 'editor:newline-below'
+    'ctrl-shift-enter': 'editor:newline-above'
+    'ctrl-t': 'swap-selection:right'
+    'ctrl-shift-T': 'swap-selection:left'
 
-  'ctrl-l': 'editor:delete-line'
-  'ctrl-d': 'editor:duplicate-lines'
+    'ctrl-l': 'editor:delete-line'
+    'ctrl-d': 'editor:duplicate-lines'
 
-  'ctrl-k': 'find-and-replace:select-next'
-  'ctrl-shift-k': 'find-and-replace:select-skip'
+    'ctrl-k': 'find-and-replace:select-next'
+    'ctrl-shift-k': 'find-and-replace:select-skip'
