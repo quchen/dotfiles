@@ -83,6 +83,8 @@
     'ctrl-p': 'command-palette:toggle'
     'ctrl-shift-p': 'fuzzy-finder:toggle-file-finder'
 
+    'escape': 'editor:consolidate-selections' # Cancel multiselect
+
 'atom-workspace atom-text-editor:not([mini])':
 
     # Editing
@@ -106,6 +108,10 @@
     'ctrl-shift-k': 'find-and-replace:select-skip'
     'ctrl-shift-l': 'editor:split-selections-into-lines'
 
+# Autocompletion
+'atom-workspace atom-text-editor.autocomplete-active':
+    'tab': 'autocomplete-plus:confirm'
+    'escape': 'autocomplete-plus:cancel'
 
 # Haskell stuff
 'atom-workspace atom-text-editor[data-grammar~="haskell"]':
