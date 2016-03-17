@@ -1,3 +1,112 @@
+'body':
+
+    'enter': 'core:confirm'
+    'escape': 'core:cancel'
+
+    # View
+    'f11': 'window:toggle-full-screen'
+
+    # Text editing
+    'delete': 'core:delete'
+    'backspace': 'core:backspace'
+
+    # Movement
+    'up': 'core:move-up'
+    'down': 'core:move-down'
+    'left': 'core:move-left'
+    'right': 'core:move-right'
+    'pageup': 'core:page-up'
+    'pagedown': 'core:page-down'
+
+    # Selection
+    'ctrl-a': 'core:select-all'
+    'shift-up': 'core:select-up'
+    'shift-down': 'core:select-down'
+    'shift-left': 'core:select-left'
+    'shift-right': 'core:select-right'
+    'shift-pageup': 'core:select-page-up'
+    'shift-pagedown': 'core:select-page-down'
+
+    # File handling
+    'ctrl-n': 'application:new-file'
+    'ctrl-o': 'application:open-file'
+    'ctrl-shift-o': 'application:add-project-folder'
+    'ctrl-s': 'core:save'
+    'ctrl-shift-s': 'window:save-all'
+
+    # Window handling
+    'ctrl-q': 'application:quit'
+    'ctrl-shift-n': 'application:new-window'
+
+    # Tab handling
+    'ctrl-w': 'tabs:close-tab'
+    'ctrl-shift-w': 'tabs:close-all-tabs'
+    'ctrl-shift-t': 'pane:reopen-closed-item'
+    'ctrl-tab': 'pane:show-next-item'
+    'ctrl-shift-tab': 'pane:show-previous-item'
+
+    # Undo, copy+paste, moving stuff
+    'ctrl-z': 'core:undo'
+    'ctrl-shift-z': 'core:redo'
+    'ctrl-x': 'core:cut'
+    'ctrl-c': 'core:copy'
+    'ctrl-v': 'core:paste'
+
+    # Layout
+    'ctrl-=': 'window:increase-font-size'
+    'ctrl-+': 'window:increase-font-size'
+    'ctrl-0': 'window:reset-font-size'
+
+'atom-workspace atom-text-editor':
+
+    # Editing
+    'ctrl-backspace': 'editor:delete-to-beginning-of-word'
+    'ctrl-delete': 'editor:delete-to-end-of-word'
+
+    # Movement
+    'home': 'editor:move-to-first-character-of-line'
+    'end': 'editor:move-to-end-of-screen-line'
+    'ctrl-left': 'editor:move-to-beginning-of-word'
+    'ctrl-right': 'editor:move-to-end-of-word'
+    'ctrl-home': 'core:move-to-top'
+    'ctrl-end': 'core:move-to-bottom'
+
+    # Selection
+    'shift-home': 'editor:select-to-first-character-of-line'
+    'shift-end': 'editor:select-to-end-of-line'
+    'ctrl-shift-left': 'editor:select-to-beginning-of-word'
+    'ctrl-shift-right': 'editor:select-to-end-of-word'
+    'ctrl-shift-home': 'core:select-to-top'
+    'ctrl-shift-end': 'core:select-to-bottom'
+
+    # Fancy menus
+    'ctrl-p': 'command-palette:toggle'
+    'ctrl-shift-p': 'fuzzy-finder:toggle-file-finder'
+
+'atom-workspace atom-text-editor:not([mini])':
+
+    # Editing
+    "enter": "editor:newline",
+    'shift-enter': 'editor:newline-below'
+    'ctrl-shift-enter': 'editor:newline-above'
+    'ctrl-up': 'editor:move-line-up'
+    'ctrl-down': 'editor:move-line-down'
+    'ctrl-j': 'editor:join-lines'
+    'ctrl-/': 'editor:toggle-line-comments'
+    'ctrl-shift-d': 'editor:duplicate-lines'
+    'ctrl-t': 'swap-selection:right'
+    'ctrl-shift-T': 'swap-selection:left'
+    'ctrl-l': 'editor:delete-line'
+    'ctrl-d': 'editor:duplicate-lines'
+    'tab': 'editor:indent'
+    'shift-tab': 'editor:outdent-selected-rows'
+
+    # Selection
+    'ctrl-k': 'find-and-replace:select-next'
+    'ctrl-shift-k': 'find-and-replace:select-skip'
+    'ctrl-shift-l': 'editor:split-selections-into-lines'
+
+
 # Haskell stuff
 'atom-workspace atom-text-editor[data-grammar~="haskell"]':
     'ctrl-h ctrl-t': 'haskell-ghc-mod:show-type'
@@ -6,16 +115,3 @@
     'ctrl-h ctrl-s': 'haskell-ghc-mod:case-split'
     'ctrl-h ctrl-m': 'haskell-ghc-mod:insert-import'
     'ctrl-h ctrl-d': 'haskell-ghc-mod:go-to-declaration'
-
-'atom-workspace atom-text-editor:not([mini])':
-    'shift-enter': 'editor:newline-below'
-    'ctrl-shift-enter': 'editor:newline-above'
-    'ctrl-t': 'swap-selection:right'
-    'ctrl-shift-T': 'swap-selection:left'
-
-    'ctrl-l': 'editor:delete-line'
-    'ctrl-d': 'editor:duplicate-lines'
-    'ctrl-j': 'editor:join-lines'
-
-    'ctrl-k': 'find-and-replace:select-next'
-    'ctrl-shift-k': 'find-and-replace:select-skip'
