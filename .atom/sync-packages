@@ -20,5 +20,4 @@ apm install \
     minimap-highlight-selected@4.4.0 \
     pigments@0.24.5 \
     simple-align@0.2.0 \
-    sort-lines@0.14.0 \
-    swap-selection@0.3.0
+    sort-lines@0.14.0
