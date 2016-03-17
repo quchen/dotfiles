@@ -19,5 +19,4 @@ apm install \
     minimap-codeglance@0.4.5 \
     minimap-highlight-selected@4.4.0 \
     pigments@0.24.5 \
-    simple-align@0.2.0 \
     sort-lines@0.14.0

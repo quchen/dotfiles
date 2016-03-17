@@ -94,6 +94,7 @@
     'ctrl-up': 'editor:move-line-up'
     'ctrl-down': 'editor:move-line-down'
     'ctrl-j': 'editor:join-lines'
+    'ctrl-shift-j': 'editor:join-lines-above'
     'ctrl-/': 'editor:toggle-line-comments'
     'ctrl-shift-d': 'editor:duplicate-lines'
     'ctrl-t': 'rotate-selection:right'
@@ -102,6 +103,7 @@
     'ctrl-d': 'editor:duplicate-lines'
     'tab': 'editor:indent'
     'shift-tab': 'editor:outdent-selected-rows'
+    'ctrl-,': 'editor:align'
 
     # Selection
     'ctrl-k': 'find-and-replace:select-next'
