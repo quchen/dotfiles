@@ -8,6 +8,45 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
     binding.source.match "keymap\\.cson$"
 
 
+##############################################################################
+##  Helper functions
+##############################################################################
+
+# Run an action as an atomical transaction. Useful to execute a composed
+# action that should be undone in a single step.
+#
+# atomically :: (() -> IO ()) -> () -> IO ()
+atomically = (action) -> () ->
+    buffer = atom.workspace.getActiveTextEditor().getBuffer()
+    buffer.transact () -> action()
+
+# Collect the unique elements of a list, by comparing their values after
+# mapping them to something else.
+#
+# nubVia ((x) -> even x, [1,3,5,2,3,4,5])
+#   ==> [1,2]
+#
+# nubVia :: Ord b => (a -> b) -> [a] -> [a]
+nubVia = (projection, array) ->
+    cache = {}
+    uniques = []
+    for entry in array
+        projected = projection entry
+        if not (cache.hasOwnProperty projected)
+            uniques.push(entry)
+            cache[projected] = true
+    uniques
+
+# zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith = (f, xs, ys) ->
+    result = []
+    iMax = Math.min(xs.length, ys.length)
+    for i in [0 .. iMax - 1]
+        result.push(f xs[i], ys[i])
+    result
+
+
+
 
 
 
@@ -17,7 +56,7 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 
 cycleSelection = (mode) -> () ->
     editor = atom.workspace.getActiveTextEditor()
-    selections = editor.getSelections()
+    selections = editor.getSelectionsOrderedByBufferPosition()
     selectedTexts = selections.map (item) -> item.getText()
 
     switch mode
@@ -32,13 +71,13 @@ cycleSelection = (mode) -> () ->
                 'detail': 'The rotation mode "'+mode+'" is not supported.',
                 'dismissable': true
 
-    editor.getBuffer().transact () ->
-        for selection, i in selections
-            selection.insertText selectedTexts[i], {select: true}
+    zipWith ((selection, text) -> selection.insertText text, {select: true}),
+        selections,
+        selectedTexts
 
 atom.commands.add 'atom-text-editor',
-    'rotate-selection:right': cycleSelection "right",
-    'rotate-selection:left': cycleSelection "left"
+    'quchen:rotate-selection-right': atomically (cycleSelection "right"),
+    'quchen:rotate-selection-left': atomically (cycleSelection "left")
 
 
 
@@ -46,51 +85,88 @@ atom.commands.add 'atom-text-editor',
 ##  Command: join with line above
 ##############################################################################
 
-joinWithLineAbove = () ->
-    atom.notifications.addError "Join with line above",
-        'detail': 'TODO: Implement',
-        'dismissable': true
+joinLinesUp = () ->
+    editor = atom.workspace.getActiveTextEditor()
+    selections = editor.getSelections()
+
+    for selection in selections
+        range = selection.getBufferRange()
+        oneLineUp = range.translate([-1,0])
+        selection.setBufferRange(oneLineUp)
+        selection.joinLines()
 
 atom.commands.add 'atom-text-editor',
-    'editor:join-lines-above': joinWithLineAbove
+    'quchen:join-lines-up': atomically joinLinesUp
 
-# TODO: Make delete-line maintain current column
+##############################################################################
+##  Command: delete line, maintaining cursor position
+##############################################################################
+
+deleteLine = () ->
+    editor = atom.workspace.getActiveTextEditor()
+    selections = editor.getSelections()
+
+    for selection in selections
+        range = selection.getBufferRange()
+        selection.deleteLine()
+        selection.setBufferRange([range.start, range.start])
+
+atom.commands.add 'atom-text-editor',
+    'quchen:delete-line': atomically deleteLine
 
 ##############################################################################
 ##  Command: align selections
 ##############################################################################
 
+alignLocations = (locations) ->
+    alignmentColumn = 0
+    for location in locations
+        if location.column > alignmentColumn
+            alignmentColumn = location.column
+
+    buffer = atom.workspace.getActiveTextEditor().getBuffer()
+    alignmentDeltas = locations.map (location) ->
+        delta = alignmentColumn - location.column
+        padding = ' '.repeat(delta)
+        buffer.insert location, padding
+        delta
+
+    'alignmentColumn': alignmentColumn,
+    'alignmentDeltas': alignmentDeltas
+
+# TODO: Ensure correct handling when multiple cursors in one line
+
 alignSelections = () ->
     editor = atom.workspace.getActiveTextEditor()
-    cursors = editor.getCursors()
+    selections = editor.getSelections()
+    multiline = false
+    selectionStarts = selections.map (selection) ->
+        range = selection.getBufferRange()
+        if not range.isSingleLine()
+            multiline = true
+        range.start
 
-    cursorColumns = cursors.map (c) -> c.getBufferColumn()
-    maxColumn = Math.max cursorColumns...
-    padCursors = for cursor in cursors
-        row = cursor.getBufferRow()
-        column = cursor.getBufferColumn()
-        paddingDelta = maxColumn - column
+    if multiline
+        atom.notifications.addInfo "Alignment",
+            'detail': 'Aligning selections over multiple lines is not supported.',
+            'dismissable': true
+        return false
 
-        'raw': cursor,
-        'row': row,
-        'column': column,
-        'padding': ' '.repeat(paddingDelta)
-
-    buffer = editor.getBuffer()
-    buffer.transact () ->
-        for cursor in padCursors
-            buffer.insert [cursor.row, cursor.column], cursor.padding
-            cursor.raw.moveToBeginningOfLine()
-            cursor.raw.moveRight(maxColumn)
-    # TODO: Ensure correct handling when multiple cursors in one line
-    #       (Seems to be correct by accident right now)
-    # TODO: When multiple things are selected/marked, align by their left edges
-    #       and maintain marked contents when aligning. Useful with ^k^k^k -> align
+    selectionRanges = selections.map (selection) ->
+        selection.getBufferRange()
+    alignmentResult = alignLocations selectionStarts
+    # Restore selections, but with offsets according to the alignment
+    selectionRangesMoved =
+        zipWith ((range, delta) -> range.translate [0, delta]),
+        selectionRanges,
+        alignmentResult.alignmentDeltas
+    editor.setSelectedBufferRanges selectionRangesMoved
 
 atom.commands.add 'atom-text-editor',
-    'editor:align': alignSelections
-
+    'quchen:align': atomically alignSelections
 
 
 
 # TODO: Comment-aware newline script
+# TODO: Comment-aware join lines
+# TODO: Show whitespace in selected text

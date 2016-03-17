@@ -72,6 +72,8 @@
     'ctrl-right': 'editor:move-to-end-of-word'
     'ctrl-home': 'core:move-to-top'
     'ctrl-end': 'core:move-to-bottom'
+    'ctrl-shift-up': 'core scroll'
+    'ctrl-shift-down': 'core scroll'
 
     # Selection
     'shift-home': 'editor:select-to-first-character-of-line'
@@ -96,16 +98,16 @@
     'ctrl-up': 'editor:move-line-up'
     'ctrl-down': 'editor:move-line-down'
     'ctrl-j': 'editor:join-lines'
-    'ctrl-shift-j': 'editor:join-lines-above'
+    'ctrl-shift-j': 'quchen:join-lines-up'
     'ctrl-/': 'editor:toggle-line-comments'
     'ctrl-shift-d': 'editor:duplicate-lines'
-    'ctrl-t': 'rotate-selection:right'
-    'ctrl-shift-T': 'rotate-selection:left'
-    'ctrl-l': 'editor:delete-line'
+    'ctrl-t': 'quchen:rotate-selection-right'
+    'ctrl-shift-t': 'quchen:rotate-selection-left'
+    'ctrl-l': 'quchen:delete-line'
     'ctrl-d': 'editor:duplicate-lines'
     'tab': 'editor:indent'
     'shift-tab': 'editor:outdent-selected-rows'
-    'ctrl-,': 'editor:align'
+    'ctrl-,': 'quchen:align'
 
     # Selection
     'ctrl-k': 'find-and-replace:select-next'
