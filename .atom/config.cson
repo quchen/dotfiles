@@ -1,0 +1,87 @@
+"*":
+  "autocomplete-plus":
+    backspaceTriggersAutocomplete: true
+    confirmCompletion: "tab"
+    consumeSuffix: false
+    maxVisibleSuggestions: 5
+    suggestionListFollows: "Cursor"
+  autosave:
+    enabled: true
+  "bracket-matcher":
+    autocompleteBrackets: false
+    autocompleteSmartQuotes: false
+  "color-picker":
+    preferredFormat: "HEX"
+    randomColor: false
+  core:
+    audioBeep: false
+    autoHideMenuBar: true
+    closeEmptyWindows: false
+    disabledPackages: [
+      "metrics"
+      "spell-check"
+      "exception-reporting"
+      "open-on-github"
+    ]
+    ignoredNames: [
+      ".git"
+      ".stack-work"
+    ]
+    packagesWithKeymapsDisabled: [
+      "swap-selection"
+      "simple-align"
+    ]
+    themes: [
+      "one-light-ui"
+      "solarized-light-syntax"
+    ]
+  editor:
+    autoIndentOnPaste: false
+    backUpBeforeSaving: true
+    fontFamily: "\"Hasklig\""
+    fontSize: 15
+    invisibles: {}
+    scrollPastEnd: true
+    softWrapHangingIndent: 4
+    tabLength: 4
+  "git-blame":
+    ignoreWhiteSpaceDiffs: true
+  "highlight-selected":
+    highlightBackground: true
+    lightTheme: true
+  "ide-haskell":
+    expressionTypeInterval: 86400000
+    onSavePrettify: true
+  "ide-haskell-cabal":
+    activeGhcVersion: "7.10"
+  minimap:
+    plugins:
+      codeglance: true
+      codeglanceDecorationsZIndex: 0
+      "highlight-selected": true
+      "highlight-selectedDecorationsZIndex": 0
+  "minimap-codeglance":
+    decorations: false
+    numberOfLines: 20
+    softWrap: "never"
+  tabs:
+    enableVcsColoring: true
+    tabScrolling: false
+    usePreviewTabs: true
+  "tree-view":
+    squashDirectoryNames: true
+  welcome:
+    showOnStartup: false
+  whitespace:
+    ensureSingleTrailingNewline: false
+    ignoreWhitespaceOnCurrentLine: false
+    keepMarkdownLineBreakWhitespace: false
+".cabal.source":
+  whitespace:
+    ensureSingleTrailingNewline: true
+".haskell.latex.tex.text":
+  whitespace:
+    ensureSingleTrailingNewline: true
+".haskell.source":
+  whitespace:
+    ensureSingleTrailingNewline: true
