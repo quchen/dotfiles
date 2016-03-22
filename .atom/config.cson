@@ -44,7 +44,6 @@
     ignoreWhiteSpaceDiffs: true
   "highlight-selected":
     highlightBackground: true
-    lightTheme: true
   "ide-haskell":
     expressionTypeInterval: 86400000
     onSavePrettify: true

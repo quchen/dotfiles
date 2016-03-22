@@ -39,6 +39,12 @@ atom-text-editor::shadow {
         background: fade(@solarized-base01, 25%);
     }
 
+    .highlights .highlight-selected.background .region {
+      @highlight-selection: @solarized-red;
+      background: fade(@highlight-selection, 20%);
+      border: 1px solid fade(@highlight-selection, 50%);
+    }
+
 }
 
 .tree-view {
