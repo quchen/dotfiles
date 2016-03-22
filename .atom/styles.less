@@ -17,29 +17,31 @@
 
 
 
-// Cursor customization
-atom-text-editor::shadow .cursor {
-    border-width: 2px;
-    transition: opacity .3s;
-}
-
-// File tree
-.tree-view {
-    font-size: 12px;
-}
 
 atom-text-editor {
     // Font ligatures
     text-rendering: optimizeLegibility;
 }
 
-// Selection colour
-atom-text-editor::shadow .selection .region {
-    background-color: @solarized-base02;
+atom-text-editor::shadow {
+
+    .cursor {
+        border-width: 2px;
+        transition: opacity .3s;
+    }
+
+    .selection .region {
+        background-color: @solarized-base02;
+    }
+
+    .bracket-matcher .region {
+        border: 1px solid @solarized-base01;
+        background: fade(@solarized-base01, 25%);
+    }
+
 }
 
-// Backet matcher
-atom-text-editor::shadow .bracket-matcher .region {
-    border: 1px solid @solarized-base01;
-    background: fade(@solarized-base01, 25%);
+.tree-view {
+    font-size: 12px;
+    font-family: "Source Code Pro";
 }

@@ -27,10 +27,6 @@
       ".git"
       ".stack-work"
     ]
-    packagesWithKeymapsDisabled: [
-      "swap-selection"
-      "simple-align"
-    ]
     themes: [
       "one-light-ui"
       "solarized-light-syntax"
@@ -76,12 +72,6 @@
     ensureSingleTrailingNewline: false
     ignoreWhitespaceOnCurrentLine: false
     keepMarkdownLineBreakWhitespace: false
-".cabal.source":
-  whitespace:
-    ensureSingleTrailingNewline: true
-".haskell.latex.tex.text":
-  whitespace:
-    ensureSingleTrailingNewline: true
-".haskell.source":
+".source":
   whitespace:
     ensureSingleTrailingNewline: true
