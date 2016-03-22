@@ -1,3 +1,22 @@
+@solarized-base03:  #002b36; //       dark
+@solarized-base02:  #073642; //       dark
+@solarized-base01:  #586e75; // light dark
+@solarized-base00:  #657b83; // light
+@solarized-base0:   #839496; //       dark
+@solarized-base1:   #93a1a1; // light dark
+@solarized-base2:   #eee8d5; // light
+@solarized-base3:   #fdf6e3; // light
+@solarized-yellow:  #b58900;
+@solarized-orange:  #cb4b16;
+@solarized-red:     #dc322f;
+@solarized-magenta: #d33682;
+@solarized-violet:  #6c71c4;
+@solarized-blue:    #268bd2;
+@solarized-cyan:    #2aa198;
+@solarized-green:   #859900;
+
+
+
 // Cursor customization
 atom-text-editor::shadow .cursor {
     border-width: 2px;
@@ -14,6 +33,13 @@ atom-text-editor {
     text-rendering: optimizeLegibility;
 }
 
+// Selection colour
 atom-text-editor::shadow .selection .region {
-    background-color: #073642;
+    background-color: @solarized-base02;
+}
+
+// Backet matcher
+atom-text-editor::shadow .bracket-matcher .region {
+    border: 1px solid @solarized-base01;
+    background: fade(@solarized-base01, 25%);
 }
