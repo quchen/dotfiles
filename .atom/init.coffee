@@ -12,14 +12,19 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 ##  Helper functions
 ##############################################################################
 
+addCommands = (commands) ->
+    for command, effect of commands
+        atom.commands.add "atom-text-editor",
+            "quchen:#{command}",
+            atomically effect
+
 # Run an action as an atomical transaction. Useful to execute a composed
 # action that should be undone in a single step.
 #
 # atomically :: (() -> IO ()) -> () -> IO ()
-atomically = (action) ->
-    () ->
-        buffer = atom.workspace.getActiveTextEditor().getBuffer()
-        buffer.transact () -> action()
+atomically = (action) -> () ->
+    buffer = atom.workspace.getActiveTextEditor().getBuffer()
+    buffer.transact () -> action()
 
 # Collect the unique elements of a list, by comparing their values after
 # mapping them to something else.
@@ -88,9 +93,9 @@ cycleSelection = (mode) -> () ->
         selections,
         selectedTexts
 
-atom.commands.add "atom-text-editor",
-    "quchen:rotate-selection-right": atomically (cycleSelection "right"),
-    "quchen:rotate-selection-left": atomically (cycleSelection "left")
+addCommands
+    "rotate-selection-right": cycleSelection "right",
+    "rotate-selection-left": cycleSelection "left"
 
 
 
@@ -108,8 +113,7 @@ joinLinesUp = () ->
         selection.setBufferRange(oneLineUp)
         selection.joinLines()
 
-atom.commands.add "atom-text-editor",
-    "quchen:join-lines-up": atomically joinLinesUp
+addCommands "join-lines-up": joinLinesUp
 
 ##############################################################################
 ##  Command: delete line, maintaining cursor position
@@ -124,8 +128,7 @@ deleteLine = () ->
         selection.deleteLine()
         selection.setBufferRange([range.start, range.start])
 
-atom.commands.add "atom-text-editor",
-    "quchen:delete-line": atomically deleteLine
+addCommands "delete-line": deleteLine
 
 ##############################################################################
 ##  Command: align selections
@@ -175,8 +178,8 @@ alignSelections = () ->
         alignmentResult.alignmentDeltas
     editor.setSelectedBufferRanges selectionRangesMoved
 
-atom.commands.add "atom-text-editor",
-    "quchen:align": atomically alignSelections
+addCommands
+    "align": atomically alignSelections
 
 
 
@@ -191,17 +194,17 @@ dateCommand = (format) -> () ->
         selection.insertText out.trim()
 
 # TODO: Atomically doesn"t seem to work here: inserting 3 dates creates 3 undo steps
-atom.commands.add "atom-text-editor",
-    "quchen:insert-date":
-        atomically (dateCommand "+%Y-%m-%d")
-    "quchen:insert-date-and-time":
-        atomically (dateCommand "+%Y-%m-%d %H:%M:%S")
-    "quchen:insert-date-unix-time":
-        atomically (dateCommand "+%s")
-    "quchen:insert-date-iso-8601":
-        atomically (dateCommand "--iso-8601=ns")
-    "quchen:insert-date-rfc-3339":
-        atomically (dateCommand "--rfc-3339=ns")
+addCommands
+    "insert-date":
+        dateCommand "+%Y-%m-%d"
+    "insert-date-and-time":
+        dateCommand "+%Y-%m-%d %H:%M:%S"
+    "insert-date-unix-time":
+        dateCommand "+%s"
+    "insert-date-iso-8601":
+        dateCommand "--iso-8601=ns"
+    "insert-date-rfc-3339":
+        dateCommand "--rfc-3339=ns"
 
 
 # TODO: Number selections/lines
