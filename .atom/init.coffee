@@ -206,8 +206,21 @@ addCommands
     "insert-date-rfc-3339":
         dateCommand "--rfc-3339=ns"
 
+##############################################################################
+##  Command: Number selections
+##############################################################################
 
-# TODO: Number selections/lines
+numberStartingWith = (start) -> () ->
+    i = start
+    for selection in atom.workspace.getActiveTextEditor().getSelections()
+        selection.insertText i.toString()
+        ++i
+
+addCommands
+    "enumerate-from-0": numberStartingWith 0
+    "enumerate-from-1": numberStartingWith 1
+
+
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
 # TODO: Show whitespace in selected text
