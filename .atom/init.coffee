@@ -46,7 +46,7 @@ zipWith = (f, xs, ys) ->
         result.push(f xs[i], ys[i])
     result
 
-spawnSync = require('child_process').spawnSync
+spawnSync = require("child_process").spawnSync
 
 # Run a shell command, and return its STDOUT.
 #
@@ -55,8 +55,8 @@ shellCommand = (command, args) ->
     result = spawnSync command, args
     if result.error?
         atom.notifications.addInfo "Shell command failed",
-            'detail': "Running #{command} failed. STDERR:\n#{result.stderr}",
-            'dismissable': true
+            "detail": "Running #{command} failed. STDERR:\n#{result.stderr}",
+            "dismissable": true
         return null
     else
         return result.stdout.toString()
@@ -81,16 +81,16 @@ cycleSelection = (mode) -> () ->
             rotateLeft selectedTexts
         else
             atom.notifications.addError "Invalid rotation mode",
-                'detail': "The rotation mode #{mode} is not supported.",
-                'dismissable': true
+                "detail": "The rotation mode #{mode} is not supported.",
+                "dismissable": true
 
     zipWith ((selection, text) -> selection.insertText text, {select: true}),
         selections,
         selectedTexts
 
-atom.commands.add 'atom-text-editor',
-    'quchen:rotate-selection-right': atomically (cycleSelection "right"),
-    'quchen:rotate-selection-left': atomically (cycleSelection "left")
+atom.commands.add "atom-text-editor",
+    "quchen:rotate-selection-right": atomically (cycleSelection "right"),
+    "quchen:rotate-selection-left": atomically (cycleSelection "left")
 
 
 
@@ -108,8 +108,8 @@ joinLinesUp = () ->
         selection.setBufferRange(oneLineUp)
         selection.joinLines()
 
-atom.commands.add 'atom-text-editor',
-    'quchen:join-lines-up': atomically joinLinesUp
+atom.commands.add "atom-text-editor",
+    "quchen:join-lines-up": atomically joinLinesUp
 
 ##############################################################################
 ##  Command: delete line, maintaining cursor position
@@ -124,8 +124,8 @@ deleteLine = () ->
         selection.deleteLine()
         selection.setBufferRange([range.start, range.start])
 
-atom.commands.add 'atom-text-editor',
-    'quchen:delete-line': atomically deleteLine
+atom.commands.add "atom-text-editor",
+    "quchen:delete-line": atomically deleteLine
 
 ##############################################################################
 ##  Command: align selections
@@ -140,12 +140,12 @@ alignLocations = (locations) ->
     buffer = atom.workspace.getActiveTextEditor().getBuffer()
     alignmentDeltas = locations.map (location) ->
         delta = alignmentColumn - location.column
-        padding = ' '.repeat(delta)
+        padding = " ".repeat(delta)
         buffer.insert location, padding
         delta
 
-    'alignmentColumn': alignmentColumn,
-    'alignmentDeltas': alignmentDeltas
+    "alignmentColumn": alignmentColumn,
+    "alignmentDeltas": alignmentDeltas
 
 # TODO: Ensure correct handling when multiple cursors in one line
 
@@ -161,8 +161,8 @@ alignSelections = () ->
 
     if multiline
         atom.notifications.addInfo "Alignment",
-            'detail': 'Aligning selections over multiple lines is not supported.',
-            'dismissable': true
+            "detail": "Aligning selections over multiple lines is not supported.",
+            "dismissable": true
         return false
 
     selectionRanges = selections.map (selection) ->
@@ -175,8 +175,8 @@ alignSelections = () ->
         alignmentResult.alignmentDeltas
     editor.setSelectedBufferRanges selectionRangesMoved
 
-atom.commands.add 'atom-text-editor',
-    'quchen:align': atomically alignSelections
+atom.commands.add "atom-text-editor",
+    "quchen:align": atomically alignSelections
 
 
 
@@ -190,13 +190,13 @@ dateCommand = (format) -> () ->
     for selection in atom.workspace.getActiveTextEditor().getSelections()
         selection.insertText out.trim()
 
-# TODO: Atomically doesn't seem to work here: inserting 3 dates creates 3 undo steps
-atom.commands.add 'atom-text-editor',
-    'quchen:insert-date':
+# TODO: Atomically doesn"t seem to work here: inserting 3 dates creates 3 undo steps
+atom.commands.add "atom-text-editor",
+    "quchen:insert-date":
         atomically (dateCommand "+%Y-%m-%d")
-    'quchen:insert-date-and-time':
+    "quchen:insert-date-and-time":
         atomically (dateCommand "+%Y-%m-%d %H:%M:%S")
-    'quchen:insert-unix-time':
+    "quchen:insert-unix-time":
         atomically (dateCommand "+%s")
 
 
