@@ -2,6 +2,7 @@
 
     'enter': 'core:confirm'
     'escape': 'core:cancel'
+    'ctrl-r': 'window:reload'
 
     # View
     'f11': 'window:toggle-full-screen'
