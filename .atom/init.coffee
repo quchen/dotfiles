@@ -16,9 +16,10 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 # action that should be undone in a single step.
 #
 # atomically :: (() -> IO ()) -> () -> IO ()
-atomically = (action) -> () ->
-    buffer = atom.workspace.getActiveTextEditor().getBuffer()
-    buffer.transact () -> action()
+atomically = (action) ->
+    () ->
+        buffer = atom.workspace.getActiveTextEditor().getBuffer()
+        buffer.transact () -> action()
 
 # Collect the unique elements of a list, by comparing their values after
 # mapping them to something else.
@@ -45,8 +46,20 @@ zipWith = (f, xs, ys) ->
         result.push(f xs[i], ys[i])
     result
 
+spawnSync = require('child_process').spawnSync
 
+# Run a shell command, and return its STDOUT.
 
+# shellCommand :: String -> IO ()
+shellCommand = (command, args) ->
+    result = spawnSync command, args
+    if result.error?
+        atom.notifications.addInfo "Shell command failed",
+            'detail': "Running #{command} failed. STDERR:\n#{result.stderr}",
+            'dismissable': true
+        return null
+    else
+        return result.stdout.toString()
 
 
 
@@ -68,7 +81,7 @@ cycleSelection = (mode) -> () ->
             rotateLeft selectedTexts
         else
             atom.notifications.addError "Invalid rotation mode",
-                'detail': 'The rotation mode "'+mode+'" is not supported.',
+                'detail': "The rotation mode #{mode} is not supported.",
                 'dismissable': true
 
     zipWith ((selection, text) -> selection.insertText text, {select: true}),
@@ -167,6 +180,27 @@ atom.commands.add 'atom-text-editor',
 
 
 
+##############################################################################
+##  Command: Insert current date
+##############################################################################
+
+dateCommand = (format) -> () ->
+    out = shellCommand "date", [format]
+    console.log out
+    for selection in atom.workspace.getActiveTextEditor().getSelections()
+        selection.insertText out.trim()
+
+# TODO: Atomically doesn't seem to work here: inserting 3 dates creates 3 undo steps
+atom.commands.add 'atom-text-editor',
+    'quchen:insert-date':
+        atomically (dateCommand "+%Y-%m-%d")
+    'quchen:insert-date-and-time':
+        atomically (dateCommand "+%Y-%m-%d %H:%M:%S")
+    'quchen:insert-unix-time':
+        atomically (dateCommand "+%s")
+
+
+# TODO: Number selections/lines
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
 # TODO: Show whitespace in selected text
