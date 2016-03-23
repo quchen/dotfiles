@@ -260,6 +260,20 @@ addCommands
     "enumerate-from-1": numberStartingWith 1
 
 
-# TODO: Remove whitespace around selections
+##############################################################################
+##  Command: Remove inline whitespace
+##############################################################################
+
+removeInlineWhitespace = () ->
+    for selection in atom.workspace.getActiveTextEditor().getSelections()
+        console.log(selection.getText())
+        console.log(selection.getText().replace(/[ \t]+/g, ""))
+        selection.insertText selection.getText().replace(/[ \t]+/g, ""),
+            "select": true
+
+addCommands
+    "remove-inline-whitespace": removeInlineWhitespace
+
+
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
