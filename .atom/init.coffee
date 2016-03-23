@@ -150,7 +150,10 @@ alignLocations = (locations) ->
     "alignmentColumn": alignmentColumn,
     "alignmentDeltas": alignmentDeltas
 
-# TODO: Ensure correct handling when multiple cursors in one line
+# TODO: Ensure correct handling when multiple cursors in one line.
+#       Ideally, I'd want alignment to respect only the first selection in each
+#       line, unless they're already aligned, in case the next one is looked at,
+#       and so on.
 
 alignSelections = () ->
     editor = atom.workspace.getActiveTextEditor()
@@ -223,4 +226,3 @@ addCommands
 
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
-# TODO: Show whitespace in selected text
