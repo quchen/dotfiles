@@ -196,8 +196,12 @@ atom.commands.add "atom-text-editor",
         atomically (dateCommand "+%Y-%m-%d")
     "quchen:insert-date-and-time":
         atomically (dateCommand "+%Y-%m-%d %H:%M:%S")
-    "quchen:insert-unix-time":
+    "quchen:insert-date-unix-time":
         atomically (dateCommand "+%s")
+    "quchen:insert-date-iso-8601":
+        atomically (dateCommand "--iso-8601=ns")
+    "quchen:insert-date-rfc-3339":
+        atomically (dateCommand "--rfc-3339=ns")
 
 
 # TODO: Number selections/lines
