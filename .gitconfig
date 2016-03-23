@@ -1,21 +1,46 @@
+[color "diff"]
+    whitespace = red reverse
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+[core]
+    editor = sublime -w
+[diff]
+    tool = meld
+[fetch]
+    prune = true
+[giggle]
+    file-view-vpane-position = 924
+    history-view-vpane-position = 659
+    main-window-geometry = 0x0+0+0
+    main-window-maximized = true
+    main-window-view = HistoryView
+    show-graph = true
+[merge]
+    tool = meld
+[push]
+    default = current
+[rebase]
+    autoStash = true
+[rerere]
+    enabled = true
+    autoupdate = true # Automatically stage rerere-fixed conflicts
 [user]
     name = David Luposchainsky
     email = dluposchainsky@gmail.com
-[push]
-    default = current
-[color]
-    status = auto
-    branch = auto
-    diff = auto
-[color "diff"]
-    whitespace = red reverse
-[giggle]
-    main-window-maximized = true
-    main-window-geometry = 0x0+0+0
-    history-view-vpane-position = 659
-    main-window-view = HistoryView
-    show-graph = true
-    file-view-vpane-position = 924
+
+[url "git://github.com/ghc/packages-"]
+    insteadOf = git://github.com/ghc/packages/
+[url "http://github.com/ghc/packages-"]
+    insteadOf = http://github.com/ghc/packages/
+[url "https://github.com/ghc/packages-"]
+    insteadOf = https://github.com/ghc/packages/
+[url "ssh://git@github.com/ghc/packages-"]
+    insteadOf = ssh://git@github.com/ghc/packages/
+[url "git@github.com:/ghc/packages-"]
+    insteadOf = git@github.com:/ghc/packages/
+
 [alias]
     # Pretty graphs
 
@@ -110,28 +135,6 @@
     nichtmehrverfolgen         = rm --cached
     einweisen                  = commit -v
     holalle                    = fetch --all
-
-[diff]
-    tool = meld
-[merge]
-    tool = meld
-[fetch]
-    prune = true
-[core]
-    editor = sublime -w
-[rerere]
-    enabled = true
-    autoupdate = true # Automaticall stage rerere-fixed conflicts
-[url "git://github.com/ghc/packages-"]
-    insteadOf = git://github.com/ghc/packages/
-[url "http://github.com/ghc/packages-"]
-    insteadOf = http://github.com/ghc/packages/
-[url "https://github.com/ghc/packages-"]
-    insteadOf = https://github.com/ghc/packages/
-[url "ssh://git@github.com/ghc/packages-"]
-    insteadOf = ssh://git@github.com/ghc/packages/
-[url "git@github.com:/ghc/packages-"]
-    insteadOf = git@github.com:/ghc/packages/
 
 [include]
     path = .gitconfig-local
