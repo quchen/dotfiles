@@ -49,8 +49,8 @@ zipWith = (f, xs, ys) ->
 spawnSync = require('child_process').spawnSync
 
 # Run a shell command, and return its STDOUT.
-
-# shellCommand :: String -> IO ()
+#
+# shellCommand :: String -> IO String
 shellCommand = (command, args) ->
     result = spawnSync command, args
     if result.error?
