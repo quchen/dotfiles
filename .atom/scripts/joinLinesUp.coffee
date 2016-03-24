@@ -1,3 +1,6 @@
+# Like Atom's built-in join lines, but join with the previous one instead
+# of the next.
+
 exports.joinLinesUp = () ->
     editor = atom.workspace.getActiveTextEditor()
     selections = editor.getSelections()
