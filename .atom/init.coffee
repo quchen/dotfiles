@@ -44,8 +44,12 @@ addCommands
 removeInlineWhitespace = require("./scripts/removeInlineWhitespace.coffee").removeInlineWhitespace
 addCommands "remove-inline-whitespace": removeInlineWhitespace
 
+duplicate = require("./scripts/duplicate.coffee").duplicate
+addCommands
+    "duplicate": duplicate
 
-# TODO: Improve duplication script
+
+# TODO: Remove all but one newline at EOF on save
 # TODO: Open containing folder
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
