@@ -61,6 +61,7 @@
     enableVcsColoring: true
     tabScrolling: false
     usePreviewTabs: true
+  "todo-show": {}
   "tree-view":
     hideIgnoredNames: true
     squashDirectoryNames: true

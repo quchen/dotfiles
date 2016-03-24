@@ -14,21 +14,21 @@
 # For example, having the following code and selecting all the "=",
 #
 #     foo = bar
-#     loremipsum = dolor >>= id
+#     loremipsum = dolor != id
 #     sitamet = 42 <= 55
 #
 # a single multialign will align the first "=" in each line.
 #
 #     foo        = bar
-#     loremipsum = dolor >>= id
+#     loremipsum = dolor != id
 #     sitamet    = 42 <= 55
 #
 # Aligning again, since the first "=" are all already aligned, will align the
 # second ones.
 #
 #     foo        = bar
-#     loremipsum = dolor >>= id
-#     sitamet    = 42 <    = 55
+#     loremipsum = dolor != id
+#     sitamet    = 42 <   = 55
 
 
 
@@ -44,6 +44,13 @@ groupSortSelections = (selections) ->
         selectionLine.sort (s1, s2) ->
             selectionCol(s1) - selectionCol(s2)
 
+# allEqual :: Eq a => [a] -> Bool
+allEqual = (list) ->
+    for element in list
+        if element != list[0]
+            return false
+    return true
+
 # extractSelectionsToAlign :: [[Selection]] -> [Selection]
 extractSelectionsToAlign = (selectionsByLine) ->
     alignmentIndex = 0
@@ -52,7 +59,7 @@ extractSelectionsToAlign = (selectionsByLine) ->
         candidates = prelude.mapMaybe ((list) -> list[alignmentIndex]), selectionsByLine
         if candidates.length <= 0
             break
-        else if prelude.allEqual (candidates.map selectionCol)
+        else if allEqual (candidates.map selectionCol)
             ++alignmentIndex
         else
             break
@@ -60,9 +67,10 @@ extractSelectionsToAlign = (selectionsByLine) ->
 
 # alignSelections :: [Selection] -> IO ()
 alignSelections = (selections) ->
-    rightmostColumn = 0
-    for selection in selections
-        rightmostColumn = Math.max rightmostColumn, selectionCol selection
+    rightmostColumn = prelude.foldl \
+        ((acc, x) -> Math.max acc, selectionCol x),
+        0,
+        selections
     for selection in selections
         currentContent = selection.getText()
         selectionStart = selection.getBufferRange().start.column

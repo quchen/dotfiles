@@ -2,9 +2,7 @@
 # of the next.
 
 exports.joinLinesUp = () ->
-    editor = atom.workspace.getActiveTextEditor()
-    selections = editor.getSelections()
-
+    selections = atom.workspace.getActiveTextEditor().getSelections()
     for selection in selections
         range = selection.getBufferRange()
         oneLineUp = range.translate([-1,0])

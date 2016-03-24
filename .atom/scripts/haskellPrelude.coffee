@@ -42,14 +42,6 @@ exports.any = (predicate, list) ->
         return true if predicate entry
     return false
 
-# allEqual :: Eq a => [a] -> Bool
-exports.allEqual = (list) ->
-    for element in list
-        if element != list[0]
-            return false
-    return true
-
-
 # Like groupBy, but groups all elements fitting in a bucket, not just
 # consecutive ones.
 #
@@ -82,3 +74,9 @@ exports.compose = (fs) -> (x) ->
     for f in fs.reverse()
         x = f x
     x
+
+# foldl :: (b -> a -> b) -> b -> [a] -> b
+exports.foldl = (f, z, xs) ->
+    for x in xs
+        z = f z, x
+    z
