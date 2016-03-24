@@ -1,3 +1,7 @@
+# Convenience wrapper to add new functions to Atom.
+# Prefixes them with "quchen:" and runs them as a transaction so commands
+# only create a single undo entry, instead of one for each invoked sub-edit.
+
 prelude = require("./haskellPrelude.coffee")
 
 exports.addCommands = (commands) ->
