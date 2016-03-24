@@ -18,4 +18,5 @@ apm install \
     minimap@4.21.0 \
     minimap-highlight-selected@4.4.0 \
     pigments@0.25.0 \
-    sort-lines@0.14.0
+    sort-lines@0.14.0 \
+    todo-show@1.4.0
