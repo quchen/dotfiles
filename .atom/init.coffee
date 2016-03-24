@@ -51,5 +51,6 @@ addCommands "remove-inline-whitespace": removeInlineWhitespace
 
 
 
+# TODO: Improve duplication script
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines

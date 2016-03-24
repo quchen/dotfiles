@@ -1,3 +1,7 @@
+# Cyclically permute all selections.
+#
+# lorem ipsum dolor -> dolor lorem ipsum -> ipsum dolor lorem
+
 prelude = require "./haskellPrelude.coffee"
 
 exports.cycleSelection = (mode) -> () ->
