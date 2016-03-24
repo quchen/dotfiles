@@ -49,7 +49,9 @@ addCommands
     "duplicate": duplicate
 
 
+
 # TODO: Remove all but one newline at EOF on save
+# TODO: Pad on the right, not on the left
 # TODO: Open containing folder
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
