@@ -1,7 +1,7 @@
+# Run a shell command, and return its STDOUT.
+
 spawnSync = require("child_process").spawnSync
 
-# Run a shell command, and return its STDOUT.
-#
 # shellCommand :: String -> IO String
 shellCommand = (command, args) ->
     result = spawnSync command, args
