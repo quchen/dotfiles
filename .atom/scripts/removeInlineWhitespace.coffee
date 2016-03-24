@@ -1,3 +1,5 @@
+# Remove all spaces and tabs in the selections.
+
 exports.removeInlineWhitespace = () ->
     for selection in atom.workspace.getActiveTextEditor().getSelections()
         console.log(selection.getText())
