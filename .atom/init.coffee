@@ -17,7 +17,7 @@ addCommands = require("./scripts/addCommands.coffee").addCommands
 cycleSelection = require("./scripts/cycleSelection.coffee").cycleSelection
 addCommands
     "rotate-selection-right": cycleSelection "right",
-    "rotate-selection-left": cycleSelection "left"
+    "rotate-selection-left":  cycleSelection "left"
 
 joinLinesUp = require("./scripts/joinLinesUp.coffee").joinLinesUp
 addCommands "join-lines-up": joinLinesUp
@@ -30,27 +30,22 @@ addCommands "align": multiAlign
 
 dateCommand = require("./scripts/shellCommand.coffee").dateCommand
 addCommands
-    "insert-date":
-        dateCommand "+%Y-%m-%d"
-    "insert-date-and-time":
-        dateCommand "+%Y-%m-%d %H:%M:%S"
-    "insert-date-unix-time":
-        dateCommand "+%s"
-    "insert-date-iso-8601":
-        dateCommand "--iso-8601=ns"
-    "insert-date-rfc-3339":
-        dateCommand "--rfc-3339=ns"
+    "insert-date":           dateCommand "+%Y-%m-%d"
+    "insert-date-and-time":  dateCommand "+%Y-%m-%d %H:%M:%S"
+    "insert-date-unix-time": dateCommand "+%s"
+    "insert-date-iso-8601":  dateCommand "--iso-8601=ns"
+    "insert-date-rfc-3339":  dateCommand "--rfc-3339=ns"
 
 numberStartingWith = require("./scripts/numberStartingWith.coffee").numberStartingWith
 addCommands
-    "enumerate-from-0": numberStartingWith 0
-    "enumerate-from-1": numberStartingWith 1
+    "number-from-0": numberStartingWith 0
+    "number-from-1": numberStartingWith 1
 
 removeInlineWhitespace = require("./scripts/removeInlineWhitespace.coffee").removeInlineWhitespace
 addCommands "remove-inline-whitespace": removeInlineWhitespace
 
 
-
 # TODO: Improve duplication script
+# TODO: Open containing folder
 # TODO: Comment-aware newline script
 # TODO: Comment-aware join lines
