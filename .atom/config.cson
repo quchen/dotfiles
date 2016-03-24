@@ -26,6 +26,8 @@
     ignoredNames: [
       ".git"
       ".stack-work"
+      ".node-gyp"
+      ".apm"
     ]
     themes: [
       "one-light-ui"
@@ -60,6 +62,7 @@
     tabScrolling: false
     usePreviewTabs: true
   "tree-view":
+    hideIgnoredNames: true
     squashDirectoryNames: true
   welcome:
     showOnStartup: false
