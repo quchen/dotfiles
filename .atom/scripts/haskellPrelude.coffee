@@ -74,3 +74,11 @@ exports.groupGloballyBy = (list, projection) ->
 #
 # mapMaybe :: (a -> Maybe b) -> [a] -> [b]
 exports.mapMaybe = (f, xs) -> xs.map(f).filter((x) -> x?)
+
+# compose [f,g,h] x = f (g (h x))
+# Like `foldr (.) id` in Haskell, but the functions don't have to be
+# `a -> a -> a -> a` but can be `a -> b -> c -> d` due to JS' weak typing.
+exports.compose = (fs) -> (x) ->
+    for f in fs.reverse()
+        x = f x
+    x
