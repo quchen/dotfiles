@@ -33,16 +33,7 @@
 
 
 prelude = require "../lib/haskellPrelude.coffee"
-
-selectionRow = (selection) -> selection.getBufferRange().start.row
-selectionCol = (selection) -> selection.getBufferRange().start.column
-
-# groupSortSelections :: [Selection] -> [[Selection]]
-groupSortSelections = (selections) ->
-    result = prelude.groupGloballyBy selections, selectionRow
-    result.map (selectionLine) ->
-        selectionLine.sort (s1, s2) ->
-            selectionCol(s1) - selectionCol(s2)
+selectionLib = require "../lib/selection.coffee"
 
 # allEqual :: Eq a => [a] -> Bool
 allEqual = (list) ->
@@ -59,7 +50,7 @@ extractSelectionsToAlign = (selectionsByLine) ->
         candidates = prelude.mapMaybe ((list) -> list[alignmentIndex]), selectionsByLine
         if candidates.length <= 0
             break
-        else if allEqual (candidates.map selectionCol)
+        else if allEqual (candidates.map selectionLib.column)
             ++alignmentIndex
         else
             break
@@ -68,7 +59,7 @@ extractSelectionsToAlign = (selectionsByLine) ->
 # alignSelections :: [Selection] -> IO ()
 alignSelections = (selections) ->
     rightmostColumn = prelude.foldl \
-        ((acc, x) -> Math.max acc, selectionCol x),
+        ((acc, x) -> Math.max acc, selectionLib.column x),
         0,
         selections
     for selection in selections
@@ -81,7 +72,7 @@ multiAlign = () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
     align = prelude.compose [ alignSelections,
                               extractSelectionsToAlign,
-                              groupSortSelections ]
+                              selectionLib.lineGroup ]
     align selections
 
 # Like selection.clear(), but place the cursor at the right end of the former
