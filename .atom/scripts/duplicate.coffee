@@ -3,7 +3,7 @@
 # it duplicates lines if the selection has width 0, and otherwise duplicates
 # the selection only.
 
-exports.duplicate = () ->
+duplicate = () ->
     editor = atom.workspace.getActiveTextEditor()
     selections = editor.getSelections()
     for selection in selections
@@ -18,3 +18,6 @@ exports.duplicate = () ->
             currentText = selection.getText()
             selection.setBufferRange([range.end, range.end])
             selection.insertText currentText, "select": true
+
+require("./addCommands.coffee").addCommands
+    "duplicate": duplicate

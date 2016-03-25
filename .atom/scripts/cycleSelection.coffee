@@ -4,23 +4,23 @@
 
 prelude = require "./haskellPrelude.coffee"
 
-exports.cycleSelection = (mode) -> () ->
+insertTextSelected = (selection, text) ->
+    selection.insertText text, {select: true}
+
+# cycleSelection :: ([a] -> [a]) -> IO ()
+cycleSelection = (rotate) -> () ->
     editor = atom.workspace.getActiveTextEditor()
     selections = editor.getSelectionsOrderedByBufferPosition()
     selectedTexts = selections.map (item) -> item.getText()
+    rotate selectedTexts
+    prelude.zipWith insertTextSelected, selections, selectedTexts
 
-    switch mode
-        when "right"
-            rotateRight = (list) -> list.unshift(list.pop())
-            rotateRight selectedTexts
-        when "left"
-            rotateLeft = (list) -> list.push list.shift()
-            rotateLeft selectedTexts
-        else
-            atom.notifications.addError "Invalid rotation mode",
-                "detail": "The rotation mode #{mode} is not supported.",
-                "dismissable": true
+# rotateLeft :: [a] -> [a]
+rotateRight = (list) -> list.unshift list.pop()
 
-    prelude.zipWith ((selection, text) -> selection.insertText text, {select: true}),
-        selections,
-        selectedTexts
+# rotateRight :: [a] -> [a]
+rotateLeft = (list) -> list.push list.shift()
+
+require("./addCommands.coffee").addCommands
+    "rotate-selection-right": cycleSelection rotateRight,
+    "rotate-selection-left":  cycleSelection rotateLeft
