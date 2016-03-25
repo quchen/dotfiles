@@ -107,7 +107,8 @@
     'ctrl-d':           'quchen:duplicate'
     'tab':              'editor:indent'
     'shift-tab':        'editor:outdent-selected-rows'
-    'ctrl-,':           'quchen:align'
+    'ctrl-,':           'quchen:align-multi'
+    'ctrl-<':           'quchen:align-right' # ctrl-< = ctrl+shift+, on German layout
 
     # Selection
     'ctrl-k'      : 'find-and-replace:select-next'

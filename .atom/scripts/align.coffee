@@ -77,9 +77,25 @@ alignSelections = (selections) ->
         selection.insertText " ".repeat(rightmostColumn - selectionStart)
         selection.insertText currentContent, 'select': true
 
-exports.multiAlign = () ->
+multiAlign = () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
     align = prelude.compose [ alignSelections,
                               extractSelectionsToAlign,
                               groupSortSelections ]
     align selections
+
+# Like selection.clear(), but place the cursor at the right end of the former
+# selection, instead of the left.
+clearRight = (selection) ->
+    range = selection.getBufferRange()
+    selection.setBufferRange([range.end, range.end])
+
+alignRight = () ->
+    selections = atom.workspace.getActiveTextEditor().getSelections()
+    for selection in selections
+        clearRight selection
+    multiAlign()
+
+require("./addCommands.coffee").addCommands
+    "align-multi": multiAlign,
+    "align-right": alignRight

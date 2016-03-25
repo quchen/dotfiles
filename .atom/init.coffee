@@ -25,8 +25,8 @@ addCommands "join-lines-up": joinLinesUp
 deleteLine = require("./scripts/deleteLine.coffee").deleteLine
 addCommands "delete-line": deleteLine
 
-multiAlign = require("./scripts/multiAlign.coffee").multiAlign
-addCommands "align": multiAlign
+require("./scripts/align.coffee")
+
 
 dateCommand = require("./scripts/shellCommand.coffee").dateCommand
 addCommands
