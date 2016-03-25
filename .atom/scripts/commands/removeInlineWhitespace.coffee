@@ -8,5 +8,5 @@ removeInlineWhitespace = () ->
             "select": true
 
 
-require("./addCommands.coffee").addCommands
+require("../lib/addCommands.coffee").addCommands
     "remove-inline-whitespace": removeInlineWhitespace

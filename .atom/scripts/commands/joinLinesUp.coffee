@@ -9,5 +9,5 @@ joinLinesUp = () ->
         selection.setBufferRange(oneLineUp)
         selection.joinLines()
 
-require("./addCommands.coffee").addCommands
+require("../lib/addCommands.coffee").addCommands
     "join-lines-up": joinLinesUp

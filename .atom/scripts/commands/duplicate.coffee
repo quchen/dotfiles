@@ -19,5 +19,5 @@ duplicate = () ->
             selection.setBufferRange([range.end, range.end])
             selection.insertText currentText, "select": true
 
-require("./addCommands.coffee").addCommands
+require("../lib/addCommands.coffee").addCommands
     "duplicate": duplicate

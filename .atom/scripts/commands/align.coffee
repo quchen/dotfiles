@@ -32,7 +32,7 @@
 
 
 
-prelude = require "./haskellPrelude.coffee"
+prelude = require "../lib/haskellPrelude.coffee"
 
 selectionRow = (selection) -> selection.getBufferRange().start.row
 selectionCol = (selection) -> selection.getBufferRange().start.column
@@ -96,6 +96,6 @@ alignRight = () ->
         clearRight selection
     multiAlign()
 
-require("./addCommands.coffee").addCommands
+require("../lib/addCommands.coffee").addCommands
     "align-multi": multiAlign,
     "align-right": alignRight

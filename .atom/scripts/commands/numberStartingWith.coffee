@@ -22,6 +22,6 @@ numberStartingWith = (start) -> () ->
         selection.insertText i.toString()
         ++i
 
-require("./addCommands.coffee").addCommands
+require("../lib/addCommands.coffee").addCommands
     "number-from-0": numberStartingWith 0
     "number-from-1": numberStartingWith 1

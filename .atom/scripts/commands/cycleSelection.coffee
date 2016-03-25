@@ -2,7 +2,7 @@
 #
 # lorem ipsum dolor -> dolor lorem ipsum -> ipsum dolor lorem
 
-prelude = require "./haskellPrelude.coffee"
+prelude = require "../lib/haskellPrelude.coffee"
 
 insertTextSelected = (selection, text) ->
     selection.insertText text, {select: true}
@@ -21,6 +21,6 @@ rotateRight = (list) -> list.unshift list.pop()
 # rotateRight :: [a] -> [a]
 rotateLeft = (list) -> list.push list.shift()
 
-require("./addCommands.coffee").addCommands
+require("../lib/addCommands.coffee").addCommands
     "rotate-selection-right": cycleSelection rotateRight,
     "rotate-selection-left":  cycleSelection rotateLeft
