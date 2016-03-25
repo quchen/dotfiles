@@ -84,6 +84,11 @@
     'ctrl-shift-home':  'core:select-to-top'
     'ctrl-shift-end':   'core:select-to-bottom'
 
+    # Brackets
+    'ctrl-m':          'bracket-matcher:select-inside-brackets'
+    'ctrl-shift-m':    'bracket-matcher:go-to-matching-bracket'
+    'shift-backspace': 'bracket-matcher:remove-matching-brackets'
+
     # Fancy menus
     'ctrl-p':       'command-palette:toggle'
     'ctrl-shift-p': 'fuzzy-finder:toggle-file-finder'
