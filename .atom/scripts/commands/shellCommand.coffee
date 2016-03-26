@@ -19,8 +19,8 @@ dateCommand = (format) -> () ->
         selection.insertText out.trim()
 
 addCommands = require("../lib/addCommands.coffee").addCommands
-    "insert-date":           dateCommand "+%Y-%m-%d"
-    "insert-date-and-time":  dateCommand "+%Y-%m-%d %H:%M:%S"
-    "insert-date-unix-time": dateCommand "+%s"
-    "insert-date-iso-8601":  dateCommand "--iso-8601=ns"
-    "insert-date-rfc-3339":  dateCommand "--rfc-3339=ns"
+    "insert-date":                  dateCommand "+%Y-%m-%d"
+    "insert-date-and-time":         dateCommand "+%Y-%m-%d %H:%M:%S"
+    "insert-date-unix-time":        dateCommand "+%s"
+    "insert-date-iso-8601-with-ns": dateCommand "--iso-8601=ns"
+    "insert-date-rfc-3339-with-ns": dateCommand "--rfc-3339=ns"
