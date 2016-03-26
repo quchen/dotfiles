@@ -1,3 +1,9 @@
+# Fill the line based on the current selection.
+#
+# The line length is read from the config via `editor.preferredLineLength`.
+# If something has been selected, cycle that to the end of the line.
+# If the selection is empty, repeat the character before the cursor.
+
 prelude = require "../lib/haskellPrelude.coffee"
 selectionLib = require "../lib/selection.coffee"
 
