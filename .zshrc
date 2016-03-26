@@ -24,7 +24,6 @@ setopt EXTENDED_GLOB
 
 export EDITOR=vim
 export PAGER=less
-export GREP_OPTIONS='-E --color=auto'
 
 
 
