@@ -15,7 +15,6 @@ shellCommand = (command, args) ->
 
 dateCommand = (format) -> () ->
     out = shellCommand "date", [format]
-    console.log out
     for selection in atom.workspace.getActiveTextEditor().getSelections()
         selection.insertText out.trim()
 
