@@ -15,8 +15,6 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 
 require "./scripts/commands"
 
-
-
 # TODO: Remove all but one newline at EOF on save
 # TODO: Open containing folder
 # TODO: Comment-aware newline script

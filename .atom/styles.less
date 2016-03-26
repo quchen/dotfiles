@@ -43,6 +43,19 @@ atom-text-editor, atom-text-editor::shadow {
       border: 1px solid fade(@highlight-selection, 50%);
     }
 
+    .multi-wrap-guide:nth-child(1) .multi-wrap-guide-line {
+        border-right: 1px solid fade(@solarized-base1, 30%);
+        background: none;
+    }
+    .multi-wrap-guide:nth-child(2) .multi-wrap-guide-line {
+        border-right: 1px solid fade(@solarized-base1, 50%);
+        background: none;
+    }
+    .multi-wrap-guide:nth-child(3) .multi-wrap-guide-line {
+        border-right: 1px solid fade(@solarized-base1, 70%);
+        background: none;
+    }
+
 }
 
 .tree-view {
