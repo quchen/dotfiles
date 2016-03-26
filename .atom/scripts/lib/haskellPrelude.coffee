@@ -1,10 +1,8 @@
-# TODO: Separate export list from code
-
 # Run an action as an atomical transaction. Useful to execute a composed
 # action that should be undone in a single step.
 #
 # atomically :: (() -> IO ()) -> () -> IO ()
-exports.atomically = (action) -> () ->
+atomically = (action) -> () ->
     buffer = atom.workspace.getActiveTextEditor().getBuffer()
     buffer.transact () -> action()
 
@@ -15,7 +13,7 @@ exports.atomically = (action) -> () ->
 #   ==> [1,2]
 #
 # nubVia :: Ord b => (a -> b) -> [a] -> [a]
-exports.nubVia = (projection, array) ->
+nubVia = (projection, array) ->
     cache = {}
     uniques = []
     for entry in array
@@ -26,7 +24,7 @@ exports.nubVia = (projection, array) ->
     uniques
 
 # head :: [a] -> Maybe a
-exports.head = (xs) -> xs[0]
+head = (xs) -> xs[0]
 
 # reverse :: [a] -> [a]
 reverse = (xs) ->
@@ -34,10 +32,9 @@ reverse = (xs) ->
     for x in xs
         reversed.unshift x
     reversed
-exports.reverse = reverse
 
 # zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-exports.zipWith = (f, xs, ys) ->
+zipWith = (f, xs, ys) ->
     result = []
     iMax = Math.min(xs.length, ys.length)
     for i in [0 .. iMax - 1]
@@ -45,12 +42,12 @@ exports.zipWith = (f, xs, ys) ->
     result
 
 # all :: (a -> Bool, [a]) -> Bool
-exports.all = (predicate, list) ->
+all = (predicate, list) ->
     for entry in list
         return false if not (predicate entry)
     return true
 
-exports.any = (predicate, list) ->
+any = (predicate, list) ->
     for entry in list
         return true if predicate entry
     return false
@@ -64,7 +61,7 @@ exports.any = (predicate, list) ->
 # [[1,3,5,7,9], [2,4,6,8,10]
 #
 # groupGloballyBy :: Ord a => [a] -> (a -> b) -> [[a]]
-exports.groupGloballyBy = (list, projection) ->
+groupGloballyBy = (list, projection) ->
     grouped = {}
     for item in list
         key = projection item
@@ -78,18 +75,30 @@ exports.groupGloballyBy = (list, projection) ->
 # Map and discard nulls afterwards
 #
 # mapMaybe :: (a -> Maybe b) -> [a] -> [b]
-exports.mapMaybe = (f, xs) -> xs.map(f).filter((x) -> x?)
+mapMaybe = (f, xs) -> xs.map(f).filter((x) -> x?)
 
 # compose [f,g,h] x = f (g (h x))
 # Like `foldr (.) id` in Haskell, but the functions don't have to be
 # `a -> a -> a -> a` but can be `a -> b -> c -> d` due to JS' weak typing.
-exports.compose = (fs) -> (x) ->
+compose = (fs) -> (x) ->
     for f in reverse fs
         x = f x
     x
 
 # foldl :: (b -> a -> b) -> b -> [a] -> b
-exports.foldl = (f, z, xs) ->
+foldl = (f, z, xs) ->
     for x in xs
         z = f z, x
     z
+
+exports.atomically      = atomically
+exports.nubVia          = nubVia
+exports.head            = head
+exports.reverse         = reverse
+exports.zipWith         = zipWith
+exports.all             = all
+exports.any             = any
+exports.groupGloballyBy = groupGloballyBy
+exports.mapMaybe        = mapMaybe
+exports.compose         = compose
+exports.foldl           = foldl
