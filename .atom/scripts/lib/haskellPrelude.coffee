@@ -6,6 +6,17 @@ atomically = (action) -> () ->
     buffer = atom.workspace.getActiveTextEditor().getBuffer()
     buffer.transact () -> action()
 
+# maybe :: b -> (a -> b) -> Maybe a -> b
+maybe = (nothing, just, value) ->
+    if value?
+        just value
+    else
+        nothing
+
+# even, odd :: Integer -> Bool
+even = (i) -> i % 2 != 0
+odd  = (i) -> i % 2 == 0
+
 # Collect the unique elements of a list, by comparing their values after
 # mapping them to something else.
 #
