@@ -1,3 +1,5 @@
+# TODO: Separate export list from code
+
 # Run an action as an atomical transaction. Useful to execute a composed
 # action that should be undone in a single step.
 #
@@ -22,6 +24,17 @@ exports.nubVia = (projection, array) ->
             uniques.push entry
             cache[projected] = true
     uniques
+
+# head :: [a] -> Maybe a
+exports.head = (xs) -> xs[0]
+
+# reverse :: [a] -> [a]
+reverse = (xs) ->
+    reversed = []
+    for x in xs
+        reversed.unshift x
+    reversed
+exports.reverse = reverse
 
 # zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 exports.zipWith = (f, xs, ys) ->
@@ -71,7 +84,7 @@ exports.mapMaybe = (f, xs) -> xs.map(f).filter((x) -> x?)
 # Like `foldr (.) id` in Haskell, but the functions don't have to be
 # `a -> a -> a -> a` but can be `a -> b -> c -> d` due to JS' weak typing.
 exports.compose = (fs) -> (x) ->
-    for f in fs.reverse()
+    for f in reverse fs
         x = f x
     x
 
