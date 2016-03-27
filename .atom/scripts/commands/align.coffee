@@ -77,6 +77,8 @@ multiAlign = () ->
 
 # Like selection.clear(), but place the cursor at the right end of the former
 # selection, instead of the left.
+#
+# clearRight :: Selection -> IO ()
 clearRight = (selection) ->
     range = selection.getBufferRange()
     selection.setBufferRange([range.end, range.end])

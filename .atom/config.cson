@@ -66,6 +66,21 @@
       120
     ]
     locked: true
+  quchen:
+    refinements:
+      "source.coffee": [
+        "="
+        ":"
+      ]
+      "source.haskell": [
+        "="
+        "|"
+        "::"
+        "->"
+        "<-"
+        ","
+        "["
+      ]
   tabs:
     enableVcsColoring: true
     tabScrolling: false
