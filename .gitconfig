@@ -5,7 +5,7 @@
     diff = auto
     status = auto
 [core]
-    editor = sublime -w
+    editor = vim
 [diff]
     tool = meld
 [fetch]
