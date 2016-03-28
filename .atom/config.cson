@@ -23,6 +23,10 @@
       "exception-reporting"
       "open-on-github"
       "wrap-guide"
+      "haskell-ghc-mod"
+      "ide-haskell"
+      "ide-haskell-cabal"
+      "ide-haskell-hasktags"
     ]
     ignoredNames: [
       ".git"
@@ -38,7 +42,7 @@
     autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "\"Hasklig\""
-    fontSize: 13
+    fontSize: 18
     invisibles: {}
     scrollPastEnd: true
     softWrapHangingIndent: 4
