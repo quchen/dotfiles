@@ -21,3 +21,19 @@ exports.lineGroup = (selections) ->
     result = prelude.partition selections, row
     result.map (selectionLine) ->
         sortSelectionsBy selectionLine, column
+
+# Like selection.clear(), but place the cursor at the right end of the former
+# selection, instead of the left.
+#
+# clearRight :: Selection -> IO ()
+exports.clearRight = (selection) ->
+    range = selection.getBufferRange()
+    selection.setBufferRange([range.end, range.end])
+
+# Convenience function to translate a selection. Returns the ranges before and after.
+exports.translate = (selection, delta) ->
+    rangeBefore = selection.getBufferRange()
+    rangeAfter = selection.getBufferRange().translate(delta)
+    selection.setBufferRange(rangeAfter)
+    "rangeBefore": rangeBefore,
+    "rangeAfter": rangeAfter

@@ -96,13 +96,13 @@
 "atom-workspace atom-text-editor:not([mini])":
 
     # Editing
-    "enter":            "editor:newline",
-    "shift-enter":      "editor:newline-below"
-    "ctrl-shift-enter": "editor:newline-above"
+    "enter":            "quchen:comment-aware-newline",
+    "shift-enter":      "quchen:comment-aware-newline-below"
+    "ctrl-shift-enter": "quchen:comment-aware-newline-above"
     "ctrl-up":          "editor:move-line-up"
     "ctrl-down":        "editor:move-line-down"
-    "ctrl-j":           "editor:join-lines"
-    "ctrl-shift-j":     "quchen:join-lines-up"
+    "ctrl-j":           "quchen:comment-aware-join-lines-down"
+    "ctrl-shift-j":     "quchen:comment-aware-join-lines-up"
     "ctrl-/":           "editor:toggle-line-comments"
     "ctrl-t":           "quchen:rotate-selection-right"
     "ctrl-shift-t":     "quchen:rotate-selection-left"
