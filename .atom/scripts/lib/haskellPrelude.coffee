@@ -58,6 +58,7 @@ all = (predicate, list) ->
         return false if not (predicate entry)
     return true
 
+# any :: (a -> Bool, [a]) -> Bool
 any = (predicate, list) ->
     for entry in list
         return true if predicate entry
