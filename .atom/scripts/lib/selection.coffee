@@ -18,6 +18,6 @@ sortSelectionsBy = (selections, comparing) ->
 #
 # lineGroup :: [Selection] -> [[Selection]]
 exports.lineGroup = (selections) ->
-    result = prelude.groupGloballyBy selections, row
+    result = prelude.partition selections, row
     result.map (selectionLine) ->
         sortSelectionsBy selectionLine, column

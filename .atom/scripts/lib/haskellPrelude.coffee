@@ -66,13 +66,13 @@ any = (predicate, list) ->
 # Like groupBy, but groups all elements fitting in a bucket, not just
 # consecutive ones.
 #
-# For `b = Bool`, this is equivalent to `partition`.
+# For `b = Bool`, this is equivalent to `Haskell's partition`.
 #
-# >>> groupGloballyBy [1..10] even
+# >>> partition [1..10] even
 # [[1,3,5,7,9], [2,4,6,8,10]
 #
-# groupGloballyBy :: Ord a => [a] -> (a -> b) -> [[a]]
-groupGloballyBy = (list, projection) ->
+# partition :: Ord a => [a] -> (a -> b) -> [[a]]
+partition = (list, projection) ->
     grouped = {}
     for item in list
         key = projection item
@@ -114,7 +114,7 @@ exports.reverse         = reverse
 exports.zipWith         = zipWith
 exports.all             = all
 exports.any             = any
-exports.groupGloballyBy = groupGloballyBy
+exports.partition = partition
 exports.mapMaybe        = mapMaybe
 exports.catMaybes       = catMaybes
 exports.compose         = compose
