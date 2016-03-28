@@ -9,9 +9,9 @@ selectionLib = require "../lib/selection.coffee"
 
 isAtBol = (selection) -> selectionLib.column(selection) == 0
 
-firstEachLine = prelude.compose \
-    [ ((xs) -> prelude.mapMaybe(prelude.head, xs)) \
-    , selectionLib.lineGroup ]
+firstEachLine = (selections) ->
+    selections = selectionLib.lineGroup selections
+    prelude.mapMaybe prelude.head, selections
 
 fillLine = () ->
     lineWidth = atom.config.get('editor.preferredLineLength')

@@ -86,7 +86,12 @@ groupGloballyBy = (list, projection) ->
 # Map and discard nulls afterwards
 #
 # mapMaybe :: (a -> Maybe b) -> [a] -> [b]
-mapMaybe = (f, xs) -> xs.map(f).filter((x) -> x?)
+mapMaybe = (f, xs) -> catMaybes xs.map(f)
+
+# Concatenate all Justs (i.e. non-null values)
+#
+# catMaybes :: [Maybe a] -> [a]
+catMaybes = (xs) -> xs.filter((x) -> x?)
 
 # compose [f,g,h] x = f (g (h x))
 # Like `foldr (.) id` in Haskell, but the functions don't have to be
@@ -111,5 +116,6 @@ exports.all             = all
 exports.any             = any
 exports.groupGloballyBy = groupGloballyBy
 exports.mapMaybe        = mapMaybe
+exports.catMaybes       = catMaybes
 exports.compose         = compose
 exports.foldl           = foldl
