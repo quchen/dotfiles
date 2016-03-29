@@ -13,7 +13,7 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 ##  Commands
 ##############################################################################
 
-require "./scripts/commands"
+require "./scripts"
 
 # TODO: Add 'refine selections' to e.g. select all words containing "a" in the
 #       current selection. Useful for e.g. selecting all common operators for
