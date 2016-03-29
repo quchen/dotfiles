@@ -106,6 +106,8 @@
     # - '%w([<w>[,<i1>[,<i2>]]])': switch line wrapping, like the -w option of nkgit:git-shortlog[1].
 
 
+    b       = branch
+    bi      = bisect
     ci      = commit
     fix     = commit --amend
     co      = checkout
@@ -121,6 +123,8 @@
     up      = pull --rebase
     fa      = fetch --all
 
+    sezieren                   = bisect
+    zweig                      = branch
     zustand                    = status -sb
     unterschied                = diff
     wortunterschied            = diff --word-diff=color
