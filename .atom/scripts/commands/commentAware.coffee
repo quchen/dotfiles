@@ -1,5 +1,11 @@
 # Comment-aware functions to join lines and insert new ones.
 
+# TODO: When inserting a newline above in an indented block from outside the
+# block, the automatically inserted indentation will be selected. This is due
+# to the reindentation of moveLineUp.
+# TODO: Insert newline above is broken when we're at the end of a file, it
+# will simply insert at the bottom.
+
 prelude = require "../lib/haskellPrelude.coffee"
 selectionLib = require "../lib/selection.coffee"
 
@@ -29,7 +35,7 @@ newlineBelow = (context) ->
 
 newlineAbove = (context) ->
     newlineBelow context
-    context.editor.moveLineUp()
+    context.editor.moveLineUp() # TODO: Eliminate this internal function
 
 joinLinesDown = (context) ->
     for selection in context.selections
@@ -51,7 +57,7 @@ commentAware = (action) -> () ->
     editor = atom.workspace.getActiveTextEditor()
     action
         "editor":     editor,
-        "selections": editor.getSelections() # hello
+        "selections": editor.getSelections()
 
 require("../lib/addCommands.coffee").addCommands
     "comment-aware-newline":         commentAware newline
