@@ -108,6 +108,9 @@ foldl = (f, z, xs) ->
         z = f z, x
     z
 
+# flip :: (a -> b -> c) -> (b -> a -> c)
+flip = (f, x, y) -> f y, x
+
 exports.atomically      = atomically
 exports.nubVia          = nubVia
 exports.head            = head
