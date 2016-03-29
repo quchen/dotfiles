@@ -23,10 +23,6 @@
       "exception-reporting"
       "open-on-github"
       "wrap-guide"
-      "haskell-ghc-mod"
-      "ide-haskell"
-      "ide-haskell-cabal"
-      "ide-haskell-hasktags"
     ]
     ignoredNames: [
       ".git"
