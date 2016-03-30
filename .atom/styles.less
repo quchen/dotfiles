@@ -18,10 +18,18 @@
 
 // TODO: Show whitespace in selected text
 
+
+.enableLigatures(@language) {
+    &[data-grammar*="@{language}"] {
+        text-rendering: optimizeLegibility;
+    }
+}
+
 atom-text-editor, atom-text-editor::shadow {
 
-    // Font ligatures
-    text-rendering: optimizeLegibility;
+    .enableLigatures("coffee");
+    .enableLigatures("haskell");
+    .enableLigatures("shell");
 
     .cursor {
         border-width: 2px;
