@@ -58,7 +58,9 @@
     "ctrl-+": "window:increase-font-size"
     "ctrl-0": "window:reset-font-size"
 
-    "ctrl-f": "find-and-replace:show"
+    # Find/replace
+    "ctrl-f":       "find-and-replace:show"
+    "ctrl-shift-f": "project-find:show"
 
 "atom-workspace atom-text-editor":
 
