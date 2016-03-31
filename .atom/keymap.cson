@@ -69,12 +69,12 @@
     "ctrl-delete":    "editor:delete-to-end-of-word"
 
     # Movement
-    "home":            "editor:move-to-first-character-of-line"
-    "end":             "editor:move-to-end-of-screen-line"
-    "ctrl-left":       "editor:move-to-beginning-of-word"
-    "ctrl-right":      "editor:move-to-end-of-word"
-    "ctrl-home":       "core:move-to-top"
-    "ctrl-end":        "core:move-to-bottom"
+    "home":       "editor:move-to-first-character-of-line"
+    "end":        "editor:move-to-end-of-screen-line"
+    "ctrl-left":  "editor:move-to-beginning-of-word"
+    "ctrl-right": "editor:move-to-end-of-word"
+    "ctrl-home":  "core:move-to-top"
+    "ctrl-end":   "core:move-to-bottom"
 
     # Selection
     "shift-home":       "editor:select-to-first-character-of-line"
@@ -115,13 +115,13 @@
 
     # Alignment
     "ctrl-,": "quchen:align-multi"
-    "ctrl-<": "quchen:align-right" # ctrl-< = ctrl+shift+ on German layout
+    "ctrl-<": "quchen:align-right"
     "ctrl-.": "quchen:refine-selection"
 
     # Selection
-    "ctrl-k"      : "find-and-replace:select-next"
+    "ctrl-k":       "find-and-replace:select-next"
     "ctrl-shift-k": "find-and-replace:select-skip"
-    "ctrl-i"      : "find-and-replace:select-undo"
+    "ctrl-i":       "find-and-replace:select-undo"
     "ctrl-shift-i": "find-and-replace:select-all"
     "ctrl-shift-l": "editor:split-selections-into-lines"
 
