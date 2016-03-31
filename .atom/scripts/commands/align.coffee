@@ -75,7 +75,17 @@ multiAlign = () ->
                               selectionLib.lineGroup ]
     align selections
 
+keepOnlyFirstSelectionPerLine = () ->
+    editor = atom.workspace.getActiveTextEditor()
+    selections = editor.getSelections()
+    selections = selectionLib.lineGroup selections
+    firstRangeEachLine = prelude.mapMaybe \
+        ((sels) -> sels[0].getBufferRange()),
+        selections
+    editor.setSelectedBufferRanges firstRangeEachLine
+
 alignRight = () ->
+    keepOnlyFirstSelectionPerLine()
     selections = atom.workspace.getActiveTextEditor().getSelections()
     for selection in selections
         selectionLib.clearRight selection
