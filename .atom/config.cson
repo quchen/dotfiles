@@ -1,4 +1,10 @@
 "*":
+  "activate-power-mode":
+    particles:
+      size: {}
+      spawnCount: {}
+      totalCount: {}
+    screenShake: {}
   "autocomplete-plus":
     backspaceTriggersAutocomplete: true
     confirmCompletion: "tab"
