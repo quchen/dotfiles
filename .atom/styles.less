@@ -64,6 +64,29 @@ atom-text-editor, atom-text-editor::shadow {
         background: none;
     }
 
+    .highlight {
+        &.ide-haskell-lint .region {
+            @haskell-ide-lint: @solarized-blue;
+            background: none;
+            background-color: fade(@haskell-ide-lint, 33%);
+        }
+        &.ide-haskell-warning .region {
+            @haskell-ide-warn: @solarized-yellow;
+            background: none;
+            background-color: fade(@haskell-ide-warn, 33%);
+        }
+        &.ide-haskell-error .region {
+            @haskell-ide-err: @solarized-red;
+            background: none;
+            background-color: fade(@haskell-ide-err, 33%);
+        }
+        &.ide-haskell-type .region {
+            @haskell-ide-type: @solarized-green;
+            background: none;
+            background-color: fade(@haskell-ide-type, 33%);
+        }
+    }
+
 }
 
 .tree-view {
