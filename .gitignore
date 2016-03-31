@@ -2,3 +2,10 @@
 *.o
 *.sublime-project
 *.sublime-workspace
+
+.atom/blob-store
+.atom/compile-cache
+.atom/git-time-machine
+.atom/packages
+.atom/storage
+.atom/nohup.out
