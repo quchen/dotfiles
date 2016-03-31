@@ -14,5 +14,3 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 ##############################################################################
 
 require "./scripts"
-
-# TODO: Open containing folder
