@@ -84,8 +84,6 @@
         "::"
         "->"
         "<-"
-        ","
-        "["
       ]
   tabs:
     enableVcsColoring: true
