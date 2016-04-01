@@ -44,7 +44,6 @@
     autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "\"Hasklig\""
-    fontSize: 18
     invisibles: {}
     scrollPastEnd: true
     softWrapHangingIndent: 4
