@@ -14,6 +14,7 @@ apm install \
     ide-haskell-cabal@1.1.0 \
     ide-haskell-hasktags@0.0.3 \
     ide-purescript@0.10.0 \
+    jumpy@3.0.3 \
     keybinding-cheatsheet@0.1.0 \
     language-haskell@1.7.7 \
     language-purescript@0.6.1 \

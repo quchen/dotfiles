@@ -125,6 +125,8 @@
     "ctrl-shift-i": "find-and-replace:select-all"
     "ctrl-shift-l": "editor:split-selections-into-lines"
 
+    "ctrl-space": "jumpy:toggle"
+
 # Autocompletion
 "atom-workspace atom-text-editor.autocomplete-active":
     "tab":    "autocomplete-plus:confirm"
@@ -138,3 +140,39 @@
     "ctrl-h ctrl-s": "haskell-ghc-mod:case-split"
     "ctrl-h ctrl-m": "haskell-ghc-mod:insert-import"
     "ctrl-h ctrl-d": "haskell-ghc-mod:go-to-declaration"
+
+# Jumpy bindings
+"atom-workspace atom-text-editor.jumpy-jump-mode":
+
+    "backspace":   "jumpy:reset"
+    "enter":       "jumpy:clear"
+    "space":       "jumpy:clear"
+    "escape":      "jumpy:clear"
+    "shift-enter": "jumpy:clear"
+
+    "a": "jumpy:a", "A": "jumpy:A"
+    "b": "jumpy:b", "B": "jumpy:B"
+    "c": "jumpy:c", "C": "jumpy:C"
+    "d": "jumpy:d", "D": "jumpy:D"
+    "e": "jumpy:e", "E": "jumpy:E"
+    "f": "jumpy:f", "F": "jumpy:F"
+    "g": "jumpy:g", "G": "jumpy:G"
+    "h": "jumpy:h", "H": "jumpy:H"
+    "i": "jumpy:i", "I": "jumpy:I"
+    "j": "jumpy:j", "J": "jumpy:J"
+    "k": "jumpy:k", "K": "jumpy:K"
+    "l": "jumpy:l", "L": "jumpy:L"
+    "m": "jumpy:m", "M": "jumpy:M"
+    "n": "jumpy:n", "N": "jumpy:N"
+    "o": "jumpy:o", "O": "jumpy:O"
+    "p": "jumpy:p", "P": "jumpy:P"
+    "q": "jumpy:q", "Q": "jumpy:Q"
+    "r": "jumpy:r", "R": "jumpy:R"
+    "s": "jumpy:s", "S": "jumpy:S"
+    "t": "jumpy:t", "T": "jumpy:T"
+    "u": "jumpy:u", "U": "jumpy:U"
+    "v": "jumpy:v", "V": "jumpy:V"
+    "w": "jumpy:w", "W": "jumpy:W"
+    "x": "jumpy:x", "X": "jumpy:X"
+    "y": "jumpy:y", "Y": "jumpy:Y"
+    "z": "jumpy:z", "Z": "jumpy:Z"
