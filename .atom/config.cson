@@ -57,6 +57,8 @@
     onSavePrettify: true
   "ide-haskell-cabal":
     activeGhcVersion: "7.10"
+  jumpy:
+    matchPattern: "\\S+"
   minimap:
     plugins:
       codeglance: true
