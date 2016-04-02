@@ -79,6 +79,9 @@
         "="
         ":"
       ]
+      "source.css.less": [
+        ":"
+      ]
       "source.haskell": [
         "="
         "|"

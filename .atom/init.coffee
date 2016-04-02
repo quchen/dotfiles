@@ -14,3 +14,6 @@ atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
 ##############################################################################
 
 require "./scripts"
+
+# TODO: Refining needs a reload if config (i.e. matching sequences) change
+#       right now
