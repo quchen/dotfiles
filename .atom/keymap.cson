@@ -113,6 +113,10 @@
     "tab":              "editor:indent"
     "shift-tab":        "editor:outdent-selected-rows"
 
+    # Navigation
+    "ctrl-space":       "jumpy:toggle"
+    "ctrl-shift-space": "go-to-line:toggle"
+
     # Alignment
     "ctrl-,": "quchen:align-multi"
     "ctrl-<": "quchen:align-right"
@@ -124,8 +128,6 @@
     "ctrl-i":       "find-and-replace:select-undo"
     "ctrl-shift-i": "find-and-replace:select-all"
     "ctrl-shift-l": "editor:split-selections-into-lines"
-
-    "ctrl-space": "jumpy:toggle"
 
 # Autocompletion
 "atom-workspace atom-text-editor.autocomplete-active":

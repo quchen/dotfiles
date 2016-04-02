@@ -58,7 +58,7 @@
   "ide-haskell-cabal":
     activeGhcVersion: "7.10"
   jumpy:
-    matchPattern: "\\S+"
+    matchPattern: "\\S{2,}"
   minimap:
     plugins:
       codeglance: true
