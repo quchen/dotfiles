@@ -114,8 +114,8 @@
     "shift-tab":        "editor:outdent-selected-rows"
 
     # Navigation
-    "ctrl-space":       "jumpy:toggle"
-    "ctrl-shift-space": "go-to-line:toggle"
+    "ctrl-[":       "jumpy:toggle"
+    "ctrl-shift-[": "go-to-line:toggle"
 
     # Alignment
     "ctrl-,": "quchen:align-multi"
