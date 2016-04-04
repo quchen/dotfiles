@@ -19,11 +19,11 @@
 // TODO: Show whitespace in selected text
 
 
-.enableLigatures(@language) {
-    &[data-grammar*="@{language}"] {
-        text-rendering: optimizeLegibility;
-    }
-}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Config
 
 atom-text-editor, atom-text-editor::shadow {
 
@@ -31,70 +31,110 @@ atom-text-editor, atom-text-editor::shadow {
     .enableLigatures("haskell");
     .enableLigatures("shell");
 
+    .blinking-cursor();
+
+    .selection-config(@solarized-base02);
+    .highlight-selected-config(@solarized-red);
+    .bracket-matcher-config(@solarized-base01);
+
+    .multi-wrap-guide {
+        .wrap-guide-config(1, @solarized-base1, 30%);
+        .wrap-guide-config(2, @solarized-base1, 50%);
+        .wrap-guide-config(3, @solarized-base1, 70%);
+    }
+
+    .ide-haskell-config(
+        @solarized-blue,
+        @solarized-yellow,
+        @solarized-red,
+        @solarized-green
+    );
+
+    .jumpy-config (
+        @solarized-base0,
+        @solarized-base2,
+        @solarized-base01,
+        @solarized-base01
+    );
+
+}
+
+.tree-view-config();
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Lib
+
+.enableLigatures(@language) {
+    &[data-grammar*="@{language}"] {
+        text-rendering: optimizeLegibility;
+    }
+}
+
+.wrap-guide-config(@n, @color, @amount) {
+    &:nth-child(@{n}) .multi-wrap-guide-line {
+        border-right: 1px solid fade(@color, @amount);
+        background: none;
+    }
+}
+
+.highlight-selected-config(@color) {
+    .highlights .highlight-selected.background .region {
+      background: fade(@color, 20%);
+      border: 1px solid fade(@color, 50%);
+  }
+}
+
+.selection-config(@color) {
+    .selection .region {
+        background-color: @color;
+    }
+}
+
+.bracket-matcher-config(@color) {
+    .bracket-matcher .region {
+        border: 1px solid @color;
+        background: fade(@color, 25%);
+    }
+}
+
+.blinking-cursor {
     .cursor {
         border-width: 2px;
         transition: opacity .3s;
     }
+}
 
-    .selection .region {
-        background-color: @solarized-base02;
-    }
-
-    .bracket-matcher .region {
-        border: 1px solid @solarized-base01;
-        background: fade(@solarized-base01, 25%);
-    }
-
-    .highlights .highlight-selected.background .region {
-      @highlight-selection: @solarized-red;
-      background: fade(@highlight-selection, 20%);
-      border: 1px solid fade(@highlight-selection, 50%);
-    }
-
-    .multi-wrap-guide:nth-child(1) .multi-wrap-guide-line {
-        border-right: 1px solid fade(@solarized-base1, 30%);
-        background: none;
-    }
-    .multi-wrap-guide:nth-child(2) .multi-wrap-guide-line {
-        border-right: 1px solid fade(@solarized-base1, 50%);
-        background: none;
-    }
-    .multi-wrap-guide:nth-child(3) .multi-wrap-guide-line {
-        border-right: 1px solid fade(@solarized-base1, 70%);
-        background: none;
-    }
-
-    .highlight {
-        &.ide-haskell-lint .region {
-            @haskell-ide-lint: @solarized-blue;
-            background: none;
-            background-color: fade(@haskell-ide-lint, 33%);
-        }
-        &.ide-haskell-warning .region {
-            @haskell-ide-warn: @solarized-yellow;
-            background: none;
-            background-color: fade(@haskell-ide-warn, 33%);
-        }
-        &.ide-haskell-error .region {
-            @haskell-ide-err: @solarized-red;
-            background: none;
-            background-color: fade(@haskell-ide-err, 33%);
-        }
-        &.ide-haskell-type .region {
-            @haskell-ide-type: @solarized-green;
-            background: none;
-            background-color: fade(@haskell-ide-type, 33%);
-        }
-    }
-
+.jumpy-config(@fontC, @backgroundC, @borderC, @shadowC) {
     .jumpy-label {
-        color:            @solarized-base2;
-        background-color: @solarized-base01;
-        border:           1px solid @solarized-base02;
-        border-radius:    0;
+        color:             @fontC;
+        background-color:  @backgroundC;
+        border:            1px solid @borderC;
+        border-left-width: 3px;
+        font-family:       inherit;
+        box-shadow:        0 0 5px 0 fade(@shadowC, 66%);
     }
 }
 
-.tree-view {
-    font-size: 12px;
+.tree-view-config {
+    .tree-view {
+        font-size: 12px;
+    }
+}
+
+.ide-haskell-config(@lintC, @warnC, @errorC, @typeC) {
+    .ide-haskell-highlight-config(@color) {
+        .highlight .region {
+            background: none;
+            background-color: fade(@color, 33%);
+        }
+    }
+
+    .ide-haskell-lint    { .ide-haskell-highlight-config(@lintC);  }
+    .ide-haskell-warning { .ide-haskell-highlight-config(@warnC);  }
+    .ide-haskell-error   { .ide-haskell-highlight-config(@errorC); }
+    .ide-haskell-type    { .ide-haskell-highlight-config(@typeC);  }
 }

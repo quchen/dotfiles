@@ -58,7 +58,8 @@
   "ide-haskell-cabal":
     activeGhcVersion: "7.10"
   jumpy:
-    matchPattern: "\\S{2,}"
+    fontSize: 0.8
+    matchPattern: "\\S{1,}"
   minimap:
     plugins:
       "highlight-selected": true
