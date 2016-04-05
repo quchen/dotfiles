@@ -128,15 +128,16 @@ atom-text-editor, atom-text-editor::shadow {
 }
 
 .ide-haskell-config(@lintC, @warnC, @errorC, @typeC) {
-    .ide-haskell-highlight-config(@color) {
-        .highlight .region {
+    .setHighlight(@color) {
+        background-color: fade(@color, 5%);
+        .region {
             background: none;
             background-color: fade(@color, 33%);
         }
     }
 
-    .ide-haskell-lint    { .ide-haskell-highlight-config(@lintC);  }
-    .ide-haskell-warning { .ide-haskell-highlight-config(@warnC);  }
-    .ide-haskell-error   { .ide-haskell-highlight-config(@errorC); }
-    .ide-haskell-type    { .ide-haskell-highlight-config(@typeC);  }
+    .ide-haskell-lint    { .setHighlight(@lintC);  }
+    .ide-haskell-warning { .setHighlight(@warnC);  }
+    .ide-haskell-error   { .setHighlight(@errorC); }
+    .ide-haskell-type    { .setHighlight(@typeC);  }
 }
