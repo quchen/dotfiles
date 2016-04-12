@@ -116,6 +116,7 @@
     dw      = diff --color-words="[^[:space:],;:_-]+"
     dt      = difftool --dir-diff
     mt      = mergetool --no-prompt
+    re      = rebase
     s       = status --short --branch
     sup     = submodule update
     unstage = reset HEAD --
@@ -139,6 +140,7 @@
     nichtmehrverfolgen         = rm --cached
     einweisen                  = commit -v
     holalle                    = fetch --all
+    neubasieren                = rebase
 
 [include]
     path = .gitconfig-local
