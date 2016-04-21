@@ -1,0 +1,7 @@
+".source.haskell":
+    "Language":
+        "prefix": "LANGUAGE"
+        "body": "{-# LANGUAGE $1 #-}"
+    "GHC options":
+        "prefix": "OPTIONS"
+        "body": "{-# OPTIONS_GHC $1 #-}"
