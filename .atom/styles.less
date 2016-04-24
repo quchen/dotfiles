@@ -57,6 +57,8 @@ atom-text-editor, atom-text-editor::shadow {
         @solarized-base01
     );
 
+    .indent-guide-cofig(@solarized-base0, fade(@solarized-base0, 33%), @solarized-base2);
+
 }
 
 .tree-view-config();
@@ -140,4 +142,16 @@ atom-text-editor, atom-text-editor::shadow {
     .ide-haskell-warning { .setHighlight(@warnC);  }
     .ide-haskell-error   { .setHighlight(@errorC); }
     .ide-haskell-type    { .setHighlight(@typeC);  }
+}
+
+.indent-guide-cofig(@activeC, @stackC, @otherC) {
+    .indent-guide-improved {
+        background-color: @otherC;
+        &.indent-guide-stack {
+            background-color: @stackC;
+            &.indent-guide-active {
+                background-color: @activeC;
+                }
+            }
+    }
 }
