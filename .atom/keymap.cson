@@ -2,7 +2,7 @@
 
     "enter":  "core:confirm"
     "escape": "core:cancel"
-    "ctrl-r": "window:reload"
+    "ctrl-shift-r": "window:reload"
 
     # View
     "f11": "window:toggle-full-screen"
@@ -112,6 +112,7 @@
     "ctrl-d":           "quchen:duplicate"
     "tab":              "editor:indent"
     "shift-tab":        "editor:outdent-selected-rows"
+    "ctrl-r":           "autoflow:reflow-selection"
 
     # Navigation
     "ctrl-[":       "jumpy:toggle"
@@ -142,6 +143,7 @@
     "ctrl-h ctrl-s": "haskell-ghc-mod:case-split"
     "ctrl-h ctrl-m": "haskell-ghc-mod:insert-import"
     "ctrl-h ctrl-d": "haskell-ghc-mod:go-to-declaration"
+    "ctrl-h ctrl-p": "ide-haskell-hasktags:show-tags"
 
 # Jumpy bindings
 "atom-workspace atom-text-editor.jumpy-jump-mode":
