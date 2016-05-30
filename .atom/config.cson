@@ -51,10 +51,11 @@
     tabLength: 4
   "git-blame":
     ignoreWhiteSpaceDiffs: true
+  "haskell-ghc-mod":
+    onMouseHoverShow: "Nothing"
   "highlight-selected":
     highlightBackground: true
   "ide-haskell":
-    expressionTypeInterval: 86400000
     onSavePrettify: true
   "ide-haskell-cabal":
     activeGhcVersion: "7.10"
