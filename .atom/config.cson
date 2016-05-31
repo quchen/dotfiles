@@ -63,6 +63,8 @@
   jumpy:
     fontSize: 0.8
     matchPattern: "\\S{2,}"
+  "markdown-preview":
+    liveUpdate: false
   minimap:
     plugins:
       "highlight-selected": true
