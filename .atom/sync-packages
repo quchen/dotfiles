@@ -20,10 +20,13 @@ apm install \
     language-haskell@1.7.16 \
     language-purescript@0.7.0 \
     language-rust@0.4.6 \
+    linter@1.11.4 \
+    linter-rust@0.4.6 \
     merge-conflicts@1.4.3 \
     minimap@4.24.3 \
     minimap-highlight-selected@4.4.0 \
-    multi-wrap-guide@0.23.5 \
-    pigments@0.28.4 \
+    multi-wrap-guide@0.24.0 \
+    pigments@0.29.1 \
+    racer@0.20.0 \
     sort-lines@0.14.0 \
     todo-show@1.6.0

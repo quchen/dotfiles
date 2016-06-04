@@ -43,6 +43,7 @@ PATH="/usr/local/games:$PATH"
 for bindir in $(find "$HOME/bin" -type d); do
     PATH="$bindir:$PATH"
 done
+PATH="$HOME/.cargo/bin:$PATH"
 PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.stack/bin:$PATH"

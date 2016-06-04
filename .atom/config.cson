@@ -94,6 +94,12 @@
         "->"
         "<-"
       ]
+      "source.rust": [
+        "=>"
+      ]
+  racer:
+    racerBinPath: "/home/main/.cargo/bin/racer"
+    rustSrcPath: "/home/main/Programs/rustc-1.9/sourcedist/src/"
   tabs:
     enableVcsColoring: true
     tabScrolling: false
