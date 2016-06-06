@@ -232,6 +232,12 @@ xkb_symbols "qwertzneo" {
         <description>Custom programming</description>
         </configItem>
 </variant>
+<variant>
+        <configItem>
+        <name>qwertzneo</name>
+        <description>QWERTZ+Neo</description>
+        </configItem>
+</variant>
 
 
 
