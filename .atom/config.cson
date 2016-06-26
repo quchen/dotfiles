@@ -54,6 +54,7 @@
     ignoreWhiteSpaceDiffs: true
   "haskell-ghc-mod":
     onMouseHoverShow: "Nothing"
+    useLinter: true
   "highlight-selected":
     highlightBackground: true
   "ide-haskell":
@@ -63,6 +64,8 @@
   jumpy:
     fontSize: 0.8
     matchPattern: "\\S{2,}"
+  linter:
+    showErrorPanel: false
   "markdown-preview":
     liveUpdate: false
   minimap:
