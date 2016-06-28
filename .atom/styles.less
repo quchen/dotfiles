@@ -59,6 +59,7 @@ atom-text-editor, atom-text-editor::shadow {
 
     .indent-guide-cofig(@solarized-base0, fade(@solarized-base0, 33%), @solarized-base2);
 
+    .markdown-styles();
 }
 
 .tree-view-config();
@@ -153,5 +154,25 @@ atom-text-editor, atom-text-editor::shadow {
                 background-color: @activeC;
                 }
             }
+    }
+}
+
+// Custom modifications to make Markdown nicer
+.markdown-styles {
+    .source.gfm {
+        .heading-1 {
+            border-bottom: 2px solid;
+            font-weight: bold;
+        }
+        .heading-2 {
+            border-bottom: 1px solid;
+        }
+        .heading-3 {
+            border-bottom: 1px dotted;
+        }
+        .support.quote.gfm {
+            color: @solarized-yellow;
+            font-weight: bold;
+        }
     }
 }
