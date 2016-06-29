@@ -105,7 +105,7 @@
     "ctrl-down":        "editor:move-line-down"
     "ctrl-j":           "quchen:comment-aware-join-lines-down"
     "ctrl-shift-j":     "quchen:comment-aware-join-lines-up"
-    "ctrl-/":           "editor:toggle-line-comments"
+    "ctrl-;":           "editor:toggle-line-comments"
     "ctrl-t":           "quchen:rotate-selection-right"
     "ctrl-shift-t":     "quchen:rotate-selection-left"
     "ctrl-l":           "quchen:delete-line"
