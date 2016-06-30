@@ -115,8 +115,8 @@
     "ctrl-r":           "autoflow:reflow-selection"
 
     # Navigation
-    "ctrl-[":       "jumpy:toggle"
-    "ctrl-shift-[": "go-to-line:toggle"
+    "ctrl-`":       "jumpy:toggle"
+    "ctrl-shift-`": "go-to-line:toggle"
 
     # Alignment
     "ctrl-,": "quchen:align-multi"
