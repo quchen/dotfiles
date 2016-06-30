@@ -98,7 +98,7 @@
 "atom-workspace atom-text-editor:not([mini])":
 
     # Editing
-    "enter":            "quchen:comment-aware-newline",
+    "enter":            "editor:newline",
     "shift-enter":      "quchen:comment-aware-newline-below"
     "ctrl-shift-enter": "quchen:comment-aware-newline-above"
     "ctrl-up":          "editor:move-line-up"
