@@ -161,17 +161,37 @@ atom-text-editor, atom-text-editor::shadow {
 .markdown-styles {
     .source.gfm {
         .heading-1 {
-            border-bottom: 2px solid;
+            border: 2px solid;
+            padding: 0.25em 0.5em;
             font-weight: bold;
+            background-color: fade(@solarized-blue, 10%);
         }
         .heading-2 {
-            border-bottom: 1px solid;
+            border: 1px solid;
+            padding: 0.25em;
+            background-color: fade(@solarized-blue, 10%);
         }
         .heading-3 {
+            border-bottom: 1px solid;
+            background-color: fade(@solarized-blue, 10%);
+        }
+        .heading-4 {
             border-bottom: 1px dotted;
+            background-color: fade(@solarized-blue, 10%);
+        }
+        .heading-5 {
+            background-color: fade(@solarized-blue, 10%);
         }
         .support.quote.gfm {
             color: @solarized-yellow;
+            font-weight: bold;
+        }
+        .variable.unordered {
+            color: @solarized-red;
+            font-weight: bold;
+        }
+        .variable.ordered {
+            color: @solarized-red;
             font-weight: bold;
         }
     }
