@@ -22,6 +22,15 @@ numberStartingWith = (start) -> () ->
         selection.insertText i.toString()
         ++i
 
+numberStartingWithFirstSelection = () ->
+    selections = atom.workspace.getActiveTextEditor().getSelections()
+    firstNumber = parseInt (selections[0].getText())
+    if isNaN firstNumber
+        numberStartingWith 1
+    else
+        numberStartingWith(firstNumber)()
+
 require("../lib/addCommands.coffee").addCommands
-    "number-from-0": numberStartingWith 0
-    "number-from-1": numberStartingWith 1
+    "number-from-first-selection": numberStartingWithFirstSelection
+    "number-from-0"              : numberStartingWith 0
+    "number-from-1"              : numberStartingWith 1
