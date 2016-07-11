@@ -60,6 +60,12 @@ atom-text-editor, atom-text-editor::shadow {
     .indent-guide-cofig(@solarized-base0, fade(@solarized-base0, 33%), @solarized-base2);
 
     .markdown-styles();
+
+    .line-number.cursor-line {
+        font-weight: bold;
+        color: @solarized-base2;
+        background: @solarized-base02;
+    }
 }
 
 .tree-view-config();
