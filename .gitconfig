@@ -29,6 +29,8 @@
 [user]
     name = David Luposchainsky
     email = dluposchainsky@gmail.com
+[commit]
+    verbose = true
 
 [url "git://github.com/ghc/packages-"]
     insteadOf = git://github.com/ghc/packages/
