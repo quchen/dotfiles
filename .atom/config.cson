@@ -64,8 +64,7 @@
   jumpy:
     fontSize: 0.8
     matchPattern: "\\S{2,}"
-  linter:
-    showErrorPanel: false
+  linter: {}
   "markdown-preview":
     liveUpdate: false
   minimap:
