@@ -216,6 +216,8 @@ sublimeAdd() {
 }
 alias sa=sublimeAdd
 
+alias r=ranger
+
 alias ta="tig --all"
 
 # Store/delete commits, useful for keeping backups when rebasing
