@@ -57,15 +57,15 @@ atom-text-editor, atom-text-editor::shadow {
         @solarized-base01
     );
 
-    .indent-guide-cofig(@solarized-base0, fade(@solarized-base0, 33%), @solarized-base2);
+    .indent-guide-cofig(
+        @solarized-base0,
+        fade(@solarized-base0, 33%),
+        @solarized-base2
+    );
 
     .markdown-styles();
 
-    .line-number.cursor-line {
-        font-weight: bold;
-        color: @solarized-base2;
-        background: @solarized-base02;
-    }
+    .current-line-style(@solarized-base02, @solarized-base2);
 }
 
 .tree-view-config();
@@ -196,5 +196,17 @@ atom-text-editor, atom-text-editor::shadow {
             color: @solarized-red;
             font-weight: bold;
         }
+    }
+}
+
+.current-line-style(@bg, @fg) {
+    .line-number.cursor-line {
+        font-weight: bold;
+        color: @fg;
+        background: @bg;
+    }
+
+    .minimap .cursor-line {
+        background-color: @bg;
     }
 }
