@@ -103,6 +103,8 @@
     "ctrl-shift-enter": "quchen:comment-aware-newline-above"
     "ctrl-up":          "editor:move-line-up"
     "ctrl-down":        "editor:move-line-down"
+    "ctrl-shift-left":  "editor:move-selection-left"
+    "ctrl-shift-right": "editor:move-selection-right"
     "ctrl-j":           "quchen:comment-aware-join-lines-down"
     "ctrl-shift-j":     "quchen:comment-aware-join-lines-up"
     "ctrl-;":           "editor:toggle-line-comments"
