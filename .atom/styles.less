@@ -205,8 +205,11 @@ atom-text-editor, atom-text-editor::shadow {
         color: @fg;
         background: @bg;
     }
+    .cursor-line {
+        background: fade(@bg, 5%);
+    }
 
     .minimap .cursor-line {
-        background-color: @bg;
+        background-color: fade(@bg, 25%);
     }
 }
