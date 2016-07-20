@@ -22,5 +22,5 @@ rotateRight = (list) -> list.unshift list.pop()
 rotateLeft = (list) -> list.push list.shift()
 
 require("../lib/addCommands.coffee").addCommands
-    "rotate-selection-right": cycleSelection rotateRight,
+    "rotate-selection-right": cycleSelection rotateRight
     "rotate-selection-left":  cycleSelection rotateLeft
