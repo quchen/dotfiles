@@ -42,7 +42,7 @@
     # Tab handling
     "ctrl-w":         "tabs:close-tab"
     "ctrl-shift-w":   "tabs:close-all-tabs"
-    "ctrl-shift-t":   "pane:reopen-closed-item"
+    "ctrl-shift-n":   "pane:reopen-closed-item"
     "ctrl-tab":       "pane:show-next-item"
     "ctrl-shift-tab": "pane:show-previous-item"
 
