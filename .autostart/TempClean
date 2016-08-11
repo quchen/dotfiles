@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 # Remove files from ~/temp/ if they haven't been modified for X days.
-# (gvfs-trash is Thunar's trash can.)
-find "$HOME/temp" -maxdepth 1 -mtime +10 -print0 | xargs -0 trash
+# Assumes a suitable "trash" command exists.
+find "$HOME/temp" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 trash
