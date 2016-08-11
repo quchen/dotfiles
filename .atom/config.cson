@@ -117,6 +117,8 @@
   racer:
     racerBinPath: "/home/main/.cargo/bin/racer"
     rustSrcPath: "/home/main/Programs/rustc-1.9/sourcedist/src/"
+  "rst-preview-pandoc":
+    pandocOpts: "-frst -thtml --webtex"
   tabs:
     enableVcsColoring: true
     tabScrolling: false
