@@ -15,22 +15,29 @@ findUnbalancedParentheses = (beforeCursor, afterCursor) ->
     for char in beforeCursor
         switch
             when char == "(" or char == "<" or char == "{" or char == "["
-                console.log char
                 parenthesesStack.push(char)
             when char == ")" or char == ">" or char == "}" or char == "]"
-                console.log char
                 parenthesesStack.pop()
-
     parenthesesStack
 
 closeAllOpenParens = () ->
-    editor       = atom.workspace.getActiveTextEditor()
-    cursorPos    = editor.getCursorBufferPosition()
-    beforeCursor = editor.getTextInBufferRange([[0, 0], cursorPos])
-    afterCursor  = editor.getTextInBufferRange([cursorPos, [Infinity, Infinity]])
+    editor    = atom.workspace.getActiveTextEditor()
+    selection = editor.getLastSelection()
 
-    for unbalancedParenthesis in findUnbalancedParentheses(beforeCursor, afterCursor).reverse()
-        editor.insertText(matchingParenthesis unbalancedParenthesis)
+    if selection.isEmpty()
+        cursorPos    = editor.getCursorBufferPosition()
+        beforeCursor = editor.getTextInBufferRange([[0, 0], cursorPos])
+        afterCursor  = editor.getTextInBufferRange([cursorPos, [Infinity, Infinity]])
+    else
+        beforeCursor = selection.getText()
+        afterCursor = ""
+
+    missingParentheses = []
+    for parenthesis in findUnbalancedParentheses beforeCursor, afterCursor
+        missingParentheses.unshift(matchingParenthesis parenthesis)
+    selectionLib.clearRight selection
+    selection.insertText missingParentheses.join(""), {select: true}
+
 
 require("../lib/addCommands.coffee").addCommands
     "close-open-parentheses": closeAllOpenParens
