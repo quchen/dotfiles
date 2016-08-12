@@ -18,6 +18,15 @@ findUnbalancedParentheses = (beforeCursor, afterCursor) ->
                 parenthesesStack.push(char)
             when char == ")" or char == ">" or char == "}" or char == "]"
                 parenthesesStack.pop()
+
+    afterCursor.split("").reverse().join("") # WTF Javascript
+    for char in afterCursor
+        switch
+            when char == "(" or char == "<" or char == "{" or char == "["
+                parenthesesStack.unshift(char)
+            when char == ")" or char == ">" or char == "}" or char == "]"
+                parenthesesStack.shift()
+
     parenthesesStack
 
 closeAllOpenParens = () ->
