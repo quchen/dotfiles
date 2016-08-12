@@ -195,6 +195,7 @@ done
 alias -g G=" | grep "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
+alias -g C=" | clipboard "
 
 # List files
 LS_COMMON="--group-directories-first --color=always"
