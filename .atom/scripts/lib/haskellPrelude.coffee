@@ -111,15 +111,15 @@ foldl = (f, z, xs) ->
 # flip :: (a -> b -> c) -> (b -> a -> c)
 flip = (f, x, y) -> f y, x
 
-exports.atomically      = atomically
-exports.nubVia          = nubVia
-exports.head            = head
-exports.reverse         = reverse
-exports.zipWith         = zipWith
-exports.all             = all
-exports.any             = any
-exports.partition = partition
-exports.mapMaybe        = mapMaybe
-exports.catMaybes       = catMaybes
-exports.compose         = compose
-exports.foldl           = foldl
+exports.atomically = atomically
+exports.nubVia     = nubVia
+exports.head       = head
+exports.reverse    = reverse
+exports.zipWith    = zipWith
+exports.all        = all
+exports.any        = any
+exports.partition  = partition
+exports.mapMaybe   = mapMaybe
+exports.catMaybes  = catMaybes
+exports.compose    = compose
+exports.foldl      = foldl
