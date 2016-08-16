@@ -9,59 +9,74 @@
 prelude = require "../lib/haskellPrelude.coffee"
 selectionLib = require "../lib/selection.coffee"
 
+# Check whether the current scope is a line comment.
 isLineCommentScopeName = (scope) -> scope.match /^comment\.line/
 
-containsLineCommentScope = ({editor}, selection) ->
+# Check whether the selection contains a line comment.
+containsLineCommentScope = (selection) ->
+    editor = atom.workspace.getActiveTextEditor()
     selectedRangeStart = selection.getBufferRange().start
     scopeDescriptor = editor.scopeDescriptorForBufferPosition selectedRangeStart
     prelude.any isLineCommentScopeName, scopeDescriptor.scopes
 
-newline = (context) ->
-    for selection in context.selections
+# Insert a newline at the current position, commenting out the new line if the
+# old line's scope was a line comment.
+commentAwareNewline = (selection) ->
+    rangeToRestore = selection.getBufferRange()
+    selection.selectToFirstCharacterOfLine()
+    isLineComment = containsLineCommentScope selection
+    selection.setBufferRange(rangeToRestore)
 
-        rangeToRestore = selection.getBufferRange()
-        selection.selectToFirstCharacterOfLine()
-        isLineComment = containsLineCommentScope context, selection
-        selection.setBufferRange(rangeToRestore)
+    selection.insertText "\n", autoIndentNewline: true
+    if isLineComment
+        selection.toggleLineComments()
 
-        selection.insertText "\n", autoIndentNewline: true
-        if isLineComment
+# Insert a new line below the current line. Equivalent to hitting END and then
+# inserting a newline.
+commentAwareNewlineBelow = (selection) ->
+    selectionLib.translate selection, [0, Infinity]
+    commentAwareNewline selection
+
+# Insert a new line above the current line. Equivalent to hitting HOME,
+# inserting a newline, and moving the cursor up one line.
+commentAwareNewlineAbove = (selection) ->
+
+    # Clear to the first character of the line so that indentation is maintained
+    selection.selectToFirstCharacterOfLine()
+    selection.clear()
+
+    commentAwareNewline selection
+    selectionLib.translate selection, [-1, 0]
+
+# Join the current line with the one below, collapsing multiple whitespace to a
+# single space character.
+joinLinesDown = (selection) ->
+    isLineComment = containsLineCommentScope selection
+    if isLineComment
+        {rangeBefore} = selectionLib.translate selection, [1,0]
+        isStillLineComment = containsLineCommentScope selection
+        if isStillLineComment
             selection.toggleLineComments()
+        selection.setBufferRange(rangeBefore)
+    selection.joinLines()
 
-newlineBelow = (context) ->
-    for selection in context.selections
-        selectionLib.translate selection, [0, Infinity]
-    newline context
+# Join the current line with the one above, collapsing multiple whitespace to a
+# single space character.
+joinLinesUp = (selection) ->
+    selectionLib.translate selection, [-1, 0]
+    joinLinesDown selection
 
-newlineAbove = (context) ->
-    newlineBelow context
-    context.editor.moveLineUp() # TODO: Eliminate this internal function
-
-joinLinesDown = (context) ->
-    for selection in context.selections
-        isLineComment = containsLineCommentScope context, selection
-        if isLineComment
-            {rangeBefore} = selectionLib.translate selection, [1,0]
-            isStillLineComment = containsLineCommentScope context, selection
-            if isStillLineComment
-                selection.toggleLineComments()
-            selection.setBufferRange(rangeBefore)
-        selection.joinLines()
-
-joinLinesUp = (context) ->
-    for selection in context.selections
-        selectionLib.translate selection, [-1, 0]
-    joinLinesDown context
-
-commentAware = (action) -> () ->
+# Execute an action on a single selection on all selections.
+#
+# forAllSelections : (Selection -> IO ()) -> () -> IO ()
+forAllSelections = (action) -> () ->
     editor = atom.workspace.getActiveTextEditor()
-    action
-        "editor":     editor,
-        "selections": editor.getSelections()
+    for selection in editor.getSelections()
+        action selection
 
 require("../lib/addCommands.coffee").addCommands
-    "comment-aware-newline":         commentAware newline
-    "comment-aware-newline-above":   commentAware newlineAbove
-    "comment-aware-newline-below":   commentAware newlineBelow
-    "comment-aware-join-lines-up":   commentAware joinLinesUp
-    "comment-aware-join-lines-down": commentAware joinLinesDown
+    "comment-aware-newline":         forAllSelections commentAwareNewline
+    "comment-aware-newline-above":   forAllSelections commentAwareNewlineAbove
+    "comment-aware-newline-below":   forAllSelections commentAwareNewlineBelow
+    "comment-aware-join-lines-up":   forAllSelections joinLinesUp
+    "comment-aware-join-lines-down": forAllSelections joinLinesDown
