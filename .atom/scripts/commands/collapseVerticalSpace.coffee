@@ -2,6 +2,12 @@
 
 prelude = require "../lib/haskellPrelude.coffee"
 
+collapseCallback = ({matchText, replace}) ->
+    if matchText.length == 3
+        replace "\n\n"
+    else if matchText.length > 4
+        replace "\n\n\n\n"
+
 collapseVerticalSpace = () ->
     editor = atom.workspace.getActiveTextEditor()
     buffer = editor.getBuffer()
@@ -12,11 +18,9 @@ collapseVerticalSpace = () ->
     if anyRangeSelected
         for selection in selections
             range = selection.getBufferRange()
-            buffer.backwardsScanInRange /\n{3}/g, range, ({replace}) -> replace "\n\n"
-            buffer.backwardsScanInRange /\n{5,}/g, range, ({replace}) -> replace "\n\n\n\n"
+            buffer.backwardsScanInRange /\n{3,}/g, range, collapseCallback
     else
-        buffer.backwardsScan /\n{3}/g, ({replace}) -> replace "\n\n"
-        buffer.backwardsScan /\n{5,}/g, ({replace}) -> replace "\n\n\n\n"
+        buffer.backwardsScan /\n{3,}/g, collapseCallback
 
 require("../lib/addCommands.coffee").addCommands
     "collapse-vertical-space": collapseVerticalSpace
