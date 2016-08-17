@@ -21,35 +21,31 @@ function deg2rad(angle)
     return angle / 360 * (2 * math.pi)
 end
 
--- Interpolate linearly between two values. The parameter ranges from 0 to 1.
-function linearInterpolate(startValue, endValue, parameter)
-    return (endValue - startValue) * parameter + startValue
-end
-
--- Interpolate linearly between two values. The parameter takes values between a
--- minimum and a maximum, and the interpolation is done linearly between those
--- parameter values.
+-- Interpolate linearly between two values.
 --
--- For example, linearInterpolateInRange(0,1, 10,20, 15) will yield 0.5,
+-- > linearInterpolation(start, end, paramStart, paramEnd, param)
+--
+-- interpolates from start to end as param moves from paramStart to paramEnd.
+--
+-- For example, linearInterpolation(0,1, 10,20, 15) will yield 0.5,
 -- since 15 is the halfway point between 10 and 20. Therefore, the halfway
 -- point between 0 and 1 is chosen, which is 0.5.
-function linearInterpolateInRange(startValue, endValue, paramMin, paramMax, parameter)
-    local interpolatedParameter = 1 - (paramMax - parameter) / (paramMax - paramMin)
-    return linearInterpolate(startValue, endValue, interpolatedParameter)
+function linearInterpolation(startValue, endValue, paramMin, paramMax, parameter)
+    return (endValue-startValue) / (paramMax-paramMin) * (parameter-paramMax) + endValue
 end
 
 function linearInterpolateColours(startColour, endColour, paramMin, paramMax, parameter)
     local startR, startG, startB = splitRgb(startColour)
     local endR, endG, endB = splitRgb(endColour)
     return joinRgb(
-        linearInterpolateInRange(startR, endR, paramMin, paramMax, parameter),
-        linearInterpolateInRange(startG, endG, paramMin, paramMax, parameter),
-        linearInterpolateInRange(startB, endB, paramMin, paramMax, parameter))
+        linearInterpolation(startR, endR, paramMin, paramMax, parameter),
+        linearInterpolation(startG, endG, paramMin, paramMax, parameter),
+        linearInterpolation(startB, endB, paramMin, paramMax, parameter))
 end
 
 function arc(cr, centerX, centerY, radius, startAngle, fillLevel)
 
-    startAngleRad = deg2rad(startAngle + 180)
+    local startAngleRad = deg2rad(startAngle + 180)
     local endAngleRad = startAngleRad + 2 * math.pi * fillLevel
 
     cairo_arc(cr, centerX, centerY, radius, startAngleRad, endAngleRad)
@@ -119,7 +115,7 @@ function cpuCircles(cr, xOffset, yOffset)
             cr,
             xOffset,
             yOffset,
-            linearInterpolateInRange(40, 100, 1, 4, cpuId),
+            linearInterpolation(40, 100, 1, 4, cpuId),
             90,
             1)
         cairo_set_line_width(cr, 18)
@@ -129,17 +125,17 @@ function cpuCircles(cr, xOffset, yOffset)
         local load = conky_parse(string.format("${cpu cpu%d}", cpuId))
         cairo_set_source_rgba(
             cr,
-            linearInterpolateInRange(r1,r2, 0,100, load),
-            linearInterpolateInRange(g1,g2, 0,100, load),
-            linearInterpolateInRange(b1,b2, 0,100, load),
-            linearInterpolateInRange(0.8, 0.5, 1, 4, cpuId))
+            linearInterpolation(r1,r2, 0,100, load),
+            linearInterpolation(g1,g2, 0,100, load),
+            linearInterpolation(b1,b2, 0,100, load),
+            linearInterpolation(0.8, 0.5, 1, 4, cpuId))
         arc(
             cr,
             xOffset,
             yOffset,
-            linearInterpolateInRange(40, 100, 1, 4, cpuId),
+            linearInterpolation(40, 100, 1, 4, cpuId),
             90,
-            linearInterpolateInRange(
+            linearInterpolation(
                 0,1,
                 0,100,
                 load))
