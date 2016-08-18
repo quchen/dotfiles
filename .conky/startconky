@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-conky -c "$HOME/.conky/conkyrc"
+cd "$(dirname "$0")"
+conky -c conkyrc
