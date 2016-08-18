@@ -163,6 +163,3 @@ ${voffset -15}
 Uptime${alignr}${uptime_short}
 Unix time${alignr}${time %s} s
 Entropy ${alignr}${entropy_avail} of ${entropy_poolsize} Bit (${entropy_perc} %)
-
-
-${voffset 400}

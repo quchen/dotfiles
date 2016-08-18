@@ -19,7 +19,7 @@ function conky_main()
 
 	local updates=conky_parse("${updates}")
 	if tonumber(updates) > 5 then
-		main(cr)
+        main(cr)
 	end
 end
 
@@ -45,8 +45,7 @@ function cpuCircles(cr, xOffset, yOffset)
         , alignY   = "m"
         , colour   = colour
         , alpha    = alpha
-        , fontSize = 20 }
-    )
+        , fontSize = 20 })
 
     for cpuId = 1, 4 do
         local cpuLoad = conky_parse(string.format("${cpu cpu%d}", cpuId))
@@ -59,8 +58,7 @@ function cpuCircles(cr, xOffset, yOffset)
             , radius  = util.linearInterpolation(60,90+4, 1,4, cpuId)
             , value   = util.linearInterpolation(0,1, 0,100, cpuLoad)
             , value0  = 0
-            , width   = 10 }
-        )
+            , width   = 10 })
     end
 end
 
@@ -97,8 +95,7 @@ function memoryCircles(cr, xOffset, yOffset)
             , radius  = 60
             , value   = util.linearInterpolation(0,1, 0,100, memPercent)
             , value0  = 0
-            , width   = 10 }
-        )
+            , width   = 10 })
     end
 
     do
@@ -113,8 +110,7 @@ function memoryCircles(cr, xOffset, yOffset)
             , radius  = 70
             , value   = util.linearInterpolation(0,1, 0,100, swapPercent)
             , value0  = 0
-            , width   = 6 }
-        )
+            , width   = 6 })
     end
 
     widget.alignedText(
