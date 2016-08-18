@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+conky -c "$HOME/.conky/conkyrc"
