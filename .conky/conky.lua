@@ -86,6 +86,7 @@ end
 function cpuCircles(cr, xOffset, yOffset)
 
     local colour = 0xffffff
+    local alpha = 0.5
 
     alignedText(
         cr,
@@ -95,6 +96,7 @@ function cpuCircles(cr, xOffset, yOffset)
         , alignX   = "c"
         , alignY   = "m"
         , colour   = colour
+        , alpha    = alpha
         , fontSize = 20 }
     )
 
@@ -103,16 +105,15 @@ function cpuCircles(cr, xOffset, yOffset)
         ringGauge(
             cr,
             { colour  = colour
+            , alpha   = alpha
             , xOffset = xOffset
             , yOffset = yOffset
-            , radius  = linearInterpolation(40,100, 1,4, cpuId)
+            , radius  = linearInterpolation(60,90+4, 1,4, cpuId)
             , value   = linearInterpolation(0,1, 0,100, cpuLoad)
             , value0  = 0
-            , width   = 19 }
+            , width   = 10 }
         )
     end
-
-
 end
 
 function graphBoxes(cr)
@@ -135,18 +136,20 @@ end
 
 function memoryCircles(cr, xOffset, yOffset)
     local colour = 0xffffff
+    local alpha = 0.5
 
     do
         local memPercent = conky_parse(string.format("${memperc}"))
         ringGauge(
             cr,
             { colour  = colour
+            , alpha   = alpha
             , xOffset = xOffset
             , yOffset = yOffset
-            , radius  = 50
+            , radius  = 60
             , value   = linearInterpolation(0,1, 0,100, memPercent)
             , value0  = 0
-            , width   = 19 }
+            , width   = 10 }
         )
     end
 
@@ -156,12 +159,13 @@ function memoryCircles(cr, xOffset, yOffset)
         ringGauge(
             cr,
             { colour  = colour
+            , alpha   = alpha
             , xOffset = xOffset
             , yOffset = yOffset
-            , radius  = 65
+            , radius  = 70
             , value   = linearInterpolation(0,1, 0,100, swapPercent)
             , value0  = 0
-            , width   = 9 }
+            , width   = 6 }
         )
     end
 
@@ -173,30 +177,33 @@ function memoryCircles(cr, xOffset, yOffset)
         , alignX   = "c"
         , alignY   = "m"
         , colour   = colour
+        , alpha    = alpha
         , fontSize = 20 }
     )
 end
 
 function hddCircles(cr, xOffset, yOffset)
     local colour = 0xffffff
+    local alpha = 0.5
 
     local gaugeConfig =
         { colour  = colour
+        , alpha   = alpha
         , xOffset = xOffset
         , yOffset = yOffset
         , radius  = null
         , value   = null
         , value0  = 0
-        , width   = 19 }
+        , width   = 10 }
     do
         local hddRootUsedPercent = conky_parse(string.format("${fs_used_perc /}"))
-        gaugeConfig.radius = 50
+        gaugeConfig.radius = 60
         gaugeConfig.value = linearInterpolation(0,1, 0,100, hddRootUsedPercent)
         ringGauge(cr, gaugeConfig)
     end
     do
         local homeUsedPercent = conky_parse(string.format("${fs_used_perc /home}"))
-        gaugeConfig.radius = 70
+        gaugeConfig.radius = 70+1
         gaugeConfig.value = linearInterpolation(0,1, 0,100, homeUsedPercent)
         ringGauge(cr, gaugeConfig)
     end
@@ -209,18 +216,12 @@ function hddCircles(cr, xOffset, yOffset)
         , alignX   = "c"
         , alignY   = "m"
         , colour   = colour
+        , alpha    = alpha
         , fontSize = 20 })
 end
 
 function ringGauge(cr, config)
-    local colour           = config.colour
-    local xOffset, yOffset = config.xOffset, config.yOffset
-    local value            = config.value
-    local width            = config.width
-    local radius           = config.radius
-    local value0           = config.value0
-
-    local value0angle = linearInterpolation(0, 2*math.pi, 0,1, value0)
+    local value0angle = linearInterpolation(0, 2*math.pi, 0,1, config.value0)
     local angle = function(filledFraction)
         return linearInterpolation(
             -math.pi/2 + value0angle,
@@ -229,103 +230,120 @@ function ringGauge(cr, config)
              filledFraction)
     end
 
-    cairo_set_source_rgba(cr, splitRgba(colour, 0.5))
+    cairo_set_source_rgba(cr, splitRgba(config.colour, config.alpha))
     cairo_arc(
         cr,
-        xOffset,
-        yOffset,
-        radius,
+        config.xOffset,
+        config.yOffset,
+        config.radius,
         angle(0),
-        angle(value))
-    cairo_set_line_width(cr, width)
+        angle(config.value))
+    cairo_set_line_width(cr, config.width)
     cairo_stroke(cr)
 
-    cairo_set_source_rgba(cr, splitRgba(colour, 0.15))
+    cairo_set_source_rgba(cr, splitRgba(config.colour, config.alpha/4))
     cairo_arc(
         cr,
-        xOffset,
-        yOffset,
-        radius,
-        angle(value),
+        config.xOffset,
+        config.yOffset,
+        config.radius,
+        angle(config.value),
         angle(1))
-    cairo_set_line_width(cr, width)
+    cairo_set_line_width(cr, config.width)
     cairo_stroke(cr)
 end
 
 function radialGauge(cr, config)
-    local colour               = config.colour
-    local xOffset, yOffset     = config.xOffset, config.yOffset
-    local angleStart, angleEnd = config.angleStart, config.angleEnd
-    local minRadius, maxRadius = config.minRadius, config.maxRadius
-    local value                = config.value
-
-    cairo_set_source_rgba(cr, splitRgba(colour, 0.5))
+    cairo_set_source_rgba(cr, splitRgba(config.colour, config.alpha))
     cairo_arc(
         cr,
-        xOffset,
-        yOffset,
-        linearInterpolation(minRadius,(maxRadius+minRadius)/2, 0,1, value),
-        angleStart,
-        angleEnd)
-    cairo_set_line_width(cr, linearInterpolation(0, maxRadius-minRadius, 0,1, value))
+        config.xOffset,
+        config.yOffset,
+        linearInterpolation(
+            config.minRadius, (config.maxRadius+config.minRadius)/2,
+            0, 1,
+            config.value),
+        config.angleStart,
+        config.angleEnd)
+    cairo_set_line_width(
+        cr,
+        linearInterpolation(
+            0, config.maxRadius-config.minRadius,
+            0, 1,
+            config.value))
     cairo_stroke(cr)
 
-    cairo_set_source_rgba(cr, splitRgba(colour, 0.15))
+    cairo_set_source_rgba(cr, splitRgba(config.colour, config.alpha/4))
     cairo_arc(
         cr,
-        xOffset,
-        yOffset,
-        (maxRadius+minRadius)/2,
-        angleStart,
-        angleEnd)
-    cairo_set_line_width(cr, maxRadius - minRadius)
+        config.xOffset,
+        config.yOffset,
+        (config.maxRadius+config.minRadius)/2,
+        config.angleStart,
+        config.angleEnd)
+    cairo_set_line_width(cr, config.maxRadius - config.minRadius)
     cairo_stroke(cr)
 end
 
 function alignedText(cr, config)
-    local text             = config.text
-    local fontSize         = config.fontSize
-    local centerX, centerY = config.centerX, config.centerY
-    local alignX, alignY   = config.alignX, config.alignY
-    local colour           = config.colour
-
-    cairo_set_source_rgba(cr, splitRgba(colour, 1))
+    cairo_set_source_rgba(cr, splitRgba(config.colour, config.alpha))
     cairo_select_font_face(
         cr,
         "Monospace",
         CAIRO_FONT_SLANT_NORMAL,
         CAIRO_FONT_WEIGHT_NORMAL)
-    cairo_set_font_size (cr, fontSize)
+    cairo_set_font_size (cr, config.fontSize)
 
     do
         local te = cairo_text_extents_t:create()
-        cairo_text_extents(cr, text, te)
+        cairo_text_extents(cr, config.text, te)
 
         local doAlignX = function(footpoint)
-            if alignX == "l" then
+            if config.alignX == "l" then
                 return footpoint
-            elseif alignX == "c" then
+            elseif config.alignX == "c" then
                 return footpoint - te.width/2
-            elseif alignX == "r" then
+            elseif config.alignX == "r" then
                 return footpoint + te.width
             else
-                error(string.format("Allowed x alignments: l, c, r, given: %s", alignX))
+                error(string.format("Allowed x alignments: l, c, r, given: %s", config.alignX))
             end
         end
         local doAlignY = function(footpoint)
-            if alignY == "u" then
+            if config.alignY == "u" then
                 return footpoint + te.height
-            elseif alignY == "m" then
+            elseif config.alignY == "m" then
                 return footpoint + te.height/2
-            elseif alignY == "d" then
+            elseif config.alignY == "d" then
                 return footpoint
             else
-                error(string.format("Allowed y alignments: u, m, d, given: %s", alignY))
+                error(string.format("Allowed y alignments: u, m, d, given: %s", config.alignY))
             end
         end
-        cairo_move_to(cr, doAlignX(centerX), doAlignY(centerY))
+        cairo_move_to(cr, doAlignX(config.centerX), doAlignY(config.centerY))
     end
 
-    cairo_show_text(cr, text)
+    cairo_show_text(cr, config.text)
+    cairo_stroke(cr)
+end
+
+function polarToCartesian(r, phi)
+    return r*math.cos(phi), r*math.sin(phi)
+end
+
+-- Draw radial rays from a center point. Useful to create ticks on circles.
+function rays(cr, config)
+    for i = 1, config.multitude do
+        local angle = linearInterpolation(
+            config.rotation,2*math.pi + config.rotation,
+            1, config.multitude+1,
+            i)
+        local x,y = polarToCartesian(config.innerRadius, angle)
+        cairo_move_to(cr, x+config.centerX, y+config.centerY)
+        x,y = polarToCartesian(config.outerRadius, angle)
+        cairo_line_to(cr, x+config.centerX, y+config.centerY)
+    end
+    cairo_set_line_width(cr, config.lineWidth)
+    cairo_set_source_rgba(cr, splitRgba(config.colour, config.alpha))
     cairo_stroke(cr)
 end
