@@ -76,9 +76,11 @@ function conky_main()
 end
 
 function main(cr)
-    cpuCircles(cr, 200, 180)
+    centerX = conky_window.width/2
+    cpuCircles(cr, centerX, 140)
     graphBoxes(cr)
-    memoryCircles(cr, 200, 360)
+    memoryCircles(cr, centerX, 340)
+    hddCircles(cr, centerX, 500)
 end
 
 function cpuCircles(cr, xOffset, yOffset)
@@ -173,6 +175,41 @@ function memoryCircles(cr, xOffset, yOffset)
         , colour   = colour
         , fontSize = 20 }
     )
+end
+
+function hddCircles(cr, xOffset, yOffset)
+    local colour = 0xffffff
+
+    local gaugeConfig =
+        { colour  = colour
+        , xOffset = xOffset
+        , yOffset = yOffset
+        , radius  = null
+        , value   = null
+        , value0  = 0
+        , width   = 19 }
+    do
+        local hddRootUsedPercent = conky_parse(string.format("${fs_used_perc /}"))
+        gaugeConfig.radius = 50
+        gaugeConfig.value = linearInterpolation(0,1, 0,100, hddRootUsedPercent)
+        ringGauge(cr, gaugeConfig)
+    end
+    do
+        local homeUsedPercent = conky_parse(string.format("${fs_used_perc /home}"))
+        gaugeConfig.radius = 70
+        gaugeConfig.value = linearInterpolation(0,1, 0,100, homeUsedPercent)
+        ringGauge(cr, gaugeConfig)
+    end
+
+    alignedText(
+        cr,
+        { text     = "HDD"
+        , centerX  = xOffset
+        , centerY  = yOffset
+        , alignX   = "c"
+        , alignY   = "m"
+        , colour   = colour
+        , fontSize = 20 })
 end
 
 function ringGauge(cr, config)
