@@ -2,53 +2,78 @@ require("cairo")
 local util = require("util")
 local widget = require("widget")
 
-function conky_main()
 
+
+function conky_main()
     if conky_window == nil then
         return
     end
 
-    local cairoSurface = cairo_xlib_surface_create(
-        conky_window.display,
-        conky_window.drawable,
-        conky_window.visual,
-        conky_window.width,
-        conky_window.height)
+    local cr = cairo_create(
+        cairo_xlib_surface_create(
+            conky_window.display,
+            conky_window.drawable,
+            conky_window.visual,
+            conky_window.width,
+            conky_window.height))
 
-    local cr = cairo_create(cairoSurface)
-
-	local updates=conky_parse("${updates}")
-	if tonumber(updates) > 5 then
-        main(cr)
-	end
-end
-
-function main(cr)
-    centerX = conky_window.width/2
+    local centerX = conky_window.width/2
+    topCpu(cr, 370, 160, 5)
     cpuCircles(cr, centerX, 140)
     graphBoxes(cr)
     memoryCircles(cr, centerX, 340)
     hddCircles(cr, centerX, 500)
+    entropyCircles(cr, centerX, 750)
+
 end
+
+
 
 function cpuCircles(cr, xOffset, yOffset)
 
     local colour = 0xffffff
     local alpha = 0.5
 
-    widget.alignedText(
-        cr,
-        { text     = "CPU"
-        , centerX  = xOffset
-        , centerY  = yOffset
-        , alignX   = "c"
-        , alignY   = "m"
-        , colour   = colour
-        , alpha    = alpha
-        , fontSize = 20 })
+    local getCpuLoad = function(cpuId)
+        local cpuPat = cpuId and "${cpu cpu%d}" or "${cpu cpu}"
+        return tonumber(conky_parse(string.format(cpuPat, cpuId)))
+    end
 
-    for cpuId = 1, 4 do
-        local cpuLoad = conky_parse(string.format("${cpu cpu%d}", cpuId))
+    do
+        local labelPadding = 3
+        widget.alignedText(
+            cr,
+            { text     = "CPU"
+            , centerX  = xOffset
+            , centerY  = yOffset - labelPadding
+            , alignX   = "c"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = 20 })
+        widget.alignedText(
+            cr,
+            { text     = getCpuLoad()
+            , centerX  = xOffset
+            , centerY  = yOffset + labelPadding
+            , alignX   = "c"
+            , alignY   = "u"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = 20 })
+    end
+
+    local cpuLoads = {}
+    do
+        for cpuId = 1, 4 do
+            cpuLoads[cpuId] = getCpuLoad(cpuId)
+        end
+        local compareLoads = function(x,y)
+            return x > y
+        end
+        table.sort(cpuLoads, compareLoads)
+    end
+    for cpuId, cpuLoad in pairs(cpuLoads) do
         widget.ringGauge(
             cr,
             { colour  = colour
@@ -61,6 +86,8 @@ function cpuCircles(cr, xOffset, yOffset)
             , width   = 10 })
     end
 end
+
+
 
 function graphBoxes(cr)
     local box = function(cr, x, y, w, h)
@@ -79,6 +106,8 @@ function graphBoxes(cr)
     box(cr, 22, 614, 185, 32) -- Upload
     box(cr, 222, 614, 185, 32) -- Download
 end
+
+
 
 function memoryCircles(cr, xOffset, yOffset)
     local colour = 0xffffff
@@ -100,17 +129,18 @@ function memoryCircles(cr, xOffset, yOffset)
 
     do
         local swapPercent = tonumber(conky_parse(string.format("${swapperc}")))
-        if not swapPercent then swapPercent = 0 end
-        widget.ringGauge(
-            cr,
-            { colour  = colour
-            , alpha   = alpha
-            , xOffset = xOffset
-            , yOffset = yOffset
-            , radius  = 70
-            , value   = util.linearInterpolation(0,1, 0,100, swapPercent)
-            , value0  = 0
-            , width   = 6 })
+        if swapPercent then
+            widget.ringGauge(
+                cr,
+                { colour  = colour
+                , alpha   = alpha
+                , xOffset = xOffset
+                , yOffset = yOffset
+                , radius  = 70
+                , value   = util.linearInterpolation(0,1, 0,100, swapPercent)
+                , value0  = 0
+                , width   = 6 })
+        end
     end
 
     widget.alignedText(
@@ -125,6 +155,8 @@ function memoryCircles(cr, xOffset, yOffset)
         , fontSize = 20 }
     )
 end
+
+
 
 function hddCircles(cr, xOffset, yOffset)
     local colour = 0xffffff
@@ -162,4 +194,70 @@ function hddCircles(cr, xOffset, yOffset)
         , colour   = colour
         , alpha    = alpha
         , fontSize = 20 })
+end
+
+
+
+function entropyCircles(cr, xOffset, yOffset)
+    local colour = 0xffffff
+    local alpha = 0.5
+
+    local entropyPoolSize = conky_parse("${entropy_avail}")
+    local entropyPoolMax = conky_parse("${entropy_poolsize}")
+
+    widget.ringGauge(
+        cr,
+        { colour  = colour
+        , alpha   = alpha
+        , xOffset = xOffset
+        , yOffset = yOffset
+        , radius  = 60
+        , value   = util.linearInterpolation(0,1, 0,entropyPoolMax, entropyPoolSize)
+        , value0  = 0
+        , width   = 10 })
+
+    widget.alignedText(
+        cr,
+        { text     = "S"
+        , centerX  = xOffset
+        , centerY  = yOffset
+        , alignX   = "c"
+        , alignY   = "m"
+        , colour   = colour
+        , alpha    = alpha
+        , fontSize = 20 })
+end
+
+function topCpu(cr, xOffset, yOffset, numTop)
+
+    local colour = 0xffffff
+    local alpha = 1
+    local fontSize = 16
+    local padding = 10 -- Distance between process name and its load
+
+    for i = 1, numTop do
+        local name = util.trim(conky_parse(string.format("${top name %d}", i)))
+        local cpuPercent = util.trim(conky_parse(string.format("${top cpu %d}", i)))
+
+        widget.alignedText(
+            cr,
+            { text     = name
+            , centerX  = xOffset - padding/2
+            , centerY  = yOffset + (i-1) * fontSize
+            , alignX   = "r"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+        widget.alignedText(
+            cr,
+            { text     = string.format("%0.1f", cpuPercent)
+            , centerX  = xOffset + padding/2
+            , centerY  = yOffset + (i-1) * fontSize
+            , alignX   = "l"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+    end
 end

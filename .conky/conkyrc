@@ -111,11 +111,12 @@ ${cpugraph cpu0 32,384 204dde 2478ef -t}
 ${voffset -30}
 ${color #2478ef}${alignc}${cpubar cpu1 4,92} ${cpubar cpu2 4,92} ${cpubar cpu3 4,92} ${cpubar cpu4 4,92}${color}
 ${voffset -25}
-${cpu cpu} %${alignr}${hwmon 0 temp 1} °C, fan ${hwmon 1 fan 1}/min
+${alignr}${hwmon 0 temp 1} °C, fan ${hwmon 1 fan 1}/min
 
-${top name 1}${alignr}${top cpu 1} %
-${top name 2}${alignr}${top cpu 2} %
-${top name 3}${alignr}${top cpu 3} %
+# ${top name 1}${alignr}${top cpu 1} %
+# ${top name 2}${alignr}${top cpu 2} %
+# ${top name 3}${alignr}${top cpu 3} %
+${voffset 38}
 
 ${color1}Memory ${hr 2}${color}
 ${alignr}${memgraph 32,384 23cb08 1c8c09 -t}

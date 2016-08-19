@@ -38,8 +38,13 @@ local function linearInterpolateColours(startColour, endColour, paramMin, paramM
         linearInterpolation(startB, endB, paramMin, paramMax, parameter))
 end
 
+local trim = function(str)
+    return string.gsub(str, "^%s*(.-)%s*$", "%1")
+end
+
 return
     { splitRgb                 = splitRgb
     , splitRgba                = splitRgba
     , linearInterpolation      = linearInterpolation
-    , linearInterpolateColours = linearInterpolateColours }
+    , linearInterpolateColours = linearInterpolateColours
+    , trim                     = trim }

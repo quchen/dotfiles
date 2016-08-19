@@ -2,6 +2,7 @@ require("cairo")
 local util = require("util")
 
 
+
 local function ringGauge(cr, config)
     local value0angle = util.linearInterpolation(0, 2*math.pi, 0,1, config.value0)
     local angle = function(filledFraction)
@@ -35,6 +36,8 @@ local function ringGauge(cr, config)
     cairo_stroke(cr)
 end
 
+
+
 local function radialGauge(cr, config)
     cairo_set_source_rgba(cr, util.splitRgba(config.colour, config.alpha))
     cairo_arc(
@@ -67,6 +70,8 @@ local function radialGauge(cr, config)
     cairo_stroke(cr)
 end
 
+
+
 local function alignedText(cr, config)
     cairo_set_source_rgba(cr, util.splitRgba(config.colour, config.alpha))
     cairo_select_font_face(
@@ -86,7 +91,7 @@ local function alignedText(cr, config)
             elseif config.alignX == "c" then
                 return footpoint - te.width/2
             elseif config.alignX == "r" then
-                return footpoint + te.width
+                return footpoint - te.width
             else
                 error(string.format("Allowed x alignments: l, c, r, given: %s", config.alignX))
             end
@@ -109,9 +114,13 @@ local function alignedText(cr, config)
     cairo_stroke(cr)
 end
 
+
+
 local function polarToCartesian(r, phi)
     return r*math.cos(phi), r*math.sin(phi)
 end
+
+
 
 -- Draw radial rays from a center point. Useful to create ticks on circles.
 local function rays(cr, config)
@@ -130,8 +139,37 @@ local function rays(cr, config)
     cairo_stroke(cr)
 end
 
+
+
+local function barLeftRight(cr, config)
+
+    local valueX = util.linearInterpolation(0,config.width, 0,1, config.value)
+
+    -- Empty part
+    cairo_set_source_rgba(cr, util.splitRgba(config.colour, config.alpha))
+    cairo_rectangle(
+        cr,
+        config.topleftX,
+        config.topleftY,
+        valueX,
+        config.height)
+    cairo_fill(cr)
+
+    -- Filled part
+    cairo_set_source_rgba(cr, util.splitRgba(config.colour, config.alpha/4))
+    cairo_rectangle(
+        cr,
+        config.topleftX + valueX,
+        config.topleftY,
+        util.linearInterpolation(0,config.width, 1,0, config.value),
+        config.height)
+    cairo_fill(cr)
+end
+
 return
-    { ringGauge   = ringGauge
-    , radialGauge = radialGauge
-    , alignedText = alignedText
-    , rays        = rays }
+    { ringGauge    = ringGauge
+    , radialGauge  = radialGauge
+    , alignedText  = alignedText
+    , rays         = rays
+    , barLeftRight = barLeftRight
+    }
