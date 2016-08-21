@@ -120,11 +120,12 @@ ${voffset 38}
 
 ${color1}Memory ${hr 2}${color}
 ${alignr}${memgraph 32,384 23cb08 1c8c09 -t}
-${voffset -8}${memperc} %${alignr}${mem} / ${memmax}
+${alignr}${mem} / ${memmax}
 
-${top_mem name 1}${tab 120}${top_mem mem_res 1}${alignr}${top_mem mem 1} %
-${top_mem name 2}${tab 120}${top_mem mem_res 2}${alignr}${top_mem mem 2} %
-${top_mem name 3}${tab 120}${top_mem mem_res 3}${alignr}${top_mem mem 3} %
+# ${top_mem name 1}${tab 120}${top_mem mem_res 1}${alignr}${top_mem mem 1} %
+# ${top_mem name 2}${tab 120}${top_mem mem_res 2}${alignr}${top_mem mem 2} %
+# ${top_mem name 3}${tab 120}${top_mem mem_res 3}${alignr}${top_mem mem 3} %
+${voffset 29}
 
 ${color2}Hard drive ${hr 2}${color}
 Mount${tab 64}Used${tab 80}Max${tab 120}%
@@ -163,4 +164,6 @@ ${color4}Misc ${hr 2}${color}
 ${voffset -15}
 Uptime${alignr}${uptime_short}
 Unix time${alignr}${time %s} s
-Entropy ${alignr}${entropy_avail} of ${entropy_poolsize} Bit (${entropy_perc} %)
+Entropy ${alignr}${entropy_avail} of ${entropy_poolsize} Bit
+
+${voffset 200}

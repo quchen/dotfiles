@@ -17,14 +17,19 @@ function conky_main()
             conky_window.width,
             conky_window.height))
 
-    local centerX = conky_window.width/2
-    topCpu(cr, 370, 160, 5)
-    cpuCircles(cr, centerX, 140)
-    graphBoxes(cr)
-    memoryCircles(cr, centerX, 340)
-    hddCircles(cr, centerX, 500)
-    entropyCircles(cr, centerX, 750)
+    local xOffset = 100
 
+    topCpu(cr, 370, 160, 5)
+    cpuCircles(cr, xOffset, 140)
+
+    graphBoxes(cr)
+
+    memoryCircles(cr, xOffset, 340)
+    topMem(cr, 250, 340, 5)
+
+    hddCircles(cr, xOffset, 500)
+
+    entropyCircles(cr, xOffset, 750)
 end
 
 
@@ -36,7 +41,7 @@ function cpuCircles(cr, xOffset, yOffset)
 
     local getCpuLoad = function(cpuId)
         local cpuPat = cpuId and "${cpu cpu%d}" or "${cpu cpu}"
-        return tonumber(conky_parse(string.format(cpuPat, cpuId)))
+        return conky_parse(string.format(cpuPat, cpuId))
     end
 
     do
@@ -143,17 +148,32 @@ function memoryCircles(cr, xOffset, yOffset)
         end
     end
 
-    widget.alignedText(
-        cr,
-        { text     = "Mem"
-        , centerX  = xOffset
-        , centerY  = yOffset
-        , alignX   = "c"
-        , alignY   = "m"
-        , colour   = colour
-        , alpha    = alpha
-        , fontSize = 20 }
-    )
+    do
+        local labelPadding = 3
+        widget.alignedText(
+            cr,
+            { text     = "Mem"
+            , centerX  = xOffset
+            , centerY  = yOffset - labelPadding
+            , alignX   = "c"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = 20 }
+        )
+        local memPercent = tonumber(conky_parse(string.format("${memperc}")))
+        widget.alignedText(
+            cr,
+            { text     = memPercent
+            , centerX  = xOffset
+            , centerY  = yOffset + labelPadding
+            , alignX   = "c"
+            , alignY   = "u"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = 20 }
+        )
+    end
 end
 
 
@@ -216,16 +236,30 @@ function entropyCircles(cr, xOffset, yOffset)
         , value0  = 0
         , width   = 10 })
 
-    widget.alignedText(
-        cr,
-        { text     = "S"
-        , centerX  = xOffset
-        , centerY  = yOffset
-        , alignX   = "c"
-        , alignY   = "m"
-        , colour   = colour
-        , alpha    = alpha
-        , fontSize = 20 })
+    do
+        local entropyPoolPercent = conky_parse("${entropy_perc}")
+        local labelPadding = 3
+        widget.alignedText(
+            cr,
+            { text     = "Entropy"
+            , centerX  = xOffset
+            , centerY  = yOffset - labelPadding
+            , alignX   = "c"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = 20 })
+        widget.alignedText(
+            cr,
+            { text     = entropyPoolPercent
+            , centerX  = xOffset
+            , centerY  = yOffset + labelPadding
+            , alignX   = "c"
+            , alignY   = "u"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = 20 })
+    end
 end
 
 function topCpu(cr, xOffset, yOffset, numTop)
@@ -237,7 +271,7 @@ function topCpu(cr, xOffset, yOffset, numTop)
 
     for i = 1, numTop do
         local name = util.trim(conky_parse(string.format("${top name %d}", i)))
-        local cpuPercent = util.trim(conky_parse(string.format("${top cpu %d}", i)))
+        local cpuLoad = util.trim(conky_parse(string.format("${top cpu %d}", i)))
 
         widget.alignedText(
             cr,
@@ -251,8 +285,53 @@ function topCpu(cr, xOffset, yOffset, numTop)
             , fontSize = fontSize })
         widget.alignedText(
             cr,
-            { text     = string.format("%0.1f", cpuPercent)
+            { text     = string.format("%.1f", cpuLoad)
             , centerX  = xOffset + padding/2
+            , centerY  = yOffset + (i-1) * fontSize
+            , alignX   = "l"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+    end
+end
+
+
+function topMem(cr, xOffset, yOffset, numTop)
+
+    local colour = 0xffffff
+    local alpha = 1
+    local fontSize = 16
+
+    for i = 1, numTop do
+        local name = util.trim(conky_parse(string.format("${top_mem name %d}", i)))
+        local memAbsolute = util.trim(conky_parse(string.format("${top_mem mem_res %d}", i)))
+        local memPercent = util.trim(conky_parse(string.format("${top_mem mem %d}", i)))
+
+        widget.alignedText(
+            cr,
+            { text     = name
+            , centerX  = xOffset
+            , centerY  = yOffset + (i-1) * fontSize
+            , alignX   = "r"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+        widget.alignedText(
+            cr,
+            { text     = string.format("%.1f%%", memPercent)
+            , centerX  = xOffset + 15
+            , centerY  = yOffset + (i-1) * fontSize
+            , alignX   = "l"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+        widget.alignedText(
+            cr,
+            { text     = util.spaceBeforeUnits(memAbsolute)
+            , centerX  = xOffset + 80
             , centerY  = yOffset + (i-1) * fontSize
             , alignX   = "l"
             , alignY   = "d"

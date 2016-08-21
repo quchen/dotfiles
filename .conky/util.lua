@@ -42,9 +42,14 @@ local trim = function(str)
     return string.gsub(str, "^%s*(.-)%s*$", "%1")
 end
 
+local spaceBeforeUnits = function(str)
+    return string.gsub(str, "^(.-)(%a+)$", "%1 %2")
+end
+
 return
     { splitRgb                 = splitRgb
     , splitRgba                = splitRgba
     , linearInterpolation      = linearInterpolation
     , linearInterpolateColours = linearInterpolateColours
-    , trim                     = trim }
+    , trim                     = trim
+    , spaceBeforeUnits         = spaceBeforeUnits }
