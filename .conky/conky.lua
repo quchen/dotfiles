@@ -30,8 +30,9 @@ function conky_main()
     memoryUsage(cr, 405, 305)
 
     hddCircles(cr, xOffset, 500)
+    hddUsage(cr, 24, 440)
 
-    entropyCircles(cr, xOffset, 750)
+    entropyCircles(cr, xOffset, 710)
 end
 
 
@@ -107,11 +108,11 @@ function graphBoxes(cr)
     box(cr, 22, 68, 384, 32) -- CPU
     box(cr, 22, 254, 384, 32) -- Memory
 
-    box(cr, 22, 506, 185, 32) -- Hard drive read
-    box(cr, 222, 506, 185, 32) -- Hard drive write
+    box(cr, 22, 486, 185, 32) -- Hard drive read
+    box(cr, 222, 486, 185, 32) -- Hard drive write
 
-    box(cr, 22, 614, 185, 32) -- Upload
-    box(cr, 222, 614, 185, 32) -- Download
+    box(cr, 22, 574, 185, 32) -- Upload
+    box(cr, 222, 574, 185, 32) -- Download
 end
 
 
@@ -216,6 +217,86 @@ function hddCircles(cr, xOffset, yOffset)
         , colour   = colour
         , alpha    = alpha
         , fontSize = 20 })
+end
+
+function hddUsage(cr, xOffset, yOffset)
+
+    local colour = 0xffffff
+    local alpha = 1
+    local fontSize = 16
+
+    labelOffsets = {}
+    labelOffsets["Mount"] = 0
+    labelOffsets["Used"]  = 130
+    labelOffsets["Max"]   = 240
+    labelOffsets["%"]     = 380
+
+    do
+        local paintLabel = function(labelName, labelXOffset)
+            widget.alignedText(
+            cr,
+            { text     = labelName
+            , centerX  = xOffset + labelXOffset
+            , centerY  = yOffset
+            , alignX   = "l"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+        end
+        paintLabel("Mount", labelOffsets["Mount"])
+        paintLabel("Used", labelOffsets["Used"])
+        paintLabel("Max", labelOffsets["Max"])
+
+        widget.alignedText(
+            cr,
+            { text     = "%"
+            , centerX  = xOffset + labelOffsets["%"]
+            , centerY  = yOffset
+            , alignX   = "r"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+    end
+
+    local hddUsedLine = function(location, label, lineYOffset)
+
+        used = util.spaceBeforeUnits(conky_parse(string.format("${fs_used %s} ", location)))
+        size = util.spaceBeforeUnits(conky_parse(string.format("${fs_size %s} ", location)))
+        percentUsed = conky_parse(string.format("${fs_used_perc %s}", location))
+
+        local printText = function(text, textXOffset)
+            widget.alignedText(
+            cr,
+            { text     = text
+            , centerX  = xOffset + textXOffset
+            , centerY  = yOffset + lineYOffset
+            , alignX   = "l"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+        end
+        printText(label, labelOffsets["Mount"])
+        printText(used, labelOffsets["Used"])
+        printText(size, labelOffsets["Max"])
+
+        widget.alignedText(
+            cr,
+            { text     = percentUsed
+            , centerX  = xOffset + labelOffsets["%"]
+            , centerY  = yOffset + lineYOffset
+            , alignX   = "r"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+    end
+
+    hddUsedLine("/", "/", 18)
+    hddUsedLine("/home", "~", 2*18)
+
 end
 
 
@@ -324,19 +405,37 @@ function memoryUsage(cr, xOffset, yOffset)
     local alpha = 1
     local fontSize = 16
 
-    memoryUsed = util.spaceBeforeUnits(conky_parse("${mem}"))
-    memoryMax = util.spaceBeforeUnits(conky_parse("${memMax}"))
+    do
+        memoryUsed = util.spaceBeforeUnits(conky_parse("${mem}"))
+        memoryMax = util.spaceBeforeUnits(conky_parse("${memMax}"))
 
-    widget.alignedText(
-        cr,
-        { text     = string.format("%s / %s", memoryUsed, memoryMax)
-        , centerX  = xOffset
-        , centerY  = yOffset
-        , alignX   = "r"
-        , alignY   = "d"
-        , colour   = colour
-        , alpha    = alpha
-        , fontSize = fontSize })
+        widget.alignedText(
+            cr,
+            { text     = string.format("%s / %s", memoryUsed, memoryMax)
+            , centerX  = xOffset
+            , centerY  = yOffset
+            , alignX   = "r"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+    end
+
+    do
+        swapUsed = util.spaceBeforeUnits(util.trim(conky_parse("${swap}")))
+        swapMax = util.spaceBeforeUnits(util.trim(conky_parse("${swapmax}")))
+
+        widget.alignedText(
+            cr,
+            { text     = string.format("Swap: %s / %s", swapUsed, swapMax)
+            , centerX  = xOffset
+            , centerY  = yOffset + 18
+            , alignX   = "r"
+            , alignY   = "d"
+            , colour   = colour
+            , alpha    = alpha
+            , fontSize = fontSize })
+    end
 end
 
 

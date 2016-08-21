@@ -76,7 +76,7 @@ local function alignedText(cr, config)
     cairo_set_source_rgba(cr, util.splitRgba(config.colour, config.alpha))
     cairo_select_font_face(
         cr,
-        "Monospace",
+        "Sans",
         CAIRO_FONT_SLANT_NORMAL,
         CAIRO_FONT_WEIGHT_NORMAL)
     cairo_set_font_size (cr, config.fontSize)
