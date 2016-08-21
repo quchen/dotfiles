@@ -19,13 +19,15 @@ function conky_main()
 
     local xOffset = 100
 
-    topCpu(cr, 370, 160, 5)
+    topCpu(cr, 370, 150, 5)
     cpuCircles(cr, xOffset, 140)
+    cpuTemperature(cr, 405, 115)
 
     graphBoxes(cr)
 
     memoryCircles(cr, xOffset, 340)
     topMem(cr, 250, 340, 5)
+    memoryUsage(cr, 405, 305)
 
     hddCircles(cr, xOffset, 500)
 
@@ -294,6 +296,47 @@ function topCpu(cr, xOffset, yOffset, numTop)
             , alpha    = alpha
             , fontSize = fontSize })
     end
+end
+
+function cpuTemperature(cr, xOffset, yOffset)
+
+    local colour = 0xffffff
+    local alpha = 1
+    local fontSize = 16
+
+    temperature = conky_parse("${hwmon 0 temp 1}")
+
+    widget.alignedText(
+        cr,
+        { text     = temperature .. " °C"
+        , centerX  = xOffset
+        , centerY  = yOffset
+        , alignX   = "r"
+        , alignY   = "d"
+        , colour   = colour
+        , alpha    = alpha
+        , fontSize = fontSize })
+end
+
+function memoryUsage(cr, xOffset, yOffset)
+
+    local colour = 0xffffff
+    local alpha = 1
+    local fontSize = 16
+
+    memoryUsed = util.spaceBeforeUnits(conky_parse("${mem}"))
+    memoryMax = util.spaceBeforeUnits(conky_parse("${memMax}"))
+
+    widget.alignedText(
+        cr,
+        { text     = string.format("%s / %s", memoryUsed, memoryMax)
+        , centerX  = xOffset
+        , centerY  = yOffset
+        , alignX   = "r"
+        , alignY   = "d"
+        , colour   = colour
+        , alpha    = alpha
+        , fontSize = fontSize })
 end
 
 

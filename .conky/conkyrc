@@ -107,26 +107,11 @@ lua_draw_hook_pre conky_main
 TEXT
 
 ${color0}CPU ${hr 2}${color}
-${cpugraph cpu0 32,384 204dde 2478ef -t}
-${voffset -30}
-${color #2478ef}${alignc}${cpubar cpu1 4,92} ${cpubar cpu2 4,92} ${cpubar cpu3 4,92} ${cpubar cpu4 4,92}${color}
-${voffset -25}
-${alignr}${hwmon 0 temp 1} °C, fan ${hwmon 1 fan 1}/min
-
-# ${top name 1}${alignr}${top cpu 1} %
-# ${top name 2}${alignr}${top cpu 2} %
-# ${top name 3}${alignr}${top cpu 3} %
-${voffset 38}
-
+${cpugraph cpu0 32,384 ffffff}
+${voffset 98}
 ${color1}Memory ${hr 2}${color}
-${alignr}${memgraph 32,384 23cb08 1c8c09 -t}
-${alignr}${mem} / ${memmax}
-
-# ${top_mem name 1}${tab 120}${top_mem mem_res 1}${alignr}${top_mem mem 1} %
-# ${top_mem name 2}${tab 120}${top_mem mem_res 2}${alignr}${top_mem mem 2} %
-# ${top_mem name 3}${tab 120}${top_mem mem_res 3}${alignr}${top_mem mem 3} %
-${voffset 29}
-
+${alignr}${memgraph 32,384 ffffff}
+${voffset 88}
 ${color2}Hard drive ${hr 2}${color}
 Mount${tab 64}Used${tab 80}Max${tab 120}%
 /${tab 64}${fs_used /}${tab 80}${fs_size /}${tab 120}${fs_used_perc /}
