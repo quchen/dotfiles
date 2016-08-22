@@ -7,8 +7,7 @@ duplicateLine = (editor, range, selection) ->
     buffer = editor.getBuffer()
     row = range.start.row
     currentText = buffer.lineForRow row
-    buffer.insert([row+1, 0], currentText + "\n")
-    selection.setBufferRange(range.translate([1, 0]))
+    buffer.insert([row, 0], currentText + "\n")
 
 duplicateSelection = (range, selection) ->
     currentText = selection.getText()
