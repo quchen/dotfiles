@@ -1,13 +1,18 @@
+# Refine large selections into multiple small selections. Pairs well with
+# alignment scripts.
+
 # Escape a string so it can be used to match its own literal
 # in a regex.
 escapeRegex = (string) ->
     string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 
+
+
 # Given a scope, generate a regex that matches all the things
 # that the selection should be refined to.
 #
-# aggregateRefinementRegex :: Refinements -> Scope -> Maybe RegExp
-aggregateRefinementRegex = (refinements, scopes) ->
+# configuredRefinementRegex :: Refinements -> Scope -> Maybe RegExp
+configuredRefinementRegex = (refinements, scopes) ->
     refinementRegexPieces = []
     for scope in scopes
         lookupRefinement = refinements[scope]
@@ -18,6 +23,8 @@ aggregateRefinementRegex = (refinements, scopes) ->
         new RegExp(rawRegex.join("|"), "g")
     else
         null
+
+
 
 # Refine the current selections into sub-selections matching a given regex.
 #
@@ -30,24 +37,49 @@ aggregateRefinementRegex = (refinements, scopes) ->
 #
 # lorem ipsum dolor sit amet
 #       ^---^           ^--^
-refine = () ->
+refine = (refinementRegex) ->
     editor = atom.workspace.getActiveTextEditor()
     buffer = editor.getBuffer()
     selections = editor.getSelections()
 
-    refinements = atom.config.get("quchen.refinements")
     refinedRanges = []
     for selection in selections
         selectedRange = selection.getBufferRange()
-        scopeDescriptor = editor.scopeDescriptorForBufferPosition selectedRange.start
-        refinementRegex = aggregateRefinementRegex refinements, scopeDescriptor.scopes
-        if refinementRegex?
-            buffer.scanInRange refinementRegex, selectedRange, ({range}) ->
-                refinedRanges.push range
-    refinedRanges
+        buffer.scanInRange refinementRegex, selectedRange, ({range}) ->
+            refinedRanges.push range
 
     if refinedRanges.length > 0
         editor.setSelectedBufferRanges refinedRanges
 
+refineByConfig = () ->
+    editor = atom.workspace.getActiveTextEditor()
+    buffer = editor.getBuffer()
+    selections = editor.getSelections()
+
+    refinementConfig = atom.config.get("quchen.refinements")
+    for selection in selections
+        selectedRange = selection.getBufferRange()
+        scopeDescriptor = editor.scopeDescriptorForBufferPosition selectedRange.start
+        refinementRegex = configuredRefinementRegex refinementConfig, scopeDescriptor.scopes
+        break if refinementRegex?
+
+    console.log refinementRegex
+    refine refinementRegex
+
+refineByFirstWord = () ->
+    selections = atom.workspace.getActiveTextEditor().getSelections()
+
+    firstWord = null
+    for selection in selections
+        firstWord = selection.getText().match(/[^\s]+/)[0]
+        break if firstWord?
+
+    rawRegex = "\\b" + escapeRegex(firstWord) + "\\b"
+    refinementRegex = new RegExp(rawRegex, "g")
+    refine refinementRegex
+
+
+
 require("../lib/addCommands.coffee").addCommands
-    "refine-selection": refine
+    "refine-by-config":     refineByConfig
+    "refine-by-first-word": refineByFirstWord

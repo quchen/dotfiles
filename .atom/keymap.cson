@@ -121,7 +121,8 @@
     # Alignment
     "ctrl-,": "quchen:align-multi"
     "ctrl-<": "quchen:align-right"
-    "ctrl-.": "quchen:refine-selection"
+    "ctrl-.": "quchen:refine-by-config"
+    "ctrl->": "quchen:refine-by-first-word"
 
     # Selection
     "ctrl-k":       "find-and-replace:select-next"
