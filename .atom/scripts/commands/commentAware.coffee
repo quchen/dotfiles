@@ -22,10 +22,9 @@ containsLineCommentScope = (selection) ->
 # Insert a newline at the current position, commenting out the new line if the
 # old line's scope was a line comment.
 commentAwareNewline = (selection) ->
-    rangeToRestore = selection.getBufferRange()
-    selection.selectToFirstCharacterOfLine()
-    isLineComment = containsLineCommentScope selection
-    selection.setBufferRange(rangeToRestore)
+    isLineComment = selectionLib.rangeMasked selection, (s) ->
+        selection.selectToFirstCharacterOfLine()
+        return containsLineCommentScope selection
 
     selection.insertText "\n", autoIndentNewline: true
     if isLineComment
@@ -40,13 +39,16 @@ commentAwareNewlineBelow = (selection) ->
 # Insert a new line above the current line. Equivalent to hitting HOME,
 # inserting a newline, and moving the cursor up one line.
 commentAwareNewlineAbove = (selection) ->
-
-    # Clear to the first character of the line so that indentation is maintained
+    isLineComment = selectionLib.rangeMasked selection, (s) ->
+        selection.selectToFirstCharacterOfLine()
+        return containsLineCommentScope selection
     selection.selectToFirstCharacterOfLine()
     selection.clear()
-
-    commentAwareNewline selection
+    selection.insertText "\n", autoIndentNewline: true
     selectionLib.translate selection, [-1, 0]
+    if isLineComment
+        selection.toggleLineComments()
+        selectionLib.clearRight(selection)
 
 # Join the current line with the one below, collapsing multiple whitespace to a
 # single space character.

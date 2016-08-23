@@ -37,3 +37,12 @@ exports.translate = (selection, delta) ->
     selection.setBufferRange(rangeAfter)
     "rangeBefore": rangeBefore,
     "rangeAfter": rangeAfter
+
+# Do something with the selected range of a selection and restore it afterwards.
+# Useful for hypothetical calculations, such as "is there a comment in the
+# current line".
+exports.rangeMasked = (selection, action) ->
+    rangeToRestore = selection.getBufferRange()
+    result = action selection
+    selection.setBufferRange(rangeToRestore)
+    return result
