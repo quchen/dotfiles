@@ -21,8 +21,6 @@ configuredRefinementRegex = (refinements, scopes) ->
     rawRegex = refinementRegexPieces.map escapeRegex
     if rawRegex.length > 0
         new RegExp(rawRegex.join("|"), "g")
-    else
-        null
 
 
 

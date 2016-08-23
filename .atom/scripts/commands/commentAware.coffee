@@ -43,12 +43,12 @@ commentAwareNewlineAbove = (selection) ->
         selection.selectToFirstCharacterOfLine()
         return containsLineCommentScope selection
     selection.selectToFirstCharacterOfLine()
-    selection.clear()
+    selectionLib.clearToLeft(selection)
     selection.insertText "\n", autoIndentNewline: true
     selectionLib.translate selection, "deltaLine": -1
     if isLineComment
         selection.toggleLineComments()
-        selectionLib.clearRight(selection)
+        selectionLib.clearToRight(selection)
 
 # Join the current line with the one below, collapsing multiple whitespace to a
 # single space character.

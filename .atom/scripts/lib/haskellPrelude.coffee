@@ -64,6 +64,12 @@ any = (predicate, list) ->
         return true if predicate entry
     return false
 
+# elem :: (a -> Bool) -> [a] -> Bool
+elem = (needle, haystack) ->
+    for x in haystack
+        return true if x == needle
+    return false
+
 # Like groupBy, but groups all elements fitting in a bucket, not just
 # consecutive ones.
 #
@@ -118,6 +124,7 @@ exports.reverse    = reverse
 exports.zipWith    = zipWith
 exports.all        = all
 exports.any        = any
+exports.elem       = elem
 exports.partition  = partition
 exports.mapMaybe   = mapMaybe
 exports.catMaybes  = catMaybes

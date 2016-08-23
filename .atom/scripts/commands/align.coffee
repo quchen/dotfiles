@@ -88,7 +88,7 @@ alignRight = () ->
     keepOnlyFirstSelectionPerLine()
     selections = atom.workspace.getActiveTextEditor().getSelections()
     for selection in selections
-        selectionLib.clearRight selection
+        selectionLib.clearToRight selection
     multiAlign()
 
 require("../lib/addCommands.coffee").addCommands

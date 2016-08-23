@@ -10,24 +10,19 @@ matchingParenthesis = (parenthesis) ->
         when "{" then "}"
         when "[" then "]"
 
-charElem = (needle, haystack) ->
-    for char in haystack
-        return true if char == needle
-    return false
-
 findUnbalancedParentheses = (beforeCursor, afterCursor) ->
     parenthesesStack = []
     for char in beforeCursor
         switch
-            when charElem char, "(<{[" then parenthesesStack.push(char)
-            when charElem char, ")>}]" then parenthesesStack.pop()
+            when prelude.elem char, "(<{[" then parenthesesStack.push(char)
+            when prelude.elem char, ")>}]" then parenthesesStack.pop()
 
     afterCursor.split("").reverse().join("") # Reverse string. WTF Javascript
 
     for char in afterCursor
         switch
-            when charElem char, "(<{[" then parenthesesStack.unshift(char)
-            when charElem char, ")>}]" then parenthesesStack.shift()
+            when prelude.elem char, "(<{[" then parenthesesStack.unshift(char)
+            when prelude.elem char, ")>}]" then parenthesesStack.shift()
 
     parenthesesStack
 
@@ -47,7 +42,7 @@ closeAllOpenParens = () ->
     for parenthesis in findUnbalancedParentheses beforeCursor, afterCursor
         missingParentheses.unshift(matchingParenthesis parenthesis)
 
-    selectionLib.clearRight selection
+    selectionLib.clearToRight selection
     selection.insertText missingParentheses.join(""), {select: true}
 
 require("../lib/addCommands.coffee").addCommands

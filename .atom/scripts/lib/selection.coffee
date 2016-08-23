@@ -22,11 +22,15 @@ exports.lineGroup = (selections) ->
     result.map (selectionLine) ->
         sortSelectionsBy selectionLine, column
 
-# Like selection.clear(), but place the cursor at the right end of the former
-# selection, instead of the left.
+# Clear a selection by putting the cursor to its beginning.
 #
-# clearRight :: Selection -> IO ()
-exports.clearRight = (selection) ->
+# clearToLeft :: Selection -> IO ()
+exports.clearToLeft = (selection) -> selection.clear()
+
+# Clear a selection by putting the cursor to its end.
+#
+# clearToRight :: Selection -> IO ()
+exports.clearToRight = (selection) ->
     range = selection.getBufferRange()
     selection.setBufferRange([range.end, range.end])
 

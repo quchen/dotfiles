@@ -3,6 +3,8 @@
 # it duplicates lines if the selection has width 0, and otherwise duplicates
 # the selection only.
 
+selectionLib = require "../lib/selection.coffee"
+
 duplicateLine = (editor, range, selection) ->
     buffer = editor.getBuffer()
     row = range.start.row
@@ -11,7 +13,7 @@ duplicateLine = (editor, range, selection) ->
 
 duplicateSelection = (range, selection) ->
     currentText = selection.getText()
-    selection.setBufferRange([range.end, range.end])
+    selectionLib.clearToRight(selection)
     selection.insertText currentText, "select": true
 
 duplicate = () ->
