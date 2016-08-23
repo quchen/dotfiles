@@ -74,7 +74,7 @@ refineByFirstWord = () ->
         firstWord = selection.getText().match(/[^\s]+/)[0]
         break if firstWord?
 
-    rawRegex = "\\b" + escapeRegex(firstWord) + "\\b"
+    rawRegex = escapeRegex firstWord
     refinementRegex = new RegExp(rawRegex, "g")
     refine refinementRegex
 

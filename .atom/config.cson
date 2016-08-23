@@ -54,7 +54,7 @@
   "git-blame":
     ignoreWhiteSpaceDiffs: true
   "haskell-ghc-mod":
-    onMouseHoverShow: "Nothing"
+    onMouseHoverShow: ""
     useLinter: true
   "highlight-selected":
     highlightBackground: true
