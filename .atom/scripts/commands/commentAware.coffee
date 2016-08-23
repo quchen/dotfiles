@@ -33,7 +33,7 @@ commentAwareNewline = (selection) ->
 # Insert a new line below the current line. Equivalent to hitting END and then
 # inserting a newline.
 commentAwareNewlineBelow = (selection) ->
-    selectionLib.translate selection, [0, Infinity]
+    selectionLib.translate selection, "deltaColumn": Infinity
     commentAwareNewline selection
 
 # Insert a new line above the current line. Equivalent to hitting HOME,
@@ -45,7 +45,7 @@ commentAwareNewlineAbove = (selection) ->
     selection.selectToFirstCharacterOfLine()
     selection.clear()
     selection.insertText "\n", autoIndentNewline: true
-    selectionLib.translate selection, [-1, 0]
+    selectionLib.translate selection, "deltaLine": -1
     if isLineComment
         selection.toggleLineComments()
         selectionLib.clearRight(selection)
@@ -55,7 +55,7 @@ commentAwareNewlineAbove = (selection) ->
 joinLinesDown = (selection) ->
     isLineComment = containsLineCommentScope selection
     if isLineComment
-        {rangeBefore} = selectionLib.translate selection, [1,0]
+        {rangeBefore} = selectionLib.translate selection, "deltaLine": 1
         isStillLineComment = containsLineCommentScope selection
         if isStillLineComment
             selection.toggleLineComments()
@@ -65,7 +65,7 @@ joinLinesDown = (selection) ->
 # Join the current line with the one above, collapsing multiple whitespace to a
 # single space character.
 joinLinesUp = (selection) ->
-    selectionLib.translate selection, [-1, 0]
+    selectionLib.translate selection, "deltaLine": -1
     joinLinesDown selection
 
 # Execute an action on a single selection on all selections.
