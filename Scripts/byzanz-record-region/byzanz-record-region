@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+(
+    cd xrectsel-0.3.1
+    if [[ ! -e "./xrectsel" ]]; then
+        echo "XRectSel not compiled yet. Compiling"
+        ./bootstrap
+        ./configure
+        make
+    fi
+)
+
+# File to save as
+FILENAME="$HOME/temp/recorded.gif"
+
+# Delay before starting
+DELAY=5
+
+# Sound notification to let one know when recording is about to start (and ends)
+beep() {
+    paplay /usr/share/sounds/KDE-Im-Irc-Event.ogg &
+}
+
+# Duration and output file
+if [ $# -gt 0 ]; then
+    DURATION="--duration=$@"
+else
+    DURATION="--duration=10"
+fi
+
+# xrectsel from https://github.com/lolilolicon/xrectsel
+ARGUMENTS=$(./xrectsel-0.3.1/xrectsel "--x=%x --y=%y --width=%w --height=%h") || exit -1
+
+echo "Recording starts in $DELAY seconds"
+for (( i="$DELAY"; i>0; --i )); do
+    echo "$i"
+    sleep 1
+done
+echo "Recording for $DURATION seconds"
+beep
+byzanz-record --verbose --delay=0 ${ARGUMENTS} "$DURATION" "$FILENAME"
+beep
+echo "Recording finished"
