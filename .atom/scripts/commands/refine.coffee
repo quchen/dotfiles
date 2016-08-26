@@ -61,7 +61,6 @@ refineByConfig = () ->
         refinementRegex = configuredRefinementRegex refinementConfig, scopeDescriptor.scopes
         break if refinementRegex?
 
-    console.log refinementRegex
     refine refinementRegex
 
 refineByFirstWord = () ->
