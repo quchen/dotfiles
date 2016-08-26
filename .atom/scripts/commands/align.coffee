@@ -71,11 +71,37 @@ alignSelections = (selections) ->
         selection.insertText " ".repeat(rightmostColumn - selectionStart)
         selection.insertText currentContent, 'select': true
 
+removeCommonWhitespacePrefix = (selections) ->
+    spacePrefixes = []
+    for selection in selections
+        selectionLib.rangeMasked selection, (s) ->
+            ws = 0
+            loop
+                selectionLib.clearToLeft selection
+                selectionLib.clearToLeft s
+                s.selectLeft 1
+                break if (s.getBufferRange().start.column == 0 or s.getText() != " ")
+                ++ws
+            spacePrefixes.push(ws)
+    commonSpacePrefix = prelude.foldl Math.min, Infinity, spacePrefixes
+
+
+    for selection in selections
+        currentText = selection.getText()
+        range = selection.getBufferRange()
+        r1 = range.start.row
+        c1 = range.start.column
+        rc2 = range.end
+        selection.setBufferRange([[r1, c1 - commonSpacePrefix], rc2])
+        selection.insertText(" ")
+        selection.insertText(currentText, "select": true)
+
 multiAlign = () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
     lineGroups = selectionLib.lineGroup selections
     selectionsToAlign = extractSelectionsToAlign lineGroups
     alignSelections selectionsToAlign
+    removeCommonWhitespacePrefix selectionsToAlign
 
 keepOnlyFirstSelectionPerLine = () ->
     editor = atom.workspace.getActiveTextEditor()

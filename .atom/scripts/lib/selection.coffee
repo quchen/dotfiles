@@ -25,7 +25,9 @@ exports.lineGroup = (selections) ->
 # Clear a selection by putting the cursor to its beginning.
 #
 # clearToLeft :: Selection -> IO ()
-exports.clearToLeft = (selection) -> selection.clear()
+exports.clearToLeft = (selection) ->
+    range = selection.getBufferRange()
+    selection.setBufferRange([range.start, range.start])
 
 # Clear a selection by putting the cursor to its end.
 #
@@ -51,3 +53,7 @@ exports.rangeMasked = (selection, action) ->
     result = action selection
     selection.setBufferRange(rangeToRestore)
     return result
+
+exports.reverseSelection = (selection) ->
+    [a,b] = selection.getBufferRange()
+    selection.setBufferRange([b,a])
