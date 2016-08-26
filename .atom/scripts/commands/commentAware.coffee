@@ -12,8 +12,8 @@ selectionLib = require "../lib/selection.coffee"
 # Check whether the current scope is a line comment.
 isLineCommentScopeName = (scope) -> scope.match /^comment\.line/
 
-# Check whether the selection contains a line comment.
-containsLineCommentScope = (selection) ->
+# Check whether the selection starts with(in) a line comment.
+startsWithLineCommentScope = (selection) ->
     editor = atom.workspace.getActiveTextEditor()
     selectedRangeStart = selection.getBufferRange().start
     scopeDescriptor = editor.scopeDescriptorForBufferPosition selectedRangeStart
@@ -24,7 +24,7 @@ containsLineCommentScope = (selection) ->
 commentAwareNewline = (selection) ->
     isLineComment = selectionLib.rangeMasked selection, (s) ->
         selection.selectToFirstCharacterOfLine()
-        return containsLineCommentScope selection
+        return startsWithLineCommentScope selection
 
     selection.insertText "\n", autoIndentNewline: true
     if isLineComment
@@ -41,7 +41,7 @@ commentAwareNewlineBelow = (selection) ->
 commentAwareNewlineAbove = (selection) ->
     isLineComment = selectionLib.rangeMasked selection, (s) ->
         selection.selectToFirstCharacterOfLine()
-        return containsLineCommentScope selection
+        return startsWithLineCommentScope selection
     selection.selectToFirstCharacterOfLine()
     selectionLib.clearToLeft(selection)
     selection.insertText "\n", autoIndentNewline: true
@@ -53,18 +53,19 @@ commentAwareNewlineAbove = (selection) ->
 # Join the current line with the one below, collapsing multiple whitespace to a
 # single space character.
 joinLinesDown = (selection) ->
-    isLineComment = containsLineCommentScope selection
+    isLineComment = startsWithLineCommentScope selection
     if isLineComment
-        {rangeBefore} = selectionLib.translate selection, "deltaLine": 1
-        isStillLineComment = containsLineCommentScope selection
-        if isStillLineComment
-            selection.toggleLineComments()
-        selection.setBufferRange(rangeBefore)
+        selectionLib.rangeMasked selection, (s) ->
+            selectionLib.translate s, "deltaLine": 1
+            isStillLineComment = startsWithLineCommentScope s
+            if isStillLineComment
+                s.toggleLineComments()
     selection.joinLines()
 
 # Join the current line with the one above, collapsing multiple whitespace to a
 # single space character.
 joinLinesUp = (selection) ->
+    return if selection.getBufferRange().start.row <= 0
     selectionLib.translate selection, "deltaLine": -1
     joinLinesDown selection
 

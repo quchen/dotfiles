@@ -43,6 +43,9 @@ allEqual = (list) ->
     return true
 
 # extractSelectionsToAlign :: [[Selection]] -> [Selection]
+#
+# Given a list of selections grouped by line, find the first non-aligned
+# selections and return them.
 extractSelectionsToAlign = (selectionsByLine) ->
     alignmentIndex = 0
     candidates = []
@@ -70,10 +73,9 @@ alignSelections = (selections) ->
 
 multiAlign = () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
-    align = prelude.compose [ alignSelections,
-                              extractSelectionsToAlign,
-                              selectionLib.lineGroup ]
-    align selections
+    lineGroups = selectionLib.lineGroup selections
+    selectionsToAlign = extractSelectionsToAlign lineGroups
+    alignSelections selectionsToAlign
 
 keepOnlyFirstSelectionPerLine = () ->
     editor = atom.workspace.getActiveTextEditor()

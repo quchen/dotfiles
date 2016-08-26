@@ -34,15 +34,14 @@ exports.clearToRight = (selection) ->
     range = selection.getBufferRange()
     selection.setBufferRange([range.end, range.end])
 
-# Convenience function to translate a selection. Returns the ranges before and after.
+# Convenience function to translate a selection. Returns the new selected range.
 exports.translate = (selection, {deltaLine, deltaColumn}) ->
     deltaLine ?= 0
     deltaColumn ?= 0
     rangeBefore = selection.getBufferRange()
     rangeAfter = selection.getBufferRange().translate([deltaLine, deltaColumn])
     selection.setBufferRange(rangeAfter)
-    "rangeBefore": rangeBefore,
-    "rangeAfter": rangeAfter
+    rangeAfter
 
 # Do something with the selected range of a selection and restore it afterwards.
 # Useful for hypothetical calculations, such as "is there a comment in the
