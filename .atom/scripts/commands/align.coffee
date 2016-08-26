@@ -85,16 +85,16 @@ removeCommonWhitespacePrefix = (selections) ->
             spacePrefixes.push(ws)
     commonSpacePrefix = prelude.foldl Math.min, Infinity, spacePrefixes
 
-
-    for selection in selections
-        currentText = selection.getText()
-        range = selection.getBufferRange()
-        r1 = range.start.row
-        c1 = range.start.column
-        rc2 = range.end
-        selection.setBufferRange([[r1, c1 - commonSpacePrefix], rc2])
-        selection.insertText(" ")
-        selection.insertText(currentText, "select": true)
+    if commonSpacePrefix > 1
+        for selection in selections
+            currentText = selection.getText()
+            range = selection.getBufferRange()
+            r1 = range.start.row
+            c1 = range.start.column
+            rc2 = range.end
+            selection.setBufferRange([[r1, c1 - commonSpacePrefix], rc2])
+            selection.insertText(" ")
+            selection.insertText(currentText, "select": true)
 
 multiAlign = () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
