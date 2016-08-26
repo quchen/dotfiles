@@ -5,22 +5,19 @@
 ## Alignment
 
 The alignment script differs from all  other alignment functions and packages by
-not being shit.
+not being "smart", having a predictable outcome, and not being shit in general.
 
-  - It is not "smart".
-  - Its outcome is always predictable.
-  - It handles a variety of different use cases, and does exactly the right
-    thing in each of them.
+### Multi-align
 
-## Demos
+Align the first unaligned selection of each line
 
-- Multi-align:
+![][multialign]
 
-  ![][multialign]
+### Align right
 
-- Align right:
+Align the first selection of each line by their right ends
 
-  ![][align-right]
+![][align-right]
 
 ### Available commands
 
