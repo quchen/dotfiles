@@ -59,9 +59,8 @@ refineByConfig = () ->
         selectedRange = selection.getBufferRange()
         scopeDescriptor = editor.scopeDescriptorForBufferPosition selectedRange.start
         refinementRegex = configuredRefinementRegex refinementConfig, scopeDescriptor.scopes
-        break if refinementRegex?
-
-    refine refinementRegex
+        if refinementRegex?
+            refine refinementRegex if refinementRegex?
 
 refineByFirstWord = () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
