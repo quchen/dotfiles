@@ -107,7 +107,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 hash stack 2>/dev/null && { eval "$(stack --bash-completion-script stack)" }
 
-
+setopt rm_star_silent
 
 
 
