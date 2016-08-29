@@ -142,9 +142,9 @@ substrings. Pairs well with the alignment script.
 
 ### Available commands
 
-  - `refine-by-config`: Select all configured substrings
-  - `refine-by-first-word`: Select all substrings that match the first selected
-    non-whitespace substring
+  - `quchen:refine-by-config`: Select all configured substrings
+  - `quchen:refine-by-first-word`: Select all substrings that match the first
+    selected non-whitespace substring
 
 ### Configuration
 

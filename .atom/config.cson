@@ -86,6 +86,8 @@
       120
     ]
     locked: true
+  "package-generator":
+    packageSyntax: "coffeescript"
   quchen:
     refinements:
       "source.coffee": [
