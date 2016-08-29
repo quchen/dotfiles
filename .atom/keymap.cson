@@ -119,7 +119,7 @@
     "ctrl-shift-`": "go-to-line:toggle"
 
     # Alignment
-    "ctrl-,": "quchen:align-multi"
+    "ctrl-,": "quchen:align-left"
     "ctrl-<": "quchen:align-right"
     "ctrl-.": "quchen:refine-by-config"
     "ctrl->": "quchen:refine-by-first-word"

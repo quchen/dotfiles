@@ -60,7 +60,10 @@ extractSelectionsToAlign = (selectionsByLine) ->
     candidates
 
 # alignSelections :: [Selection] -> IO ()
-alignSelections = (selections) ->
+alignSelections = (selections, {alignment}) ->
+    if alignment == "right"
+        for selection in selections
+            selectionLib.clearToRight selection
     rightmostColumn = prelude.foldl \
         ((acc, x) -> Math.max acc, selectionLib.column x),
         0,
@@ -82,7 +85,7 @@ removeCommonWhitespacePrefix = (selections) ->
                 s.selectLeft 1
                 break if (s.getBufferRange().start.column == 0 or s.getText() != " ")
                 ++ws
-            spacePrefixes.push(ws)
+            spacePrefixes.push ws
     commonSpacePrefix = prelude.foldl Math.min, Infinity, spacePrefixes
 
     if commonSpacePrefix > 1
@@ -93,14 +96,14 @@ removeCommonWhitespacePrefix = (selections) ->
             c1 = range.start.column
             rc2 = range.end
             selection.setBufferRange([[r1, c1 - commonSpacePrefix], rc2])
-            selection.insertText(" ")
-            selection.insertText(currentText, "select": true)
+            selection.insertText " "
+            selection.insertText currentText, "select": true
 
-multiAlign = () ->
+multiAlign = (config) ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
     lineGroups = selectionLib.lineGroup selections
     selectionsToAlign = extractSelectionsToAlign lineGroups
-    alignSelections selectionsToAlign
+    alignSelections selectionsToAlign, config
     removeCommonWhitespacePrefix selectionsToAlign
 
 keepOnlyFirstSelectionPerLine = () ->
@@ -112,13 +115,9 @@ keepOnlyFirstSelectionPerLine = () ->
         selections
     editor.setSelectedBufferRanges firstRangeEachLine
 
-alignRight = () ->
-    keepOnlyFirstSelectionPerLine()
-    selections = atom.workspace.getActiveTextEditor().getSelections()
-    for selection in selections
-        selectionLib.clearToRight selection
-    multiAlign()
+alignLeft = () -> multiAlign "alignment": "left"
+alignRight = () -> multiAlign "alignment": "right"
 
 require("../lib/addCommands.coffee").addCommands
-    "align-multi": multiAlign,
+    "align-left":  alignLeft
     "align-right": alignRight
