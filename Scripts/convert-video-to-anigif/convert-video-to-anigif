@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")"
+rm -rf frames
+mkdir -p frames
+avconv -i "$(ls Kazam* -tr1 | tail -1)" frames/out%06d.png
+convert -loop 0 -fuzz 3% -delay 4 -layers Optimize frames/*.png out.gif
+
