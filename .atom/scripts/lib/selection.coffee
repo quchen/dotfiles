@@ -57,3 +57,7 @@ exports.rangeMasked = (selection, action) ->
 exports.reverseSelection = (selection) ->
     [a,b] = selection.getBufferRange()
     selection.setBufferRange([b,a])
+
+exports.canonicalize = (selection) ->
+    if selection.isReversed()
+        exports.reverseSelection selection
