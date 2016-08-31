@@ -80,7 +80,6 @@ removeCommonWhitespacePrefix = (selections) ->
         selectionLib.rangeMasked selection, (s) ->
             ws = 0
             loop
-                selectionLib.clearToLeft selection
                 selectionLib.clearToLeft s
                 s.selectLeft 1
                 break if (s.getBufferRange().start.column == 0 or s.getText() != " ")
@@ -92,12 +91,17 @@ removeCommonWhitespacePrefix = (selections) ->
         for selection in selections
             currentText = selection.getText()
             range = selection.getBufferRange()
-            r1 = range.start.row
-            c1 = range.start.column
-            rc2 = range.end
-            selection.setBufferRange([[r1, c1 - commonSpacePrefix], rc2])
+            selection.setBufferRange(modifyRange range, start: column: -commonSpacePrefix)
             selection.insertText " "
             selection.insertText currentText, "select": true
+
+# modifyRange :: Range -> Range
+modifyRange = (range, delta) ->
+    rowStart    = range.start.row    + (delta.start?.row    ? 0)
+    columnStart = range.start.column + (delta.start?.column ? 0)
+    rowEnd      = range.end.row      + (delta.end?.row      ? 0)
+    columnEnd   = range.end.column   + (delta.end?.column   ? 0)
+    return [[rowStart, columnStart], [rowEnd, columnEnd]]
 
 multiAlign = (config) ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
