@@ -48,7 +48,7 @@ commentAwareNewlineAbove = (selection) ->
     selectionLib.translate selection, "deltaLine": -1
     if isLineComment
         selection.toggleLineComments()
-        selectionLib.clearToRight(selection)
+        selectionLib.clearToRight selection
 
 # Join the current line with the one below, collapsing multiple whitespace to a
 # single space character.
@@ -82,8 +82,7 @@ joinLinesUp = (selection) ->
 #
 # forAllSelections : (Selection -> IO ()) -> () -> IO ()
 forAllSelections = (action) -> () ->
-    editor = atom.workspace.getActiveTextEditor()
-    for selection in editor.getSelections()
+    for selection in atom.workspace.getActiveTextEditor().getSelections()
         action selection
 
 require("../lib/addCommands.coffee").addCommands

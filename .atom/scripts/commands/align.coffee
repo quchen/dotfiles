@@ -119,9 +119,6 @@ keepOnlyFirstSelectionPerLine = () ->
         selections
     editor.setSelectedBufferRanges firstRangeEachLine
 
-alignLeft = () -> multiAlign "alignment": "left"
-alignRight = () -> multiAlign "alignment": "right"
-
 require("../lib/addCommands.coffee").addCommands
-    "align-left":  alignLeft
-    "align-right": alignRight
+    "align-left":  () -> multiAlign "alignment": "left"
+    "align-right": () -> multiAlign "alignment": "right"

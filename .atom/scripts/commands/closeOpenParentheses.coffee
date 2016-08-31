@@ -14,14 +14,14 @@ findUnbalancedParentheses = (beforeCursor, afterCursor) ->
     parenthesesStack = []
     for char in beforeCursor
         switch
-            when prelude.elem char, "(<{[" then parenthesesStack.push(char)
+            when prelude.elem char, "(<{[" then parenthesesStack.push char
             when prelude.elem char, ")>}]" then parenthesesStack.pop()
 
     afterCursor.split("").reverse().join("") # Reverse string. WTF Javascript
 
     for char in afterCursor
         switch
-            when prelude.elem char, "(<{[" then parenthesesStack.unshift(char)
+            when prelude.elem char, "(<{[" then parenthesesStack.unshift char
             when prelude.elem char, ")>}]" then parenthesesStack.shift()
 
     parenthesesStack

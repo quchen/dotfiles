@@ -19,7 +19,7 @@ fillToLength = (selection, length) ->
     else if selection.isEmpty()
         selection.selectLeft 1
     currentText = selection.getText()
-    charsToFill = length - selectionLib.column(selection)
+    charsToFill = length - selectionLib.column selection
     replications = Math.ceil (charsToFill / currentText.length)
     if replications > 0
         selection.insertText \
@@ -27,7 +27,7 @@ fillToLength = (selection, length) ->
             'select': true
 
 fillEntireLines = () ->
-    lineWidth = atom.config.get('editor.preferredLineLength')
+    lineWidth = atom.config.get 'editor.preferredLineLength'
     selections = atom.workspace.getActiveTextEditor().getSelections()
     for selection in firstEachLine selections
         fillToLength selection, lineWidth
