@@ -53,13 +53,22 @@ commentAwareNewlineAbove = (selection) ->
 # Join the current line with the one below, collapsing multiple whitespace to a
 # single space character.
 joinLinesDown = (selection) ->
-    isLineComment = startsWithLineCommentScope selection
-    if isLineComment
+    if selection.isEmpty()
+        isLineComment = startsWithLineCommentScope selection
+        if isLineComment
+            selectionLib.rangeMasked selection, (s) ->
+                selectionLib.translate s, "deltaLine": 1
+                isStillLineComment = startsWithLineCommentScope s
+                if isStillLineComment
+                    s.toggleLineComments()
+    else
         selectionLib.rangeMasked selection, (s) ->
-            selectionLib.translate s, "deltaLine": 1
-            isStillLineComment = startsWithLineCommentScope s
-            if isStillLineComment
-                s.toggleLineComments()
+            range = s.getBufferRange()
+            for line in prelude.enumFromTo range.start.row+1, range.end.row
+                console.log line
+                s.setBufferRange [[line, Infinity], [line, Infinity]]
+                s.selectToFirstCharacterOfLine()
+                s.toggleLineComments() if startsWithLineCommentScope s
     selection.joinLines()
 
 # Join the current line with the one above, collapsing multiple whitespace to a

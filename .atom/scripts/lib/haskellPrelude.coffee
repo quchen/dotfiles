@@ -117,6 +117,12 @@ foldl = (f, z, xs) ->
 # flip :: (a -> b -> c) -> (b -> a -> c)
 flip = (f, x, y) -> f y, x
 
+enumFromTo = (from, to) ->
+    if from > to
+        return []
+    else
+        return [from..to]
+
 exports.atomically = atomically
 exports.nubVia     = nubVia
 exports.head       = head
@@ -130,3 +136,4 @@ exports.mapMaybe   = mapMaybe
 exports.catMaybes  = catMaybes
 exports.compose    = compose
 exports.foldl      = foldl
+exports.enumFromTo = enumFromTo
