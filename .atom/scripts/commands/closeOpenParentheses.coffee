@@ -10,19 +10,30 @@ matchingParenthesis = (parenthesis) ->
         when "{" then "}"
         when "[" then "]"
 
+isOpeningParenthesis = (char) -> prelude.elem char, "(<{["
+isClosingParenthesis = (char) -> prelude.elem char, ")>}]"
+
+# Like pop, but does not remove the element from the array.
+peek = (array) -> array[array.length-1]
+
 findUnbalancedParentheses = (beforeCursor, afterCursor) ->
     parenthesesStack = []
     for char in beforeCursor
         switch
-            when prelude.elem char, "(<{[" then parenthesesStack.push char
-            when prelude.elem char, ")>}]" then parenthesesStack.pop()
+            when isOpeningParenthesis char
+                parenthesesStack.push char
+            when isClosingParenthesis char
+                # Ignore unopened closing parentheses, so that e.g. arrows
+                # like -> do not mess up closing the rest of the parentheses
+                if char == matchingParenthesis (peek parenthesesStack)
+                    parenthesesStack.pop()
 
     afterCursor.split("").reverse().join("") # Reverse string. WTF Javascript
 
     for char in afterCursor
         switch
-            when prelude.elem char, "(<{[" then parenthesesStack.unshift char
-            when prelude.elem char, ")>}]" then parenthesesStack.shift()
+            when isOpeningParenthesis then parenthesesStack.unshift char
+            when isClosingParenthesis then parenthesesStack.shift()
 
     parenthesesStack
 
