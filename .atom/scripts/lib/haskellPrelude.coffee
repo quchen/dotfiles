@@ -123,17 +123,18 @@ enumFromTo = (from, to) ->
     else
         return [from..to]
 
-exports.atomically = atomically
-exports.nubVia     = nubVia
-exports.head       = head
-exports.reverse    = reverse
-exports.zipWith    = zipWith
-exports.all        = all
-exports.any        = any
-exports.elem       = elem
-exports.partition  = partition
-exports.mapMaybe   = mapMaybe
-exports.catMaybes  = catMaybes
-exports.compose    = compose
-exports.foldl      = foldl
-exports.enumFromTo = enumFromTo
+module.exports =
+    atomically: atomically
+    nubVia:     nubVia
+    head:       head
+    reverse:    reverse
+    zipWith:    zipWith
+    all:        all
+    any:        any
+    elem:       elem
+    partition:  partition
+    mapMaybe:   mapMaybe
+    catMaybes:  catMaybes
+    compose:    compose
+    foldl:      foldl
+    enumFromTo: enumFromTo
