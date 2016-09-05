@@ -76,6 +76,6 @@ refineByFirstWord = () ->
 
 
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "refine-by-config":     refineByConfig
     "refine-by-first-word": refineByFirstWord

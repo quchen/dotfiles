@@ -22,5 +22,5 @@ removeInlineWhitespace = () ->
         buffer.backwardsScanInRange /\s+/g, range, ({matchText, replace}) ->
             replace "" unless matchText.match(/\n/) or rangeStartsAtBol
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "remove-inline-whitespace": removeInlineWhitespace

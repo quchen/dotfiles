@@ -22,5 +22,5 @@ collapseVerticalSpace = () ->
     else
         buffer.backwardsScan /\n{3,}/g, collapseCallback
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "collapse-vertical-space": collapseVerticalSpace

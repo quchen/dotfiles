@@ -85,7 +85,7 @@ forAllSelections = (action) -> () ->
     for selection in atom.workspace.getActiveTextEditor().getSelections()
         action selection
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "comment-aware-newline":         forAllSelections commentAwareNewline
     "comment-aware-newline-above":   forAllSelections commentAwareNewlineAbove
     "comment-aware-newline-below":   forAllSelections commentAwareNewlineBelow

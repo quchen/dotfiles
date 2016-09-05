@@ -30,7 +30,7 @@ numberStartingWithFirstSelection = () ->
     else
         numberStartingWith(firstNumber)()
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "number-from-first-selection": numberStartingWithFirstSelection
     "number-from-0"              : numberStartingWith 0
     "number-from-1"              : numberStartingWith 1

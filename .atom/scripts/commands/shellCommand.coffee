@@ -18,7 +18,7 @@ dateCommand = (format) -> () ->
     for selection in atom.workspace.getActiveTextEditor().getSelections()
         selection.insertText out.trim()
 
-addCommands = require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "insert-date":                  dateCommand "+%Y-%m-%d"
     "insert-date-and-time":         dateCommand "+%Y-%m-%d %H:%M:%S"
     "insert-date-unix-time":        dateCommand "+%s"
