@@ -6,6 +6,9 @@
 .atom/blob-store
 .atom/compile-cache
 .atom/git-time-machine
-.atom/packages
-.atom/storage
 .atom/nohup.out
+.atom/packages/*
+!.atom/packages/quchen-addons
+.atom/storage
+.atom/recovery
+
