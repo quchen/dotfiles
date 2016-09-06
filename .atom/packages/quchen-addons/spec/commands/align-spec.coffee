@@ -49,19 +49,11 @@ describe "align", ->
                     ccccccccc: 3
                 """
 
-                editor.setSelectedBufferRanges \
-                    [
-                        {
-                            start: {row: 0, column: 5}
-                            end:   {row: 0, column: 5 + ":".length}
-                        }, {
-                            start: {row: 1, column: 1}
-                            end:   {row: 1, column: 1 + ":".length}
-                        }, {
-                            start: {row: 2, column: 9}
-                            end:   {row: 2, column: 9 + ":".length}
-                        }
-                    ]
+                editor.setSelectedBufferRanges maskToRanges """
+                    aaaaa# 1
+                    b# 2
+                    ccccccccc# 3
+                """
                 atom.commands.dispatch editorView, "quchen:align-right"
 
                 expect(editor.getText()).toEqual """
@@ -69,19 +61,11 @@ describe "align", ->
                     b:         2
                     ccccccccc: 3
                 """
-                expect(editor.getSelectedBufferRanges()).toEqual \
-                    [
-                        {
-                            start: {row: 0, column: 10}
-                            end:   {row: 0, column: 10}
-                        }, {
-                            start: {row: 1, column: 10}
-                            end:   {row: 1, column: 10}
-                        }, {
-                            start: {row: 2, column: 10}
-                            end:   {row: 2, column: 10}
-                        }
-                    ]
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    aaaaa:    |1
+                    b:        |2
+                    ccccccccc:|3
+                """
 
     describe "multiple things are selected", ->
         describe "left-align", ->
@@ -92,25 +76,11 @@ describe "align", ->
                     sitamet = 42 <= 55
                 """
 
-                editor.setSelectedBufferRanges \
-                    [
-                        {
-                            start: {row: 0, column: 4}
-                            end:   {row: 0, column: 4 + "=".length}
-                        }, {
-                            start: {row: 1, column: 11}
-                            end:   {row: 1, column: 11 + "=".length}
-                        }, {
-                            start: {row: 1, column: 19}
-                            end:   {row: 1, column: 19 + "!=".length}
-                        }, {
-                            start: {row: 2, column: 8}
-                            end:   {row: 2, column: 8 + "=".length}
-                        }, {
-                            start: {row: 2, column: 13}
-                            end:   {row: 2, column: 13 + "=".length}
-                        }
-                    ]
+                editor.setSelectedBufferRanges maskToRanges """
+                    foo # bar
+                    loremipsum # dolor [] id
+                    sitamet # 42 [] 55
+                """
 
                 atom.commands.dispatch editorView, "quchen:align-left"
                 expect(editor.getText()).toEqual """
@@ -118,25 +88,11 @@ describe "align", ->
                     loremipsum = dolor != id
                     sitamet    = 42 <= 55
                 """
-                expect(editor.getSelectedBufferRanges()).toEqual \
-                    [
-                        {
-                            start: {row: 0, column: 11}
-                            end:   {row: 0, column: 11 + "=".length}
-                        }, {
-                            start: {row: 1, column: 11}
-                            end:   {row: 1, column: 11 + "=".length}
-                        }, {
-                            start: {row: 1, column: 19}
-                            end:   {row: 1, column: 19 + "!=".length}
-                        }, {
-                            start: {row: 2, column: 11}
-                            end:   {row: 2, column: 11 + "=".length}
-                        }, {
-                            start: {row: 2, column: 16}
-                            end:   {row: 2, column: 16 + "=".length}
-                        }
-                    ]
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    foo        # bar
+                    loremipsum # dolor [] id
+                    sitamet    # 42 [] 55
+                """
 
                 atom.commands.dispatch editorView, "quchen:align-left"
                 expect(editor.getText()).toEqual """
@@ -144,22 +100,37 @@ describe "align", ->
                     loremipsum = dolor != id
                     sitamet    = 42    <= 55
                 """
-                expect(editor.getSelectedBufferRanges()).toEqual \
-                    [
-                        {
-                            start: {row: 0, column: 11}
-                            end:   {row: 0, column: 11 + "=".length}
-                        }, {
-                            start: {row: 1, column: 11}
-                            end:   {row: 1, column: 11 + "=".length}
-                        }, {
-                            start: {row: 1, column: 19}
-                            end:   {row: 1, column: 19 + "!=".length}
-                        }, {
-                            start: {row: 2, column: 11}
-                            end:   {row: 2, column: 11 + "=".length}
-                        }, {
-                            start: {row: 2, column: 19}
-                            end:   {row: 2, column: 19 + "=".length}
-                        }
-                    ]
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    foo        # bar
+                    loremipsum # dolor [] id
+                    sitamet    # 42    [] 55
+                """
+        describe "combining left-align and right-align", ->
+            it "works", ->
+                editor.setText """
+                    ..aaa: b: ..c
+                    ...bb: eeee: ...f
+                    ....ccc: hh: ....i
+                """
+
+                editor.setSelectedBufferRanges maskToRanges """
+                    ..|aa# b# ..#
+                    ...|b# eeee# ...#
+                    ....|cc# hh# ....#
+                """
+
+                atom.commands.dispatch editorView, "quchen:align-left"
+                atom.commands.dispatch editorView, "quchen:align-right"
+                atom.commands.dispatch editorView, "quchen:align-right"
+                atom.commands.dispatch editorView, "quchen:align-left"
+
+                expect(editor.getText()).toEqual """
+                    ..  aaa: b:    ..  c
+                    ... bb:  eeee: ... f
+                    ....ccc: hh:   ....i
+                """
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    ..  |aa:|b:   |..  #
+                    ... |b: |eeee:|... #
+                    ....|cc:|hh:  |....#
+                """
