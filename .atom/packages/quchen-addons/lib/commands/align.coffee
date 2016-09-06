@@ -60,8 +60,8 @@ extractSelectionsToAlign = (selectionsByLine) ->
     candidates
 
 # alignSelections :: [Selection] -> IO ()
-alignSelections = (selections, {alignment}) ->
-    if alignment == "right"
+alignSelections = (selections, alignmentDirection) ->
+    if alignmentDirection == "right"
         for selection in selections
             selectionLib.clearToRight selection
     rightmostColumn = prelude.foldl \
@@ -103,11 +103,12 @@ modifyRange = (range, delta) ->
     columnEnd   = range.end.column   + (delta.end?.column   ? 0)
     return [[rowStart, columnStart], [rowEnd, columnEnd]]
 
-multiAlign = (config) ->
+multiAlign = (alignmentDirection) -> () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
+    console.log selections
     lineGroups = selectionLib.lineGroup selections
     selectionsToAlign = extractSelectionsToAlign lineGroups
-    alignSelections selectionsToAlign, config
+    alignSelections selectionsToAlign, alignmentDirection
     removeCommonWhitespacePrefix selectionsToAlign
 
 keepOnlyFirstSelectionPerLine = () ->
@@ -119,9 +120,6 @@ keepOnlyFirstSelectionPerLine = () ->
         selections
     editor.setSelectedBufferRanges firstRangeEachLine
 
-multiAlignLeft  = () -> multiAlign "alignment": "left"
-multiAlignRight = () -> multiAlign "alignment": "right"
-
 exports.commands =
-    "align-left":  multiAlignLeft
-    "align-right": multiAlignRight
+    "align-left":  multiAlign "left"
+    "align-right": multiAlign "right"
