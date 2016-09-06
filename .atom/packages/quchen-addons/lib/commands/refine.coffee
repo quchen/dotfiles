@@ -54,7 +54,7 @@ refineByConfig = () ->
     buffer = editor.getBuffer()
     selections = editor.getSelections()
 
-    refinementConfig = atom.config.get("quchen.refinements")
+    refinementConfig = atom.config.get "quchen.refinements"
     for selection in selections
         selectedRange = selection.getBufferRange()
         scopeDescriptor = editor.scopeDescriptorForBufferPosition selectedRange.start
