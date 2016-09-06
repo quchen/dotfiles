@@ -1,3 +1,5 @@
+{maskToRanges} = require "../utils"
+
 describe "duplicate", ->
     editor = null
     editorView = null
@@ -19,9 +21,12 @@ describe "duplicate", ->
                 dolor
             """
 
-            editor.setCursorBufferPosition
-                row: 1
-                column: 3
+            editor.setSelectedBufferRanges maskToRanges """
+                .....
+                ..|..
+                .....
+            """
+
             atom.commands.dispatch editorView, "quchen:duplicate"
 
             expect(editor.getText()).toEqual """
@@ -30,28 +35,33 @@ describe "duplicate", ->
                 ipsum
                 dolor
             """
-            expect(editor.getCursorBufferPosition()).toEqual
-                row: 2
-                column: 3
+            expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                .....
+                .....
+                ..|..
+                .....
+            """
 
     describe "when something is selected", ->
         it "duplicates the selection", ->
             editor.setText "Lorem ipsum dolor"
-
-            editor.setSelectedBufferRanges \
-                [
-                    start: {row: 0, column: 6}
-                    end:   {row: 0, column: 6 + "ipsum".length}
-                ]
+            editor.setSelectedBufferRanges maskToRanges \
+                           "Lorem [---] dolor"
 
             expect(editor.getSelectedText()).toEqual "ipsum"
-            atom.commands.dispatch editorView, "quchen:duplicate"
 
+            atom.commands.dispatch editorView, "quchen:duplicate"
             expect(editor.getText()).toEqual "Lorem ipsumipsum dolor"
             expect(editor.getSelectedText()).toEqual "ipsum"
-            expect(editor.getSelectedScreenRange()).toEqual
-                start: {row: 0, column: 11}
-                end:   {row: 0, column: 11 + "ipsum".length}
+            expect(editor.getSelectedBufferRanges()).toEqual maskToRanges \
+                                             "Lorem ipsum[---] dolor"
+
+            atom.commands.dispatch editorView, "quchen:duplicate"
+            atom.commands.dispatch editorView, "quchen:duplicate"
+            expect(editor.getText()).toEqual "Lorem ipsumipsumipsumipsum dolor"
+            expect(editor.getSelectedText()).toEqual "ipsum"
+            expect(editor.getSelectedBufferRanges()).toEqual maskToRanges \
+                                             "Lorem ipsumipsumipsum[---] dolor"
 
     describe "when there are multiple selections", ->
         it "works for all of them individually", ->
@@ -60,20 +70,12 @@ describe "duplicate", ->
                 ipsum1 ipsum2 ipsum3
                 dolor1 dolor2 dolor3
             """
+            editor.setSelectedBufferRanges maskToRanges """
+                Lorem1 [----] lorem3
+                ip|um1 ipsum2 ipsum3
+                dolor1 dolor2 [----]
+            """
 
-            editor.setSelectedBufferRanges \
-                [
-                    {
-                        start: {row: 0, column: 7}
-                        end:   {row: 0, column: 7 + "lorem2".length},
-                    }, {
-                        start: {row: 1, column: 2}
-                        end:   {row: 1, column: 2},
-                    }, {
-                        start: {row: 2, column: 14}
-                        end:   {row: 2, column: 14 + "dolor3".length},
-                    }
-                ]
             atom.commands.dispatch editorView, "quchen:duplicate"
 
             expect(editor.getText()).toEqual """
