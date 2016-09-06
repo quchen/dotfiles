@@ -67,7 +67,7 @@ describe "align", ->
                     ccccccccc:|3
                 """
 
-    describe "multiple things are selected", ->
+    describe "multiple elements per line are selected", ->
         describe "left-align", ->
             it "left-aligns them vertically and incrementally", ->
                 editor.setText """
@@ -134,3 +134,25 @@ describe "align", ->
                     ... |b: |eeee:|... #
                     ....|cc:|hh:  |....#
                 """
+
+    describe "whitespace is in front of all alignments", ->
+        it "removes the superflous whitespace", ->
+            editor.setText """
+                a      b
+                cde        fgh i
+                jklmn     opqr
+            """
+
+            editor.setSelectedBufferRanges maskToRanges """
+                a      #
+                cde        [-] i
+                jklmn     [--]
+            """
+
+            atom.commands.dispatch editorView, "quchen:align-left"
+
+            expect(editor.getText()).toEqual """
+                a     b
+                cde   fgh i
+                jklmn opqr
+            """
