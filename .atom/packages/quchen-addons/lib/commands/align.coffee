@@ -105,20 +105,10 @@ modifyRange = (range, delta) ->
 
 multiAlign = (alignmentDirection) -> () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
-    console.log selections
     lineGroups = selectionLib.lineGroup selections
     selectionsToAlign = extractSelectionsToAlign lineGroups
     alignSelections selectionsToAlign, alignmentDirection
     removeCommonWhitespacePrefix selectionsToAlign
-
-keepOnlyFirstSelectionPerLine = () ->
-    editor = atom.workspace.getActiveTextEditor()
-    selections = editor.getSelections()
-    selections = selectionLib.lineGroup selections
-    firstRangeEachLine = prelude.mapMaybe \
-        ((sels) -> sels[0].getBufferRange()),
-        selections
-    editor.setSelectedBufferRanges firstRangeEachLine
 
 exports.commands =
     "align-left":  multiAlign "left"
