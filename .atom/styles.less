@@ -27,6 +27,30 @@
 
 atom-text-editor, atom-text-editor::shadow {
 
+    .source.haskell {
+
+        // Data constructors
+        .entity.name.tag {
+            font-style: italic;
+            color: inherit;
+        }
+        .entity.name.type {
+            color: @solarized-red;
+        }
+
+        // Stuff like Maybe
+        .support.class.prelude {
+            color: inherit;
+        }
+        .keyword.control.haskell {
+            font-weight: bold;
+            color: inherit;
+        }
+        .keyword.operator {
+            color: @solarized-orange;
+        }
+    }
+
     .enableLigatures("coffee");
     .enableLigatures("haskell");
     .enableLigatures("shell");
