@@ -99,6 +99,88 @@ describe "comment-aware", ->
                     |
                 """
 
+    describe "newline inserts a line at the current location", ->
+        describe "in ordinary text", ->
+            it "works on the first line", ->
+                editor.setText """
+                    Lorem ipsum
+                    dolor
+                """
+
+                editor.setSelectedBufferRanges maskToRanges """
+                    Lorem|ipsum
+                    ...
+                """
+
+                atom.commands.dispatch editorView, "quchen:comment-aware-newline"
+
+                expect(editor.getText()).toEqual """
+                    Lorem
+                     ipsum
+                    dolor
+                """
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    .....
+                    |ipsum
+                    .....
+                """
+
+            it "works in the middle of the buffer", ->
+                editor.setText """
+                    Lorem
+                    ipsum
+                    dolor
+                """
+
+                editor.setSelectedBufferRanges maskToRanges """
+                    .....
+                    ..|..
+                    .....
+                """
+
+                atom.commands.dispatch editorView, "quchen:comment-aware-newline"
+
+                expect(editor.getText()).toEqual """
+                    Lorem
+                    ip
+                    sum
+                    dolor
+                """
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    .....
+                    ...
+                    |..
+                    .....
+                """
+
+            it "works at the end of the buffer", ->
+                editor.setText """
+                    Lorem
+                    ipsum
+                    dolor
+                """
+
+                editor.setSelectedBufferRanges maskToRanges """
+                    .....
+                    .....
+                    dolor|
+                """
+
+                atom.commands.dispatch editorView, "quchen:comment-aware-newline"
+
+                expect(editor.getText()).toEqual """
+                    Lorem
+                    ipsum
+                    dolor
+
+                """
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    .....
+                    .....
+                    .....
+                    |
+                """
+
     describe "newline above inserts a line above the current one", ->
         describe "in ordinary text", ->
             it "works on the first line", ->
