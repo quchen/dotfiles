@@ -1,3 +1,5 @@
+{maskToRanges} = require "../utils"
+
 describe "align", ->
     editor = null
     editorView = null
@@ -20,19 +22,12 @@ describe "align", ->
                     ccccccccc = 3
                 """
 
-                editor.setSelectedBufferRanges \
-                    [
-                        {
-                            start: {row: 0, column: 6}
-                            end:   {row: 0, column: 6 + "=".length}
-                        }, {
-                            start: {row: 1, column: 2}
-                            end:   {row: 1, column: 2 + "=".length}
-                        }, {
-                            start: {row: 2, column: 10}
-                            end:   {row: 2, column: 10 + "=".length}
-                        }
-                    ]
+                editor.setSelectedBufferRanges maskToRanges """
+                    aaaaa # 1
+                    b # 2
+                    ccccccccc # 3
+                """
+
                 atom.commands.dispatch editorView, "quchen:align-left"
 
                 expect(editor.getText()).toEqual """
@@ -40,19 +35,12 @@ describe "align", ->
                     b         = 2
                     ccccccccc = 3
                 """
-                expect(editor.getSelectedBufferRanges()).toEqual \
-                    [
-                        {
-                            start: {row: 0, column: 10}
-                            end:   {row: 0, column: 10 + "=".length}
-                        }, {
-                            start: {row: 1, column: 10}
-                            end:   {row: 1, column: 10 + "=".length}
-                        }, {
-                            start: {row: 2, column: 10}
-                            end:   {row: 2, column: 10 + "=".length}
-                        }
-                    ]
+                expect(editor.getSelectedBufferRanges()).toEqual maskToRanges """
+                    aaaaa     # 1
+                    b         # 2
+                    ccccccccc # 3
+                """
+
         describe "right-align", ->
             it "right-aligns them vertically and collapses selections", ->
                 editor.setText """
