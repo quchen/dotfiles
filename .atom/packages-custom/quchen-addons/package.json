@@ -7,7 +7,7 @@
     ],
     "activationCommands": {
     },
-    "repository": "https://github.com/atom/quchen-addons",
+    "repository": "https://github.com/quchen/dotfiles/tree/master/.atom/packages-custom/quchen-addons",
     "license": "WTFPL",
     "engines": {
     "atom": ">=1.0.0 <2.0.0"
