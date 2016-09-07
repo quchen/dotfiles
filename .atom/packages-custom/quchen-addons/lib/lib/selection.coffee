@@ -10,7 +10,7 @@ column = (selection) -> selection.getBufferRange().start.column
 #     -> [Selection]
 sortSelectionsBy = (selections, comparing) ->
     selections.sort (s1, s2) ->
-        comparing s1 - comparing s2
+        comparing(s1) - comparing(s2)
 
 # Sort selections by their beginning, and group them by line.
 #

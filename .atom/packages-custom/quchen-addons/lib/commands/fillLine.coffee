@@ -41,6 +41,6 @@ fillToPrevious = () ->
         previousLineLength = buffer.lineForRow(startLine - 1).length
         fillToLength selection, previousLineLength
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "fill-lines-entirely":              fillEntireLines
     "fill-lines-to-length-of-previous": fillToPrevious

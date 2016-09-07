@@ -56,5 +56,5 @@ closeAllOpenParens = () ->
     selectionLib.clearToRight selection
     selection.insertText missingParentheses.join(""), {select: true}
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "close-open-parentheses": closeAllOpenParens

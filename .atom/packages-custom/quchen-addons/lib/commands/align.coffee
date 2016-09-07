@@ -60,8 +60,8 @@ extractSelectionsToAlign = (selectionsByLine) ->
     candidates
 
 # alignSelections :: [Selection] -> IO ()
-alignSelections = (selections, {alignment}) ->
-    if alignment == "right"
+alignSelections = (selections, alignmentDirection) ->
+    if alignmentDirection == "right"
         for selection in selections
             selectionLib.clearToRight selection
     rightmostColumn = prelude.foldl \
@@ -103,22 +103,13 @@ modifyRange = (range, delta) ->
     columnEnd   = range.end.column   + (delta.end?.column   ? 0)
     return [[rowStart, columnStart], [rowEnd, columnEnd]]
 
-multiAlign = (config) ->
+multiAlign = (alignmentDirection) -> () ->
     selections = atom.workspace.getActiveTextEditor().getSelections()
     lineGroups = selectionLib.lineGroup selections
     selectionsToAlign = extractSelectionsToAlign lineGroups
-    alignSelections selectionsToAlign, config
+    alignSelections selectionsToAlign, alignmentDirection
     removeCommonWhitespacePrefix selectionsToAlign
 
-keepOnlyFirstSelectionPerLine = () ->
-    editor = atom.workspace.getActiveTextEditor()
-    selections = editor.getSelections()
-    selections = selectionLib.lineGroup selections
-    firstRangeEachLine = prelude.mapMaybe \
-        ((sels) -> sels[0].getBufferRange()),
-        selections
-    editor.setSelectedBufferRanges firstRangeEachLine
-
-require("../lib/addCommands.coffee").addCommands
-    "align-left":  () -> multiAlign "alignment": "left"
-    "align-right": () -> multiAlign "alignment": "right"
+exports.commands =
+    "align-left":  multiAlign "left"
+    "align-right": multiAlign "right"

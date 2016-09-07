@@ -26,5 +26,5 @@ duplicate = () ->
         else
             duplicateSelection range, selection
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "duplicate": duplicate

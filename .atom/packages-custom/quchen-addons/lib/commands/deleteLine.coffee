@@ -8,5 +8,5 @@ deleteLine = () ->
         selection.deleteLine()
         selection.setBufferRange([range.start, range.start])
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "delete-line": deleteLine

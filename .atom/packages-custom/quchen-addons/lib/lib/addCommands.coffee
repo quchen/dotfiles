@@ -4,10 +4,7 @@
 
 prelude = require "./haskellPrelude.coffee"
 
-addCommands = (commands) ->
+exports.addCommands = (subscriptions, commands) ->
     for command, effect of commands
-        atom.commands.add "atom-text-editor",
-            "quchen:#{command}",
-            prelude.atomically effect
-
-exports.addCommands = addCommands
+        subscriptions.add atom.commands.add "atom-text-editor",
+            "quchen:#{command}", prelude.atomically effect

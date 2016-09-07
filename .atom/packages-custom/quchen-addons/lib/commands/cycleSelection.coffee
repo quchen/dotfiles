@@ -21,6 +21,6 @@ rotateRight = (list) -> list.unshift list.pop()
 # rotateRight :: [a] -> [a]
 rotateLeft = (list) -> list.push list.shift()
 
-require("../lib/addCommands.coffee").addCommands
+exports.commands =
     "rotate-selection-right": cycleSelection rotateRight
     "rotate-selection-left":  cycleSelection rotateLeft
