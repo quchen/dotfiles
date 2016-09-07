@@ -6,11 +6,3 @@
 # slate.
 atom.keymaps.keyBindings = atom.keymaps.keyBindings.filter (binding) ->
     binding.source.match "keymap\\.cson$"
-
-
-
-##############################################################################
-##  Custom packages
-##############################################################################
-
-require("./packages-custom/quchen-addons/main").activate()
