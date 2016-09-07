@@ -7,15 +7,10 @@
 The alignment script differs from all  other alignment functions and packages by
 not being "smart", having a predictable outcome, and not being shit in general.
 
-### Multi-align
-
-Align the first unaligned selection of each line
+Align the first unaligned selection of each line. Works for both left and right
+alignment.
 
 ![][multialign]
-
-### Align right
-
-Align the first selection of each line by their right ends
 
 ![][align-right]
 
