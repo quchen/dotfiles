@@ -89,6 +89,9 @@
     packageSyntax: "coffeescript"
   quchen:
     refinements:
+      "source.cabal": [
+        ","
+      ]
       "source.coffee": [
         "="
         ":"
