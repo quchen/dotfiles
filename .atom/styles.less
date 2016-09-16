@@ -92,6 +92,27 @@ atom-text-editor, atom-text-editor::shadow {
     .current-line-style(@solarized-base02, @solarized-base2);
 }
 
+atom-workspace {
+    .tab-bar {
+
+        // Stripes for pending tabs
+        .tab.pending-tab {
+            @fadePercent: 10%;
+            background: repeating-linear-gradient(
+                -45deg,
+                fade(@solarized-base2, @fadePercent),
+                fade(@solarized-base2, @fadePercent) 10px,
+                fade(@solarized-yellow, @fadePercent) 10px,
+                fade(@solarized-yellow, @fadePercent) 20px
+            ) !important;
+
+            .title.temp {
+                background: none;
+            }
+        }
+    }
+}
+
 .tree-view-config();
 
 
