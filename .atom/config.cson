@@ -23,6 +23,7 @@
   core:
     audioBeep: false
     autoHideMenuBar: true
+    automaticallyUpdate: false
     closeEmptyWindows: false
     disabledPackages: [
       "metrics"
@@ -43,6 +44,7 @@
       "solarized-light-syntax"
     ]
   editor:
+    atomicSoftTabs: false
     autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "\"Hasklig\""
