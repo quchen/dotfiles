@@ -143,6 +143,7 @@
     einweisen                  = commit -v
     holalle                    = fetch --all
     neubasieren                = rebase
+    beschuldigen               = blame
 
 [include]
     path = .gitconfig-local
