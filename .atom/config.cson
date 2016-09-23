@@ -39,6 +39,7 @@
       ".stack-work"
       ".node-gyp"
       ".apm"
+      "node_modules"
     ]
     restorePreviousWindowsOnStart: true
     telemetryConsent: "no"
