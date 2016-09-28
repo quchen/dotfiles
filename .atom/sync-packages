@@ -1,38 +1,40 @@
 apm install \
     Sublime-Style-Column-Selection@1.7.2 \
-    autocomplete-haskell@0.6.6 \
+    autocomplete-haskell@0.6.7 \
     box-edit@0.1.3 \
     color-picker@2.2.2 \
     file-icons@1.7.19 \
     git-blame@0.4.11 \
+    git-plus@5.17.1 \
     git-time-machine@1.5.3 \
     haskell-ghc-mod@1.17.2 \
     hex@0.6.2 \
     highlight-selected@0.11.2 \
     ide-haskell@1.8.1 \
     ide-haskell-cabal@1.6.4 \
-    ide-haskell-hasktags@0.0.5 \
+    ide-haskell-hasktags@0.0.6 \
     ide-purescript@0.14.7 \
-    indent-guide-improved@1.4.9 \
-    jumpy@3.0.3 \
+    indent-guide-improved@1.4.10 \
+    jumpy@3.1.1 \
     keybinding-cheatsheet@0.1.0 \
     language-elm@1.5.0 \
-    language-haskell@1.9.7 \
+    language-haskell@1.9.9 \
     language-idris@0.4.5 \
     language-lua@0.9.11 \
     language-purescript@0.8.1 \
     language-restructuredtext@1.0.0 \
     language-rust@0.4.6 \
     linter@1.11.16 \
-    linter-rust@0.5.5 \
+    linter-rust@0.5.6 \
     merge-conflicts@1.4.4 \
-    minimap@4.24.7 \
+    minimap@4.25.0 \
     minimap-cursorline@0.2.0 \
     minimap-find-and-replace@4.5.1 \
     minimap-highlight-selected@4.4.0 \
-    minimap-linter@1.1.1 \
+    minimap-linter@1.6.0 \
     multi-wrap-guide@0.25.2 \
-    pigments@0.34.0 \
+    pigments@0.35.2 \
+    quchen-addons@1.0.0 \
     racer@0.20.0 \
     rst-preview-pandoc@0.1.12 \
     sort-lines@0.14.0 \
