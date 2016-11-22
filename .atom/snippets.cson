@@ -5,3 +5,9 @@
     "GHC options":
         "prefix": "OPTIONS"
         "body": "{-# OPTIONS_GHC $1 #-}"
+    "Deprecation":
+        "prefix": "DEPRECATED"
+        "body": "{-# DEPRECATED $1 #-}"
+    "Warning":
+        "prefix": "WARNING"
+        "body": "{-# WARNING $1 #-}"

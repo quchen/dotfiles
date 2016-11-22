@@ -39,6 +39,7 @@
       ".apm"
     ]
     restorePreviousWindowsOnStart: true
+    telemetryConsent: "no"
     themes: [
       "one-light-ui"
       "solarized-light-syntax"
