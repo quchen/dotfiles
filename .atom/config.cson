@@ -57,6 +57,7 @@
     ignoreWhiteSpaceDiffs: true
   "haskell-ghc-mod":
     onMouseHoverShow: ""
+    onSaveLint: false
     useLinter: true
   "highlight-selected":
     highlightBackground: true
