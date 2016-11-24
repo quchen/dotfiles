@@ -37,7 +37,6 @@
 
     # Window handling
     "ctrl-q":       "application:quit"
-    "ctrl-shift-n": "application:new-window"
 
     # Tab handling
     "ctrl-w":         "tabs:close-tab"
@@ -115,7 +114,7 @@
     "ctrl-r":           "autoflow:reflow-selection"
 
     # Navigation
-    "ctrl-`":       "jumpy:toggle"
+    "ctrl-ö":       "jumpy:toggle"
     "ctrl-shift-`": "go-to-line:toggle"
 
     # Alignment
