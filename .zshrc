@@ -196,6 +196,7 @@ alias -g G=" | grep "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
 alias -g C=" | clipboard "
+alias -g TB=" | nc termbin.com 9999 | clipboard "
 
 # List files
 LS_COMMON="--group-directories-first --color=always"
