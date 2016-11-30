@@ -1,3 +1,5 @@
+@import "ui-variables";
+
 @solarized-base03:  #002b36; //       dark
 @solarized-base02:  #073642; //       dark
 @solarized-base01:  #586e75; // light dark
@@ -90,6 +92,8 @@ atom-text-editor, atom-text-editor::shadow {
     .markdown-styles();
 
     .current-line-style(@solarized-base02, @solarized-base2);
+
+    .minimap-styles();
 }
 
 atom-workspace {
@@ -253,7 +257,7 @@ atom-workspace {
     .line-number.cursor-line {
         font-weight: bold;
         color: @fg;
-        background: @bg;
+        background: fade(@bg, 75%);
     }
     .cursor-line {
         background: fade(@bg, 5%);
@@ -261,5 +265,21 @@ atom-workspace {
 
     .minimap .cursor-line {
         background-color: fade(@bg, 25%);
+    }
+}
+
+.minimap-styles() {
+    .minimap {
+        .line {
+            .git-line-modified {
+                background: fade(@syntax-color-modified, 25%);
+            }
+            .git-line-added {
+                background: fade(@syntax-color-added, 25%);
+            }
+            .git-line-removed {
+                background: fade(@syntax-color-removed, 25%);
+            }
+        }
     }
 }
