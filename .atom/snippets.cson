@@ -11,3 +11,19 @@
     "Warning":
         "prefix": "WARNING"
         "body": "{-# WARNING $1 #-}"
+
+    "Specialize":
+        "prefix": "SPECIALIZE"
+        "body": "{-# SPECIALIZE $1 #-}"
+    "Rule":
+        "prefix": "RULE"
+        "body": "{-# RULE $1 #-}"
+    "Inline":
+        "prefix": "INLINE"
+        "body": "{-# INLINE $1 #-}"
+    "Noinline":
+        "prefix": "NOINLINE"
+        "body": "{-# NOINLINE $1 #-}"
+    "Inlinable":
+        "prefix": "INLINABLE"
+        "body": "{-# INLINABLE $1 #-}"
