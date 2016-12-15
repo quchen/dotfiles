@@ -92,6 +92,8 @@
     "ctrl-p":       "command-palette:toggle"
     "ctrl-shift-p": "fuzzy-finder:toggle-file-finder"
 
+    "f9": "sort-lines:case-insensitive-sort"
+
     "escape": "editor:consolidate-selections" # Cancel multiselect
 
 "atom-workspace atom-text-editor:not([mini])":
