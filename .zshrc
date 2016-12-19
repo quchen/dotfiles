@@ -218,6 +218,16 @@ sublimeAdd() {
 }
 alias sa=sublimeAdd
 
+alias a=atom
+atomAdd() {
+    if [[ "$#" -ne 0 ]]; then
+        atom -a "$@"
+    else
+        atom -a .
+    fi
+}
+alias aa=atomAdd
+
 alias r=ranger
 
 alias ta="tig --all"
