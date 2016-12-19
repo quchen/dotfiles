@@ -123,9 +123,11 @@
 
     # Alignment
     "ctrl-,": "quchen:align-left"
-    "ctrl-<": "quchen:align-right"
+    "ctrl-–": "quchen:align-right"
+        # ^-- "semicolon" position on German keyboard, given my QWERTZ-Neo layout
     "ctrl-.": "quchen:refine-by-config"
-    "ctrl->": "quchen:refine-by-first-word"
+    "ctrl-•": "quchen:refine-by-first-word"
+        # ^-- "colon" position on German keyboard, given my QWERTZ-Neo layout
 
     # Selection
     "ctrl-k":       "find-and-replace:select-next"
