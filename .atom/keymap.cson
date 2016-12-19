@@ -114,6 +114,8 @@
     "tab":              "editor:indent"
     "shift-tab":        "editor:outdent-selected-rows"
     "ctrl-r":           "autoflow:reflow-selection"
+    "ctrl-°":           "quchen:fill-lines-to-length-of-previous"
+        # ^-- "minus" position on German keyboard, given my QWERTZ-Neo layout
 
     # Navigation
     "ctrl-ö":       "jumpy:toggle"
