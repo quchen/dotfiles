@@ -420,7 +420,7 @@ RPROMPT='%{%f%b%k%}$(build_rprompt)'
 ###  Plugins  #################################################################
 ###############################################################################
 
-source "$HOME/.zsh/plugins/zsh-syntax-highlighting-0.4.0/zsh-syntax-highlighting.zsh"
+source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 
 
