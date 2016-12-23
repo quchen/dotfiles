@@ -31,3 +31,11 @@
     "Inlinable":
         "prefix": "INLINABLE"
         "body": "{-# INLINABLE ${1:Identifier} #-}"
+
+    "Cost centre":
+        "prefix": "SCC"
+        "body": "{-# SCC ${1:Identifier} #-}"
+
+    "Unpack":
+        "prefix": "UNPACK"
+        "body": "{-# UNPACK #-}"
