@@ -39,3 +39,7 @@
     "Unpack":
         "prefix": "UNPACK"
         "body": "{-# UNPACK #-}"
+
+    "Deriving (Eq, Ord, Show)":
+        "prefix": "deriving"
+        "body": "deriving (Eq, Ord, Show)"
