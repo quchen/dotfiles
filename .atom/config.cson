@@ -132,6 +132,8 @@
     rustSrcPath: "/home/main/Programs/rustc-1.9/sourcedist/src/"
   "rst-preview-pandoc":
     pandocOpts: "-frst -thtml --webtex"
+  "status-bar":
+    fullWidth: false
   tabs:
     enableVcsColoring: true
     tabScrolling: false
