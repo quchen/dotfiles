@@ -27,28 +27,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Config
 
-atom-text-editor, atom-text-editor::shadow {
+atom-text-editor {
 
-    .source.haskell {
+    .syntax--source.syntax--haskell {
 
         // Data constructors
-        .entity.name.tag {
+        .syntax--entity.syntax--name.syntax--tag {
             font-style: italic;
             color: inherit;
         }
-        .entity.name.type {
+        .syntax--entity.syntax--name.syntax--type {
             color: @solarized-red;
         }
 
         // Stuff like Maybe
-        .support.class.prelude {
+        .syntax--support.syntax--class.syntax--prelude {
             color: inherit;
         }
-        .keyword.control.haskell {
+        .syntax--keyword.syntax--control.syntax--haskell {
             font-weight: bold;
             color: inherit;
         }
-        .keyword.operator {
+        .syntax--keyword.syntax--operator {
             color: @solarized-orange;
         }
     }
@@ -145,7 +145,7 @@ atom-workspace {
 }
 
 .highlight-selected-config(@color) {
-    .highlights .highlight-selected.background .region {
+    .highlights .highlight-selected.syntax--background .region {
       background: fade(@color, 20%);
       border: 1px solid fade(@color, 50%);
   }
@@ -219,34 +219,34 @@ atom-workspace {
 
 // Custom modifications to make Markdown nicer
 .markdown-styles {
-    .source.gfm {
-        .heading-1, .heading-2, .heading-3, .heading-4, .heading-5 {
+    .syntax--source.syntax--gfm {
+        .syntax--heading-1, .syntax--heading-2, .syntax--heading-3, .syntax--heading-4, .syntax--heading-5 {
             background-color: fade(@solarized-blue, 20%);
         }
-        .heading-1 {
+        .syntax--heading-1 {
             border: 2px solid;
             padding: 0.25em 0.5em 0.25em 0.25em;
             font-weight: bold;
         }
-        .heading-2 {
+        .syntax--heading-2 {
             border: 1px solid;
             padding: 0.25em;
         }
-        .heading-3 {
+        .syntax--heading-3 {
             border-bottom: 1px solid;
         }
-        .heading-4 {
+        .syntax--heading-4 {
             border-bottom: 1px dotted;
         }
-        .support.quote.gfm {
+        .syntax--support.syntax--quote.syntax--gfm {
             color: @solarized-yellow;
             font-weight: bold;
         }
-        .variable.unordered {
+        .syntax--variable.syntax--unordered {
             color: @solarized-red;
             font-weight: bold;
         }
-        .variable.ordered {
+        .syntax--variable.syntax--ordered {
             color: @solarized-red;
             font-weight: bold;
         }
