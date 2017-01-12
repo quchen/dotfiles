@@ -55,6 +55,9 @@
     tabLength: 4
   "git-blame":
     ignoreWhiteSpaceDiffs: true
+  "git-plus":
+    general:
+      analytics: false
   "haskell-ghc-mod":
     onMouseHoverShow: ""
     onSaveLint: false
