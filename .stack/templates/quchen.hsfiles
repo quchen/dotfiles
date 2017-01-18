@@ -1,46 +1,49 @@
 {-# START_FILE {{name}}.cabal #-}
 name:                {{name}}
 version:             0
-synopsis:            Initial project template from stack
+synopsis:            Quchen's Stack template
 description:         See README.md
-homepage:            https://github.com/{{github-username}}{{^github-username}}githubuser{{/github-username}}/{{name}}#readme
+homepage:            https://github.com/quchen/{{name}}#readme
 license:             BSD3
 license-file:        LICENSE.md
-author:              {{author-name}}{{^author-name}}Author name here{{/author-name}}
-maintainer:          {{author-email}}{{^author-email}}example@example.com{{/author-email}}
-copyright:           {{copyright}}{{^copyright}}{{year}}{{^year}}2016{{/year}} {{author-name}}{{^author-name}}Author name here{{/author-name}}{{/copyright}}
+author:              David »quchen« Luposchainsky <dluposchainsky+{{name}} (λ) gmail>
+maintainer:          David »quchen« Luposchainsky <dluposchainsky+{{name}} (λ) gmail>
+copyright:           David »quchen« Luposchainsky <dluposchainsky+{{name}} (λ) gmail>
 category:            {{category}}{{^category}}Web{{/category}}
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
 
 library
+    build-depends:
+          base >= 4.7 && < 5
     hs-source-dirs:      src
     exposed-modules:     Lib
-    build-depends:       base >= 4.7 && < 5
     default-language:    Haskell2010
     ghc-options:         -Wall
 
 executable {{name}}-exe
+    build-depends:
+          base
+        , {{name}}
     hs-source-dirs:      app
     main-is:             Main.hs
     ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
-    build-depends:       base
-                       , {{name}}
     default-language:    Haskell2010
 
 test-suite {{name}}-test
+    build-depends:
+          base
+        , {{name}}
+    ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
     type:                exitcode-stdio-1.0
     hs-source-dirs:      test
     main-is:             Test.hs
-    build-depends:       base
-                       , {{name}}
-    ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
     default-language:    Haskell2010
 
 source-repository head
   type:     git
-  location: https://github.com/{{github-username}}{{^github-username}}githubuser{{/github-username}}/{{name}}
+  location: https://github.com/quchen/{{name}}
 
 
 
@@ -78,7 +81,7 @@ main = someFunc
 BSD-3 license
 =============
 
-Written by {{author-name}}{{^author-name}}Author name here{{/author-name}} in {{year}}{{^year}}2016{{/year}}. All rights reserved.
+Written by David Luposchainsky. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -90,7 +93,7 @@ are permitted provided that the following conditions are met:
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
-  - Neither the name of {{author-name}}{{^author-name}}Author name here{{/author-name}} nor the names of other contributors may
+  - Neither the name of David Luposchainsky nor the names of other contributors may
     be used to endorse or promote products derived from this software without
     specific prior written permission.
 
