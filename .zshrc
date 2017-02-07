@@ -47,6 +47,10 @@ PATH="$HOME/.cargo/bin:$PATH"
 PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.stack/bin:$PATH"
+NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
+if [[ -e "$NIXPROFILE" ]]; then
+    source "$NIXPROFILE"
+fi
 
 for mandir in $(find "$HOME/Programs" -type d -name man); do
     MANPATH="$mandir:$MANPATH"
