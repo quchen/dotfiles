@@ -5,3 +5,5 @@ set refs-view   = line-number:yes id:no date:default author:full ref commit-titl
 set stash-view  = line-number:yes,interval=5 id:no date:default author:full commit-title
 set status-view = line-number:yes,interval=5 status:short file-name
 set tree-view   = line-number:yes,interval=5 mode author:full file-size date:default id:no file-name
+
+set mailmap = true
