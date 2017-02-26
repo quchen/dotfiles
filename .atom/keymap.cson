@@ -151,6 +151,21 @@
     "ctrl-h ctrl-d": "haskell-ghc-mod:go-to-declaration"
     "ctrl-h ctrl-p": "ide-haskell-hasktags:show-tags"
 
+# Agda stuff
+"atom-workspace atom-text-editor[data-grammar~='agda']":
+    "ctrl-h ctrl-c": "agda-mode:case"
+    "ctrl-h ctrl-a": "agda-mode:auto"
+    "ctrl-h ctrl-r": "agda-mode:refine"
+    "ctrl-h ctrl-l": "agda-mode:load"
+    "ctrl-h ctrl-,": "agda-mode:goal-type-and-context[Simplified]"
+    "ctrl-h ctrl-–": "agda-mode:goal-type-and-context[Normalised]"
+    "ctrl-h ctrl-f": "agda-mode:next-goal"
+    "ctrl-h ctrl-b": "agda-mode:previous-goal"
+    "ctrl-h ctrl-w": "agda-mode:why-in-scope"
+    "\\":            "agda-mode:input-symbol"
+
+
+
 # Jumpy bindings
 "atom-workspace atom-text-editor.jumpy-jump-mode":
 

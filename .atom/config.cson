@@ -6,6 +6,8 @@
       spawnCount: {}
       totalCount: {}
     screenShake: {}
+  "agda-mode":
+    executablePath: "agda"
   "autocomplete-plus":
     backspaceTriggersAutocomplete: true
     confirmCompletion: "tab"
@@ -98,6 +100,11 @@
     packageSyntax: "coffeescript"
   quchen:
     refinements:
+      "source.agda": [
+        "="
+        ":"
+        "->"
+      ]
       "source.cabal": [
         ","
       ]
