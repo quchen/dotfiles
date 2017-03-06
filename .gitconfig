@@ -117,7 +117,9 @@
     fix     = commit --amend
     co      = checkout
     d       = diff
+    ds      = diff --staged
     dd      = diff --word-diff=color
+    dds     = diff --word-diff=color --staged
     dw      = diff --color-words="[^[:space:],;:_-]+"
     dt      = difftool --dir-diff
     mt      = mergetool --no-prompt
