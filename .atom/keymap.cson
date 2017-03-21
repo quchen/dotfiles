@@ -162,6 +162,8 @@
     "ctrl-h ctrl-f": "agda-mode:next-goal"
     "ctrl-h ctrl-b": "agda-mode:previous-goal"
     "ctrl-h ctrl-w": "agda-mode:why-in-scope"
+    "ctrl-h ctrl-d": "agda-mode:infer-type[Simplified]"
+    "ctrl-h ctrl-D": "agda-mode:infer-type[Normalised]"
     "\\":            "agda-mode:input-symbol"
 
 
