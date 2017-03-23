@@ -114,7 +114,8 @@
     b       = branch
     bi      = bisect
     ci      = commit
-    fix     = commit --amend
+    fix     = commit --amend --no-edit
+    reword  = commit --amend
     co      = checkout
     d       = diff
     ds      = diff --staged
@@ -140,6 +141,7 @@
     unterschiedswerkzeug       = difftool --dir-diff
     vereinigungswerkzeug       = mergetool --no-prompt
     repariere                  = commit --amend
+    neuformulieren             = commit --amend --no-edit
     rauf                       = pull --rebase
     aufpfropfen                = rebase
     unterkomponentenerneuerung = submodule update
