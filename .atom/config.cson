@@ -8,6 +8,9 @@
     screenShake: {}
   "agda-mode":
     executablePath: "agda"
+  "atom-beautify":
+    general:
+      analytics: false
   "autocomplete-plus":
     backspaceTriggersAutocomplete: true
     confirmCompletion: "tab"
@@ -62,6 +65,7 @@
     general:
       analytics: false
   "haskell-ghc-mod":
+    onChangeLint: true
     onMouseHoverShow: ""
     onSaveLint: false
     useLinter: true
@@ -75,6 +79,8 @@
     fontSize: 0.8
     matchPattern: "\\S{2,}"
   linter: {}
+  "linter-ui-default":
+    showPanel: true
   "markdown-preview":
     liveUpdate: false
   minimap:
