@@ -43,3 +43,8 @@
     "Deriving (Eq, Ord, Show)":
         "prefix": "deriving"
         "body": "deriving (Eq, Ord, Show)"
+
+".source.agda":
+    "BUILTIN":
+        "prefix": "builtin"
+        "body": "{-# BUILTIN $1 #-}"
