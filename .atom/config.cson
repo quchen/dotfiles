@@ -78,7 +78,8 @@
   jumpy:
     fontSize: 0.8
     matchPattern: "\\S{2,}"
-  linter: {}
+  linter:
+    lintOnChange: false
   "linter-ui-default":
     showPanel: true
   "markdown-preview":
