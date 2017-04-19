@@ -53,9 +53,10 @@ atom-text-editor {
         }
     }
 
-    .enableLigatures("coffee");
-    .enableLigatures("haskell");
-    .enableLigatures("shell");
+    // Ligature settings for Iosevka
+    & { -webkit-font-feature-settings: "calt" on; }
+    &[data-grammar*="idris"] { -webkit-font-feature-settings: "XIDR" on; }
+    &[data-grammar*="haskell"] { -webkit-font-feature-settings: "XHS0" on; }
 
     .blinking-cursor();
 
@@ -126,16 +127,8 @@ atom-workspace {
 
 
 
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // Lib
-
-.enableLigatures(@language) {
-    &[data-grammar*="@{language}"] {
-        text-rendering: optimizeLegibility;
-    }
-}
 
 .wrap-guide-config(@n, @color, @amount) {
     &:nth-child(@{n}) .multi-wrap-guide-line {

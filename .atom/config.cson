@@ -54,7 +54,7 @@
     atomicSoftTabs: false
     autoIndentOnPaste: false
     backUpBeforeSaving: true
-    fontFamily: "\"Hasklig\""
+    fontFamily: "\"Iosevka Expanded\""
     invisibles: {}
     scrollPastEnd: true
     softWrapHangingIndent: 4
