@@ -55,6 +55,11 @@ PATH="$HOME/.stack/bin:$PATH"
 for mandir in $(find "$HOME/Programs" -type d -name man); do
     MANPATH="$mandir:$MANPATH"
 done
+NIXMAN="$HOME/.nix-profile/share/man"
+if [[ -e "$NIXMAN" ]]; then
+    MANPATH="$NIXMAN:$MANPATH"
+fi
+
 
 
 
