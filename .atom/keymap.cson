@@ -146,7 +146,7 @@
     "ctrl-h ctrl-t": "haskell-ghc-mod:show-type-fallback-to-info"
     "ctrl-h ctrl-h": "haskell-ghc-mod:insert-type"
     "ctrl-h ctrl-i": "haskell-ghc-mod:show-info-fallback-to-type"
-    "ctrl-h ctrl-s": "haskell-ghc-mod:case-split"
+    "ctrl-h ctrl-c": "haskell-ghc-mod:case-split"
     "ctrl-h ctrl-m": "haskell-ghc-mod:insert-import"
     "ctrl-h ctrl-d": "haskell-ghc-mod:go-to-declaration"
     "ctrl-h ctrl-p": "ide-haskell-hasktags:show-tags"
