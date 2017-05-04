@@ -65,7 +65,7 @@
     general:
       analytics: false
   "haskell-ghc-mod":
-    onChangeLint: true
+    onChangeLint: false
     onMouseHoverShow: ""
     onSaveLint: false
     useLinter: true
