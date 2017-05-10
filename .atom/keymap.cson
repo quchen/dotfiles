@@ -61,6 +61,9 @@
     "ctrl-f":       "find-and-replace:show"
     "ctrl-shift-f": "project-find:show"
 
+"atom-workspace .find-and-replace":
+    "shift-enter": "find-and-replace:find-all"
+
 "atom-workspace atom-text-editor":
 
     # Editing
