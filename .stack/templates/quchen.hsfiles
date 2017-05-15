@@ -110,45 +110,57 @@ software, even if advised of the possibility of such damage.
 
 
 
-{-# START_FILE HLint.hs #-}
-import "hint" HLint.Default
-import "hint" HLint.Builtin.All
+{-# START_FILE .hlint.yaml #-}
+# Avoiding lambdas is not always a good idea if you keep in mind that GHC's
+# inliner will only consider fully applied functions.
+- ignore: {name: "Avoid lambda"}
 
--- Avoiding lambdas is not always a good idea if you keep in mind that GHC's
--- inliner will only consider fully applied functions.
-ignore "Avoid lambda"
+# Naming can be useful
+- ignore: {name: "Eta reduce"}
+- ignore: {name: "Redundant lambda"}
+- ignore: {name: "Use const"}
 
--- Naming can be useful
-ignore "Eta reduce"
-ignore "Redundant lambda"
-ignore "Use const"
+# Sometimes, it can make code more readable if underscores are allowed as a
+# form of a "large" separator. For example, one might give all tests the prefix
+# "test_", followed by a camel-case test name.
+- ignore: {name: "Use camelCase"}
 
--- Sometimes, it can make code more readable if underscores are allowed as a
--- form of a "large" separator. For example, one might give all tests the prefix
--- "test_", followed by a camel-case test name.
-ignore "Use camelCase"
+# Sometimes a »case« can be clearer
+- ignore: {name: "Use fromMaybe"}
+- ignore: {name: "Use if"}
 
---
-ignore "Use fromMaybe"
+# Obfuscation much?
+- ignore: {name: "Use uncurry"}
+- ignore: {name: "Use first"}
+- ignore: {name: "Use second"}
 
--- I have no idea why "if" is even in Haskell. I certainly do not encourage
--- using it (over a simple "case").
-ignore "Use if"
+# I don’t like $
+- error:
+    name: Use parentheses instead of $
+    lhs: f $ x
+    rhs: f (x)
 
--- Obfuscation much?
-ignore "Use uncurry"
-
--- AMP fallout
-error "generalize mapM"  = mapM  ==> traverse
-error "generalize mapM_" = mapM_ ==> traverse_
-error "generalize forM"  = forM  ==> for
-error "generalize forM_" = forM_ ==> for_
-error "Avoid return" =
-    return ==> pure
-    where note = "return is obsolete as of GHC 7.10"
-
--- Avoid operator soup
-error "Use parentheses instead of ($)" = f $ x ==> f (x)
+# AMP fallout
+- error:
+    name: generalize mapM
+    lhs: mapM
+    rhs: traverse
+- error:
+    name: generalize mapM_
+    lhs: mapM_
+    rhs: traverse_
+- error:
+    name: generalize forM
+    lhs: forM
+    rhs: for
+- error:
+    name: generalize forM_
+    lhs: forM_
+    rhs: for_
+- error:
+    name: Avoid return
+    lhs: return
+    rhs: pure
 
 
 
@@ -174,9 +186,9 @@ steps:
   # and only applies to statements where each element occupies a single
   # line.
   - simple_align:
-      cases: true
-      top_level_patterns: true
-      records: true
+      cases: false
+      top_level_patterns: false
+      records: false
 
   # Import cleanup
   - imports:
@@ -196,7 +208,7 @@ steps:
       # Default: global.
       align: group
 
-      # Folowing options affect only import list alignment.
+      # The following options affect only import list alignment.
       #
       # List align has following options:
       #
@@ -230,7 +242,7 @@ steps:
       #   short enough to fit to single line. Otherwise it'll be multiline.
       #
       # - multiline: One line per import list entry.
-      #   Type with contructor list acts like single import.
+      #   Type with constructor list acts like single import.
       #
       #   > import qualified Data.Map as M
       #   >     ( empty
@@ -264,7 +276,7 @@ steps:
       #   Useful for 'file' and 'group' align settings.
       list_padding: 4
 
-      # Separate lists option affects formating of import list for type
+      # Separate lists option affects formatting of import list for type
       # or class. The only difference is single space between type and list
       # of constructors, selectors and class functions.
       #
@@ -297,7 +309,7 @@ steps:
 
       # Align affects alignment of closing pragma brackets.
       #
-      # - true: Brackets are aligned in same collumn.
+      # - true: Brackets are aligned in same column.
       #
       # - false: Brackets are not aligned together. There is only one space
       #   between actual import and closing bracket.
@@ -342,7 +354,6 @@ newline: lf
 # language_extensions:
   # - TemplateHaskell
   # - QuasiQuotes
-
 
 
 
