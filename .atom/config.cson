@@ -16,7 +16,6 @@
     confirmCompletion: "tab"
     consumeSuffix: false
     maxVisibleSuggestions: 5
-    suggestionListFollows: "Cursor"
   autosave:
     enabled: true
   "bracket-matcher":
