@@ -70,6 +70,8 @@
     useLinter: true
   "highlight-selected":
     highlightBackground: true
+    minimumLength: 1
+    onlyHighlightWholeWords: false
   "ide-haskell":
     onSavePrettify: true
   "ide-haskell-cabal":
