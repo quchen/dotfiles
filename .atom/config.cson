@@ -74,6 +74,9 @@
     onSavePrettify: true
   "ide-haskell-cabal":
     activeGhcVersion: "7.10"
+  "ide-purescript":
+    fastRebuild: false
+    useCombinedExe: true
   jumpy:
     fontSize: 0.8
     matchPattern: "\\S{2,}"
