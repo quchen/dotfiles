@@ -85,6 +85,7 @@
   linter:
     lintOnChange: false
   "linter-ui-default":
+    hidePanelWhenEmpty: true
     showPanel: true
   "markdown-preview":
     liveUpdate: false
