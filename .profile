@@ -22,9 +22,11 @@ done
 PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.stack/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
 
 for mandir in $(find "$HOME/Programs" -type d -name man); do
     MANPATH="$mandir:$MANPATH"
 done
 
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
+
