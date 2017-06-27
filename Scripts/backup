@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SOURCE="$HOME"
+DEST="/media/veracrypt1/"
+echo "Running:"
+echo rsync -ah --progress --delete "$SOURCE" "$DEST"
+echo "Last chance to cancel! Enter to run, ^C to cancel."
+read
+rsync -ah --progress --delete "$SOURCE" "$DEST"
