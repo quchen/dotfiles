@@ -7,3 +7,5 @@ set status-view = line-number:yes,interval=5 status:short file-name
 set tree-view   = line-number:yes,interval=5 mode author:full file-size date:default id:no file-name
 
 set mailmap = true
+
+bind main c !git checkout %(commit)
