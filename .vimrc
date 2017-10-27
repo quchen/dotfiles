@@ -11,3 +11,8 @@ let g:ghc = "/usr/local/bin/ghc"
 let g:haddock_browser = "/usr/bin/firefox"
 au BufEnter *.hs compiler ghc
 set number
+set cursorline
+set showmatch
+set incsearch
+set hlsearch
+
