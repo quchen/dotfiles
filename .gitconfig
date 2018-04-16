@@ -25,7 +25,7 @@
     autoStash = true
 [rerere]
     enabled = true
-    autoupdate = true # Automatically stage rerere-fixed conflicts
+    autoupdate = false
 [user]
     name = David Luposchainsky
     email = dluposchainsky@gmail.com
