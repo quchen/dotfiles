@@ -46,10 +46,20 @@ local spaceBeforeUnits = function(str)
     return string.gsub(str, "^(.-)(%a+)$", "%1 %2")
 end
 
+-- Left-biased union of tables
+local function merge(a, b)
+    result = {}
+    for k, v in pairs(b) do result[k] = v end
+    for k, v in pairs(a) do result[k] = v end
+    return result
+end
+
 return
     { splitRgb                 = splitRgb
     , splitRgba                = splitRgba
     , linearInterpolation      = linearInterpolation
     , linearInterpolateColours = linearInterpolateColours
     , trim                     = trim
-    , spaceBeforeUnits         = spaceBeforeUnits }
+    , spaceBeforeUnits         = spaceBeforeUnits
+    , merge                    = merge
+    }

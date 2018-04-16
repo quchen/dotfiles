@@ -161,9 +161,16 @@ local function barLeftRight(cr, config)
         cr,
         config.topleftX + valueX,
         config.topleftY,
-        util.linearInterpolation(0,config.width, 1,0, config.value),
+        util.linearInterpolation(0, config.width, 1, 0, config.value),
         config.height)
     cairo_fill(cr)
+end
+
+local function box(cr, config)
+    cairo_set_source_rgba(cr, util.splitRgba(config.colour, config.alpha))
+    if not config.fill then cairo_set_line_width(cr, 2) end
+    cairo_rectangle(cr, config.xOffset, config.yOffset, config.width, config.height)
+    if config.fill then cairo_fill(cr) end
 end
 
 return
@@ -172,4 +179,5 @@ return
     , alignedText  = alignedText
     , rays         = rays
     , barLeftRight = barLeftRight
+    , box          = box
     }

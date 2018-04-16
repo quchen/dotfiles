@@ -17,7 +17,9 @@ function conky_main()
             conky_window.width,
             conky_window.height))
 
-    local xOffset = 100
+    local xOffset = 128
+
+    backgroundBox(cr)
 
     topCpu(cr, 370, 150, 5)
     cpuCircles(cr, xOffset, 140)
@@ -97,22 +99,48 @@ end
 
 
 
+-- For better readability on bright backgrounds
+function backgroundBox(cr)
+    widget.box(
+        cr,
+        { xOffset = 0
+        , yOffset = 24
+        , width   = 512
+        , height  = 777
+        , colour  = 0x000000
+        , alpha   = 0.5
+        , fill    = true })
+    widget.box(
+        cr,
+        { xOffset = 1
+        , yOffset = 24
+        , width   = 426
+        , height  = 776
+        , colour  = 0xffffff
+        , alpha   = 1
+        , fill    = false })
+end
+
+
+
 function graphBoxes(cr)
     local box = function(cr, x, y, w, h)
-        cairo_set_source_rgba(cr, util.splitRgba(0xffffff, 0.1))
+        cairo_set_source_rgba(cr, util.splitRgba(0xffffff, 0.2))
         cairo_set_line_width(cr, 1)
         cairo_rectangle(cr, x, y, w, h)
         cairo_fill(cr)
     end
 
-    box(cr, 22, 68, 384, 32) -- CPU
-    box(cr, 22, 254, 384, 32) -- Memory
+    common = {height=32, colour=0xffffff, alpha=0.2, fill=true}
 
-    box(cr, 22, 486, 185, 32) -- Hard drive read
-    box(cr, 222, 486, 185, 32) -- Hard drive write
+    widget.box(cr, util.merge({ xOffset=22,  yOffset=68,  width=384 }, common)) -- CPU
+    widget.box(cr, util.merge({ xOffset=22,  yOffset=254, width=384 }, common)) -- Memory
 
-    box(cr, 22, 574, 185, 32) -- Upload
-    box(cr, 222, 574, 185, 32) -- Download
+    widget.box(cr, util.merge({ xOffset=22,  yOffset=486, width=185 }, common)) -- Hard drive read
+    widget.box(cr, util.merge({ xOffset=222, yOffset=486, width=185 }, common)) -- Hard drive write
+
+    widget.box(cr, util.merge({ xOffset=22,  yOffset=574, width=185 }, common)) -- Upload
+    widget.box(cr, util.merge({ xOffset=222, yOffset=574, width=185 }, common)) -- Download
 end
 
 
