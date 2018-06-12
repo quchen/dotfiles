@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-if [ -z "$1" ]; then
+if [ -z "${1+x}" ]; then
     echo "Expected version argument, e.g. 1.26.1 for linking ATOM 1.26.1"
     exit 1
 fi
