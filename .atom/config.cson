@@ -60,7 +60,6 @@
       ".apm"
       "node_modules"
     ]
-    restorePreviousWindowsOnStart: true
     telemetryConsent: "no"
     themes: [
       "one-light-ui"
@@ -88,7 +87,6 @@
   "highlight-selected":
     highlightBackground: true
     minimumLength: 1
-    onlyHighlightWholeWords: false
   "ide-haskell":
     onSavePrettify: true
   "ide-haskell-cabal":
@@ -180,7 +178,7 @@
     usePreviewTabs: true
   "tree-view":
     hideIgnoredNames: true
-    hideVcsIgnoredFiles: true
+    hideVcsIgnoredFiles: false
     squashDirectoryNames: true
   welcome:
     showOnStartup: false
