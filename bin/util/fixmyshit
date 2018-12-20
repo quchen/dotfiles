@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Fix Wifi icon
+killall indicator-application-service
+
+# Fix Dropbox icon
+# dropbox stop && DBUS_SESSION_BUS_ADDRESS="" dropbox start
+
+# Fix sound issues
+pulseaudio -k
+
+# Reload Conky
+killall -SIGUSR1 conky
+
