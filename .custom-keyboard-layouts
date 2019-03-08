@@ -6,45 +6,6 @@
 ################################################################################
 ################################################################################
 
-partial alphanumeric_keys
-xkb_symbols "customprogramming" {
-
-        // Modifies the German default layout to suit programming better.
-
-        include "de(nodeadkeys)"
-        name[Group1]="Germany - custom programming";
-
-
-        // Redefinitions of äöü
-        // Rule of thumb: normal/shift: fancy stuff;
-        //                altgr/+shift: normal special letters
-        //
-        //             |  ö  |  ä  |  ü  |  ß  |
-        // ------------+-----+-----+-----+-----+
-        //     Normal  |  [  |  {  |  /  |  ~  |
-        //      Shift  |  ]  |  }  |  \  |  ?  |
-        //      Altgr  |  ö  |  ä  |  ü  |  ß  |
-        // ShiftAltgr  |  Ö  |  Ä  |  Ü  |  SS |
-        // ------------+-----+-----+-----+-----+
-
-        key <AC10>      { [ bracketleft, bracketright, odiaeresis, Odiaeresis ] };
-        key <AC11>      { [ braceleft,   braceright,   adiaeresis, Adiaeresis ] };
-        key <AD11>      { [ slash,       backslash,    udiaeresis, Udiaeresis ] };
-        key <AE11>      { [ asciitilde,  question,     ssharp,     0x1001E9E  ] };
-
-
-        // Remove redefined characters from their old keys, i.e.
-        // []{}/\~
-        // Use ° as "undefined" character
-        key <AE07>      { [ 7, bar,     degree, seveneighths    ] };
-        key <AE08>      { [ 8, parenleft,  degree, trademark    ] };
-        key <AE09>      { [ 9, parenright, degree, plusminus    ] };
-        key <AE10>      { [ 0, equal,      degree, degree       ] };
-        key <AD12>      { [ plus, asterisk, degree, dead_macron ] };
-
-    // :TODO: |
-};
-
 // Neo with QWERZ on the first two layers
 
 partial alphanumeric_keys modifier_keys keypad_keys
@@ -226,12 +187,6 @@ xkb_symbols "qwertzneo" {
 ################################################################################
 ################################################################################
 
-<variant>
-        <configItem>
-        <name>customprogramming</name>
-        <description>Custom programming</description>
-        </configItem>
-</variant>
 <variant>
         <configItem>
         <name>qwertzneo</name>
