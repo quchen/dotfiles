@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+isExecutable() {
+    test -x "$1"
+}
+
+for script in "$HOME/.autostart/scripts/"*; do
+    if isExecutable "$script"; then
+        "$script" &
+    fi
+done
+
+wait
