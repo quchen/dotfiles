@@ -8,6 +8,7 @@
     screenShake: {}
   "agda-mode":
     executablePath: "agda"
+    internalState: "{\"connections\":[],\"erred\":[]}"
   "atom-beautify":
     general:
       analytics: false
@@ -47,12 +48,25 @@
     automaticallyUpdate: false
     closeEmptyWindows: false
     disabledPackages: [
-      "metrics"
-      "spell-check"
-      "exception-reporting"
-      "open-on-github"
-      "wrap-guide"
       "agda-mode"
+      "autocomplete-haskell"
+      "background-tips"
+      "exception-reporting"
+      "haskell-ghc-mod"
+      "ide-haskell-cabal"
+      "ide-haskell"
+      "ide-purescript"
+      "language-agda"
+      "linter-pylint"
+      "linter-rust"
+      "linter-ui-default"
+      "linter"
+      "metrics"
+      "minimap-linter"
+      "open-on-github"
+      "spell-check"
+      "teletype"
+      "wrap-guide"
     ]
     ignoredNames: [
       ".git"
@@ -71,6 +85,7 @@
     autoIndentOnPaste: false
     backUpBeforeSaving: true
     fontFamily: "\"Iosevka Expanded\""
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     softWrapHangingIndent: 4
@@ -92,6 +107,8 @@
     onSavePrettify: true
   "ide-haskell-cabal":
     activeGhcVersion: "7.10"
+  "ide-haskell-hie":
+    useHieWrapper: true
   "ide-purescript":
     fastRebuild: false
     useCombinedExe: true
@@ -102,6 +119,7 @@
     lintOnChange: false
   "linter-ui-default":
     hidePanelWhenEmpty: true
+    panelHeight: 222
     showPanel: true
   "markdown-preview":
     liveUpdate: false

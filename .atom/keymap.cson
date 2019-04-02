@@ -171,7 +171,9 @@
     "ctrl-h ctrl-D": "agda-mode:infer-type[Normalised]"
     "\\":            "agda-mode:input-symbol"
 
-
+# Terraform stuff
+"atom-workspace atom-text-editor[data-grammar~='terraform']":
+    "ctrl-h ctrl-p": "atom-beautify:beautify-language-terraform"
 
 # Jumpy bindings
 "atom-workspace atom-text-editor.jumpy-jump-mode":
