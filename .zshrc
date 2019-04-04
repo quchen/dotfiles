@@ -192,12 +192,18 @@ alias ..='cd ..'
 # "multi-.. aliases"
 # ..2 = cd ../..
 # ...= cd ../../..
-for i in $(seq 2 15); do
-    local dots=$(printf '.%.0s' {1..$(($i+1))})
-    local dotdots=$(printf '/..%.0s' {1..$(($i-1))})
-    alias "$dots=cd ..$dotdots"
-    alias "..$i=cd ..$dotdots"
-done
+{
+    dots=..
+    command=..
+    for i in $(seq 2 5); do
+        alias "$dots=cd $command"
+        alias "..$i=cd $command"
+        dots="$dots."
+        command="$command/.."
+    done
+    unset dots
+    unset command
+}
 
 
 # Modifiers
@@ -259,7 +265,7 @@ alias ghci-core="ghci -ddump-simpl \
 # Re-sourcing shortcut
 alias zz="source $HOME/.zshrc"
 # Edit shortcut
-alias ze="s -w $HOME/.zshrc && zz"
+alias ze="$EDITOR $HOME/.zshrc && zz"
 
 
 ###############################################################################
@@ -284,8 +290,8 @@ open() {
 }
 alias o=open
 
-if [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]]; then
-    source $HOME/.autojump/etc/profile.d/autojump.sh
+if [[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]]; then
+    source "$HOME/.autojump/etc/profile.d/autojump.sh"
 fi
 
 
