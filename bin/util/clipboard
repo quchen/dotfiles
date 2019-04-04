@@ -4,17 +4,19 @@ set -euo pipefail
 
 CLIPBOARD="xsel --clipboard"
 
-if [[ "$#" -eq 1 && "$1" == "--help" ]]; then
+if [[ "$#" -eq 1 && ("$1" == "--help" || "$1" == "-h") ]]; then
     echo "Copy text to the clipboard."
     echo ""
     echo "Usage:"
-    echo "    a) Pipe to this"
-    echo "    b) Provide text as arguments"
+    echo "    a) Pipe STDOUT to this script"
+    echo "    b) Provide text as argument"
     exit 0
 fi
 
 if [[ "$#" -ne 0 ]]; then
-    echo "$@" | $CLIPBOARD
+    echo "Copying command line arguments to clipboard"
+    echo "$*" | $CLIPBOARD
 else
-    $CLIPBOARD <&0
+    echo "Copying from STDIN to clipboard"
+    cat - | $CLIPBOARD
 fi
