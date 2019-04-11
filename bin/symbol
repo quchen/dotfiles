@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+QUERY="$*"
+case "$QUERY" of
+    tm)
+    trademark)
+        echo " ™ "
+        ;;
+    *)
+        echo "Unrecognized symbol: $QUERY"
+esac
