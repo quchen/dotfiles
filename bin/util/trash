@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-gvfs-trash "$@"
+gio trash "$@"
 
