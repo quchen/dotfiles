@@ -3,7 +3,11 @@ echo "│ Loading .zshrc │"
 echo "╰────────────────╯"
 
 zshLoadLog() {
-    echo "    • $*"
+    for i in $(seq 1 $1); do
+        echo -n " "
+    done
+    shift
+    echo "• $*"
 }
 
 
@@ -11,7 +15,7 @@ zshLoadLog() {
 ###  Patterns  ################################################################
 ###############################################################################
 
-zshLoadLog "Pattern configuration"
+zshLoadLog 4 "Pattern configuration"
 
 # Case-insensitive globbing
 setopt NO_CASE_GLOB
@@ -33,7 +37,7 @@ setopt EXTENDED_GLOB
 ###  Environment  #############################################################
 ###############################################################################
 
-zshLoadLog "Environment, PATH business"
+zshLoadLog 4 "Environment, PATH business"
 
 export EDITOR=vim
 export PAGER=less
@@ -77,7 +81,7 @@ fi
 ###  History  #################################################################
 ###############################################################################
 
-zshLoadLog "History configuration"
+zshLoadLog 4 "History configuration"
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -96,7 +100,7 @@ setopt HIST_VERIFY # When using a hist thing, make a newline show the change bef
 ###  Completion  ##############################################################
 ###############################################################################
 
-zshLoadLog "Autocompletion"
+zshLoadLog 4 "Autocompletion"
 
 # I don't understand this section very well.
 
@@ -124,8 +128,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-
-
 hash stack 2>/dev/null && { eval "$(stack --bash-completion-script stack)" }
 
 setopt rm_star_silent
@@ -139,7 +141,7 @@ setopt rm_star_silent
 ###  Key bindings  ############################################################
 ###############################################################################
 
-zshLoadLog "Key bindings"
+zshLoadLog 4 "Key bindings"
 
 # Vi bindings
 bindkey -v
@@ -197,7 +199,7 @@ fi
 ###  Aliases  ################################################################
 ###############################################################################
 
-zshLoadLog "Aliases"
+zshLoadLog 4 "Aliases"
 
 # Autocompletion for aliases
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
@@ -288,7 +290,7 @@ alias ze="$EDITOR $HOME/.zshrc && zz"
 ###  Command customization  ###################################################
 ###############################################################################
 
-zshLoadLog "Command customization"
+zshLoadLog 4 "Command customization"
 
 # ZSH »time« builtin (!)
 TIMEFMT=$'CPU seconds %U\nReal time   %E'
@@ -308,9 +310,6 @@ open() {
 }
 alias o=open
 
-if [[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]]; then
-    source "$HOME/.autojump/etc/profile.d/autojump.sh"
-fi
 
 
 
@@ -320,7 +319,7 @@ fi
 ###  Dirstack  ################################################################
 ###############################################################################
 
-zshLoadLog "Dirstack"
+zshLoadLog 4 "Dirstack"
 
 # Jump back <num> times using cd -<num>
 DIRSTACKFILE="$HOME/.zsh/dirs"
@@ -346,7 +345,7 @@ setopt RM_STAR_WAIT # 10 second waiting period before deleting *
 ###  Coloured man pages  ######################################################
 ###############################################################################
 
-zshLoadLog "Colored manpages"
+zshLoadLog 4 "Colored manpages"
 
 # Credits to http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
 
@@ -368,7 +367,7 @@ man() {
 ###  Prompt  ##################################################################
 ###############################################################################
 
-zshLoadLog "Prompt"
+zshLoadLog 4 "Prompt"
 
 autoload -Uz promptinit
 promptinit
@@ -467,9 +466,35 @@ PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 ###  Plugins  #################################################################
 ###############################################################################
 
-zshLoadLog "Plugins"
+zshLoadLog 4 "Plugins"
 
-source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
+if [[ -s "$plugin" ]]; then
+    zshLoadLog 8 "Autojump"
+    source "$plugin"
+else
+    zshLoadLog 8 "(Autojump plugin configured in .zshrc, but not found)"
+fi
+unset plugin
+
+plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -s "$plugin" ]]; then
+    zshLoadLog 8 "ZSH syntax highlighting"
+    source "$plugin"
+else
+fi
+unset plugin
+
+plugin="$HOME/.fzf.zsh"
+if [[ -s "$plugin" ]]; then
+    zshLoadLog 8 "fzf"
+    source "$plugin"
+    alias -g FF=' $(fzf) '
+else
+    zshLoadLog 8 "(FZF (Fuzzy Finder) plugin configured in .zshrc, but not found)"
+fi
+unset plugin
+
 
 
 
@@ -482,7 +507,7 @@ source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 localZshrc="$HOME/.zshrc-local"
 if [[ -e "$localZshrc" ]]; then
-    zshLoadLog "source ~/.zshrc-local"
+    zshLoadLog 4 "source ~/.zshrc-local"
     source "$localZshrc"
 fi
 

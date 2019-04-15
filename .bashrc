@@ -205,3 +205,12 @@ complete -F _ghc -o default ghc
 
 
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+localBashrc="$HOME/.bashrc-local"
+if [[ -e "$localBashrc" ]]; then
+    source "$localBashrc"
+fi
+unset localBashrc
+
