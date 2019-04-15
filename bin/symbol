@@ -4,15 +4,110 @@ set -euo pipefail
 
 QUERY="$*"
 case "$QUERY" in
-    tm | trademark )
-        echo "™"
-        ;;
-    "->" )
-        echo "→"
-        ;;
-    check | checkmark )
-        echo "✔"
-        ;;
+    tm | trademark    ) echo "™" ;;
+    "->"              ) echo "→" ;;
+    check | checkmark ) echo "✔" ;;
+    "neq"             ) echo "≠" ;;
+    "(c)"             ) echo "©" ;;
+    "+-"              ) echo "±" ;;
+    "..."             ) echo "…" ;;
+    "<3" | heart      ) echo "♥" ;;
+    "Arxiv"           ) echo "Arχiv" ;;
+    "O_O"             ) echo "ಠ_ಠ" ;;
+    "!?"              ) echo "‽" ;;
+    "*"               ) echo "★" ;;
+    "Delta"           ) echo "Δ" ;;
+    "Gamma"           ) echo "Γ" ;;
+    "Lambda"          ) echo "Λ" ;;
+    "N"               ) echo "ℕ" ;;
+    "Omega"           ) echo "Ω" ;;
+    "Phi"             ) echo "Φ" ;;
+    "Pi"              ) echo "Π" ;;
+    "Psi"             ) echo "Ψ" ;;
+    "Q"               ) echo "ℚ" ;;
+    "R"               ) echo "ℝ" ;;
+    "Sigma"           ) echo "Σ" ;;
+    "Theta"           ) echo "Θ" ;;
+    "Xi"              ) echo "Ξ" ;;
+    "Z"               ) echo "ℤ " ;;
+    "acker"           ) echo ":t let a x=(x,x);b=a.a;c=b.b in c()" ;;
+    "alpha"           ) echo "α" ;;
+    "angry"           ) echo "ლ(ಠ益ಠლ)" ;;
+    "approx"          ) echo "≈" ;;
+    "beta"            ) echo "β" ;;
+    "bot"             ) echo "⊥" ;;
+    "cdot"            ) echo "·" ;;
+    "chi"             ) echo "χ" ;;
+    "circ"            ) echo "∘" ;;
+    "cong"            ) echo "≅" ;;
+    "dance"           ) echo "ᕕ( ᐛ )ᕗ" ;;
+    "delta"           ) echo "δ" ;;
+    "djinn_cont"      ) echo "?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r" ;;
+    "epsilon"         ) echo "ε" ;;
+    "equiv"           ) echo "≡" ;;
+    "eta"             ) echo "η" ;;
+    "exists"          ) echo "∃" ;;
+    "foldl"           ) echo "foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z" ;;
+    "forall"          ) echo "∀" ;;
+    "gamma"           ) echo "γ" ;;
+    "geq"             ) echo "≥" ;;
+    "happy"           ) echo "ヽ (＾▽＾) ﾉ" ;;
+    "in"              ) echo "∈" ;;
+    "infty"           ) echo "∞" ;;
+    "iota"            ) echo "ι" ;;
+    "kappa"           ) echo "κ" ;;
+    "lambda"          ) echo "λ" ;;
+    "latex"           ) echo "LaTeχ" ;;
+    "mu"              ) echo "μ" ;;
+    "neq"             ) echo "≠" ;;
+    "ni"              ) echo "∋" ;;
+    "not"             ) echo "¬" ;;
+    "not\elem"        ) echo "∉" ;;
+    "nu"              ) echo "ν" ;;
+    "omega"           ) echo "ω" ;;
+    "oplus"           ) echo "⨁" ;;
+    "otimes"          ) echo "⨂" ;;
+    "phi"             ) echo "φ" ;;
+    "pi"              ) echo "π" ;;
+    "psi"             ) echo "ψ" ;;
+    "quchen"          ) echo "ˈkuːχn̩" ;;
+    "rho"             ) echo "ρ" ;;
+    "rightarrow"      ) echo "→" ;;
+    "sassy"           ) echo "( ͡° ͜ʖ ͡°)" ;;
+    "sigma"           ) echo "σ" ;;
+    "skull"           ) echo "☠" ;;
+    "snowman"         ) echo "☃" ;;
+    "soviet"          ) echo "☭" ;;
+    "sqsubset"        ) echo "⊏" ;;
+    "sqsubseteq"      ) echo "⊑" ;;
+    "sqsupset"        ) echo "⊐" ;;
+    "sqsupseteq"      ) echo "⊒" ;;
+    "star"            ) echo "★" ;;
+    "subset"          ) echo "⊂" ;;
+    "subseteq"        ) echo "⊆" ;;
+    "subsetneq"       ) echo "⊊" ;;
+    "supset"          ) echo "⊃" ;;
+    "supseteq"        ) echo "⊇" ;;
+    "supsetneq"       ) echo "⊋" ;;
+    "tau"             ) echo "τ" ;;
+    "theta"           ) echo "ϑ" ;;
+    "times"           ) echo "×" ;;
+    "upset"           ) echo "(╯°□°）╯" ;;
+    "upsilon"         ) echo "υ" ;;
+    "varnothing"      ) echo "∅" ;;
+    "vdash"           ) echo "⊢" ;;
+    "vee"             ) echo "∨" ;;
+    "wedge"           ) echo "∧" ;;
+    "xi"              ) echo "ξ" ;;
+    "yeah"            ) echo "(•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH" ;;
+    "zeta"            ) echo "ζ" ;;
+    "zz"              ) echo "↯" ;;
+    "^TM"             ) echo "™" ;;
+    "^tm"             ) echo "™" ;;
+    "adn"             ) echo "and" ;;
+    "arxiv"           ) echo "Arχiv" ;;
+    "teh"             ) echo "the" ;;
+    "nub"             ) echo "flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]" ;;
     *)
         echo "Unrecognized symbol: $QUERY"
 esac
