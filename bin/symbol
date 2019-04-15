@@ -1,5 +1,18 @@
-# cat "$THIS" | grep -Ev "^(#|$)" | fzf | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
+#!/usr/bin/env bash
 
+set -euo pipefail
+
+SELFDIR=$(dirname "$(readlink -f "$0")")
+
+findSymbol() {
+    which fzfss || {
+        echo "fzf not installed! Get it at https://github.com/junegunn/fzf"
+        exit 1
+    }
+    cat - | grep -Ev "^(#|$)" | fzf | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
+}
+
+SYMBOL_DB=$(cat << HEREDOC
 \Gamma   ||| Γ
 \Delta   ||| Δ
 \Theta   ||| Θ
@@ -116,3 +129,7 @@ djinn_cont ||| ?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r
 foldl      ||| foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z
 
 nub   ||| flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]
+HEREDOC
+)
+
+findSymbol <<< "$SYMBOL_DB"

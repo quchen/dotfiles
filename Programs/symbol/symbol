@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-SELFDIR=$(dirname "$(readlink -f "$0")")
-
-cat "$SELFDIR/symbol-db" | grep -Ev "^(#|$)" | fzf | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
