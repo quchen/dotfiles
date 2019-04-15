@@ -54,41 +54,41 @@ SYMBOL_DB=$(cat << HEREDOC
 \mathbb R ||| ℝ
 \mathbb Z ||| ℤ
 
-\neq       ||| ≠
-\approx    ||| ≈
-\bot       ||| ⊥
-\cdot      ||| ·
-\circ      ||| ∘
-\cong      ||| ≅
-\equiv     ||| ≡
-\exists    ||| ∃
-\forall    ||| ∀
-\geq       ||| ≥
-\in        ||| ∈
-\infty     ||| ∞
-\neq       ||| ≠
-\ni        ||| ∋
-\not       ||| ¬
-\not\elem  ||| ∉
-\oplus     ||| ⨁
-\otimes    ||| ⨂
-sqsubset   ||| ⊏
-sqsubseteq ||| ⊑
-sqsupset   ||| ⊐
-sqsupseteq ||| ⊒
-star       ||| ★
-subset     ||| ⊂
-subseteq   ||| ⊆
-subsetneq  ||| ⊊
-supset     ||| ⊃
-supseteq   ||| ⊇
-supsetneq  ||| ⊋
-times      ||| ×
-varnothing ||| ∅
-vdash      ||| ⊢
-vee        ||| ∨
-wedge      ||| ∧
-rightarrow ||| →
+neq            ||| ≠
+approx         ||| ≈
+bottom         ||| ⊥
+cdot           ||| ·
+circ           ||| ∘
+cong           ||| ≅
+equivalent     ||| ≡
+exists         ||| ∃
+forall         ||| ∀
+geq >=         ||| ≥
+in             ||| ∈
+infty          ||| ∞
+neq <=         ||| ≠
+ni             ||| ∋
+not            ||| ¬
+not in element ||| ∉
+oplus          ||| ⨁
+otimes         ||| ⨂
+sqsubset       ||| ⊏
+sqsubseteq     ||| ⊑
+sqsupset       ||| ⊐
+sqsupseteq     ||| ⊒
+star           ||| ★
+subset         ||| ⊂
+subseteq       ||| ⊆
+subsetneq      ||| ⊊
+supset         ||| ⊃
+supseteq       ||| ⊇
+supsetneq      ||| ⊋
+times          ||| ×
+varnothing     ||| ∅
+vdash entails  ||| ⊢
+vee            ||| ∨
+wedge          ||| ∧
+rightarrow     ||| →
 
 angry               ||| ლ(ಠ益ಠლ)
 dance               ||| ᕕ( ᐛ )ᕗ
@@ -102,13 +102,13 @@ latex  ||| LaTeχ
 quchen ||| ˈkuːχn̩
 arxiv  ||| Arχiv
 
-tm, trademark ||| ™
-->            ||| →
-=>            ||| ⇒
-<-            ||| ←
-<=            ||| ⇐
-checkmark     ||| ✔
 
+tm, trademark            ||| ™
+->                       ||| →
+=>                       ||| ⇒
+<-                       ||| ←
+<=                       ||| ⇐
+checkmark                ||| ✔
 (c) copyright            ||| ©
 (r) (R) registered       ||| ®
 +-                       ||| ±
@@ -125,7 +125,7 @@ acker      ||| :t let a x=(x,x);b=a.a;c=b.b in c()
 djinn_cont ||| ?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r
 foldl      ||| foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z
 
-nub   ||| flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]
+nub ||| flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]
 HEREDOC
 )
 
