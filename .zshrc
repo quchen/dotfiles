@@ -1,6 +1,17 @@
+echo "╭────────────────╮"
+echo "│ Loading .zshrc │"
+echo "╰────────────────╯"
+
+zshLoadLog() {
+    echo "    • $*"
+}
+
+
 ###############################################################################
 ###  Patterns  ################################################################
 ###############################################################################
+
+zshLoadLog "Pattern configuration"
 
 # Case-insensitive globbing
 setopt NO_CASE_GLOB
@@ -22,10 +33,10 @@ setopt EXTENDED_GLOB
 ###  Environment  #############################################################
 ###############################################################################
 
+zshLoadLog "Environment, PATH business"
+
 export EDITOR=vim
 export PAGER=less
-
-
 
 declare -Ux PATH # U = no duplicates, x = export
 declare -Ux MANPATH
@@ -52,9 +63,6 @@ PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.stack/bin:$PATH"
 
-for mandir in $(find "$HOME/Programs" -type d -name man -not -path "*/node_modules/*"); do
-    MANPATH="$mandir:$MANPATH"
-done
 NIXMAN="$HOME/.nix-profile/share/man"
 if [[ -e "$NIXMAN" ]]; then
     MANPATH="$NIXMAN:$MANPATH"
@@ -68,6 +76,8 @@ fi
 ###############################################################################
 ###  History  #################################################################
 ###############################################################################
+
+zshLoadLog "History configuration"
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -85,6 +95,8 @@ setopt HIST_VERIFY # When using a hist thing, make a newline show the change bef
 ###############################################################################
 ###  Completion  ##############################################################
 ###############################################################################
+
+zshLoadLog "Autocompletion"
 
 # I don't understand this section very well.
 
@@ -126,6 +138,8 @@ setopt rm_star_silent
 ###############################################################################
 ###  Key bindings  ############################################################
 ###############################################################################
+
+zshLoadLog "Key bindings"
 
 # Vi bindings
 bindkey -v
@@ -182,6 +196,8 @@ fi
 ###############################################################################
 ###  Aliases  ################################################################
 ###############################################################################
+
+zshLoadLog "Aliases"
 
 # Autocompletion for aliases
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
@@ -272,6 +288,8 @@ alias ze="$EDITOR $HOME/.zshrc && zz"
 ###  Command customization  ###################################################
 ###############################################################################
 
+zshLoadLog "Command customization"
+
 # ZSH »time« builtin (!)
 TIMEFMT=$'CPU seconds %U\nReal time   %E'
 
@@ -302,6 +320,8 @@ fi
 ###  Dirstack  ################################################################
 ###############################################################################
 
+zshLoadLog "Dirstack"
+
 # Jump back <num> times using cd -<num>
 DIRSTACKFILE="$HOME/.zsh/dirs"
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
@@ -326,6 +346,8 @@ setopt RM_STAR_WAIT # 10 second waiting period before deleting *
 ###  Coloured man pages  ######################################################
 ###############################################################################
 
+zshLoadLog "Colored manpages"
+
 # Credits to http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
 
 man() {
@@ -345,6 +367,8 @@ man() {
 ###############################################################################
 ###  Prompt  ##################################################################
 ###############################################################################
+
+zshLoadLog "Prompt"
 
 autoload -Uz promptinit
 promptinit
@@ -443,6 +467,8 @@ PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 ###  Plugins  #################################################################
 ###############################################################################
 
+zshLoadLog "Plugins"
+
 source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 
@@ -451,9 +477,15 @@ source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 ###   Local additions   #######################################################
 ###############################################################################
 
+
 # Some users of this script might want individual additional config
 
 localZshrc="$HOME/.zshrc-local"
 if [[ -e "$localZshrc" ]]; then
+    zshLoadLog "source ~/.zshrc-local"
     source "$localZshrc"
 fi
+
+echo "╭──────╮"
+echo "│ Done │"
+echo "╰──────╯"
