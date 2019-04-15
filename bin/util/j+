@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    autojump --increase 100
+else
+    autojump --increase "$1"
+fi
