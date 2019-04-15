@@ -4,11 +4,14 @@ set -euo pipefail
 
 QUERY="$*"
 case "$QUERY" in
-    tm | trademark)
+    tm | trademark )
         echo "™"
         ;;
-    "->")
+    "->" )
         echo "→"
+        ;;
+    check | checkmark )
+        echo "✔"
         ;;
     *)
         echo "Unrecognized symbol: $QUERY"
