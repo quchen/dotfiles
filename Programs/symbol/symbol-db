@@ -1,0 +1,118 @@
+# cat "$THIS" | grep -Ev "^(#|$)" | fzf | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
+
+\Gamma   ||| Γ
+\Delta   ||| Δ
+\Theta   ||| Θ
+\Lambda  ||| Λ
+\Xi      ||| Ξ
+\Pi      ||| Π
+\Sigma   ||| Σ
+\Phi     ||| Φ
+\Psi     ||| Ψ
+\Omega   ||| Ω
+
+α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ/ς τ υ φ χ ψ ω
+\alpha      ||| α
+\beta       ||| β
+\gamma      ||| γ
+\delta      ||| δ
+\epsilon    ||| ε
+\zeta       ||| ζ
+\eta        ||| η
+\theta      ||| θ
+\vartheta   ||| ϑ
+\iota       ||| ι
+\kappa      ||| κ
+\lambda     ||| λ
+\mu         ||| μ
+\nu         ||| ν
+\xi         ||| ξ
+\pi         ||| π
+\rho        ||| ρ
+\sigma      ||| σ
+\varsigma   ||| ς
+\tau        ||| τ
+\upsilon    ||| υ
+\phi        ||| ϕ
+\varphi     ||| φ
+\chi        ||| χ
+\psi        ||| ψ
+\omega      ||| ω
+
+\mathbb N ||| ℕ
+\mathbb Q ||| ℚ
+\mathbb R ||| ℝ
+\mathbb Z ||| ℤ
+
+\neq       ||| ≠
+\approx    ||| ≈
+\bot       ||| ⊥
+\cdot      ||| ·
+\circ      ||| ∘
+\cong      ||| ≅
+\equiv     ||| ≡
+\exists    ||| ∃
+\forall    ||| ∀
+\geq       ||| ≥
+\in        ||| ∈
+\infty     ||| ∞
+\neq       ||| ≠
+\ni        ||| ∋
+\not       ||| ¬
+\not\elem  ||| ∉
+\oplus     ||| ⨁
+\otimes    ||| ⨂
+sqsubset   ||| ⊏
+sqsubseteq ||| ⊑
+sqsupset   ||| ⊐
+sqsupseteq ||| ⊒
+star       ||| ★
+subset     ||| ⊂
+subseteq   ||| ⊆
+subsetneq  ||| ⊊
+supset     ||| ⊃
+supseteq   ||| ⊇
+supsetneq  ||| ⊋
+times      ||| ×
+varnothing ||| ∅
+vdash      ||| ⊢
+vee        ||| ∨
+wedge      ||| ∧
+rightarrow ||| →
+
+angry               ||| ლ(ಠ益ಠლ)
+dance               ||| ᕕ( ᐛ )ᕗ
+sassy               ||| ( ͡° ͜ʖ ͡°)
+upset               ||| (╯°□°）╯
+yeeeah              ||| (•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH
+look of disapproval ||| ಠ_ಠ
+happy               ||| ヽ (＾▽＾) ﾉ
+
+latex  ||| LaTeχ
+quchen ||| ˈkuːχn̩
+arxiv  ||| Arχiv
+
+tm, trademark ||| ™
+->            ||| →
+=>            ||| ⇒
+<-            ||| ←
+<=            ||| ⇐
+checkmark     ||| ✔
+
+(c) copyright            ||| ©
+(r) (R) registered       ||| ®
++-                       ||| ±
+...                      ||| …
+<3 | heart               ||| ♥
+Arxiv                    ||| Arχiv
+!?                       ||| ‽
+lightning, contradiction ||| ↯
+skull                    ||| ☠
+snowman                  ||| ☃
+soviet                   ||| ☭
+
+acker      ||| :t let a x=(x,x);b=a.a;c=b.b in c()
+djinn_cont ||| ?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r
+foldl      ||| foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z
+
+nub   ||| flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]

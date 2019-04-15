@@ -487,9 +487,8 @@ unset plugin
 
 plugin="$HOME/.fzf.zsh"
 if [[ -s "$plugin" ]]; then
-    zshLoadLog 8 "fzf"
+    zshLoadLog 8 "fzf – Fuzzy Finder"
     source "$plugin"
-    alias -g FF=' $(fzf) '
 else
     zshLoadLog 8 "(FZF (Fuzzy Finder) plugin configured in .zshrc, but not found)"
 fi
