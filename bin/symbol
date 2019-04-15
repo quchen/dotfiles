@@ -7,7 +7,7 @@ findSymbol() {
         echo "fzf not installed! Get it at https://github.com/junegunn/fzf"
         exit 1
     }
-    cat - | grep -Ev "^(#|$)" | fzf --prompt="λ. " --inline-info | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
+    cat - | grep -Ev "^(#|$)" | fzf --prompt="λ. " --inline-info +i | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
 }
 
 SYMBOL_DB=$(cat << HEREDOC
