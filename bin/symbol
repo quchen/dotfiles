@@ -2,14 +2,12 @@
 
 set -euo pipefail
 
-SELFDIR=$(dirname "$(readlink -f "$0")")
-
 findSymbol() {
-    which fzfss || {
+    which fzf > /dev/null || {
         echo "fzf not installed! Get it at https://github.com/junegunn/fzf"
         exit 1
     }
-    cat - | grep -Ev "^(#|$)" | fzf | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
+    cat - | grep -Ev "^(#|$)" | fzf --prompt="λ. " --inline-info | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
 }
 
 SYMBOL_DB=$(cat << HEREDOC
@@ -24,7 +22,6 @@ SYMBOL_DB=$(cat << HEREDOC
 \Psi     ||| Ψ
 \Omega   ||| Ω
 
-α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ/ς τ υ φ χ ψ ω
 \alpha      ||| α
 \beta       ||| β
 \gamma      ||| γ
