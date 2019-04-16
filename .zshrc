@@ -513,3 +513,5 @@ fi
 echo "╭──────╮"
 echo "│ Done │"
 echo "╰──────╯"
+
+clear
