@@ -14,9 +14,9 @@ if [[ "$#" -eq 1 && ("$1" == "--help" || "$1" == "-h") ]]; then
 fi
 
 if [[ "$#" -ne 0 ]]; then
-    echo "Copying command line arguments to clipboard"
     echo "$*" | $CLIPBOARD
 else
-    echo "Copying from STDIN to clipboard"
     cat - | $CLIPBOARD
 fi
+
+echo -e "\e[1m$(xsel -o --clipboard | wc --bytes | numfmt --to=iec-i --suffix=B)\e[m copied to clipboard"
