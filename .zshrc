@@ -265,10 +265,6 @@ alias r=ranger
 
 alias ta="tig --all"
 
-# Store/delete commits, useful for keeping backups when rebasing
-alias -g save='branch save_$(git rev-parse --abbrev-ref HEAD)_$(date +%Y-%m-%d_%H-%M-%S)'
-alias delete-all-saves='for savedBranch in $(git branch | grep save_ | sed '"'"'s,\s,,g'"'"'); do git branch -D "$savedBranch"; done'
-
 # Disk usage
 alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
