@@ -47,30 +47,31 @@ declare -Ux MANPATH
 PATH=""
 MANPATH=""
 
-PATH="/usr/local/sbin:$PATH"
-PATH="/usr/local/bin:$PATH"
-PATH="/usr/sbin:$PATH"
-PATH="/usr/bin:$PATH"
-PATH="/sbin:$PATH"
-PATH="/bin:$PATH"
-PATH="/usr/games:$PATH"
-PATH="/usr/local/games:$PATH"
+addToPath() {
+    [[ -d "$1" ]] && PATH="$1:$PATH"
+}
+
+addToPath "/usr/local/sbin"
+addToPath "/usr/local/bin"
+addToPath "/usr/sbin"
+addToPath "/usr/bin"
+addToPath "/sbin"
+addToPath "/bin"
+addToPath "/usr/games"
+addToPath "/usr/local/games"
 for bindir in $(find "$HOME/bin" -type d); do
-    PATH="$bindir:$PATH"
+    addToPath "$bindir"
 done
 NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
-if [[ -e "$NIXPROFILE" ]]; then
-    source "$NIXPROFILE"
-fi
-PATH="$HOME/.cargo/bin:$PATH"
-PATH="$HOME/.cabal/bin:$PATH"
-PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/.stack/bin:$PATH"
+[[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
+unset NIXPROFILE
+addToPath "$HOME/.cargo/bin"
+addToPath "$HOME/.cabal/bin"
+addToPath "$HOME/.local/bin"
+addToPath "$HOME/.stack/bin"
 
 NIXMAN="$HOME/.nix-profile/share/man"
-if [[ -e "$NIXMAN" ]]; then
-    MANPATH="$NIXMAN:$MANPATH"
-fi
+[[ -e "$NIXMAN" ]] && MANPATH="$NIXMAN:$MANPATH"
 
 
 
