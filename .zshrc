@@ -3,7 +3,7 @@ echo "│ Loading .zshrc │"
 echo "╰────────────────╯"
 
 zshLoadLog() {
-    for i in $(seq 1 $1); do
+    for i in $(/usr/bin/seq 1 "$1"); do
         echo -n " "
     done
     shift
@@ -48,9 +48,8 @@ PATH=""
 MANPATH=""
 
 addToPath() {
-    [[ -d "$1" ]] && PATH="$1:$PATH"
+    [[ -d "$1" ]] && PATH="$1:$PATH" || zshLoadLog 8 "$1 does not exist – skip PATH entry"
 }
-
 addToPath "/usr/local/sbin"
 addToPath "/usr/local/bin"
 addToPath "/usr/sbin"
@@ -72,6 +71,9 @@ addToPath "$HOME/.stack/bin"
 
 NIXMAN="$HOME/.nix-profile/share/man"
 [[ -e "$NIXMAN" ]] && MANPATH="$NIXMAN:$MANPATH"
+unset NIXMAN
+
+unset addToPath
 
 
 
@@ -168,16 +170,18 @@ key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
 
 # setup key accordingly
-[[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
-[[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
-[[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
-[[ -n "${key[Delete]}"   ]]  && bindkey  "${key[Delete]}"   delete-char
-[[ -n "${key[Up]}"       ]]  && bindkey  "${key[Up]}"       up-line-or-history
-[[ -n "${key[Down]}"     ]]  && bindkey  "${key[Down]}"     down-line-or-history
-[[ -n "${key[Left]}"     ]]  && bindkey  "${key[Left]}"     backward-char
-[[ -n "${key[Right]}"    ]]  && bindkey  "${key[Right]}"    forward-char
-[[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
-[[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
+[[ -n "${key[Home]}"     ]]  && bindkey "${key[Home]}"     beginning-of-line
+[[ -n "${key[End]}"      ]]  && bindkey "${key[End]}"      end-of-line
+[[ -n "${key[Insert]}"   ]]  && bindkey "${key[Insert]}"   overwrite-mode
+[[ -n "${key[Delete]}"   ]]  && bindkey "${key[Delete]}"   delete-char
+[[ -n "${key[Up]}"       ]]  && bindkey "${key[Up]}"       up-line-or-history
+[[ -n "${key[Down]}"     ]]  && bindkey "${key[Down]}"     down-line-or-history
+[[ -n "${key[Left]}"     ]]  && bindkey "${key[Left]}"     backward-char
+[[ -n "${key[Right]}"    ]]  && bindkey "${key[Right]}"    forward-char
+[[ -n "${key[PageUp]}"   ]]  && bindkey "${key[PageUp]}"   beginning-of-buffer-or-history
+[[ -n "${key[PageDown]}" ]]  && bindkey "${key[PageDown]}" end-of-buffer-or-history
+
+unset key
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
@@ -204,9 +208,6 @@ zshLoadLog 4 "Aliases"
 
 # Autocompletion for aliases
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
-
-# Filesystem
-alias ..='cd ..'
 
 # "multi-.. aliases"
 # ..2 = cd ../..
@@ -465,31 +466,35 @@ PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 
 zshLoadLog 4 "Plugins"
 
-plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
-if [[ -s "$plugin" ]]; then
-    zshLoadLog 8 "Autojump"
-    source "$plugin"
-else
-    zshLoadLog 8 "(Autojump plugin configured in .zshrc, but not found)"
-fi
-unset plugin
+loadPlugins() {
+    local plugin
 
-plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [[ -s "$plugin" ]]; then
-    zshLoadLog 8 "ZSH syntax highlighting"
-    source "$plugin"
-else
-fi
-unset plugin
+    plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
+    if [[ -s "$plugin" ]]; then
+        zshLoadLog 8 "Autojump"
+        source "$plugin"
+    else
+        zshLoadLog 8 "(Autojump plugin configured in .zshrc, but not found)"
+    fi
 
-plugin="$HOME/.fzf.zsh"
-if [[ -s "$plugin" ]]; then
-    zshLoadLog 8 "fzf – Fuzzy Finder"
-    source "$plugin"
-else
-    zshLoadLog 8 "(FZF (Fuzzy Finder) plugin configured in .zshrc, but not found)"
-fi
-unset plugin
+    plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    if [[ -s "$plugin" ]]; then
+        zshLoadLog 8 "ZSH syntax highlighting"
+        source "$plugin"
+    else
+        zshLoadLog 8 "(ZSH syntax highlghting plugin configured in .zshrc, but not found)"
+    fi
+
+    plugin="$HOME/.fzf.zsh"
+    if [[ -s "$plugin" ]]; then
+        zshLoadLog 8 "fzf – Fuzzy Finder"
+        source "$plugin"
+    else
+        zshLoadLog 8 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
+    fi
+}
+loadPlugins && unset loadPlugins
+
 
 
 
