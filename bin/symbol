@@ -7,126 +7,126 @@ findSymbol() {
         echo "fzf not installed! Get it at https://github.com/junegunn/fzf"
         exit 1
     }
-    cat - | grep -Ev "^(#|$)" | fzf --prompt="λ. " --inline-info +i | perl -pe "s/^.*\|\|\|\s*(.*)$/\1/"
+    cat - | grep -Ev "^(#|$)" | fzf --prompt="λ. " --inline-info +i | perl -pe "s/^[^:]*:\s*//"
 }
 
 SYMBOL_DB=$(cat << HEREDOC
-\Gamma   ||| Γ
-\Delta   ||| Δ
-\Theta   ||| Θ
-\Lambda  ||| Λ
-\Xi      ||| Ξ
-\Pi      ||| Π
-\Sigma   ||| Σ
-\Phi     ||| Φ
-\Psi     ||| Ψ
-\Omega   ||| Ω
+Gamma   : Γ
+Delta   : Δ
+Theta   : Θ
+Lambda  : Λ
+Xi      : Ξ
+Pi      : Π
+Sigma   : Σ
+Phi     : Φ
+Psi     : Ψ
+Omega   : Ω
 
-\alpha      ||| α
-\beta       ||| β
-\gamma      ||| γ
-\delta      ||| δ
-\epsilon    ||| ε
-\zeta       ||| ζ
-\eta        ||| η
-\theta      ||| θ
-\vartheta   ||| ϑ
-\iota       ||| ι
-\kappa      ||| κ
-\lambda     ||| λ
-\mu         ||| μ
-\nu         ||| ν
-\xi         ||| ξ
-\pi         ||| π
-\rho        ||| ρ
-\sigma      ||| σ
-\varsigma   ||| ς
-\tau        ||| τ
-\upsilon    ||| υ
-\phi        ||| ϕ
-\varphi     ||| φ
-\chi        ||| χ
-\psi        ||| ψ
-\omega      ||| ω
+alpha      : α
+beta       : β
+gamma      : γ
+delta      : δ
+epsilon    : ε
+zeta       : ζ
+eta        : η
+theta      : θ
+vartheta   : ϑ
+iota       : ι
+kappa      : κ
+lambda     : λ
+mu         : μ
+nu         : ν
+xi         : ξ
+pi         : π
+rho        : ρ
+sigma      : σ
+varsigma   : ς
+tau        : τ
+upsilon    : υ
+phi        : ϕ
+varphi     : φ
+chi        : χ
+psi        : ψ
+omega      : ω
 
-\mathbb N ||| ℕ
-\mathbb Q ||| ℚ
-\mathbb R ||| ℝ
-\mathbb Z ||| ℤ
+natural  \mathbb N : ℕ
+integer  \mathbb Z : ℤ
+rational \mathbb Q : ℚ
+reals    \mathbb R : ℝ
 
-neq            ||| ≠
-approx         ||| ≈
-bottom         ||| ⊥
-cdot           ||| ·
-circ           ||| ∘
-cong           ||| ≅
-equivalent     ||| ≡
-exists         ||| ∃
-forall         ||| ∀
-geq >=         ||| ≥
-in             ||| ∈
-infty          ||| ∞
-neq <=         ||| ≠
-ni             ||| ∋
-not            ||| ¬
-not in element ||| ∉
-oplus          ||| ⨁
-otimes         ||| ⨂
-sqsubset       ||| ⊏
-sqsubseteq     ||| ⊑
-sqsupset       ||| ⊐
-sqsupseteq     ||| ⊒
-star           ||| ★
-subset         ||| ⊂
-subseteq       ||| ⊆
-subsetneq      ||| ⊊
-supset         ||| ⊃
-supseteq       ||| ⊇
-supsetneq      ||| ⊋
-times          ||| ×
-varnothing     ||| ∅
-vdash entails  ||| ⊢
-vee            ||| ∨
-wedge          ||| ∧
-rightarrow     ||| →
+neq            : ≠
+approx         : ≈
+bottom         : ⊥
+cdot           : ·
+circ           : ∘
+cong           : ≅
+equivalent     : ≡
+exists         : ∃
+forall         : ∀
+geq >=         : ≥
+in             : ∈
+infty          : ∞
+neq <=         : ≠
+ni             : ∋
+not            : ¬
+not in element : ∉
+oplus          : ⨁
+otimes         : ⨂
+sqsubset       : ⊏
+sqsubseteq     : ⊑
+sqsupset       : ⊐
+sqsupseteq     : ⊒
+star           : ★
+subset         : ⊂
+subseteq       : ⊆
+subsetneq      : ⊊
+supset         : ⊃
+supseteq       : ⊇
+supsetneq      : ⊋
+times          : ×
+varnothing     : ∅
+vdash entails  : ⊢
+vee            : ∨
+wedge          : ∧
+rightarrow     : →
 
-angry               ||| ლ(ಠ益ಠლ)
-dance               ||| ᕕ( ᐛ )ᕗ
-sassy               ||| ( ͡° ͜ʖ ͡°)
-upset               ||| (╯°□°）╯
-yeeeah              ||| (•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH
-look of disapproval ||| ಠ_ಠ
-happy               ||| ヽ (＾▽＾) ﾉ
+angry               : ლ(ಠ益ಠლ)
+dance               : ᕕ( ᐛ )ᕗ
+sassy               : ( ͡° ͜ʖ ͡°)
+upset               : (╯°□°）╯
+yeeeah              : (•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH
+look of disapproval : ಠ_ಠ
+happy               : ヽ (＾▽＾) ﾉ
 
-latex  ||| LaTeχ
-quchen ||| ˈkuːχn̩
-arxiv  ||| Arχiv
+latex  : LaTeχ
+quchen : ˈkuːχn̩
+arxiv  : Arχiv
 
 
-tm, trademark            ||| ™
-->                       ||| →
-=>                       ||| ⇒
-<-                       ||| ←
-<=                       ||| ⇐
-checkmark                ||| ✔
-crossed out              ||| ✗
-(c) copyright            ||| ©
-(r) (R) registered       ||| ®
-+-                       ||| ±
-...                      ||| …
-<3 | heart               ||| ♥
-Arxiv                    ||| Arχiv
-!?                       ||| ‽
-lightning, contradiction ||| ↯
-skull                    ||| ☠
-snowman                  ||| ☃
-soviet                   ||| ☭
+tm, trademark           : ™
+->                      : →
+=>                      : ⇒
+<-                      : ←
+<=                      : ⇐
+checkmark               : ✔
+crossed out             : ✗
+(c) copyright           : ©
+(R) registered          : ®
++-                      : ±
+...                     : …
+<3 heart                : ♥
+Arxiv                   : Arχiv
+!? interobang           : ‽
+lightning contradiction : ↯
+skull                   : ☠
+snowman                 : ☃
+soviet                  : ☭
 
-acker      ||| :t let a x=(x,x);b=a.a;c=b.b in c()
-djinn_cont ||| ?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r
-foldl      ||| foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z
+acker      : :t let a x=(x,x);b=a.a;c=b.b in c()
+djinn_cont : ?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r
+foldl      : foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z
 
-nub ||| flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]
+nub : flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]
 HEREDOC
 )
 
