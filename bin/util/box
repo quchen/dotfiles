@@ -1,35 +1,90 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-if [ $# -eq 0 ]; then
-    input=$(cat -)
-else
-    input="$*"
-fi
+import sys
+import argparse
 
-fillFromToWith() {
-    from="$1"
-    to="$2"
-    with="$3"
-    for (( i=from; i<=$to; i++ )); do
-        echo -n "$with"
-    done
-}
+class CustomFormatter(argparse.ArgumentDefaultsHelpFormatter,
+                      argparse.RawDescriptionHelpFormatter
+                      ):
+    pass
 
-lines=$(echo "$input" | wc --lines)
-columns=$(echo "$input" | wc --max-line-length)
+def parseCommandLineArgs():
+    parser = argparse.ArgumentParser(
+        description="Put text in a box. Lines are first read from the command line, and then from STDIN.",
+        epilog="\n".join(
+            ["Example:"
+            , ""
+            , "echo hello | $0 --hpad 2 foo \"lorem bar\" ipsum"
+            , box(["hello", "foo", "lorem bar", "ipsum"], hPad=2, vPad=0, **styles["unicode-round"])]),
+        formatter_class=CustomFormatter
+        )
+    parser.add_argument("--hpad" , type=int , default=1 , help="Horizontal padding in spaces" , metavar="h")
+    parser.add_argument("--vpad" , type=int , default=0 , help="Vertical padding in lines"    , metavar="w")
+    parser.add_argument("--style", choices=['ascii', 'unicode-round'], default="unicode-round")
+    parser.add_argument("content", nargs="*", help="Lines, prefixed to STDIN lines", metavar="line")
+    return parser.parse_args()
 
-echo -n "╭─"
-fillFromToWith 1 "$columns" "─"
-echo "─╮"
+def inputLines(args):
+    result = []
+    for arg in args.content:
+        for argSplit in arg.split("\n"):
+            result.append(argSplit)
+    if not sys.stdin.isatty():
+        for line in sys.stdin:
+            result.append(line.rstrip("\n"))
+    return result
 
-IFS=$'\n'
-for line in $input; do
-    echo -n "│ "
-    echo -n "$line"
-    fillFromToWith $(echo "$line" | wc --chars) "$columns" " "
-    echo " │"
-done
+styles = {
+    "ascii": {
+        "topLeft":     "+",
+        "topRight":    "+",
+        "bottomLeft":  "+",
+        "bottomRight": "+",
+        "vertical":    "|",
+        "horizontal":  "-" },
+    "unicode-round": {
+        "topLeft":     "╭",
+        "topRight":    "╮",
+        "bottomLeft":  "╰",
+        "bottomRight": "╯",
+        "vertical":    "│",
+        "horizontal":  "─" }}
 
-echo -n "╰─"
-fillFromToWith 1 "$columns" "─"
-echo "─╯"
+def style(args):
+    result = styles.get(args.style)
+    if not result:
+        raise ValueError(f"Unrecognized style: {args.style}")
+    return result
+
+
+def box(lines, topLeft, topRight, bottomLeft, bottomRight, vertical, horizontal, hPad, vPad):
+
+    numLines = len(lines)
+    longestLine = max(0, max(map(len, lines)))
+
+    fillWith = lambda string, width: (string * width)[0:width]
+
+    result = []
+    result.append(f"{topLeft}{fillWith(horizontal, longestLine+2*hPad)}{topRight}")
+    for _ in range(vPad):
+        result.append(f"{vertical}{fillWith(' ', longestLine+2*hPad)}{vertical}")
+    for line in lines:
+        result.append(f"{vertical}{hPad * ' '}{line}{fillWith(' ', longestLine - len(line))}{hPad * ' '}{vertical}")
+    for _ in range(vPad):
+        result.append(f"{vertical}{fillWith(' ', longestLine+2*hPad)}{vertical}")
+    result.append(f"{bottomLeft}{fillWith(horizontal, longestLine+2*hPad)}{bottomRight}")
+    return "\n".join(result)
+
+def main():
+    args = parseCommandLineArgs()
+    input = inputLines(args)
+    boxString = box(
+        **style(args),
+        hPad        = args.hpad,
+        vPad        = args.vpad,
+        lines       = input
+        )
+    print(boxString)
+
+if __name__ == '__main__':
+    main()
