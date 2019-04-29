@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+help() {
+    echo "Calculate the difference between two dates, in seconds."
+    echo ""
+    echo "dateDifference FROM UNTIL"
+    echo ""
+    echo "Inputs are formatted so »date« can parse them."
+    exit "$1"
+}
+
+from=
+until=
+while [ $# -ne 0 ]; do
+    case "$1" in
+        -h|--help)
+            help 0
+            ;;
+        *)
+            if [ $# -eq 2 ]; then
+                from="$1"
+                shift
+                until="$1"
+                shift
+            else
+                help 1
+            fi
+            ;;
+    esac
+done
+
+export LC_ALL=C.UTF-8
+from_unixtime=$(date --date="$from" "+%s")
+until_unixtime=$(date --date="$until" "+%s")
+
+echo $(( until_unixtime - from_unixtime ))
