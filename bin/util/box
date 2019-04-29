@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    input=$(cat -)
+else
+    input="$*"
+fi
+
+lines=$(echo "$input" | wc --lines)
+columns=$(echo "$input" | wc --max-line-length)
+
+echo -n "╭─"
+for (( n=1; n<=$columns; n++ )); do
+    echo -n "─"
+done
+echo "─╮"
+
+IFS=$'\n'
+for line in $input; do
+    echo -n "│ "
+    echo -n "$line"
+    for (( i=$(echo "$line" | wc --chars); i<=$columns; i++ )); do
+        echo -n " "
+    done
+    echo " │"
+done
+
+echo -n "╰─"
+for (( n=1; n<=$columns; n++ )); do
+    echo -n "─"
+done
+echo "─╯"
