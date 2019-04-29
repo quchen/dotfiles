@@ -6,13 +6,11 @@ export LC_ALL=C.UTF-8
 start_date="2017-11-01"
 hours_trained_per_week=10
 
+start_utime=$(date --date="$start_date" "+%s")
+now_utime=$(date "+%s")
 
-date_format="+%s%N"
-start_utime_ns=$(date --date="$start_date" "$date_format")
-now_utime_ns=$(date "$date_format")
-
-delta_nanoseconds=$(( $now_utime_ns - $start_utime_ns ))
-delta_days=$(($delta_nanoseconds / (60*60*24 * 1000 * 1000 * 1000) ))
+delta_nanoseconds=$(( $now_utime - $start_utime ))
+delta_days=$(($delta_nanoseconds / (60*60*24) ))
 hours_trained=$(($delta_days / 7 * $hours_trained_per_week ))
 days_trained=$(printf "%.1f" $(echo "$hours_trained / 24" | bc -l))
 percent_spent="$(printf "%.1f" "$(echo "$hours_trained_per_week * 100 / (7*24)" | bc -l)")"
