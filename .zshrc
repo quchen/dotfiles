@@ -409,7 +409,7 @@ prompt_end() {
 
 
 prompt_dir() {
-    prompt_segment black blue '%~'
+    prompt_segment black white '%~'
 }
 prompt_time() {
     local DATE
