@@ -1,20 +1,8 @@
 export AUTOJUMP_SOURCED=1
 
 # set user installation paths
-if [[ -d ~/.autojump/bin ]]; then
-    path=(~/.autojump/bin ${path})
-fi
-if [[ -d ~/.autojump/functions ]]; then
-    fpath=(~/.autojump/functions ${fpath})
-fi
-
-
-# set homebrew installation paths
-if command -v brew &>/dev/null; then
-  local brew_prefix=${BREW_PREFIX:-$(brew --prefix)}
-  if [[ -d "${brew_prefix}/share/zsh/site-functions" ]]; then
-    fpath=("${brew_prefix}/share/zsh/site-functions" ${fpath})
-  fi
+if [[ -d ~/.autojump/ ]]; then
+    export PATH=~/.autojump/bin:"${PATH}"
 fi
 
 
@@ -27,22 +15,41 @@ else
     export AUTOJUMP_ERROR_PATH=~/.local/share/autojump/errors.log
 fi
 
-if [[ ! -d ${AUTOJUMP_ERROR_PATH:h} ]]; then
-    mkdir -p ${AUTOJUMP_ERROR_PATH:h}
+if [[ ! -d "$(dirname ${AUTOJUMP_ERROR_PATH})" ]]; then
+    mkdir -p "$(dirname ${AUTOJUMP_ERROR_PATH})"
 fi
 
 
+# enable tab completion
+_autojump() {
+        local cur
+        cur=${COMP_WORDS[*]:1}
+        comps=$(autojump --complete $cur)
+        while read i; do
+            COMPREPLY=("${COMPREPLY[@]}" "${i}")
+        done <<EOF
+        $comps
+EOF
+}
+complete -F _autojump j
+
+
 # change pwd hook
-autojump_chpwd() {
+autojump_add_to_database() {
     if [[ -f "${AUTOJUMP_ERROR_PATH}" ]]; then
-        autojump --add "$(pwd)" >/dev/null 2>>${AUTOJUMP_ERROR_PATH} &!
+        (autojump --add "$(pwd)" >/dev/null 2>>${AUTOJUMP_ERROR_PATH} &) &>/dev/null
     else
-        autojump --add "$(pwd)" >/dev/null &!
+        (autojump --add "$(pwd)" >/dev/null &) &>/dev/null
     fi
 }
 
-typeset -gaU chpwd_functions
-chpwd_functions+=autojump_chpwd
+case $PROMPT_COMMAND in
+    *autojump*)
+        ;;
+    *)
+        PROMPT_COMMAND="${PROMPT_COMMAND:+$(echo "${PROMPT_COMMAND}" | awk '{gsub(/; *$/,"")}1') ; }autojump_add_to_database"
+        ;;
+esac
 
 
 # default autojump command
@@ -52,8 +59,7 @@ j() {
         return
     fi
 
-    setopt localoptions noautonamedirs
-    local output="$(autojump ${@})"
+    output="$(autojump ${@})"
     if [[ -d "${output}" ]]; then
         if [ -t 1 ]; then  # if stdout is a terminal, use colors
                 echo -e "\\033[31m${output}\\033[0m"
@@ -88,8 +94,7 @@ jo() {
         return
     fi
 
-    setopt localoptions noautonamedirs
-    local output="$(autojump ${@})"
+    output="$(autojump ${@})"
     if [[ -d "${output}" ]]; then
         case ${OSTYPE} in
             linux*)
@@ -102,7 +107,7 @@ jo() {
                 cygstart "" $(cygpath -w -a ${output})
                 ;;
             *)
-                echo "Unknown operating system: ${OSTYPE}" 1>&2
+                echo "Unknown operating system: ${OSTYPE}." 1>&2
                 ;;
         esac
     else
