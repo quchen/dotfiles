@@ -473,6 +473,9 @@ loadPlugins() {
     if [[ -s "$plugin" ]]; then
         zshLoadLog 8 "Autojump"
         source "$plugin"
+        # Alias to disable autojump, useful to call before running cd in shell
+        # one-liners that would pollute the Autojump db
+        alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
     else
         zshLoadLog 8 "(Autojump plugin configured in .zshrc, but not found)"
     fi
