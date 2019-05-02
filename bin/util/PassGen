@@ -1,25 +1,38 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-LENGTH=16
+# pylint: skip-file
 
-# Non-space ASCII characters ecluding
-# \ ' "`  (commonly escaped characters)
-# & < >   (HTML entities)
-# ALPHABET="!#$%()*+,-./0123456789:;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{|}~"
+import argparse
+import math
+import os
+import secrets
 
-# Numbers/letters, no O and j
-# ALPHABET="0123456789ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz"
+DEFAULT_LENGTH = 16
+DEFAULT_ALPHABET = "0123456789abcdefghiklmnopqrstuvwxyz"
 
-# Numbers/lower case letters
-ALPHABET="0-9a-z"
+def parseArgs():
+    parser = argparse.ArgumentParser(description="Password generator")
+    parser.add_argument("-l", "--length", metavar='N', type=int, help=f"length (default: {DEFAULT_LENGTH})", default=DEFAULT_LENGTH)
+    parser.add_argument("-a", "--alphabet", metavar='abc…', help="alphabet (default: 0-9a-z)", default=DEFAULT_ALPHABET)
+    return parser.parse_args()
 
-echo "length: $LENGTH; alphabet: $ALPHABET"
-echo "===================================="
+def generatePassword(length, alphabet):
+    return ''.join(secrets.choice(alphabet) for _ in range(length))
 
-pass="$(cat /dev/urandom | tr -dc $ALPHABET | head -c${1:-$LENGTH})"
-echo "$pass"
-echo "$pass" | tr -d "\n" | clipboard
+def entropy(length, alphabet):
+    return length * math.log(len(alphabet), 2)
 
-echo "===================================="
-echo "(Copied to clipboard)"
+def main():
+    args = parseArgs()
+    password = generatePassword(length = args.length, alphabet = args.alphabet)
+    s = entropy(length = args.length, alphabet = args.alphabet)
 
+    print("====================================")
+    print(password)
+    print(f"S = {s:.2f} bit")
+    print("====================================")
+    os.system(f"echo -n '{password}' | clipboard > /dev/null")
+    print("(Copied to clipboard)")
+
+if __name__ == '__main__':
+    main()
