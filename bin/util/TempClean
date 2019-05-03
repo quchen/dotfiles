@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
-# Remove files from ~/temp/ if they haven't been modified for X days.
-# Assumes a suitable "trash" command exists.
-find "$HOME/temp" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 trash
+set -euo pipefail
+
+export TEMP="$HOME/temp/"
+
+delete() {
+    local TRASH=trash
+    filename="$1"
+    echo "$TRASH ${filename#"$TEMP"}"
+    $TRASH "$filename"
+}
+export -f delete
+
+find "$TEMP" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c 'delete {}'
