@@ -3,6 +3,7 @@
 # pylint: skip-file
 
 import sys
+import argparse
 
 evenWords = [ "aardvark", "absurd", "accrue", "acme", "adrift", "adult",
     "afflict", "ahead", "aimless", "Algol", "allow", "alone", "ammo", "ancient",
@@ -91,13 +92,49 @@ oddWords = ["adroitness", "adviser", "aftermath", "aggregate", "alkali",
     "vocalist", "voyager", "warranty", "Waterloo", "whimsical", "Wichita",
     "Wilmington", "Wyoming", "yesteryear", "Yucatan"]
 
-words = [evenWords, oddWords]
 
+def encode(bytestring):
+    words = [evenWords, oddWords]
+    result = ""
+    alphabetIndex = 0
+    for byte in bytestring:
+        word = words[alphabetIndex % 2][byte]
+        if alphabetIndex > 0:
+            result += " "
+        result += word
+        alphabetIndex += 1
+    return result
 
-alphabetIndex = 0
-for byte in sys.stdin.buffer.read():
-    word = words[alphabetIndex % 2][byte]
-    if alphabetIndex > 0:
-        print(" ", end = "")
-    print(word, end = "")
-    alphabetIndex += 1
+def decode(input):
+    print("Decoding is still wrong I think, don’t rely on this!")
+    evenWordsDecode = { word.lower(): i for i, word in enumerate(evenWords) }
+    oddWordsDecode = { word.lower(): i for i, word in enumerate(oddWords) }
+    wordsDecode = [evenWordsDecode, oddWordsDecode]
+    alphabetIndex = 0
+    result = ""
+    for word in input.split():
+        wordLower = word.lower()
+        value = wordsDecode[alphabetIndex % 2].get(wordLower)
+        if value:
+            alphabetIndex += 1
+            result += chr(value)
+        elif wordLower in wordsDecode[(alphabetIndex+1) % 2]:
+            raise ValueError(f"Bad word parity: {word}")
+        else:
+            raise ValueError(f"Unrecognized word: {word}")
+    return result
+
+def parseArgs():
+    parser = argparse.ArgumentParser(description = "PGP Wordlist encoder/decoder")
+    parser.add_argument("-d", "--decode", action = "store_true")
+    return parser.parse_args()
+
+def main():
+    args = parseArgs()
+    if args.decode:
+        print(decode(sys.stdin.read()), end = "")
+    else:
+        print(encode(sys.stdin.buffer.read()), end = "")
+
+if __name__ == '__main__':
+    main()
