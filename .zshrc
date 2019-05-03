@@ -212,18 +212,16 @@ unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
 # "multi-.. aliases"
 # ..2 = cd ../..
 # ...= cd ../../..
-{
-    dots=..
-    command=..
-    for i in $(seq 2 5); do
-        alias "$dots=cd $command"
-        alias "..$i=cd $command"
-        dots="$dots."
-        command="$command/.."
-    done
-    unset dots
-    unset command
-}
+dots=..
+command=..
+for i in {2..5}; do
+    alias "$dots=cd $command"
+    alias "..$i=cd $command"
+    dots="$dots."
+    command="$command/.."
+done
+unset dots
+unset command
 
 
 # Modifiers
