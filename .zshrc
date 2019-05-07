@@ -490,6 +490,13 @@ loadPlugins() {
     if [[ -s "$plugin" ]]; then
         zshLoadLog 8 "fzf – Fuzzy Finder"
         source "$plugin"
+
+        # Search history with ^R
+        bindkey '^R' fzf-history-widget
+        # Insert files
+        bindkey '^K' fzf-file-widget
+        # cd to subdir (»J«oin)
+        bindkey '^J' fzf-cd-widget
     else
         zshLoadLog 8 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
     fi
