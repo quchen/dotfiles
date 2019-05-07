@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+query="$*"
+
+(
+    i=0
+    IFS=:
+    for entry in $PATH; do
+        file="$entry/$query"
+        if [[ -e "$file" ]]; then
+            ((i++))
+            echo "$i: $file"
+        fi
+    done
+) | column -ts:
