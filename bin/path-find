@@ -7,7 +7,7 @@ query="$*"
     IFS=:
     for entry in $PATH; do
         file="$entry/$query"
-        if [[ -e "$file" ]]; then
+        if [[ -f "$file" ]]; then
             ((i++))
             echo "$i: $file"
         fi
