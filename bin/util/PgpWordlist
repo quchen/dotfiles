@@ -5,7 +5,7 @@
 import sys
 import argparse
 
-evenWords = [ "aardvark", "absurd", "accrue", "acme", "adrift", "adult",
+evenWords = ["aardvark", "absurd", "accrue", "acme", "adrift", "adult",
     "afflict", "ahead", "aimless", "Algol", "allow", "alone", "ammo", "ancient",
     "apple", "artist", "assume", "Athens", "atlas", "Aztec", "baboon",
     "backfield", "backward", "banjo", "beaming", "bedlamp", "beehive",
@@ -92,36 +92,33 @@ oddWords = ["adroitness", "adviser", "aftermath", "aggregate", "alkali",
     "vocalist", "voyager", "warranty", "Waterloo", "whimsical", "Wichita",
     "Wilmington", "Wyoming", "yesteryear", "Yucatan"]
 
-
 def encode(bytestring):
-    words = [evenWords, oddWords]
     result = ""
-    alphabetIndex = 0
+    goodParity, badParity = evenWords, oddWords
     for byte in bytestring:
-        word = words[alphabetIndex % 2][byte]
-        if alphabetIndex > 0:
+        word = goodParity[byte]
+        if result:
             result += " "
         result += word
-        alphabetIndex += 1
+        goodParity, badParity = badParity, goodParity
     return result
 
 def decode(input):
-    print("Decoding is still wrong I think, don’t rely on this!")
     evenWordsDecode = { word.lower(): i for i, word in enumerate(evenWords) }
     oddWordsDecode = { word.lower(): i for i, word in enumerate(oddWords) }
-    wordsDecode = [evenWordsDecode, oddWordsDecode]
-    alphabetIndex = 0
+    goodParity, badParity = evenWordsDecode, oddWordsDecode
     result = ""
     for word in input.split():
         wordLower = word.lower()
-        value = wordsDecode[alphabetIndex % 2].get(wordLower)
+        value = goodParity.get(wordLower)
         if value:
-            alphabetIndex += 1
             result += chr(value)
-        elif wordLower in wordsDecode[(alphabetIndex+1) % 2]:
+        elif wordLower in badParity:
             raise ValueError(f"Bad word parity: {word}")
         else:
             raise ValueError(f"Unrecognized word: {word}")
+        goodParity, badParity = badParity, goodParity
+
     return result
 
 def parseArgs():
@@ -130,11 +127,17 @@ def parseArgs():
     return parser.parse_args()
 
 def main():
-    args = parseArgs()
-    if args.decode:
-        print(decode(sys.stdin.read()), end = "")
-    else:
-        print(encode(sys.stdin.buffer.read()), end = "")
+    try:
+        args = parseArgs()
+        if args.decode:
+            print(decode(sys.stdin.read()), end = "")
+        else:
+            print(encode(sys.stdin.buffer.read()), end = "")
+    except ValueError as e:
+        print("Error: " + str(e))
+        sys.exit(1)
+
+# Test: (input=$(cat /dev/urandom | tr -dc '[:graph:][:space:]' | head -c100); diff <(echo "$input" | xxd) <(echo "$input" | PgpWordlist | PgpWordlist -d | xxd))
 
 if __name__ == '__main__':
     main()
