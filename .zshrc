@@ -497,6 +497,11 @@ loadPlugins() {
         bindkey '^K' fzf-file-widget
         # cd to subdir (»J«oin)
         bindkey '^J' fzf-cd-widget
+
+        LIST_DIR_CONTENTS='ls --almost-all --group-directories-first --color=always {}'
+        LIST_FILE_CONTENTS='head -n128 {}'
+        FZF_ALT_C_OPTS="--preview '$LIST_DIR_CONTENTS'"
+        FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
     else
         zshLoadLog 8 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
     fi
