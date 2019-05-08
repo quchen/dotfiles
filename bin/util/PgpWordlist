@@ -147,6 +147,9 @@ def main():
         sys.exit(1)
 
 # Test failure: (input=$(cat /dev/urandom | head -c100); diff <(echo "$input" | xxd) <(echo "$input" | PgpWordlist | PgpWordlist -d | xxd))
+#
+# Create test failures:
+# (input=$(cat /dev/urandom | head -c100); i=$(echo "$input" | wc -c); echo "Deleting from the end"; while ! diff <(echo "$input" | xxd) <(echo "$input" | PgpWordlist | PgpWordlist -d | xxd); do ((i--)); input=$(echo "$input" | head -c"$i"); echo '#####'; if [[ i == 0 ]]; then break; fi; done; i=$(echo "$input" | wc -c); echo "Deleting from the start"; while ! diff <(echo "$input" | xxd) <(echo "$input" | PgpWordlist | PgpWordlist -d | xxd); do ((i--)); input=$(echo "$input" | tail -c"$i"); echo '#####'; if [[ i == 0 ]]; then break; fi; done;)
 
 if __name__ == '__main__':
     main()
