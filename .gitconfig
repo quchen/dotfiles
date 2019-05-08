@@ -152,5 +152,7 @@
     neubasieren                = rebase
     beschuldigen               = blame
 
+    fadd = "!git ls-files --modified --other --exclude-standard | fzf --print0 -m --preview='git diff --color=always {}' | xargs -0 -t -o git add"
+
 [include]
     path = .gitconfig-local
