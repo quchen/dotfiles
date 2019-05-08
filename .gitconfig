@@ -124,7 +124,7 @@
     dw      = diff --color-words="[^[:space:],;:_-]+"
     dt      = difftool --dir-diff
     mt      = mergetool --no-prompt
-    re      = rebase
+    re      = rebase --keep-empty
     s       = status --short --branch
     sup     = submodule update
     unstage = reset HEAD --
