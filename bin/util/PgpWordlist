@@ -2,8 +2,9 @@
 
 # pylint: skip-file
 
-import sys
 import argparse
+import re
+import sys
 
 evenWords = ["aardvark", "absurd", "accrue", "acme", "adrift", "adult",
     "afflict", "ahead", "aimless", "Algol", "allow", "alone", "ammo", "ancient",
@@ -103,17 +104,26 @@ def encode(bytestring):
         goodParity, badParity = badParity, goodParity
     return result
 
+def tokenizeNormalize(input):
+    result = input
+    result = re.sub(r"\W+", " ", result) # Replace all non-letters with single whitespace
+    result = result.lower().strip()
+    result = result.split()
+    result = map(lambda x: x.strip(), result) # Strip individual words
+    result = filter(lambda x: x, result) # Filter out empty entries (probably unnecessary because of the regex above)
+    result = list(result)
+    return result
+
 def decode(input):
     evenWordsDecode = { word.lower(): i for i, word in enumerate(evenWords) }
     oddWordsDecode = { word.lower(): i for i, word in enumerate(oddWords) }
     goodParity, badParity = evenWordsDecode, oddWordsDecode
     result = ""
-    for word in input.split():
-        wordLower = word.lower()
-        value = goodParity.get(wordLower)
-        if value:
+    for word in tokenizeNormalize(input):
+        value = goodParity.get(word)
+        if value is not None:
             result += chr(value)
-        elif wordLower in badParity:
+        elif badParity.get(word):
             raise ValueError(f"Bad word parity: {word}")
         else:
             raise ValueError(f"Unrecognized word: {word}")
@@ -136,8 +146,6 @@ def main():
     except ValueError as e:
         print("Error: " + str(e))
         sys.exit(1)
-
-# Test: (input=$(cat /dev/urandom | tr -dc '[:graph:][:space:]' | head -c100); diff <(echo "$input" | xxd) <(echo "$input" | PgpWordlist | PgpWordlist -d | xxd))
 
 if __name__ == '__main__':
     main()
