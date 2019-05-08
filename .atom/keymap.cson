@@ -97,6 +97,7 @@
 
     "f8": "editor:toggle-soft-wrap"
     "f9": "sort-lines:case-insensitive-sort"
+    "shift-f9": "sort-lines:unique"
 
     "escape": "editor:consolidate-selections" # Cancel multiselect
 
