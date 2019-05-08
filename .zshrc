@@ -491,6 +491,8 @@ loadPlugins() {
         zshLoadLog 8 "fzf – Fuzzy Finder"
         source "$plugin"
 
+        FZF_DEFAULT_OPTS='--prompt="λ. "'
+
         # Search history with ^R
         bindkey '^R' fzf-history-widget
         # Insert files
