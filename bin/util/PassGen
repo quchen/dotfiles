@@ -1,40 +1,21 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 
-# pylint: skip-file
+LC_ALL=C
 
-import argparse
-import math
-import subprocess
-import secrets
+fallback=PassGenRandomString
 
-DEFAULT_LENGTH = 16
-DEFAULT_ALPHABET = "0123456789abcdefghiklmnopqrstuvwxyz"
-
-def parseArgs():
-    parser = argparse.ArgumentParser(description="Password generator")
-    parser.add_argument("-l", "--length", metavar='N', type=int, help=f"length (default: {DEFAULT_LENGTH})", default=DEFAULT_LENGTH)
-    parser.add_argument("-a", "--alphabet", metavar='abc…', help="alphabet (default: 0-9a-z)", default=DEFAULT_ALPHABET)
-    return parser.parse_args()
-
-def generatePassword(length, alphabet):
-    return ''.join(secrets.choice(alphabet) for _ in range(length))
-
-def entropy(length, alphabet):
-    return length * math.log(len(alphabet), 2)
-
-def main():
-    args = parseArgs()
-    password = generatePassword(length = args.length, alphabet = args.alphabet)
-    s = entropy(length = args.length, alphabet = args.alphabet)
-
-    print("====================================")
-    print(password)
-    print(f"S = {s:.2f} bit")
-    print("====================================")
-    # passwordShellsafe = password.replace("'", "\\'")
-    # os.system(f"echo -n '{passwordShellsafe}' | clipboard > /dev/null")
-    subprocess.run("clipboard", input = password.encode("utf-8"), stdout = subprocess.DEVNULL)
-    print("(Copied to clipboard)")
-
-if __name__ == '__main__':
-    main()
+if which xkcdpass > /dev/null; then
+    PassGenXkcd
+elif which "$fallback" > /dev/null; then
+    "$fallback"
+else
+    echo "No password generator found, falling back to Unix oneliner"
+    numChars=16
+    alphabetLength=$(echo {a..z} {A..Z} {0..9} | tr -dc "a-z0-9A-Z" | wc -c)
+    entropy=$(bc -l <<< "$numChars * l($alphabetLength)/l(2)") # eff-long has 6^5 entries
+    pass=$(cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c$numChars)
+    echo "$pass"
+    echo -n "$pass" | clipboard > /dev/null
+    echo "(Copied to clipboard)"
+    printf "Entropy: %.2f bit\n" "$entropy"
+fi
