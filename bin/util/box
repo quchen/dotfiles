@@ -83,7 +83,7 @@ def style(args):
 def drawBox(lines, topLeft, topRight, bottomLeft, bottomRight, vertical, horizontal, hPad, vPad):
 
     numLines = len(lines)
-    longestLine = max(0, max(map(len, lines)))
+    longestLine = max(0, max(map(len, lines))) if lines else 0
 
     fillWith = lambda string, width: (string * width)[0:width]
 
