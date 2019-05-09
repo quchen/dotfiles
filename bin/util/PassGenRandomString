@@ -27,12 +27,8 @@ def main():
     password = generatePassword(length = args.length, alphabet = args.alphabet)
     s = entropy(length = args.length, alphabet = args.alphabet)
 
-    print("====================================")
-    print(password)
-    print(f"S = {s:.2f} bit")
-    print("====================================")
-    # passwordShellsafe = password.replace("'", "\\'")
-    # os.system(f"echo -n '{passwordShellsafe}' | clipboard > /dev/null")
+    subprocess.run("box", input = password.encode('utf-8'))
+    print(f"S = {s:.1f} bit")
     subprocess.run("clipboard", input = password.encode("utf-8"), stdout = subprocess.DEVNULL)
     print("(Copied to clipboard)")
 

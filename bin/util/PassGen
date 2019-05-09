@@ -1,21 +1,7 @@
 #!/usr/bin/env bash
 
-LC_ALL=C
-
-fallback=PassGenRandomString
-
 if which xkcdpass > /dev/null; then
     PassGenXkcd
-elif which "$fallback" > /dev/null; then
-    "$fallback"
 else
-    echo "No password generator found, falling back to Unix oneliner"
-    numChars=16
-    alphabetLength=$(echo {a..z} {A..Z} {0..9} | tr -dc "a-z0-9A-Z" | wc -c)
-    entropy=$(bc -l <<< "$numChars * l($alphabetLength)/l(2)") # eff-long has 6^5 entries
-    pass=$(cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c$numChars)
-    echo "$pass"
-    echo -n "$pass" | clipboard > /dev/null
-    echo "(Copied to clipboard)"
-    printf "Entropy: %.2f bit\n" "$entropy"
+    PassGenRandomString
 fi
