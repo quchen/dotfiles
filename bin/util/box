@@ -20,7 +20,7 @@ def parseCommandLineArgs():
         )
     parser.add_argument("--hpad" , type=int , default=1 , help="Horizontal padding in spaces" , metavar="h")
     parser.add_argument("--vpad" , type=int , default=0 , help="Vertical padding in lines"    , metavar="w")
-    parser.add_argument("--style", choices=['ascii', 'unicode-round'], default="unicode-round")
+    parser.add_argument("--style", choices=styles.keys(), default="unicode-round")
     parser.add_argument("content", nargs="*", help="Lines, prefixed to STDIN lines", metavar="line")
     return parser.parse_args()
 
