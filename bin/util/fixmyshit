@@ -1,14 +1,58 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-# Fix Wifi icon
-killall indicator-application-service
+# pylint: skip-file
 
-# Fix Dropbox icon
-# dropbox stop && DBUS_SESSION_BUS_ADDRESS="" dropbox start
+import sys
+import subprocess
 
-# Fix sound issues
-pulseaudio -k
+def run(command):
+    subprocess.run(command.split())
 
-# Reload Conky
-killall -SIGUSR1 conky
+def fixWifiIcon():
+    run("killall indicator-application-service")
 
+def fixSound():
+    run("pulseaudio -k")
+
+def fixConky():
+    run("killall -SIGUSR1 conky")
+
+fixes = {
+    "wifi-icon": fixWifiIcon,
+    "sound": fixSound,
+    "conky": fixConky
+}
+
+def fixAll():
+    print("Fixing all the shit")
+    for name, f in fixes.items():
+        print(f"Fixing {name}")
+        f()
+
+def main():
+    needHelp = False
+    if "all" in sys.argv:
+        fixAll()
+    elif "help" in sys.argv:
+        needHelp = True
+    elif len(sys.argv) == 1:
+        print("No arguments given")
+        needHelp = True
+    else:
+        for query in sys.argv[1:]:
+            f = fixes.get(query)
+            if f is not None:
+                print(f"Fixing {query}")
+                f()
+            else:
+                print(f"Unrecognized fix: {query}")
+                needHelp = True
+
+    if needHelp:
+        print("Available fixes:")
+        for name, _ in fixes.items():
+            print(f"  • {name}")
+        print(f"  • »all« to run them all")
+
+if __name__ == '__main__':
+    main()
