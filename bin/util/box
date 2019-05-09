@@ -14,8 +14,8 @@ def parseCommandLineArgs():
         epilog="\n".join(
             ["Example:"
             , ""
-            , "echo hello | $0 --hpad 2 foo \"lorem bar\" ipsum"
-            , box(["hello", "foo", "lorem bar", "ipsum"], hPad=2, vPad=0, **styles["unicode-round"])]),
+            , "echo five | $0 --hpad 2 one \"two three\" four"
+            , drawBox(["one", "two three", "four", "five"], hPad=2, vPad=0, **styles["unicode-round"])]),
         formatter_class=CustomFormatter
         )
     parser.add_argument("--hpad" , type=int , default=1 , help="Horizontal padding in spaces" , metavar="h")
@@ -57,7 +57,7 @@ def style(args):
     return result
 
 
-def box(lines, topLeft, topRight, bottomLeft, bottomRight, vertical, horizontal, hPad, vPad):
+def drawBox(lines, topLeft, topRight, bottomLeft, bottomRight, vertical, horizontal, hPad, vPad):
 
     numLines = len(lines)
     longestLine = max(0, max(map(len, lines)))
@@ -78,7 +78,7 @@ def box(lines, topLeft, topRight, bottomLeft, bottomRight, vertical, horizontal,
 def main():
     args = parseCommandLineArgs()
     input = inputLines(args)
-    boxString = box(
+    boxString = drawBox(
         **style(args),
         hPad        = args.hpad,
         vPad        = args.vpad,
