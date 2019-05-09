@@ -34,21 +34,44 @@ def inputLines(args):
             result.append(line.rstrip("\n"))
     return result
 
+def mimic(input):
+    symbols = ""
+    current = None
+    for char in input:
+        if char != current and not char.isspace() and not char.isalnum():
+            symbols = symbols + char
+            current = char
+    return {
+        "topLeft":     symbols[0],
+        "topRight":    symbols[2],
+        "bottomLeft":  symbols[4],
+        "bottomRight": symbols[6],
+        "vertical":    symbols[3],
+        "horizontal":  symbols[1]
+    }
+
 styles = {
-    "ascii": {
-        "topLeft":     "+",
-        "topRight":    "+",
-        "bottomLeft":  "+",
-        "bottomRight": "+",
-        "vertical":    "|",
-        "horizontal":  "-" },
-    "unicode-round": {
-        "topLeft":     "╭",
-        "topRight":    "╮",
-        "bottomLeft":  "╰",
-        "bottomRight": "╯",
-        "vertical":    "│",
-        "horizontal":  "─" }}
+    "ascii": mimic("""
+        +-------+
+        | style |
+        +-------+ """),
+    "unicode-round": mimic("""
+        ╭───────╮
+        │ style │
+        ╰───────╯ """),
+    "unicode-sharp": mimic("""
+        ┌───────┐
+        │ style │
+        └───────┘ """),
+    "unicode-sharp-bold": mimic("""
+        ┏━━━━━━━┓
+        ┃ style ┃
+        ┗━━━━━━━┛ """),
+    "unicode-sharp-double": mimic("""
+        ╔═══════╗
+        ║ style ║
+        ╚═══════╝ """)
+}
 
 def style(args):
     result = styles.get(args.style)
