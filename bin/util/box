@@ -14,7 +14,7 @@ def parseCommandLineArgs():
         epilog="\n".join(
             ["Example:"
             , ""
-            , "echo five | $0 --hpad 2 one \"two three\" four"
+            , "echo five | $0 --hpad 2 one \"two three\" four --style unicode-round"
             , drawBox(["one", "two three", "four", "five"], hPad=2, vPad=0, **styles["unicode-round"])]),
         formatter_class=CustomFormatter
         )
@@ -59,15 +59,15 @@ styles = {
         ╭───────╮
         │ style │
         ╰───────╯ """),
-    "unicode-sharp": mimic("""
+    "unicode": mimic("""
         ┌───────┐
         │ style │
         └───────┘ """),
-    "unicode-sharp-bold": mimic("""
+    "unicode-bold": mimic("""
         ┏━━━━━━━┓
         ┃ style ┃
         ┗━━━━━━━┛ """),
-    "unicode-sharp-double": mimic("""
+    "unicode-double": mimic("""
         ╔═══════╗
         ║ style ║
         ╚═══════╝ """)
