@@ -29,7 +29,8 @@ ref=$(
         for tag in $(git tag); do
             color 34 "$tag"
         done
-        for commit in $(git log --format="%h: [%cD] %s"); do
+        LC_TIME=C
+        for commit in $(git log --all --format="%h: [%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
             echo "$commit"
         done
     } | grep -Ev "(->|detached)" | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' | perl -pe 's/:.*$//'
