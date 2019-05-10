@@ -11,6 +11,11 @@ color() {
     echo -e "\e[${color}m$*\e[m"
 }
 
+fzf_preview() {
+    git show --color=always $(perl -pe "s/:.*$//" <<< "$*")
+}
+export -f fzf_preview
+
 ref=$(
     IFS=$'\n'
     {
@@ -27,7 +32,7 @@ ref=$(
         for commit in $(git log --format="%h: [%cD] %s"); do
             echo "$commit"
         done
-    } | grep -Ev "(->|detached)" | fzf --ansi --no-sort | perl -pe 's/:.*$//'
+    } | grep -Ev "(->|detached)" | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' | perl -pe 's/:.*$//'
 )
 
 git checkout "$ref" "$@"
