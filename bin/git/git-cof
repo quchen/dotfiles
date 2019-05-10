@@ -11,29 +11,33 @@ color() {
     echo -e "\e[${color}m$*\e[m"
 }
 
+list_options() {
+    IFS=$'\n'
+    for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
+        if [[ $branch = remote* ]]; then
+            color 31 "$branch"
+        else
+            color 32 "$branch"
+        fi
+    done | grep -Ev "(->|detached)"
+
+    for tag in $(git tag); do
+        color 34 "$tag"
+    done
+
+    LC_TIME=C
+    for commit in $(git log --all --format="%h: [%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
+        echo "$commit"
+    done
+}
+
 fzf_preview() {
     git show --color=always $(perl -pe "s/:.*$//" <<< "$*")
 }
 export -f fzf_preview
 
-ref=$(
-    IFS=$'\n'
-    {
-        for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
-            if [[ $branch = remote* ]]; then
-                color 31 "$branch"
-            else
-                color 32 "$branch"
-            fi
-        done
-        for tag in $(git tag); do
-            color 34 "$tag"
-        done
-        LC_TIME=C
-        for commit in $(git log --all --format="%h: [%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
-            echo "$commit"
-        done
-    } | grep -Ev "(->|detached)" | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' | perl -pe 's/:.*$//'
-)
+fuzzy_find() {
+    cat - | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' | perl -pe 's/:.*$//'
+}
 
-git checkout "$ref" "$@"
+git checkout "$(list_options | fuzzy_find)" "$@"
