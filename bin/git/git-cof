@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Make sure we’re in a Git repo
+git rev-parse --is-inside-work-tree >/dev/null
+
+color() {
+    color=$1
+    shift
+    echo -e "\e[${color}m$*\e[m"
+}
+
+ref=$(
+    IFS=$'\n'
+    {
+        for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
+            if [[ $branch = remote* ]]; then
+                color 31 "$branch"
+            else
+                color 32 "$branch"
+            fi
+        done
+        for tag in $(git tag); do
+            color 34 "$tag"
+        done
+        for commit in $(git log --format="%h: [%cD] %s"); do
+            echo "$commit"
+        done
+    } | grep -Ev "(->|detached)" | fzf --ansi --no-sort | perl -pe 's/:.*$//'
+)
+
+git checkout "$ref" "$@"
