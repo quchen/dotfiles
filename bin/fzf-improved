@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+color() {
+    color=$1
+    shift
+    echo -e "\e[${color}m$*\e[m"
+}
+
+list_options() {
+    IFS=$'\n'
+    for entry in $(cat /etc/passwd); do
+        local return_value="UID: $(echo "$entry" | cut -f3 -d:)"
+        local display_value=$(echo "$entry" | cut -f1,3,6 -d:)
+        echo "$return_value:::$display_value"
+    done
+}
+
+fzf_preview() {
+    display_value="$(perl -pe "s/:::.*$//" <<< "$*")"
+    echo "Preview for $display_value"
+}
+export -f fzf_preview
+
+fuzzy_find() {
+    cat - | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//'
+}
+
+main() (
+    list_options | fuzzy_find
+)
+
+main "$@"
