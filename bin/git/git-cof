@@ -2,9 +2,6 @@
 
 set -euo pipefail
 
-# Make sure we’re in a Git repo
-git rev-parse --is-inside-work-tree >/dev/null
-
 color() {
     color=$1
     shift
@@ -15,33 +12,38 @@ list_options() {
     IFS=$'\n'
     for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
         if [[ $branch = remote* ]]; then
-            color 31 "$branch"
+            color 31 "$branch:::$branch"
         else
-            color 32 "$branch"
+            color 32 "$branch:::$branch"
         fi
     done | grep -Ev "(->|detached)"
 
     for tag in $(git tag); do
-        color 34 "$tag"
+        color 34 "$tag:::$tag"
     done
 
     LC_TIME=C
-    for commit in $(git log --all --format="%h: [%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
+    for commit in $(git log --all --format="%h:::[%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
         echo "$commit"
     done
 }
 
 fzf_preview() {
-    git show --color=always $(perl -pe "s/:.*$//" <<< "$*")
+    git show --color=always "$(perl -pe "s/:::.*$//" <<< "$*")"
 }
 export -f fzf_preview
 
 fuzzy_find() {
-    cat - | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' | perl -pe 's/:.*$//'
+    cat - | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//'
 }
 
-check_this_out="$(list_options | fuzzy_find)"
-if [[ $? -eq 0 ]]; then
-    git checkout "$check_this_out" "$@"
-fi
+main() (
+    # Make sure we’re in a Git repo
+    git rev-parse --is-inside-work-tree >/dev/null
+    check_this_out="$(list_options | fuzzy_find)"
+    if [[ $? -eq 0 ]]; then
+        git checkout "$check_this_out" "$@"
+    fi
+)
 
+main "$@"
