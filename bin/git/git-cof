@@ -40,4 +40,8 @@ fuzzy_find() {
     cat - | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' | perl -pe 's/:.*$//'
 }
 
-git checkout "$(list_options | fuzzy_find)" "$@"
+check_this_out="$(list_options | fuzzy_find)"
+if [[ $? -eq 0 ]]; then
+    git checkout "$check_this_out" "$@"
+fi
+
