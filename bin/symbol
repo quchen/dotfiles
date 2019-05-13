@@ -2,132 +2,136 @@
 
 set -euo pipefail
 
-findSymbol() {
-    which fzf > /dev/null || {
-        echo "fzf not installed! Get it at https://github.com/junegunn/fzf"
-        exit 1
-    }
-    cat - | grep -Ev "^(#|$)" | fzf --inline-info +i | perl -pe "s/^[^:]*:\s*//"
+which fzf > /dev/null || {
+    echo "fzf not installed! Get it at https://github.com/junegunn/fzf"
+    exit 1
 }
 
 SYMBOL_DB=$(cat << HEREDOC
-Gamma   : Γ
-Delta   : Δ
-Theta   : Θ
-Lambda  : Λ
-Xi      : Ξ
-Pi      : Π
-Sigma   : Σ
-Phi     : Φ
-Psi     : Ψ
-Omega   : Ω
+α ::: α – alpha
+β ::: β – beta
+γ ::: γ – gamma
+δ ::: δ – delta
+ε ::: ε – epsilon
+ζ ::: ζ – zeta
+η ::: η – eta
+θ ::: θ – theta
+ϑ ::: ϑ – vartheta
+ι ::: ι – iota
+κ ::: κ – kappa
+λ ::: λ – lambda
+μ ::: μ – mu
+ν ::: ν – nu
+ξ ::: ξ – xi
+π ::: π – pi
+ρ ::: ρ – rho
+σ ::: σ – sigma
+ς ::: ς – varsigma
+τ ::: τ – tau
+υ ::: υ – upsilon
+ϕ ::: ϕ – phi
+φ ::: φ – varphi
+χ ::: χ – chi
+ψ ::: ψ – psi
+ω ::: ω – omega
 
-alpha      : α
-beta       : β
-gamma      : γ
-delta      : δ
-epsilon    : ε
-zeta       : ζ
-eta        : η
-theta      : θ
-vartheta   : ϑ
-iota       : ι
-kappa      : κ
-lambda     : λ
-mu         : μ
-nu         : ν
-xi         : ξ
-pi         : π
-rho        : ρ
-sigma      : σ
-varsigma   : ς
-tau        : τ
-upsilon    : υ
-phi        : ϕ
-varphi     : φ
-chi        : χ
-psi        : ψ
-omega      : ω
+Γ ::: Γ – Gamma
+Δ ::: Δ – Delta
+Θ ::: Θ – Theta
+Λ ::: Λ – Lambda
+Ξ ::: Ξ – Xi
+Π ::: Π – Pi
+Σ ::: Σ – Sigma
+Φ ::: Φ – Phi
+Ψ ::: Ψ – Psi
+Ω ::: Ω – Omega
 
-natural  \mathbb N : ℕ
-integer  \mathbb Z : ℤ
-rational \mathbb Q : ℚ
-reals    \mathbb R : ℝ
+ℕ ::: ℕ – natural  \mathbb N
+ℤ ::: ℤ – integer  \mathbb Z
+ℚ ::: ℚ – rational \mathbb Q
+ℝ ::: ℝ – reals    \mathbb R
 
-neq            : ≠
-approx         : ≈
-bottom         : ⊥
-cdot           : ·
-circ           : ∘
-cong           : ≅
-equivalent     : ≡
-exists         : ∃
-forall         : ∀
-geq >=         : ≥
-in             : ∈
-infty          : ∞
-neq <=         : ≠
-ni             : ∋
-not            : ¬
-not in element : ∉
-oplus          : ⨁
-otimes         : ⨂
-sqsubset       : ⊏
-sqsubseteq     : ⊑
-sqsupset       : ⊐
-sqsupseteq     : ⊒
-star           : ★
-subset         : ⊂
-subseteq       : ⊆
-subsetneq      : ⊊
-supset         : ⊃
-supseteq       : ⊇
-supsetneq      : ⊋
-times          : ×
-varnothing     : ∅
-vdash entails  : ⊢
-vee            : ∨
-wedge          : ∧
-rightarrow     : →
+≠ ::: ≠ – neq
+≈ ::: ≈ – approx
+⊥ ::: ⊥ – bottom
+· ::: · – cdot
+∘ ::: ∘ – circ
+≅ ::: ≅ – cong
+≡ ::: ≡ – equivalent
+∃ ::: ∃ – exists
+∀ ::: ∀ – forall
+≥ ::: ≥ – geq >=
+∈ ::: ∈ – in
+∞ ::: ∞ – infty
+≠ ::: ≠ – neq <=
+∋ ::: ∋ – ni
+¬ ::: ¬ – not
+∉ ::: ∉ – not in element
+⨁ ::: ⨁ – oplus
+⨂ ::: ⨂ – otimes
+⊏ ::: ⊏ – sqsubset
+⊑ ::: ⊑ – sqsubseteq
+⊐ ::: ⊐ – sqsupset
+⊒ ::: ⊒ – sqsupseteq
+★ ::: ★ – star
+⊂ ::: ⊂ – subset
+⊆ ::: ⊆ – subseteq
+⊊ ::: ⊊ – subsetneq
+⊃ ::: ⊃ – supset
+⊇ ::: ⊇ – supseteq
+⊋ ::: ⊋ – supsetneq
+× ::: × – times
+∅ ::: ∅ – varnothing
+⊢ ::: ⊢ – vdash entails
+∨ ::: ∨ – vee
+∧ ::: ∧ – wedge
+→ ::: → – rightarrow
 
-angry               : ლ(ಠ益ಠლ)
-dance               : ᕕ( ᐛ )ᕗ
-sassy               : ( ͡° ͜ʖ ͡°)
-upset               : (╯°□°）╯
-yeeeah              : (•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH
-look of disapproval : ಠ_ಠ
-happy               : ヽ (＾▽＾) ﾉ
+ლ(ಠ益ಠლ) ::: angry – ლ(ಠ益ಠლ)
+ᕕ( ᐛ )ᕗ ::: dance – ᕕ( ᐛ )ᕗ
+( ͡° ͜ʖ ͡°) ::: sassy – ( ͡° ͜ʖ ͡°)
+(╯°□°）╯ ::: upset – (╯°□°）╯
+(•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH ::: yeeeah – (•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH
+ಠ_ಠ ::: look of disapproval – ಠ_ಠ
+ヽ (＾▽＾) ﾉ ::: happy – ヽ (＾▽＾) ﾉ
 
-latex  : LaTeχ
-quchen : ˈkuːχn̩
-arxiv  : Arχiv
+LaTeχ ::: LaTeχ – latex
+ˈkuːχn̩ ::: ˈkuːχn̩ – quchen
+Arχiv ::: Arχiv – arxiv
 
+™ ::: ™ – tm, trademark
+→ ::: → – ->
+⇒ ::: ⇒ – =>
+← ::: ← – <-
+⇐ ::: ⇐ – <=
+✔ ::: ✔ – checkmark
+✗ ::: ✗ – crossed out
+© ::: © – (c) copyright
+® ::: ® – (R) registered
+± ::: ± – +-
+… ::: … – ...
+♥ ::: ♥ – <3 heart
+Arχiv ::: Arχiv – Arxiv
+‽ ::: ‽ – !? interobang
+↯ ::: ↯ – lightning contradiction
+☠ ::: ☠ – skull
+☃ ::: ☃ – snowman
+☭ ::: ☭ – soviet
 
-tm, trademark           : ™
-->                      : →
-=>                      : ⇒
-<-                      : ←
-<=                      : ⇐
-checkmark               : ✔
-crossed out             : ✗
-(c) copyright           : ©
-(R) registered          : ®
-+-                      : ±
-...                     : …
-<3 heart                : ♥
-Arxiv                   : Arχiv
-!? interobang           : ‽
-lightning contradiction : ↯
-skull                   : ☠
-snowman                 : ☃
-soviet                  : ☭
+:t let a x=(x,x);b=a.a;c=b.b in c()                             ::: Ackermann type
+?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r ::: Djinn Cont
+foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z      ::: foldl via foldr
 
-acker      : :t let a x=(x,x);b=a.a;c=b.b in c()
-djinn_cont : ?djinn ((a -> r) -> r) -> (a -> (b -> r) -> r) -> (b -> r) -> r
-foldl      : foldl f z xs  =  foldr (\y go acc -> go (f acc y)) id xs z
-
-nub : flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[]
+flip(foldr(ap(flip.(ap.).join.(liftA2 bool.).ap((.).(.).(:))(flip(.).(:)))elem)(const []))[] ::: nub pointfree
 HEREDOC
 )
 
-findSymbol <<< "$SYMBOL_DB"
+list_options() {
+    echo "$SYMBOL_DB" | grep -Ev "^(#|$)" | perl -pe 's/\s*:::\s*/:::/'
+}
+
+fuzzy_find() {
+    cat - | fzf --ansi --no-sort --reverse --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//'
+}
+
+list_options "$SYMBOL_DB" | fuzzy_find
