@@ -2,21 +2,46 @@
 
 set -euo pipefail
 
-CLIPBOARD="xsel --clipboard -i"
+CLIPBOARD="xsel --clipboard"
 
 if [[ "$#" -eq 1 && ("$1" == "--help" || "$1" == "-h") ]]; then
     echo "Copy text to the clipboard."
     echo ""
     echo "Usage:"
-    echo "    a) Pipe STDOUT to this script"
-    echo "    b) Provide text as argument"
+    echo "    a) Copy to clipboard"
+    echo "         • Pipe STDOUT to this script"
+    echo "         • Provide text as argument"
+    echo "    b) Get clipboard contents"
+    echo "         • Run script directly (no args, no STDIN)"
     exit 0
 fi
 
 if [[ "$#" -ne 0 ]]; then
-    echo "$*" | $CLIPBOARD
+    mode="args"
+elif [ -t 0 ]; then # STDIN not connected -> print clipboard contents
+    mode="echo"
 else
-    cat - | $CLIPBOARD
+    mode="stdin"
 fi
 
-echo -e "\e[1m$(xsel -o --clipboard | wc --bytes | numfmt --to=iec-i --suffix=B)\e[m copied to clipboard"
+case "$mode" in
+    echo)
+        $CLIPBOARD -o
+        ;;
+    stdin)
+        cat - | $CLIPBOARD -i
+        ;;
+    args)
+        echo "$*" | $CLIPBOARD -i
+        ;;
+    *)
+        echo "Bad mode: »$mode«"
+        exit 1
+        ;;
+esac
+
+case "$mode" in
+    stdin|args)
+        echo -e "\e[1m$($CLIPBOARD -o | wc --bytes | numfmt --to=iec-i --suffix=B)\e[m copied to clipboard"
+        ;;
+esac
