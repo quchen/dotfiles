@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+    echo "Single argument expected"
+    exit 1
+elif [[ ! -e "$1" ]]; then
+    echo "$0: $1: file not found"
+else
+    readlink -f "$1"
+fi
