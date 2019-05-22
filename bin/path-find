@@ -13,3 +13,6 @@ query="$*"
         fi
     done
 ) | column -ts:
+
+[[ $i -gt 0 ]]
+
