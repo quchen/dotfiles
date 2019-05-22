@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+import argparse
+
+def parseCommandLineArgs():
+    parser = argparse.ArgumentParser(
+        description="Helps me remember how to do a Git rebase.",
+        epilog=diagram("start", "end", "target"),
+        formatter_class=argparse.RawDescriptionHelpFormatter
+        )
+    parser.add_argument("--start"  , default="start"  , metavar="ref" , help="[x…")
+    parser.add_argument("--end"    , default="end"    , metavar="ref" , help="…y]")
+    parser.add_argument("--target" , default="target" , metavar="ref"             )
+    return parser.parse_args()
+
+def diagram(start, end, target):
+    return f"""
+●───●───●───●───●  {target}
+    │            ╲
+    │             ●───●───●  {end}
+     ╲
+      ●───●───●───●───●  {start}
+                       ╲
+                        ◌───◌───◌  {end}
+    """
+
+def main():
+    args = parseCommandLineArgs()
+
+    print(diagram(args.start, args.end, args.target))
+    print(f"git rebase --onto {args.target} {args.start} {args.end}")
+
+if __name__ == '__main__':
+    main()
