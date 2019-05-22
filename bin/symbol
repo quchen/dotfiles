@@ -131,7 +131,7 @@ list_options() {
 }
 
 fuzzy_find() {
-    cat - | fzf --ansi --no-sort --reverse --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//'
+    cat - | fzf --ansi --no-sort --reverse --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//' | tr -d "\n"
 }
 
 list_options "$SYMBOL_DB" | fuzzy_find
