@@ -464,12 +464,20 @@ PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 
 zshLoadLog 4 "Plugins"
 
+fzf-autojump-widget() {
+    cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
+    local ret=$?
+    zle reset-prompt
+    return $ret
+}
+
 loadPlugins() {
     local plugin
 
     plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
     if [[ -s "$plugin" ]]; then
         zshLoadLog 8 "Autojump"
+        AUTOJUMP_INSTALLED=true
         source "$plugin"
         # Alias to disable autojump, useful to call before running cd in shell
         # one-liners that would pollute the Autojump db
@@ -489,6 +497,7 @@ loadPlugins() {
     plugin="$HOME/.fzf.zsh"
     if [[ -s "$plugin" ]]; then
         zshLoadLog 8 "fzf – Fuzzy Finder"
+        FUZZYFINDER_INSTALLED=true
         source "$plugin"
 
         FZF_DEFAULT_OPTS='--prompt="λ. "'
@@ -507,6 +516,13 @@ loadPlugins() {
     else
         zshLoadLog 8 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
     fi
+
+    if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
+        zshLoadLog 8 "Fuzzyfinder + Autojump <3"
+        zle -N fzf-autojump-widget
+        bindkey '^P' fzf-autojump-widget
+    fi
+
 }
 loadPlugins && unset loadPlugins
 
