@@ -12,4 +12,4 @@ delete() {
 }
 export -f delete
 
-find "$TEMP" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c 'delete {}'
+find "$TEMP" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c 'delete "{}"'
