@@ -471,6 +471,15 @@ fzf-autojump-widget() {
     return $ret
 }
 
+::() {
+    cd "$(
+        while [ "$(pwd)" != / ]; do
+            pwd
+            cd ..
+        done | fzf +s --ansi
+    )"
+}
+
 loadPlugins() {
     local plugin
 
