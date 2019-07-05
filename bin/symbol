@@ -86,6 +86,8 @@ SYMBOL_DB=$(cat << HEREDOC
 ∨ ::: ∨ – vee
 ∧ ::: ∧ – wedge
 → ::: → – rightarrow
+⇝ ::: ⇝ – rightwards squiggle arrow \rightsquigarrow
+␣ ::: ␣ – space
 
 ლ(ಠ益ಠლ) ::: angry – ლ(ಠ益ಠლ)
 ᕕ( ᐛ )ᕗ ::: dance – ᕕ( ᐛ )ᕗ
