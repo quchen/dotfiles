@@ -3,12 +3,12 @@
 set -euo pipefail
 
 color() {
-    color=$1
+    local color=$1
     shift
     echo -e "\e[${color}m$*\e[m"
 }
 
-list_options() {
+list_options() (
     IFS=$'\n'
     for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
         if [[ $branch = remote* ]]; then
@@ -26,7 +26,7 @@ list_options() {
     for commit in $(git log --all --format="%h:::[%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
         echo "$commit"
     done
-}
+)
 
 fzf_preview() {
     git show --color=always "$(perl -pe "s/:::.*$//" <<< "$*")"
