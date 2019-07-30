@@ -89,13 +89,14 @@ SYMBOL_DB=$(cat << HEREDOC
 ⇝ ::: ⇝ – rightwards squiggle arrow \rightsquigarrow
 ␣ ::: ␣ – space
 
-ლ(ಠ益ಠლ) ::: angry – ლ(ಠ益ಠლ)
-ᕕ( ᐛ )ᕗ ::: dance – ᕕ( ᐛ )ᕗ
-( ͡° ͜ʖ ͡°) ::: sassy – ( ͡° ͜ʖ ͡°)
-(╯°□°）╯ ::: upset – (╯°□°）╯
-(•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH ::: yeeeah – (•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH
-ಠ_ಠ ::: look of disapproval – ಠ_ಠ
-ヽ (＾▽＾) ﾉ ::: happy – ヽ (＾▽＾) ﾉ
+ლ(ಠ益ಠლ) ::: angry emoji – ლ(ಠ益ಠლ)
+ᕕ( ᐛ )ᕗ ::: dance emoji – ᕕ( ᐛ )ᕗ
+( ͡° ͜ʖ ͡°) ::: sassy emoji – ( ͡° ͜ʖ ͡°)
+(╯°□°）╯ ::: upset emoji – (╯°□°）╯
+(•_•)     ( •_•)>⌐■-■     (⌐■_■)     YEEEEEAAAAAAAHHHHH ::: yeeeah emoji – (•_•) ( •_•)>⌐■-■ (⌐■_■) YEEEEEAAAAAAAHHHHH
+ಠ_ಠ ::: look of disapproval emoji – ಠ_ಠ
+ヽ (＾▽＾) ﾉ ::: happy emoji – ヽ (＾▽＾) ﾉ
+¯\_(ツ)_/¯ ::: shrug emoji – ¯\_(ツ)_/¯
 
 LaTeχ ::: LaTeχ – latex
 ˈkuːχn̩ ::: ˈkuːχn̩ – quchen
