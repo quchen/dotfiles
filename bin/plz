@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cat <<EOF
+Beta-Straße 13a
+85774 Unterföhring
+
+Arabellastraße 4a
+81925 München
+EOF
+
