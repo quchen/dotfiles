@@ -121,6 +121,7 @@
 	"tree_animation_enabled": false,
 	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true,
+	"update_check": false,
 	"use_simple_full_screen": false,
 	"use_tab_stops": true,
 	"word_separators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?",
