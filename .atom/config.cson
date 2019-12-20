@@ -12,6 +12,13 @@
   "atom-beautify":
     general:
       analytics: false
+  "atom-ide-ui":
+    "atom-ide-diagnostics-ui":
+      showDirectoryColumn: true
+    hyperclick:
+      linuxTriggerKeys: "shiftKey,ctrlKey"
+  "atom-package-deps":
+    ignored: []
   "autocomplete-plus":
     backspaceTriggersAutocomplete: true
     confirmCompletion: "tab"
