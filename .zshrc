@@ -546,6 +546,31 @@ loadPlugins && unset loadPlugins
 
 
 
+###############################################################################
+###  Installed programs  ######################################################
+###############################################################################
+
+zshLoadLog 4 "Installed programs"
+isInstalled() {
+    local programExecutable=$1
+    which "$programExecutable" > /dev/null;
+}
+checkInstalled() {
+    local programName=$1
+    local programExecutable=$2
+    local installed
+    if isInstalled "$programExecutable"; then
+        installed="[x]"
+    else
+        installed="[ ]"
+    fi
+    zshLoadLog 8 "$installed $programName ($programExecutable)"
+}
+
+checkInstalled "jq" "jq"
+checkInstalled "q" "qq"
+unset checkInstalled
+
 
 ###############################################################################
 ###   Local additions   #######################################################
