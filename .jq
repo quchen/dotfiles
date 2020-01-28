@@ -12,6 +12,8 @@ def schema:
     end
     ;
 
+def filter(p): [ .[] | select(p) ];
+
 # Apply f to composite entities recursively, and to atoms
 # Taken from https://github.com/stedolan/jq/blob/master/src/builtin.jq
 # Will be part of jq 1.6
