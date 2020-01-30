@@ -281,6 +281,10 @@ alias zz="source $HOME/.zshrc"
 # Edit shortcut
 alias ze="$EDITOR $HOME/.zshrc && zz"
 
+md() {
+    mkdir -p "$@" && cd "$1"
+}
+
 
 ###############################################################################
 ###  Command customization  ###################################################
