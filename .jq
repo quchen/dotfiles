@@ -14,6 +14,9 @@ def schema:
 
 def filter(p): [ .[] | select(p) ];
 
+def collect_all(f): [.. | f];
+
+
 # Apply f to composite entities recursively, and to atoms
 # Taken from https://github.com/stedolan/jq/blob/master/src/builtin.jq
 # Will be part of jq 1.6
@@ -46,6 +49,8 @@ def nub(stream):
     | .value
     | to_entries[]
     | if $type == "string" then .key else .key|fromjson end ;
+
+def nub: nub(.[]);
 
 def bag_to_entries:
     [ to_entries[]
