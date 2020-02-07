@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+set -eufo pipefail
+
+# We add the inode number as a unique identifier to work with a single stat
+# command. It is later removed.
+format=$(cat <<'EOF'
+[uniqueness hack %i]/name: %n
+[uniqueness hack %i]/type: %F
+[uniqueness hack %i]/size/bytes: %s
+[uniqueness hack %i]/permissions/octal: %a
+[uniqueness hack %i]/permissions/string: %A
+[uniqueness hack %i]/permissions/owner/id: %u
+[uniqueness hack %i]/permissions/owner/name: %U
+[uniqueness hack %i]/permissions/group/id: %g
+[uniqueness hack %i]/permissions/group/name: %G
+[uniqueness hack %i]/time/read/human: %x
+[uniqueness hack %i]/time/read/unix: %X
+[uniqueness hack %i]/time/write/human: %y
+[uniqueness hack %i]/time/write/unix: %Y
+[uniqueness hack %i]/time/metadata/human: %z
+[uniqueness hack %i]/time/metadata/unix: %Z
+[uniqueness hack %i]/time/created/human: %w
+[uniqueness hack %i]/time/created/unix: %W
+EOF
+)
+
+to_json() {
+jq -Rs "$(cat <<-'EOF'
+    def interpret_permission_string:
+        def rwx: {
+                read:    (        startswith("r")),
+                write:   (.[1:] | startswith("w")),
+                execute: (.[2:] | startswith("x"))
+        };
+        {
+            owner: .[1:3],
+            group: .[4:6],
+            everyone: .[7:9]
+        } | map_values(rwx);
+
+    def human_filesize:
+        def increment_unit(unit):
+            if   unit ==   "B" then "KiB"
+            elif unit == "KiB" then "MiB"
+            elif unit == "MiB" then "GiB"
+            elif unit == "GiB" then "TiB"
+            elif unit == "TiB" then "EiB"
+            elif unit == "EiB" then "PiB"
+            else error("Unrecognized unit: \(unit)")
+            end
+            ;
+        def poor_mans_decimals:
+            def round: . + 0.5 | floor;
+            . * 100 | round | . / 100
+            ;
+        def humanize(value; unit):
+            if value < 1000 then
+                "\(value | poor_mans_decimals) \(unit)"
+            else
+                humanize(value / 1024; increment_unit(unit))
+            end
+            ;
+        humanize(.; "B")
+        ;
+
+    def polish_entry:
+        .
+        | .size.bytes |= tonumber
+        | .size.human = (.size.bytes | human_filesize)
+
+        | (.permissions | .octal, .owner.id, .group.id) |= tonumber
+        | .permissions *= (.permissions.string | interpret_permission_string)
+
+        | (.time | .read.unix, .write.unix, .metadata.unix, .created.unix) |= tonumber
+        | if .time.created.unix == 0 then del(.time.created) else . end
+        ;
+
+    def no_list_if_single_file:
+        if length == 1 then .[0] else . end
+        ;
+
+    def remove_path_uniqueness_keys:
+        [.[]]
+        ;
+
+    .
+    | interpret_flattened_object
+    | remove_path_uniqueness_keys
+    | map(polish_entry)
+    | no_list_if_single_file
+
+EOF
+    )"
+}
+
+stat -c "$format" "$@" | to_json
