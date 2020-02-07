@@ -16,19 +16,57 @@ def filter(p): [ .[] | select(p) ];
 
 def collect_all(f): [.. | f];
 
+def all_keys: [.. | objects | keys | .[]] | unique;
 
-# Apply f to composite entities recursively, and to atoms
-# Taken from https://github.com/stedolan/jq/blob/master/src/builtin.jq
-# Will be part of jq 1.6
-# Example: delete all email fields: walk(if type == "object" then del(.email) else . end)
-def walk(f):
-  . as $in
-  | if type == "object" then
-      reduce keys_unsorted[] as $key
-        ( {}; . + { ($key):  ($in[$key] | walk(f)) } ) | f
-  elif type == "array" then map( walk(f) ) | f
-  else f
-  end;
+def enumerate: [keys, .] | transpose | map({"index": .[0], "value": .[1]});
+
+def time_object:
+    {
+        year: .[0],
+        month: (.[1] + 1), # month is 0-based here, for whatever reason
+        day: .[2],
+        hour: .[3],
+        minute: .[4],
+        second: .[5],
+        dayOfWeek: .[6],
+        dayOfYear: .[7]
+    };
+
+# Useful for converting external things to JSON using a simple interchange format,
+#
+# foo/bar: hello
+# foo/qux: world
+#
+# ==>
+# {
+#     "foo": {
+#         "bar": "hello",
+#         "qux": "world"
+#     }
+# }
+def interpret_flattened_object:
+    def splitOnPrefix(separator):
+        index(separator) as $i
+        | (separator | length) as $sepLength
+        | ($i+$sepLength) as $j
+        | .[:$i] as $before
+        | .[$j:] as $after
+        | if ($before | length == 0) or ($after | length == 0) then empty else . end
+        | { before: $before, after: $after }
+        ;
+
+    def expandPaths(sep):
+        (.before | split(sep)) as $path
+        | .after as $value
+        | {} | setpath($path; $value)
+        ;
+
+    def merge_objects:
+        reduce .[] as $e ({}; . * $e)
+        ;
+
+    split("\n") | map(splitOnPrefix(": ") | expandPaths("/")) | merge_objects
+    ;
 
 # Histogram function from the Jq Cookbook
 # https://github.com/stedolan/jq/wiki/Cookbook
