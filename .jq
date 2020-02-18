@@ -29,6 +29,10 @@ def time_object:
         minute: .[4],
         second: .[5],
         dayOfWeek: .[6],
+        dayOfWeekName:
+            (.[6] as $i
+             | ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+             | .[$i-1]),
         dayOfYear: .[7]
     };
 
