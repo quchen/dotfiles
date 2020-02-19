@@ -78,8 +78,7 @@ def interpret_flattened_object:
 # bag(stream) uses a two-level dictionary: .[type][tostring]
 # So given a bag, $b, to recover a count for an entity, $e, use
 # $e | $b[type][tostring]
-def bag(stream):
-  reduce stream as $x ({}; .[$x|type][$x|tostring] += 1 );
+def bag(stream): reduce stream as $x ({}; .[$x|type][$x|tostring] += 1);
 
 def bag: bag(.[]);
 
@@ -103,6 +102,8 @@ def bag_to_entries:
 
 # Emit an array of [value, frequency] pairs, sorted by frequency
 def histogram(stream):
-  bag(stream)
-  | bag_to_entries
-  | map( {value: .key, count: .value} ) ;
+    bag(stream)
+    | bag_to_entries
+    | map( {value: .key, count: .value} ) ;
+
+def histogram: histogram(.[]);
