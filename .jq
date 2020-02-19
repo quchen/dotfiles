@@ -105,5 +105,4 @@ def bag_to_entries:
 def histogram(stream):
   bag(stream)
   | bag_to_entries
-  | sort_by( [.value, .key])
   | map( {value: .key, count: .value} ) ;
