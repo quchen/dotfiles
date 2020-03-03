@@ -36,41 +36,53 @@ def time_object:
         dayOfYear: .[7]
     };
 
+def splitOnFirst(separator):
+    split(separator) | { before: .[0], after: .[1:] | join(separator) };
+
+# Remove whitspace around input
+def ltrim: gsub("^\\s+"; "");
+def rtrim: gsub("\\s+$"; "");
+def trim: ltrim | rtrim;
+
 # Useful for converting external things to JSON using a simple interchange format,
 #
 # foo/bar: hello
 # foo/qux: world
-#
-# ==>
+# ===>
+# expand_object(":"; "/")
+# ===>
 # {
 #     "foo": {
 #         "bar": "hello",
 #         "qux": "world"
 #     }
 # }
-def interpret_flattened_object:
-    def splitOnPrefix(separator):
-        index(separator) as $i
-        | (separator | length) as $sepLength
-        | ($i+$sepLength) as $j
-        | .[:$i] as $before
-        | .[$j:] as $after
-        | if ($before | length == 0) or ($after | length == 0) then empty else . end
-        | { before: $before, after: $after }
-        ;
-
+def expand_object(sep_path_data; sep_path_elements):
     def expandPaths(sep):
-        (.before | split(sep)) as $path
-        | .after as $value
-        | {} | setpath($path; $value)
+        (.path | split(sep)) as $path
+        | .value as $value
+        | {}
+        | setpath($path; $value)
         ;
 
     def merge_objects:
         reduce .[] as $e ({}; . * $e)
         ;
 
-    split("\n") | map(splitOnPrefix(": ") | expandPaths("/")) | merge_objects
+    split("\n")
+    | map( trim
+         | select(length > 0)
+         | splitOnFirst(sep_path_data)
+         | { path: .before | trim, value: .after | trim}
+         | expandPaths(sep_path_elements))
+     | merge_objects
     ;
+def expand_object: expand_object(":"; "/");
+
+def collapse_object(sep_path_data; sep_path_elements):
+    .
+    ;
+def collapse_object: collapse_object(":"; "/");
 
 # Histogram function from the Jq Cookbook
 # https://github.com/stedolan/jq/wiki/Cookbook
