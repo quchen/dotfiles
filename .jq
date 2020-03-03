@@ -57,7 +57,7 @@ def trim: ltrim | rtrim;
 #         "qux": "world"
 #     }
 # }
-def expand_object(sep_path_data; sep_path_elements):
+def expand_object(sep_path_elements; sep_path_from_data):
     def expandPaths(sep):
         (.path | split(sep)) as $path
         | .value as $value
@@ -65,24 +65,34 @@ def expand_object(sep_path_data; sep_path_elements):
         | setpath($path; $value)
         ;
 
-    def merge_objects:
-        reduce .[] as $e ({}; . * $e)
+    def build_object:
+        reduce .[] as $entry ({}; setpath($entry | .path; $entry | .value))
         ;
 
     split("\n")
     | map( trim
          | select(length > 0)
-         | splitOnFirst(sep_path_data)
-         | { path: .before | trim, value: .after | trim}
-         | expandPaths(sep_path_elements))
-     | merge_objects
+         | splitOnFirst(sep_path_from_data)
+         | { path: .before | trim | split(sep_path_elements)
+           , value: .after | trim
+           }
+         )
+    | build_object
     ;
-def expand_object: expand_object(":"; "/");
+def expand_object: expand_object("/"; ":");
 
-def collapse_object(sep_path_data; sep_path_elements):
-    .
+# Inverse of expand_object when there are no arrays.
+def collapse_object(sep_path_elements; sep_path_from_data):
+    . as $input
+    | [paths]
+    | map(
+        { path: join(sep_path_elements), value: (. as $dot | $input | getpath($dot)) }
+        | if .value | type | . != "array" and . != "object" then . else empty end
+        | "\(.path)\(sep_path_from_data)\(.value)"
+        )
+    | join("\n")
     ;
-def collapse_object: collapse_object(":"; "/");
+def collapse_object: collapse_object("/"; ": ");
 
 # Histogram function from the Jq Cookbook
 # https://github.com/stedolan/jq/wiki/Cookbook

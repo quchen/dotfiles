@@ -85,7 +85,7 @@ jq -Rs "$(cat <<-'EOF'
         ;
 
     .
-    | interpret_flattened_object
+    | expand_object("/"; ":")
     | remove_path_uniqueness_keys
     | map(polish_entry)
     | no_list_if_single_file
