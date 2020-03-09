@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+case "$-" in
+    *i*) interactive=true ;;
+    *)	interactive=false ;;
+esac
+
+if [ -t 1 ]; then
+    script_run_in_pipeline=true
+else
+    script_run_in_pipeline=false
+fi
+
+yq r - \
+    --indent 4 \
+    $(if $script_run_in_pipeline; then echo --colors; fi) \
+    --prettyPrint \
+    "$@"
