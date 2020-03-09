@@ -573,6 +573,7 @@ checkInstalled() {
 
 checkInstalled "jq" "jq"
 checkInstalled "q" "qq"
+checkInstalled "yq" "yq"
 unset checkInstalled
 
 
