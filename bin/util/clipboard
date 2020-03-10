@@ -35,10 +35,10 @@ case "$mode" in
         clipboard -o
         ;;
     copy_stdin)
-        cat - | tee >(clipboard -i)
+        cat - | tee >(clipboard -i > /dev/null)
         ;;
     copy_arguments)
-        echo "$*" | tee >(clipboard -i)
+        echo "$*" | tee >(clipboard -i > /dev/null)
         ;;
     *)
         echo "Bad mode: »$mode«"
