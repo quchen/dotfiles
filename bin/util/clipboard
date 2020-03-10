@@ -2,9 +2,11 @@
 
 set -euo pipefail
 
-CLIPBOARD="xsel --clipboard"
+clipboard() {
+    xsel --clipboard "$@"
+}
 
-if [[ "$#" -eq 1 && ("$1" == "--help" || "$1" == "-h") ]]; then
+echo_help() {
     echo "Copy text to the clipboard."
     echo ""
     echo "Usage:"
@@ -13,26 +15,30 @@ if [[ "$#" -eq 1 && ("$1" == "--help" || "$1" == "-h") ]]; then
     echo "         • Provide text as argument"
     echo "    b) Get clipboard contents"
     echo "         • Run script directly (no args, no STDIN)"
+}
+
+if [[ "$#" -eq 1 && ("$1" == "--help" || "$1" == "-h") ]]; then
+    echo_help
     exit 0
 fi
 
 if [[ "$#" -ne 0 ]]; then
-    mode="args"
+    mode="copy_arguments"
 elif [ -t 0 ]; then # STDIN not connected -> print clipboard contents
-    mode="echo"
+    mode="echo_contents"
 else
-    mode="stdin"
+    mode="copy_stdin"
 fi
 
 case "$mode" in
-    echo)
-        $CLIPBOARD -o
+    echo_contents)
+        clipboard -o
         ;;
-    stdin)
-        cat - | tee >($CLIPBOARD -i)
+    copy_stdin)
+        cat - | tee >(clipboard -i)
         ;;
-    args)
-        echo "$*" | tee >($CLIPBOARD -i)
+    copy_arguments)
+        echo "$*" | tee >(clipboard -i)
         ;;
     *)
         echo "Bad mode: »$mode«"
@@ -41,7 +47,7 @@ case "$mode" in
 esac
 
 case "$mode" in
-    stdin|args)
-        echo -e "\e[1m$($CLIPBOARD -o | wc --bytes | numfmt --to=iec-i --suffix=B)\e[m copied to clipboard"
+    copy_stdin|copy_arguments)
+        echo -e "\e[1m$(clipboard -o | wc --bytes | numfmt --to=iec-i --suffix=B)\e[m copied to clipboard"
         ;;
 esac
