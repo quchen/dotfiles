@@ -29,10 +29,10 @@ case "$mode" in
         $CLIPBOARD -o
         ;;
     stdin)
-        cat - | $CLIPBOARD -i
+        cat - | tee >($CLIPBOARD -i)
         ;;
     args)
-        echo "$*" | $CLIPBOARD -i
+        echo "$*" | tee >($CLIPBOARD -i)
         ;;
     *)
         echo "Bad mode: »$mode«"
