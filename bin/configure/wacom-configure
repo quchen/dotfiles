@@ -2,15 +2,8 @@
 
 set -euo pipefail
 
-if [ $# -lt 1 ]; then
-    echo 'Screen not set via $1.'
-    echo '    Values: Screens as given by `xrandr`, e.g. "DisplayPort-1"'
-    echo '    Effect: limit tablet to that screen'
-    echo "    Example: ./$(basename "$0") DisplayPort-1"
-    exit 1
-fi
-WACOMSCREEN=$1
-shift
+WACOMSCREEN=$(xrandr --listactivemonitors | grep -Eo 'DisplayPort-[0-9]' | head -1)
+echo "Using screen connected to $WACOMSCREEN"
 
 xsetwacom set "Wacom Intuos Pro M Finger touch" MapToOutput "$WACOMSCREEN"
 xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput "$WACOMSCREEN"
@@ -18,4 +11,4 @@ xsetwacom set "Wacom Intuos Pro M Pen eraser" MapToOutput "$WACOMSCREEN"
 xsetwacom set "Wacom Intuos Pro M Pen cursor" MapToOutput "$WACOMSCREEN"
 xsetwacom set "Wacom Intuos Pro M Pad pad" MapToOutput "$WACOMSCREEN"
 
-xsetwacom set "Wacom Intuos Pro M Finger touch" touch off
+xsetwacom set "Wacom Intuos Pro M Finger touch" touch on
