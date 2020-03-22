@@ -2,13 +2,15 @@
 
 set -euo pipefail
 
-if [ -z ${WACOMSCREEN+x} ]; then
-    echo '$WACOMSCREEN not set.'
-    echo '    Values: Screens as given by `xrandr`, e.g. "DVI-0"'
+if [ $# -lt 1 ]; then
+    echo 'Screen not set via $1.'
+    echo '    Values: Screens as given by `xrandr`, e.g. "DisplayPort-1"'
     echo '    Effect: limit tablet to that screen'
-    echo "    Example: WACOMSCREEN="DVI-1" ./$(basename "$0")"
+    echo "    Example: ./$(basename "$0") DisplayPort-1"
     exit 1
 fi
+WACOMSCREEN=$1
+shift
 
 xsetwacom set "Wacom Intuos Pro M Finger touch" MapToOutput "$WACOMSCREEN"
 xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput "$WACOMSCREEN"
