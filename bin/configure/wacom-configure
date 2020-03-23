@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-WACOMSCREEN=$(xrandr --listactivemonitors | grep -Eo 'DisplayPort-[0-9]' | head -1)
+WACOMSCREEN=$(xrandr --listactivemonitors | grep -Eo '(DisplayPort|DP|HDMI|DVI)-[0-9]' | head -1)
 echo "Using screen connected to $WACOMSCREEN"
 
 xsetwacom set "Wacom Intuos Pro M Finger touch" MapToOutput "$WACOMSCREEN"
