@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+# Source for ffmpeg use:
+# Source: https://askubuntu.com/questions/648603/how-to-create-an-animated-gif-from-mp4-video-via-command-line
+
+set -euo pipefail
+
+while [ $# -ne 0 ]; do
+    case "$1" in
+        --width)
+            shift
+            width="$1"
+            shift
+            ;;
+        --framerate)
+            shift
+            framerate="$1"
+            shift
+            ;;
+        -i|--in)
+            shift
+            infile="$1"
+            shift
+            ;;
+        -o|--out)
+            shift
+            outfile="$1"
+            shift
+            ;;
+        --from)
+            shift
+            from="$1"
+            shift
+            ;;
+        --to)
+            shift
+            to="$1"
+            shift
+            ;;
+        --help)
+            echo "Convert video to Gif"
+            echo "Options:"
+            echo "  --width int"
+            echo "  --framerate int"
+            echo "  -i|--in file"
+            echo "  -o|--out file"
+            echo "  --from h:mm:ss"
+            echo "  --to h:mm:ss"
+            exit 0
+            ;;
+        *)
+            echo "Unrecognized parameter: $1" >&1
+            echo "Try --help"
+            exit 1
+    esac
+done
+
+if [ -z ${infile+x} ]; then
+    echo "--in parameter expected" >&1
+    exit 1
+elif [ -z ${outfile+x} ]; then
+    echo "--out parameter expected" >&1
+    exit 1
+fi
+framerate=${framerate:-10}
+
+args=$(
+    echo "-i"
+    echo "$infile"
+
+    echo "-r"
+    echo "$framerate"
+
+    echo "-vf"
+    {
+        if [ ! -z ${width+x} ]; then echo -n "scale=$width:-1,"; fi
+        echo "split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse"
+    }
+
+    if [ ! -z ${from+x} ]; then
+        echo "-ss"
+        echo "$from"
+    fi
+    if [ ! -z ${to+x} ]; then
+        echo "-to"
+        echo "$to"
+    fi
+
+    echo "-y" # overwrite files without asking
+
+    echo "$outfile"
+)
+
+echo "Running ffmpeg with args:"
+echo "$args"
+
+echo "$args" | xargs --delimiter $'\n' ffmpeg
