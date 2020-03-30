@@ -6,9 +6,24 @@ WACOMSCREEN=$(xrandr --listactivemonitors | grep -Eo '(DisplayPort|DP|HDMI|DVI)-
 echo "Using screen connected to $WACOMSCREEN"
 
 xsetwacom set "Wacom Intuos Pro M Finger touch" MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pen eraser" MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pen cursor" MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pad pad" MapToOutput "$WACOMSCREEN"
+xsetwacom set "Wacom Intuos Pro M Pen stylus"   MapToOutput "$WACOMSCREEN"
+xsetwacom set "Wacom Intuos Pro M Pen eraser"   MapToOutput "$WACOMSCREEN"
+xsetwacom set "Wacom Intuos Pro M Pen cursor"   MapToOutput "$WACOMSCREEN"
+xsetwacom set "Wacom Intuos Pro M Pad pad"      MapToOutput "$WACOMSCREEN"
 
 xsetwacom set "Wacom Intuos Pro M Finger touch" touch on
+
+xsetwacom set "Wacom Intuos Pro M Pen stylus" "Button" "2" "button +3" # front button: right click
+xsetwacom set "Wacom Intuos Pro M Pen stylus" "Button" "3" "button +2 " # back button: middle click
+
+print_settings() {
+    {
+        xsetwacom -s get "Wacom Intuos Pro M Finger touch" all
+        xsetwacom -s get "Wacom Intuos Pro M Pen stylus"   all
+        xsetwacom -s get "Wacom Intuos Pro M Pen eraser"   all
+        xsetwacom -s get "Wacom Intuos Pro M Pen cursor"   all
+        xsetwacom -s get "Wacom Intuos Pro M Pad pad"      all
+    } 2>&1 | grep -v 'does not exist' | perl -pe 's/(Pro M )([^"]+)(")/\1\033[34m\2\033[m\3/g'
+}
+
+print_settings
