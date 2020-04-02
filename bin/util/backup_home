@@ -2,8 +2,28 @@
 
 set -euo pipefail
 
-backupdir="/media/truecrypt1/backup/david_home"
-if [[ -d "$backupdir" ]]; then
+exclude="$(cat <<'EOF'
+.atom/.apm/***
+.atom/.node-gyp/***
+.atom/compile-cache/***
+.cabal/***
+.cache/***
+.cargo/***
+.local/share/Trash/***
+.rustup/***
+.stack/***
+.thumbnails/***
+Downloads/***
+Dropbox*
+snap/***
+temp/***
+Videos/***
+EOF
+)"
+
+backup_target_dir=${1:?'Backup target dir argument missing'}
+shift
+if [[ -d "$backup_target_dir" ]]; then
     # --archive = -rlptgoD
     #        -r = recursive
     #        -l = copy links as links
@@ -15,17 +35,13 @@ if [[ -d "$backupdir" ]]; then
     # --human-readable = numbers in human-readable format
     # --delete = delete extraneous files in target dir
     # --progress = show progress
-    rsync "$HOME" "$backupdir"              \
+    rsync "$HOME" "$backup_target_dir"      \
         --archive                           \
         --human-readable                    \
         --delete                            \
         --progress                          \
-        --exclude "/Videos/***"             \
-        --exclude "/temp/***"               \
-        --exclude "/Downloads/***"          \
-        --exclude "/.local/share/Trash/***" \
-        --exclude "/.cache/***"
+        --exclude-from <(echo "/$exclude")
 else
-    echo -e "\e[31mBackup dir not found: $backupdir\e[0m"
+    echo -e "\e[31mBackup dir not found: $backup_target_dir\e[0m"
     exit 1
 fi
