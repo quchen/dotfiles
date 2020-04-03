@@ -4,3 +4,25 @@ set -euo pipefail
 
 target_file="$HOME/temp/screenshot_$(date --iso-8601=seconds).png"
 xfce4-screenshooter --region --open cat > "$target_file"
+
+png_size=$(stat --format=%s "$target_file")
+png_size_human=$(echo "$png_size" | numfmt --to=iec-i --suffix=B)
+echo "PNG written"
+echo "Size: $png_size_human"
+echo "Filename: $target_file"
+
+{
+    jpg_file="$target_file.jpg"
+    convert -quality 90 "$target_file" "$jpg_file"
+    jpg_size=$(stat --format=%s "$jpg_file")
+    echo
+    if [[ $jpg_size -gt $png_size ]]; then
+        rm "$jpg_file"
+        echo "No JPG written because it would be bigger"
+    else
+        jpg_size_human=$(echo "$jpg_size" | numfmt --to=iec-i --suffix=B)
+        echo "JPG written as well because it’s smaller"
+        echo "Size: $jpg_size_human"
+        echo "Filename: $jpg_file"
+    fi
+}
