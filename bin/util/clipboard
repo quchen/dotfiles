@@ -48,6 +48,7 @@ esac
 
 case "$mode" in
     copy_stdin|copy_arguments)
-        echo -e "\e[1m$(clipboard -o | wc --bytes | numfmt --to=iec-i --suffix=B)\e[m copied to clipboard"
+        echo
+        box "$(clipboard -o | wc --bytes | numfmt --to=iec-i --suffix=B) copied to clipboard"
         ;;
 esac
