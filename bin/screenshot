@@ -10,6 +10,7 @@ png_size_human=$(echo "$png_size" | numfmt --to=iec-i --suffix=B)
 echo "PNG written"
 echo "Size: $png_size_human"
 echo "Filename: $target_file"
+file_for_notification="$target_file"
 
 {
     jpg_file="$target_file.jpg"
@@ -24,5 +25,10 @@ echo "Filename: $target_file"
         echo "JPG written as well because it’s smaller"
         echo "Size: $jpg_size_human"
         echo "Filename: $jpg_file"
+        file_for_notification="$jpg_file"
     fi
 }
+
+
+clipboard "$file_for_notification"
+notify-send --urgency=critical "Copied to clipboard:$file_for_notification"
