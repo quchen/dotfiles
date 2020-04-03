@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu
