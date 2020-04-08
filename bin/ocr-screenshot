@@ -2,4 +2,8 @@
 
 set -euo pipefail
 
-xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu
+text="$(xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu)"
+
+clipboard "$text"
+echo "$text" > "$HOME/temp/screenshot-ocr_$(date --iso-8601=seconds).txt"
+notify-send --urgency=critical "$(echo "$text" | wc -c | numfmt --to=iec-i --suffix=B) → clipboard"
