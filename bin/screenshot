@@ -12,6 +12,8 @@ echo "PNG written"
 echo "Size: $png_size_human"
 echo "Filename: $target_file"
 file_for_notification="$target_file"
+file_for_notification_size="$png_size_human"
+file_for_notification_type=png
 
 {
     jpg_file="$target_file.jpg"
@@ -27,9 +29,11 @@ file_for_notification="$target_file"
         echo "Size: $jpg_size_human"
         echo "Filename: $jpg_file"
         file_for_notification="$jpg_file"
+        file_for_notification_size="$jpg_size_human"
+        file_for_notification_type=jpg
     fi
 }
 
 
 clipboard "$file_for_notification"
-notify-send --urgency=critical "Copied to clipboard:$file_for_notification"
+notify-send --urgency=critical "Screenshot" "$file_for_notification_type, $file_for_notification_size. Location → clipboard"
