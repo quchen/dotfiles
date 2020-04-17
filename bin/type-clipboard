@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 sleep 1
-xdotool type --delay 50 "$(clipboard)"
+xdotool type --delay 50 "$(xsel --clipboard -o)"
