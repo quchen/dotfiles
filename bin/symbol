@@ -1776,12 +1776,6 @@ SYMBOL_DB=$(cat << HEREDOC
 ❗ ::: ❗ – emoji exclamation mark
 〰️ ::: 〰️ – emoji wavy dash
 〰 ::: 〰 – emoji wavy dash
-©️ ::: ©️ – emoji copyright
-© ::: © – emoji copyright
-®️ ::: ®️ – emoji registered
-® ::: ® – emoji registered
-™️ ::: ™️ – emoji trade mark
-™ ::: ™ – emoji trade mark
 #️⃣ ::: #️⃣ – emoji keycap: #
 #⃣ ::: #⃣ – emoji keycap: #
 *️⃣ ::: *️⃣ – emoji keycap: *
