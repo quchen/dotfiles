@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+
+
+curl_percent() {
+    curl -s 'https://www.boulderwelt-muenchen-ost.de/' | sed 's/</\n</g' | grep img | grep pointer.png | grep -Po 'margin-left:[0-9.]+' | grep -Po '[0-9.]+' | head -1
+}
+
+no_decimals() {
+    LC_NUMERIC="en_US.UTF-8" printf '%.0f\n' "$1"
+}
+
+jq -n --arg percent "$(no_decimals "$(curl_percent)")" '{raw_percent: $percent, human: "Boulderwelt \($percent)% voll"}'
