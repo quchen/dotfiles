@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
-curl_percent() {
+get_data_from_website() {
     curl -sd 'action=cxo_get_crowd_indicator' 'https://www.boulderwelt-muenchen-ost.de/wp-admin/admin-ajax.php'
 }
 
-curl_percent | jq '{raw: .level, human: "Boulderwelt \(.level)% voll"}'
+# {"level":28,"flevel":57,"isqueue":false,"queue":0,"percent":49,"pstr":"49%","pstrm":"calc(28.285714285714 - 9px)","success":true}%
+
+get_data_from_website | jq "$(cat <<EOF
+    {
+        "corona-fill-percent": .flevel,
+        "corona-queue": (if .isqueue then .queue else null end)
+    }
+EOF
+)"
