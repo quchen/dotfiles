@@ -8,7 +8,7 @@ get_data_from_website() {
 
 get_data_from_website | jq "$(cat <<EOF
     {
-        "corona-fill-percent": .flevel,
+        "corona-fill-percent": .percent,
         "corona-queue": (if .isqueue then .queue else null end)
     }
 EOF
