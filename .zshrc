@@ -228,7 +228,7 @@ unset command
 alias -g G=" | grep -E "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
-alias -g C=" | clipboard "
+alias -g C=" | sponge >(clipboard)"
 alias -g TB=" | nc termbin.com 9999 | clipboard "
 
 # List files
