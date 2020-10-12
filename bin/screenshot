@@ -38,8 +38,7 @@ file_info=$(file_info_json "$target_file" "$png_size_human" "png")
     fi
 }
 
-
-clipboard "$(echo "$file_info" | jq -r '.location')"
+clipboard "$(echo "$file_info" | jq -j '.location')"
 notify-send --urgency=critical "Screenshot" "$(
     echo "$file_info" | jq -r '"\(.type), \(.size_human). Location → clipboard"'
 )"
