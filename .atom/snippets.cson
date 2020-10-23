@@ -1,3 +1,14 @@
+".source.shell":
+    "Safe Bash":
+        "prefix": "bash"
+        "body": '''
+            #!/usr/bin/env bash
+
+            set -euo pipefail
+            cd "$(dirname "$(readlink -f "$0")")"
+            '''
+
+
 ".source.haskell":
     "qualified import":
         "prefix": "impq"
