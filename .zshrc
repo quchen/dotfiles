@@ -604,4 +604,3 @@ echo "╭──────╮"
 echo "│ Done │"
 echo "╰──────╯"
 
-clear
