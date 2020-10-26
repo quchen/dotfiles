@@ -443,9 +443,9 @@ prompt_bol() {
 
 build_prompt() {
     RETVAL=$?
-    prompt_whoami
     SEGMENT_SEPARATOR=$RIGHT_ARROW
     prompt_status $RETVAL
+    prompt_whoami
     prompt_dir
     prompt_end
 }
