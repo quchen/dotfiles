@@ -2,15 +2,15 @@
 
 set -euo pipefail
 
-export TEMP="$HOME/temp/"
+export TEMP="$HOME/temp"
 
 delete() {
-    local TRASH=trash
     filename="$1"
-    echo "$TRASH ${filename#"$TEMP"}"
-    $TRASH "$filename"
+    echo "trash-put ${filename#"$TEMP"}"
+    trash-put "$filename"
 }
 export -f delete
 
 find "$TEMP" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c "delete '{}'"
-find "$TEMP/screenshots" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c "delete '{}'" || true
+mkdir -p "$TEMP/screenshots"
+find "$TEMP/screenshots" -mindepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c "delete '{}'" || true

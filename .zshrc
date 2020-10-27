@@ -561,21 +561,20 @@ isInstalled() {
     which "$programExecutable" > /dev/null;
 }
 checkInstalled() {
-    local programName=$1
-    local programExecutable=$2
+    local programExecutable=$1
+    local installationCommand=$2
     local installed
-    if isInstalled "$programExecutable"; then
+    if isInstalled "$installationCommand"; then
         installed="[x]"
     else
         installed="[ ]"
     fi
-    zshLoadLog 8 "$installed $programName ($programExecutable)"
+    zshLoadLog 8 "$installed $programExecutable ($installationCommand)"
 }
 
 checkInstalled "jq" "jq"
-checkInstalled "q" "qq"
-checkInstalled "yq" "yq"
-checkInstalled "inotifywait" "inotifywait"
+checkInstalled "inotifywait" "apt install inotify-tools"
+unset isInstalled
 unset checkInstalled
 
 
