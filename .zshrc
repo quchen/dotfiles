@@ -48,7 +48,7 @@ PATH=""
 MANPATH=""
 
 addToPath() {
-    [[ -d "$1" ]] && PATH="$1:$PATH" || zshLoadLog 8 "$1 does not exist – skip PATH entry"
+    [[ -d "$1" ]] && PATH="$1:$PATH" # || zshLoadLog 8 "$1 does not exist – skip PATH entry"
 }
 addToPath "/usr/local/sbin"
 addToPath "/usr/local/bin"
