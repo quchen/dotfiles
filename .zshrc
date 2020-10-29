@@ -537,14 +537,6 @@ loadPlugins() {
         bindkey '^P' fzf-autojump-widget
     fi
 
-    plugin="$HOME/.config/broot/launcher/bash/br"
-    if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "Broot"
-        source "$plugin"
-    else
-        zshLoadLog 8 "(Broot not installed)"
-    fi
-
 }
 loadPlugins && unset loadPlugins
 
