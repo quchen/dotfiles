@@ -16,12 +16,11 @@ $HOME/.local/share/Trash
 $HOME/.rustup
 $HOME/.stack
 $HOME/.thumbnails
+$HOME/.zoom
 $HOME/Downloads
 $HOME/Dropbox*
 $HOME/snap
 $HOME/temp
-$HOME/Videos
-$HOME/.zoom
 EOF
 }
 
