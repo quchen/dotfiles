@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+set +x
+
+excludes() {
+    cat <<EOF
+$HOME/.atom/.apm
+$HOME/.atom/.node-gyp
+$HOME/.atom/compile-cache
+$HOME/.cabal
+$HOME/.cache
+$HOME/.cargo
+$HOME/.local/share/Trash
+$HOME/.rustup
+$HOME/.stack
+$HOME/.thumbnails
+$HOME/Downloads
+$HOME/Dropbox*
+$HOME/snap
+$HOME/temp
+$HOME/Videos
+$HOME/.zoom
+EOF
+}
+
+export -f excludes
+
+restic backup \
+    --exclude-file=<(excludes) \
+    --with-atime=true \
+    --one-file-system \
+    "$HOME" \
+    "$@"
