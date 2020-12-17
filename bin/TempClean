@@ -6,8 +6,8 @@ export TEMP="$HOME/temp"
 
 delete() {
     filename="$1"
-    echo "trash-put ${filename#"$TEMP"}"
-    trash-put "$filename"
+    echo "gio trash ${filename#"$TEMP"}"
+    gio trash "$filename"
 }
 export -f delete
 
