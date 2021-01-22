@@ -1,0 +1,16 @@
+{
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.autoIndent": "keep",
+    "editor.comments.ignoreEmptyLines": false,
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.dragAndDrop": false,
+    "editor.folding": false,
+    "editor.minimap.showSlider": "always",
+    "workbench.colorTheme": "Solarized Light",
+    "editor.fontFamily": "'Iosevka Expanded', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": true,
+    "files.autoSave": "onFocusChange",
+    "window.menuBarVisibility": "toggle"
+}
