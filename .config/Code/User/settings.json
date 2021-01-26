@@ -12,5 +12,19 @@
     "editor.fontFamily": "'Iosevka Expanded', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
     "files.autoSave": "onFocusChange",
-    "window.menuBarVisibility": "toggle"
+    "window.menuBarVisibility": "toggle",
+    "haskell.hlintOn": false,
+    "explorer.confirmDelete": false,
+    "editor.renderIndentGuides": false,
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "files.eol": "\n",
+    "workbench.enableExperiments": false,
+    "workbench.tree.indent": 24,
+    "workbench.editor.tabCloseButton": "off",
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+    "explorer.openEditors.sortOrder": "alphabetical",
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false
 }
