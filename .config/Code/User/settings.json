@@ -26,5 +26,10 @@
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
     "explorer.openEditors.sortOrder": "alphabetical",
     "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false
+    "telemetry.enableCrashReporter": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.cursorSurroundingLines": 5,
+    "explorer.confirmDragAndDrop": false,
+    "extensions.ignoreRecommendations": true,
+    "window.zoomLevel": 1
 }
