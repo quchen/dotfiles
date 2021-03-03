@@ -148,7 +148,7 @@
         "when": "textInputFocus"
     },
     {
-        "key": "ctrl+.",
+        "key": "ctrl+,",
         "command": "yo1dog.cursor-align.alignCursors",
         "when": "editorTextFocus"
     },
@@ -338,5 +338,29 @@
     {
         "key": "ctrl+m",
         "command": "bracketeer.selectBracketContent"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-problems.action.showQuickFixes",
+        "when": "problemFocus"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-settings.action.editFocusedSetting",
+        "when": "inSettingsSearch"
+    },
+    {
+        "key": "ctrl+,",
+        "command": "-workbench.action.openSettings"
+    },
+    {
+        "key": "ctrl+shift+,",
+        "command": "-editor.action.inPlaceReplace.up",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]

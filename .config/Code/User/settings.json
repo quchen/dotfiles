@@ -11,7 +11,7 @@
     "workbench.colorTheme": "Solarized Light",
     "editor.fontFamily": "'Iosevka Expanded', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
-    "files.autoSave": "onFocusChange",
+    "files.autoSave": "afterDelay",
     "window.menuBarVisibility": "toggle",
     "haskell.hlintOn": false,
     "explorer.confirmDelete": false,
