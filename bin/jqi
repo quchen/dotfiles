@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! (which sponge >/dev/null); then
+    echo "sponge not installed (part of moreutils)!"
+    exit 1
+fi
+
+file="${1:?Filename missing}"
+shift
+jq "$@" < "$file" | sponge "$file"
