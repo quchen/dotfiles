@@ -251,7 +251,6 @@ sublimeAdd() {
 }
 alias sa=sublimeAdd
 
-alias a=atom
 atomAdd() {
     if [[ "$#" -ne 0 ]]; then
         atom -a "$@"
