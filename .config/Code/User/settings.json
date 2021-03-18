@@ -31,5 +31,6 @@
     "editor.cursorSurroundingLines": 5,
     "explorer.confirmDragAndDrop": false,
     "extensions.ignoreRecommendations": true,
-    "window.zoomLevel": 1
+    "window.zoomLevel": 1,
+    "workbench.startupEditor": "newUntitledFile"
 }
