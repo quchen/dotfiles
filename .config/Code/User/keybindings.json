@@ -362,5 +362,9 @@
         "key": "ctrl+shift+,",
         "command": "-editor.action.inPlaceReplace.up",
         "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+p",
+        "command": "-workbench.action.showCommands"
     }
 ]
