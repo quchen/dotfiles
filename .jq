@@ -129,3 +129,13 @@ def histogram(stream):
     | map( {value: .key, count: .value} ) ;
 
 def histogram: histogram(.[]);
+
+def csv2json:
+    def parse_csv(sep):
+        split("\n") | map(select(length > 0) | split(sep) | map(trim))
+        ;
+
+    parse_csv(",")
+    | .[0] as $header
+    | .[1:] | map([$header, .] | transpose | map({key: .[0], value: .[1]}) | from_entries)
+    ;
