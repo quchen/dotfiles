@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+import argparse
+import csv
+import json
+import sys
+
+def program_options():
+    parser = argparse.ArgumentParser(description="Convert CSV to JSON")
+    parser.add_argument(
+        "--dialect",
+        default = "unix",
+        choices = csv.list_dialects(),
+        help = "Which CSV dialect to assume. Default: %(default)s")
+    parser.add_argument(
+        "--delimiter",
+        default = ",",
+        metavar = "d",
+        help = "Field delimiter. Default: comma (,)")
+    parser.add_argument(
+        "--quotechar",
+        default = "\"",
+        metavar = "q",
+        help = "Field quotation char. Default: double quote (\")")
+    parser.add_argument(
+        "--header",
+        default = "firstline",
+        choices = ["firstline", "enumerate", "none"],
+        dest = "header_mode",
+        help = "Header mode."
+               " firstline: Generate names from first line of input. "
+               " enumerate: JSON object keys are numbered."
+               " none: result is list of JSON lists."
+               " Default: %(default)s")
+    parser.add_argument(
+        'filename',
+        metavar = 'input.csv',
+        default = None,
+        nargs = '?',
+        help='Input file. STDIN if omitted.')
+    return parser.parse_args()
+
+def read_input(filename, dialect, delimiter, quotechar):
+    if filename is None:
+        file = sys.stdin
+    else:
+        file = open(filename, "r")
+    csv_rows_iterable = csv.reader(
+        file,
+        dialect = dialect,
+        delimiter = delimiter,
+        quotechar = quotechar)
+    return csv_rows_iterable
+
+def process_headers(csvRows, header_mode):
+    if header_mode == "firstline":
+        header_row = csvRows.__next__()
+        return [dict(zip(header_row, row)) for row in csvRows]
+    elif header_mode == "enumerate":
+        return [dict(enumerate(row)) for row in csvRows]
+    elif header_mode == "none":
+        return list(csvRows)
+    else:
+        raise ValueError(f"Invalid header mode: {header_mode}. The arg parser should have caught this!")
+
+def main():
+    opts = program_options()
+
+    input = read_input(
+        filename=opts.filename,
+        dialect=opts.dialect,
+        delimiter=opts.delimiter,
+        quotechar=opts.quotechar)
+    converted = process_headers(
+        input,
+        header_mode=opts.header_mode)
+    result_json = json.dumps(converted)
+    print(result_json)
+
+try:
+    main()
+except (Exception, KeyboardInterrupt) as e:
+    print(str(e), file = sys.stderr)
+    exit(1)
