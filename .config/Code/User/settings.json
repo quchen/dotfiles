@@ -33,12 +33,11 @@
     "extensions.ignoreRecommendations": true,
     "window.zoomLevel": 1,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
     "python.showStartPage": false,
-    "git.confirmSync": false
+    "git.confirmSync": false,
+    "python.pythonPath": "/usr/bin/python3",
+    "security.workspace.trust.untrustedFiles": "open"
 }
