@@ -34,18 +34,8 @@
     verbose = true
 [log]
     mailmap = true
-
-
-[url "git://github.com/ghc/packages-"]
-    insteadOf = git://github.com/ghc/packages/
-[url "http://github.com/ghc/packages-"]
-    insteadOf = http://github.com/ghc/packages/
-[url "https://github.com/ghc/packages-"]
-    insteadOf = https://github.com/ghc/packages/
-[url "ssh://git@github.com/ghc/packages-"]
-    insteadOf = ssh://git@github.com/ghc/packages/
-[url "git@github.com:/ghc/packages-"]
-    insteadOf = git@github.com:/ghc/packages/
+[grep]
+	patternType = perl
 
 [alias]
     # Pretty graphs
@@ -157,6 +147,3 @@
     rosinen-picken             = cherry-pick
 
     fadd = "!git ls-files --modified --other --exclude-standard | fzf --print0 -m --preview='git diff --color=always {}' | xargs -0 -t -o git add"
-
-[include]
-    path = .gitconfig-local
