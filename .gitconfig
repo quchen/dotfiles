@@ -11,13 +11,6 @@
     tool = meld
 [fetch]
     prune = true
-[giggle]
-    file-view-vpane-position = 924
-    history-view-vpane-position = 659
-    main-window-geometry = 0x0+0+0
-    main-window-maximized = true
-    main-window-view = HistoryView
-    show-graph = true
 [merge]
     tool = meld
 [push]
