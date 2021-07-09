@@ -123,6 +123,7 @@
     unterschied                = diff
     wortunterschied            = diff --word-diff=color
     zurkasse                   = checkout
+    auskontrollieren           = checkout
     unterschiedswerkzeug       = difftool --dir-diff
     vereinigungswerkzeug       = mergetool --no-prompt
     repariere                  = commit --amend
@@ -137,6 +138,6 @@
     neubasieren                = rebase
     beschuldige                = blame
     schieb                     = push
-    rosinen-picken             = cherry-pick
+    rosinen-raussuchen         = cherry-pick
 
     fadd = "!git ls-files --modified --other --exclude-standard | fzf --print0 -m --preview='git diff --color=always {}' | xargs -0 -t -o git add"
