@@ -39,5 +39,9 @@
     "python.showStartPage": false,
     "git.confirmSync": false,
     "python.pythonPath": "/usr/bin/python3",
-    "security.workspace.trust.untrustedFiles": "open"
+    "security.workspace.trust.untrustedFiles": "open",
+    "security.workspace.trust.banner": "never",
+    "files.associations": {
+        "*.sonnet": "jsonnet"
+    }
 }
