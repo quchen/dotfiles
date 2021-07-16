@@ -94,6 +94,7 @@ setopt HIST_IGNORE_ALL_DUPS # Don't store *any* duplicates in history
 setopt HIST_IGNORE_DUPS # Don't store consecutive duplicates in history
 setopt SHARE_HISTORY # Share history between shells
 setopt HIST_VERIFY # When using a hist thing, make a newline show the change before executing it.
+setopt HIST_IGNORE_SPACE # Don’t add files with leading space to history
 
 
 
