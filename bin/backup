@@ -6,7 +6,7 @@ set +x
 
 excludes() {
     cat <<EOF
-$HOME/**/.terraform
+.stack-work
 $HOME/.atom/.apm
 $HOME/.atom/.node-gyp
 $HOME/.atom/compile-cache
@@ -15,12 +15,14 @@ $HOME/.cache
 $HOME/.cargo
 $HOME/.gradle
 $HOME/.local/share/Trash
+$HOME/.npm
 $HOME/.rustup
 $HOME/.stack
 $HOME/.thumbnails
 $HOME/.zoom
+$HOME/**/.terraform
 $HOME/Downloads
-$HOME/Dropbox*
+$HOME/Dropbox-*
 $HOME/snap
 $HOME/temp
 EOF
