@@ -66,6 +66,7 @@ SYMBOL_DB=$(cat << HEREDOC
 ≠ ::: ≠ – latex neq <=
 ∋ ::: ∋ – latex ni
 ¬ ::: ¬ – latex not
+∈ ::: ∈ – latex in element
 ∉ ::: ∉ – latex not in element
 ⨁ ::: ⨁ – latex oplus
 ⨂ ::: ⨂ – latex otimes
