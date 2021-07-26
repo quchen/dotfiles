@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+mode=${1?mode}
+shift
+
+mkdir -p "$HOME/temp/screenshots"
+target_file="$HOME/temp/screenshots/screenshot_$(date --iso-8601=seconds | tr '+' _).png" # tr because fucking Jira
+
+case "$mode" in
+    region)
+        xfce4-screenshooter --region --open cat
+        ;;
+    fullscreen)
+        xfce4-screenshooter --fullscreen --open cat
+        ;;
+    *)
+        echo "Unknown mode: $mode"
+        exit 1
+        ;;
+esac > "$target_file"
+
+file_info_json() {
+    jq -n \
+        --arg location "$1" \
+        --arg size "$2" \
+        --arg type "$3" \
+        '{location: $location, size_human: $size, type: $type}'
+}
+
+png_size=$(stat --format=%s "$target_file")
+png_size_human=$(echo "$png_size" | numfmt --to=iec-i --suffix=B)
+echo "PNG written"
+echo "Size: $png_size_human"
+echo "Filename: $target_file"
+file_info=$(file_info_json "$target_file" "$png_size_human" "png")
+
+{
+    jpg_file="$target_file.jpg"
+    convert -quality 90 "$target_file" "$jpg_file"
+    jpg_size=$(stat --format=%s "$jpg_file")
+    echo
+    if [[ $jpg_size -gt $png_size ]]; then
+        rm "$jpg_file"
+        echo "No JPG written because it would be bigger"
+    else
+        jpg_size_human=$(echo "$jpg_size" | numfmt --to=iec-i --suffix=B)
+        echo "JPG written as well because it’s smaller"
+        echo "Size: $jpg_size_human"
+        echo "Filename: $jpg_file"
+        file_info=$(file_info_json "$jpg_file" "$jpg_size_human" "jpg")
+    fi
+}
+
+clipboard "$(echo "$file_info" | jq -j '.location')"
+notify-send --expire-time=3000 "Screenshot" "$(
+    echo "$file_info" | jq -r '"\(.type), \(.size_human). Location → clipboard"'
+)"
+
