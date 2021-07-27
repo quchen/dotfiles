@@ -566,26 +566,6 @@ unset isInstalled
 unset checkInstalled
 
 
-###############################################################################
-###   Useful shortcuts   ######################################################
-###############################################################################
-
-+x() {
-    chmod +x "$@"
-}
-
-###############################################################################
-###   Local additions   #######################################################
-###############################################################################
-
-
-# Some users of this script might want individual additional config
-
-localZshrc="$HOME/.zshrc-local"
-if [[ -e "$localZshrc" ]]; then
-    zshLoadLog 4 "source ~/.zshrc-local"
-    source "$localZshrc"
-fi
 
 echo "╭──────╮"
 echo "│ Done │"
