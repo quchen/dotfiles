@@ -12,7 +12,7 @@ def schema:
     end
     ;
 
-def filter(p): [ .[] | select(p) ];
+def filter(p): map(select(p));
 
 def collect_all(f): [.. | f];
 
