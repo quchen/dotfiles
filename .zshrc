@@ -548,15 +548,11 @@ loadPlugins && unset loadPlugins
 ###############################################################################
 
 zshLoadLog 4 "Installed programs"
-isInstalled() {
-    local programExecutable=$1
-    which "$programExecutable" > /dev/null;
-}
 checkInstalled() {
     local programExecutable=$1
     local installationCommand=$2
     local installed
-    if isInstalled "$installationCommand"; then
+    if which "$programExecutable" > /dev/null; then
         installed="[x]"
     else
         installed="[ ]"
