@@ -411,12 +411,10 @@ prompt_end() {
 
 
 prompt_dir() {
-    prompt_segment black white '%~'
+    prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
 prompt_time() {
-    local DATE
-    DATE="$(date "+%H:%M:%S")"
-    prompt_segment black blue "$DATE"
+    prompt_segment black blue "$(date "+%H:%M:%S")"
 }
 prompt_status() {
     local SYMBOLS
