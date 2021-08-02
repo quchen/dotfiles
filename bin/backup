@@ -40,6 +40,7 @@ export -f iexcludes
 restic backup \
     --exclude-file=<(excludes) \
     --iexclude-file=<(iexcludes) \
+    --exclude-if-present .skip-restic-backup \
     --with-atime=true \
     --one-file-system \
     "$HOME" \
