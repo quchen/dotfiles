@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+selfdir="$(dirname "$(readlink -f "$0")")"
+conky -c "$selfdir/conky.lua"
