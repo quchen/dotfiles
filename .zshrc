@@ -61,6 +61,7 @@ addToPath "/usr/local/games"
 for bindir in $(find "$HOME/bin" -type d); do
     addToPath "$bindir"
 done
+addToPath "$HOME/.local/bin"
 NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
 [[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
 unset NIXPROFILE
