@@ -43,5 +43,18 @@
     "security.workspace.trust.banner": "never",
     "files.associations": {
         "*.sonnet": "jsonnet"
+    },
+    "terraform.languageServer": {
+        "external": true,
+        "pathToBinary": "",
+        "args": [
+            "serve"
+        ],
+        "maxNumberOfProblems": 100,
+        "trace.server": "off"
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
     }
 }
