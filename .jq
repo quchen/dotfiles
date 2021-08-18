@@ -139,3 +139,8 @@ def csv2json:
     | .[0] as $header
     | .[1:] | map([$header, .] | transpose | map({key: .[0], value: .[1]}) | from_entries)
     ;
+
+# Rip out JSON contained in a string
+def subjson:
+    capture("(?<jsonCandidate>\\{.+\\})") | .jsonCandidate | fromjson
+    ;
