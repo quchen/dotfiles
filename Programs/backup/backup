@@ -4,14 +4,14 @@ set -euo pipefail
 
 set +x
 
-SCRIPT_DIR="$HOME/Programs/backup"
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 source "$SCRIPT_DIR/.credentials.source"
 
 restic backup \
     --exclude-file="$SCRIPT_DIR/excludes" \
     --iexclude-file="$SCRIPT_DIR/iexcludes" \
-    --exclude-if-present .skip-restic-backup \
+    --exclude-if-present ".skip-restic-backup" \
     --with-atime=true \
     --one-file-system \
     "$HOME" \
