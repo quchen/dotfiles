@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-cd "$HOME/Programs/conky/miracle-conky"
-../'conky-1.12.2.AppImage' -c 'miracle-config.lua'
+"$HOME"/Programs/conky/miracle-conky/start
