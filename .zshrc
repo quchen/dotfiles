@@ -420,18 +420,20 @@ prompt_end() {
   CURRENT_BG=''
 }
 
-
+isset() {
+    eval [ ! -z '${'$1'+x}' ]
+}
 prompt_dir() {
     prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
 prompt_tags() {
     local tags=()
 
-    [[ -n "$AWS_ACCESS_KEY_ID" ]] && [[ -n "$AWS_SECRET_ACCESS_KEY" ]] && tags+=('AWS')
+    isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && tags+=('AWS')
 
     local restic_tags=''
-    [[ -n "$RESTIC_PASSWORD" ]] && restic_tags+=p
-    [[ -n "$RESTIC_REPOSITORY" ]] && restic_tags+=r
+    isset "RESTIC_PASSWORD" && restic_tags+=p
+    isset "RESTIC_REPOSITORY" && restic_tags+=r
     [[ -n "$restic_tags" ]] && tags+="Restic[$restic_tags]"
 
     [[ "$ZSH_SUBSHELL_COUNT" -gt 0 ]] && tags+="zsh($ZSH_SUBSHELL_COUNT)"
