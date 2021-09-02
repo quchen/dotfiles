@@ -313,6 +313,16 @@ alias o=open
 
 
 
+###############################################################################
+###  Count subshells  #########################################################
+###############################################################################
+
+if [[ -z "$ZSH_SUBSHELL_COUNT" ]]; then
+    ZSH_SUBSHELL_COUNT=0
+else
+    ((ZSH_SUBSHELL_COUNT++))
+fi
+export ZSH_SUBSHELL_COUNT
 
 
 
@@ -414,6 +424,24 @@ prompt_end() {
 prompt_dir() {
     prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
+prompt_tags() {
+    local tags=()
+
+    [[ -n "$AWS_ACCESS_KEY_ID" ]] && [[ -n "$AWS_SECRET_ACCESS_KEY" ]] && tags+=('AWS')
+
+    local restic_tags=''
+    [[ -n "$RESTIC_PASSWORD" ]] && restic_tags+=p
+    [[ -n "$RESTIC_REPOSITORY" ]] && restic_tags+=r
+    [[ -n "$restic_tags" ]] && tags+="Restic[$restic_tags]"
+
+    [[ "$ZSH_SUBSHELL_COUNT" -gt 0 ]] && tags+="zsh($ZSH_SUBSHELL_COUNT)"
+
+    if [[ ${#tags[@]} -gt 0 ]]; then
+        local joined
+        printf -v 'joined' '%s, ' "${tags[@]}"
+        prompt_segment white black "${joined%, }"
+    fi
+}
 prompt_time() {
     prompt_segment black blue "$(date "+%H:%M:%S")"
 }
@@ -446,6 +474,7 @@ build_prompt() {
     prompt_status $RETVAL
     prompt_whoami
     prompt_dir
+    prompt_tags
     prompt_end
 }
 build_rprompt() {
@@ -569,4 +598,3 @@ unset checkInstalled
 echo "╭──────╮"
 echo "│ Done │"
 echo "╰──────╯"
-
