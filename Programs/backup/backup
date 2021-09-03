@@ -8,12 +8,12 @@ source "$SCRIPT_DIR/.credentials.source"
 
 (
     set -x
-    restic backup \
-        --exclude-file="$SCRIPT_DIR/excludes" \
-        --iexclude-file="$SCRIPT_DIR/iexcludes" \
-        --exclude-if-present ".skip-restic-backup" \
-        --with-atime=true \
-        --one-file-system \
-        "$HOME" \
+    restic backup                                    \
+        --exclude-file       "$SCRIPT_DIR/excludes"  \
+        --iexclude-file      "$SCRIPT_DIR/iexcludes" \
+        --exclude-if-present ".nobackup"             \
+        --with-atime                                 \
+        --one-file-system                            \
+        "$HOME"                                      \
         "$@"
 )
