@@ -56,5 +56,10 @@
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
-    }
+    },
+    "git.autoRepositoryDetection": "openEditors",
+    "git.countBadge": "tracked",
+    "git.ignoredRepositories": [
+        "/home/main"
+    ]
 }
