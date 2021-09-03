@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
+(
+    sleep 30
+    pkill -f -SIGUSR1 'conky[^/]+miracle-config[^/]*'
+) &
+
 "$HOME"/Programs/conky/miracle-conky/start
