@@ -17,3 +17,15 @@ source "$SCRIPT_DIR/.credentials.source"
         "$HOME"                                      \
         "$@"
 )
+
+(
+    case "$RESTIC_HOSTNAME" in
+        '2020-phantom-linux')
+            set -x
+            rclone copy "$RESTIC_REPOSITORY" "$RCLONE_REMOTE_BACKUP_LOCATION" --progress
+            ;;
+        *)
+            echo "Skipping upload for host $RESTIC_HOSTNAME"
+            ;;
+    esac
+)
