@@ -11,6 +11,7 @@ source "$SCRIPT_DIR/.credentials.source"
     restic backup                                    \
         --exclude-file       "$SCRIPT_DIR/excludes"  \
         --iexclude-file      "$SCRIPT_DIR/iexcludes" \
+        --host               "$RESTIC_HOSTNAME"      \
         --exclude-if-present ".nobackup"             \
         --with-atime                                 \
         --one-file-system                            \
