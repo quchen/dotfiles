@@ -1,9 +1,11 @@
-.stack-work
 $HOME/.atom/.apm
 $HOME/.atom/.node-gyp
 $HOME/.cabal
 $HOME/.cache
 $HOME/.cargo
+$HOME/.config/Microsoft/Microsoft Teams/skylib
+$HOME/.config/Microsoft/Microsoft Teams/media-stack
+$HOME/.config/Signal/attachments.noindex
 $HOME/.gradle
 $HOME/.local/share/Trash
 $HOME/.npm
@@ -11,8 +13,9 @@ $HOME/.rustup
 $HOME/.stack
 $HOME/.thumbnails
 $HOME/.zoom
-$HOME/**/.terraform
 $HOME/Downloads
-$HOME/Dropbox-*
 $HOME/snap
 $HOME/temp
+
+$HOME/**/.stack-work
+$HOME/**/.terraform
