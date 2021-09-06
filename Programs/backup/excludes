@@ -17,5 +17,5 @@ $HOME/Downloads
 $HOME/snap
 $HOME/temp
 
-$HOME/**/.stack-work
-$HOME/**/.terraform
+.stack-work
+.terraform
