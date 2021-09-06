@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+date_formats="$(cat <<'EOF'
+    [
+        {"command": "%:::z" , "help": "numeric time zone with : to necessary precision (e.g., -04, +05:30)"},
+        {"command": "%::z"  , "help": "+hh:mm:ss numeric time zone (e.g., -04:00:00)"},
+        {"command": "%:z"   , "help": "+hh:mm numeric time zone (e.g., -04:00)"},
+        {"command": "%a"    , "help": "locale's abbreviated weekday name (e.g., Sun)"},
+        {"command": "%A"    , "help": "locale's full weekday name (e.g., Sunday)"},
+        {"command": "%b"    , "help": "locale's abbreviated month name (e.g., Jan)"},
+        {"command": "%B"    , "help": "locale's full month name (e.g., January)"},
+        {"command": "%C"    , "help": "century; like %Y, except omit last two digits (e.g., 20)"},
+        {"command": "%c"    , "help": "locale's date and time (e.g., Thu Mar  3 23:05:25 2005)"},
+        {"command": "%D"    , "help": "date; same as %m/%d/%y"},
+        {"command": "%d"    , "help": "day of month (e.g., 01)"},
+        {"command": "%e"    , "help": "day of month, space padded; same as %_d"},
+        {"command": "%F"    , "help": "full date; like %+4Y-%m-%d"},
+        {"command": "%g"    , "help": "last two digits of year of ISO week number (see %G)"},
+        {"command": "%G"    , "help": "year of ISO week number (see %V); normally useful only with %V"},
+        {"command": "%H"    , "help": "hour (00..23)"},
+        {"command": "%h"    , "help": "same as %b"},
+        {"command": "%I"    , "help": "hour (01..12)"},
+        {"command": "%j"    , "help": "day of year (001..366)"},
+        {"command": "%k"    , "help": "hour, space padded ( 0..23); same as %_H"},
+        {"command": "%l"    , "help": "hour, space padded ( 1..12); same as %_I"},
+        {"command": "%M"    , "help": "minute (00..59)"},
+        {"command": "%m"    , "help": "month (01..12)"},
+        {"command": "%N"    , "help": "nanoseconds (000000000..999999999)"},
+        {"command": "%P"    , "help": "like %p, but lower case"},
+        {"command": "%p"    , "help": "locale's equivalent of either AM or PM; blank if not known"},
+        {"command": "%q"    , "help": "quarter of year (1..4)"},
+        {"command": "%R"    , "help": "24-hour hour and minute; same as %H:%M"},
+        {"command": "%r"    , "help": "locale's 12-hour clock time (e.g., 11:11:04 PM)"},
+        {"command": "%S"    , "help": "second (00..60)"},
+        {"command": "%s"    , "help": "seconds since 1970-01-01 00:00:00 UTC"},
+        {"command": "%T"    , "help": "time; same as %H:%M:%S"},
+        {"command": "%u"    , "help": "day of week (1..7); 1 is Monday"},
+        {"command": "%U"    , "help": "week number of year, with Sunday as first day of week (00..53)"},
+        {"command": "%V"    , "help": "ISO week number, with Monday as first day of week (01..53)"},
+        {"command": "%w"    , "help": "day of week (0..6); 0 is Sunday"},
+        {"command": "%W"    , "help": "week number of year, with Monday as first day of week (00..53)"},
+        {"command": "%x"    , "help": "locale's date representation (e.g., 12/31/99)"},
+        {"command": "%X"    , "help": "locale's time representation (e.g., 23:13:48)"},
+        {"command": "%y"    , "help": "last two digits of year (00..99)"},
+        {"command": "%Y"    , "help": "year"},
+        {"command": "%z"    , "help": "+hhmm numeric time zone (e.g., -0400)"},
+        {"command": "%Z"    , "help": "alphabetic time zone abbreviation (e.g., EDT)"}
+    ]
+EOF
+)"
+
+date "+$(echo "$date_formats" | jq --raw-output 'map(
+    {
+        format: .command | gsub("%"; ""),
+        value: .command,
+        help: .help | gsub("%"; "%%")
+    } | {key: .format, value: {val: .value, help}}
+    )
+    | from_entries
+    ')" | jq
