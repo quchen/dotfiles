@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# This file is meant for copy+paste purposes.
-
-SELFDIR="$(dirname "$(readlink -f "$0")")"
-echo "$SELFDIR"

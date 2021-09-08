@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-setxkbmap de customprogramming && xset r 51

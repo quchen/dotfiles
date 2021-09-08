@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-cd $HOME/Misc
-setxkbmap lv && xmodmap neo_de.xmodmap && xset -r 51
-
-# setxkbmap de neo
