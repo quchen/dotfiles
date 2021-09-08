@@ -19,15 +19,13 @@
             "#!/usr/bin/env bash",
             "set -euo pipefail",
             "SCRIPT_DIR=\"$(readlink -f \"$(dirname \"\\$0\")\")\""
-        ],
-        "description": "Any script should have this"
+        ]
     },
     "tempdir": {
         "prefix": "tempdir",
         "body": [
             "TEMP=$(mktemp -d)",
             "trap \"rm -rf '\\$TEMP'\" EXIT"
-        ],
-        "description": "Any script should have this"
+        ]
     }
 }
