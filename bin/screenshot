@@ -1,1 +1,50 @@
-/home/main/Programs/screenshot/screenshot
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+screenshot_mode=${1?Screenshot mode missing}
+shift
+
+compress_to_jpg() {
+    local source_file=${1?Source filename missing}
+    shift
+    local target_file="${source_file%.png}.jpg"
+    convert -quality 90 "$source_file" "$target_file" >&2
+    echo "$target_file"
+}
+
+size_human() {
+    stat --format=%s "${1?Filename missing}" | numfmt --to=iec-i --suffix=B
+}
+
+take_screenshot() (
+    local path="$HOME/temp/screenshots"
+    mkdir -p "$path"
+    local file="$(date --iso-8601=seconds | tr '+' _)_$(petname --separator -)" # tr because fucking Jira
+    case "$screenshot_mode" in
+        region)
+            local png="$path/$file.png"
+            xfce4-screenshooter --region --clipboard --save "$png"
+            local jpg=$(compress_to_jpg "$png")
+            notify-send --expire-time=3000 "Region" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")"
+            ;;
+        ocr)
+            local txt="$path/$file.txt"
+            xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu | tee "$txt" | clipboard
+            notify-send --expire-time=3000 "OCR" "$(size_human "$txt") → clipboard"
+            ;;
+        fullscreen)
+            local png="$path/$file.png"
+            xfce4-screenshooter --fullscreen --clipboard --save "$png"
+            local jpg=$(compress_to_jpg "$png")
+            notify-send --expire-time=3000 "Fullscreen" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")"
+
+            ;;
+        *)
+            echo "Unknown mode: $mode" >&2
+            exit 1
+            ;;
+    esac
+)
+
+take_screenshot
