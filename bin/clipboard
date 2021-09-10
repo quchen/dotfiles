@@ -49,6 +49,6 @@ esac
 case "$mode" in
     copy_stdin|copy_arguments)
         echo
-        box "$(clipboard -o | wc --bytes | numfmt --to=iec-i --suffix=B) copied to clipboard"
+        box "$(clipboard -o | wc --bytes | numfmt --to=iec-i --suffix=B) copied to clipboard" >&2
         ;;
 esac
