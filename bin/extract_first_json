@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+drop_until_first_curly() {
+    local input="$(cat)"
+    shopt -s extglob
+    echo "${input##*([^{])}"
+}
+
+extract_valid_json() {
+    # silence the syntax error on trailing gibberish
+    jq 2> /dev/null
+}
+
+drop_until_first_curly | extract_valid_json
