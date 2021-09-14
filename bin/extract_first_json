@@ -4,8 +4,7 @@ set -euo pipefail
 
 drop_until_first_curly() {
     local input="$(cat)"
-    shopt -s extglob
-    echo "${input##*([^{])}"
+    echo "{${input#*{}"
 }
 
 extract_valid_json() {
