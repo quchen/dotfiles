@@ -20,24 +20,28 @@ size_human() {
 take_screenshot() (
     local path="$HOME/temp/screenshots"
     mkdir -p "$path"
-    local file="$(date --iso-8601=seconds | tr '+' _)_$(petname --separator -)" # tr because fucking Jira
+    local petname=$(petname --separator -)
+    local timestamp=$(date --iso-8601=seconds | tr '+' _) # tr because fucking Jira
+    local file="${timestamp}_$petname"
     case "$screenshot_mode" in
         region)
             local png="$path/$file.png"
             xfce4-screenshooter --region --clipboard --save "$png"
             local jpg=$(compress_to_jpg "$png")
-            notify-send --expire-time=3000 "Region" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")"
+            notify-send --expire-time=5000 "Region" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")\n»$petname«"
             ;;
         ocr)
             local txt="$path/$file.txt"
-            xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu | tee "$txt" | clipboard
-            notify-send --expire-time=3000 "OCR" "$(size_human "$txt") → clipboard"
+            local content=$(xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu | tr -dc '[:print:]')
+            echo "$content" > "$txt"
+            echo "$content" | clipboard
+            notify-send --expire-time=5000 "OCR" "$(size_human "$txt") → clipboard\n»$petname«\n\n$content"
             ;;
         fullscreen)
             local png="$path/$file.png"
             xfce4-screenshooter --fullscreen --clipboard --save "$png"
             local jpg=$(compress_to_jpg "$png")
-            notify-send --expire-time=3000 "Fullscreen" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")"
+            notify-send --expire-time=5000 "Fullscreen" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")\n»$petname«"
 
             ;;
         *)
