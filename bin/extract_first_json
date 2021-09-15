@@ -1,15 +1,61 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+shopt -s extglob
 
 drop_until_first_curly() {
-    local input="$(cat)"
-    echo "{${input#*{}"
+    local input=$(cat)
+    echo "${input##*([^{])}"
 }
 
 extract_valid_json() {
-    # silence the syntax error on trailing gibberish
-    jq 2> /dev/null
+    jq 2> /dev/null || true
 }
 
-drop_until_first_curly | extract_valid_json
+is_empty() {
+    [[ -z $1 ]]
+}
+
+extract_first_json() {
+    input=$(cat)
+    while ! is_empty "$input"; do
+        input=$(drop_until_first_curly <<<"$input")
+        json=$(extract_valid_json <<<"$input")
+        if is_empty "$json"; then
+            input=${input:1}
+        else
+            jq -s '.[0]' <<<"$json"
+            return 0
+        fi
+    done
+    return 1
+}
+
+test() {
+    local input=$1
+    local actual=$(extract_first_json <<<"$input" | jq -c)
+    shift
+    local expected=$(echo "$1" | jq -c)
+    shift
+    if [[ $actual == $expected ]]; then
+        echo -e "\e[32mSuccess:\e[m \e[34m$input\e[m ==> \e[34m$actual\e[m"
+        return 0
+    else
+        echo -e "\e[31mFailure:\e[m \e[34m$input\e[m should decode to \e[34m$expected\e[m, but got \e[34m$actual\e[m"
+        return 1
+    fi
+}
+
+if [[ $# -ne 0 ]] && [[ $1 == "test" ]]; then
+    set +e
+    test '123'                                                 ''
+    test '"hello"'                                             ''
+    test '{"hello": 123}'                                      '{"hello": 123}'
+    test 'Leading gibberish {"hello": 123}'                    '{"hello": 123}'
+    test '{"hello": 123} trailing gibberish'                   '{"hello": 123}'
+    test 'Leading gibberish {"hello": 123} trailing gibberish' '{"hello": 123}'
+    test 'Gibberish with { {"hello": 123} gibberish'           '{"hello": 123}'
+    test 'Multiple valid documents {}{} gibberish'             '{}'
+else
+    extract_first_json
+fi
