@@ -532,10 +532,18 @@ loadPlugins() {
 
     plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "ZSH syntax highlighting"
+        zshLoadLog 8 "Syntax highlighting"
         source "$plugin"
     else
         zshLoadLog 8 "(ZSH syntax highlghting plugin configured in .zshrc, but not found)"
+    fi
+
+    plugin="$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+    if [[ -s "$plugin" ]]; then
+        zshLoadLog 8 "Better vi mode"
+        source "$plugin"
+    else
+        zshLoadLog 8 "(ZSH vi plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.fzf.zsh"
