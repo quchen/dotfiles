@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+from subprocess import *
+from sys import *
+
+def get_merged_branches():
+    shell = run("git branch --merged".split(" "), capture_output=True, text=True)
+    if shell.returncode != 0:
+        print(f"'{' '.join(shell.args)}' failed: {shell.stderr.strip()}", file=stderr)
+        exit(1)
+    all_merged_branches = shell.stdout.split("\n")
+    all_merged_branches = map(lambda branch: branch.strip(), all_merged_branches)
+
+    def branch_is_desirable(branch):
+        return "HEAD" not in branch and "*" not in branch and branch
+    branches_to_drop = filter(branch_is_desirable, all_merged_branches)
+
+    return branches_to_drop
+
+def drop_branches(branches_to_drop):
+    returncode = 0
+    for branch_to_drop in branches_to_drop:
+        shell = run(["git", "branch", "-d", branch_to_drop], capture_output=True, text=True)
+        if(shell.returncode != 0):
+            print(f"Error deleting branch '{branch_to_drop}'. Git error: {shell.stderr.strip()}", file=stderr)
+            returncode = 1
+        else:
+            print(f"Merged branch deleted: {branch_to_drop}")
+    exit(returncode)
+
+drop_branches(get_merged_branches())
