@@ -3,9 +3,10 @@ $HOME/.atom/.node-gyp
 $HOME/.cabal
 $HOME/.cache
 $HOME/.cargo
-$HOME/.config/Microsoft/Microsoft Teams/skylib
 $HOME/.config/Microsoft/Microsoft Teams/media-stack
+$HOME/.config/Microsoft/Microsoft Teams/skylib
 $HOME/.config/Signal/attachments.noindex
+$HOME/.ghcup
 $HOME/.gradle
 $HOME/.local/share/Trash
 $HOME/.npm

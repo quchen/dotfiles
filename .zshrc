@@ -69,6 +69,7 @@ addToPath "$HOME/.cargo/bin"
 addToPath "$HOME/.cabal/bin"
 addToPath "$HOME/.local/bin"
 addToPath "$HOME/.stack/bin"
+addToPath "$HOME/.ghcup/bin"
 
 NIXMAN="$HOME/.nix-profile/share/man"
 [[ -e "$NIXMAN" ]] && MANPATH="$NIXMAN:$MANPATH"
