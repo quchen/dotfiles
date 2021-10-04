@@ -344,21 +344,27 @@ isset() {
 prompt_dir() {
     prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
-prompt_tags() {
-    local tags=()
 
-    isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && tags+=('AWS')
+PROMPT_TAGS:=
+prompt_tags() {
+    isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && PROMPT_TAGS+=('AWS')
 
     local restic_tags=''
     isset "RESTIC_PASSWORD" && restic_tags+=p
     isset "RESTIC_REPOSITORY" && restic_tags+=r
-    [[ -n "$restic_tags" ]] && tags+="Restic[$restic_tags]"
+    [[ -n "$restic_tags" ]] && PROMPT_TAGS+="Restic[$restic_tags]"
 
-    [[ "$ZSH_SUBSHELL_COUNT" -gt 0 ]] && tags+="zsh($ZSH_SUBSHELL_COUNT)"
+    [[ "$ZSH_SUBSHELL_COUNT" -gt 0 ]] && PROMPT_TAGS+="zsh($ZSH_SUBSHELL_COUNT)"
 
-    if [[ ${#tags[@]} -gt 0 ]]; then
+    if [[ ${#PROMPT_TAGS[@]} -gt 0 ]]; then
+        # Unique+sort array. Source: https://unix.stackexchange.com/a/167194/23666
+        eval "PROMPT_TAGS=($(
+            printf "%s\0" "${PROMPT_TAGS[@]}" |
+            LC_ALL=C sort -zu |
+            xargs -r0 bash -c 'printf "%q\n" "$@"' sh
+        ))"
         local joined
-        printf -v 'joined' '%s, ' "${tags[@]}"
+        printf -v 'joined' '%s, ' "${PROMPT_TAGS[@]}"
         prompt_segment white black "${joined%, }"
     fi
 }
