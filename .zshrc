@@ -203,89 +203,6 @@ fi
 
 
 
-###############################################################################
-###  Aliases  ################################################################
-###############################################################################
-
-zshLoadLog 4 "Aliases"
-
-# Autocompletion for aliases
-unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
-
-# "multi-.. aliases"
-# ..2 = cd ../..
-# ...= cd ../../..
-dots=..
-command=..
-for i in {2..5}; do
-    alias "$dots=cd $command"
-    alias "..$i=cd $command"
-    dots="$dots."
-    command="$command/.."
-done
-unset dots
-unset command
-
-
-# Modifiers
-alias -g G=" | grep -E "
-alias -g L=" | less "
-alias -g LC=" | wc -l "
-alias -g C=" | sponge >(clipboard)"
-alias -g TB=" | nc termbin.com 9999 | clipboard "
-
-# List files
-LS_COMMON="--group-directories-first --color=always"
-alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
-alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
-alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
-
-alias g=git
-alias depp=git
-alias pped=tig
-
-alias s=sublime
-sublimeAdd() {
-    if [[ "$#" -ne 0 ]]; then
-        sublime -a "$@"
-    else
-        sublime -a .
-    fi
-}
-alias sa=sublimeAdd
-
-atomAdd() {
-    if [[ "$#" -ne 0 ]]; then
-        atom -a "$@"
-    else
-        atom -a .
-    fi
-}
-alias aa=atomAdd
-
-alias r=ranger
-
-alias ta="tig --all"
-
-# Disk usage
-alias df='df -h' # Disk free, human readable
-alias du='du -hc' # Disk usage for folder, human readable
-
-alias ghci-core="ghci -ddump-simpl \
-                      -dsuppress-idinfo \
-                      -dsuppress-coercions \
-                      -dsuppress-type-applications \
-                      -dsuppress-uniques \
-                      -dsuppress-module-prefixes"
-
-# Re-sourcing shortcut
-alias zz="source $HOME/.zshrc"
-# Edit shortcut
-alias ze="$EDITOR $HOME/.zshrc && zz"
-
-md() {
-    mkdir -p "$@" && cd "$1"
-}
 
 
 ###############################################################################
@@ -604,6 +521,92 @@ checkInstalled "inotifywait" "apt install inotify-tools"
 unset isInstalled
 unset checkInstalled
 
+
+
+
+###############################################################################
+###  Aliases  ################################################################
+###############################################################################
+
+zshLoadLog 4 "Aliases"
+
+# Autocompletion for aliases
+unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
+
+# "multi-.. aliases"
+# ..2 = cd ../..
+# ...= cd ../../..
+dots=..
+command=..
+for i in {2..5}; do
+    alias "$dots=cd $command"
+    alias "..$i=cd $command"
+    dots="$dots."
+    command="$command/.."
+done
+unset dots
+unset command
+
+
+# Modifiers
+alias -g G=" | grep -E "
+alias -g L=" | less "
+alias -g LC=" | wc -l "
+alias -g C=" | sponge >(clipboard)"
+alias -g TB=" | nc termbin.com 9999 | clipboard "
+
+# List files
+LS_COMMON="--group-directories-first --color=always"
+alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
+alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
+alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
+
+alias g=git
+alias depp=git
+alias pped=tig
+
+alias s=sublime
+sublimeAdd() {
+    if [[ "$#" -ne 0 ]]; then
+        sublime -a "$@"
+    else
+        sublime -a .
+    fi
+}
+alias sa=sublimeAdd
+
+atomAdd() {
+    if [[ "$#" -ne 0 ]]; then
+        atom -a "$@"
+    else
+        atom -a .
+    fi
+}
+alias aa=atomAdd
+
+alias r=ranger
+
+alias ta="tig --all"
+
+# Disk usage
+alias df='df -h' # Disk free, human readable
+alias du='du -hc' # Disk usage for folder, human readable
+
+alias ghci-core="ghci -ddump-simpl \
+                      -dsuppress-idinfo \
+                      -dsuppress-coercions \
+                      -dsuppress-type-applications \
+                      -dsuppress-uniques \
+                      -dsuppress-module-prefixes"
+
+# Re-sourcing shortcut
+alias zz="source $HOME/.zshrc"
+# Edit shortcut
+alias ze="$EDITOR $HOME/.zshrc && zz"
+
+md() {
+    mkdir -p "$@" && cd "$1"
+}
 
 
 echo "╭──────╮"
