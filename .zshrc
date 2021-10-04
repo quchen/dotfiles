@@ -487,6 +487,14 @@ loadPlugins() {
         zshLoadLog 8 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
     fi
 
+    plugin="$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
+    if [[ -s "$plugin" ]]; then
+        zshLoadLog 8 "ZSH+FZF autocompletion"
+        source "$plugin"
+    else
+        zshLoadLog 8 "(ZSH+FZF plugin configured in .zshrc, but not found)"
+    fi
+
     if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
         zshLoadLog 8 "Fuzzyfinder + Autojump <3"
         zle -N fzf-autojump-widget
