@@ -348,6 +348,7 @@ prompt_dir() {
 PROMPT_TAGS:=
 prompt_tags() {
     isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && PROMPT_TAGS+=('AWS')
+    isset "B2_APPLICATION_KEY_ID" && isset "B2_APPLICATION_KEY" && PROMPT_TAGS+=('B2')
 
     local restic_tags=''
     isset "RESTIC_PASSWORD" && restic_tags+=p
