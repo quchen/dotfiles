@@ -61,5 +61,6 @@
     "git.countBadge": "tracked",
     "git.ignoredRepositories": [
         "/home/main"
-    ]
+    ],
+    "security.workspace.trust.enabled": false
 }
