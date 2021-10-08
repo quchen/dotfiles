@@ -560,7 +560,7 @@ alias g=git
 alias depp=git
 alias pped=tig
 
-alias s=sublime
+alias s=subl
 sublimeAdd() {
     if [[ "$#" -ne 0 ]]; then
         sublime -a "$@"
