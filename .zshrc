@@ -549,6 +549,7 @@ alias -g L=" | less "
 alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
 alias -g TB=" | nc termbin.com 9999 | clipboard "
+alias -g RED="2> >(sed $'s,.*,\e[31m&\e[m,'>&2)"
 
 LS_COMMON="--group-directories-first --color=always"
 alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
