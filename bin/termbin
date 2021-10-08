@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Copy STDIN to termbin, and return a link
+nc termbin.com 9999
