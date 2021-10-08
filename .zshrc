@@ -62,23 +62,21 @@ for bindir in $(find "$HOME/bin" -type d); do
     addToPath "$bindir"
 done
 addToPath "$HOME/.local/bin"
-NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
-[[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
-unset NIXPROFILE
 addToPath "$HOME/.cargo/bin"
 addToPath "$HOME/.cabal/bin"
 addToPath "$HOME/.local/bin"
 addToPath "$HOME/.stack/bin"
 addToPath "$HOME/.ghcup/bin"
 
+unset addToPath
+
+NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
+[[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
+unset NIXPROFILE
+
 NIXMAN="$HOME/.nix-profile/share/man"
 [[ -e "$NIXMAN" ]] && MANPATH="$NIXMAN:$MANPATH"
 unset NIXMAN
-
-unset addToPath
-
-
-
 
 
 
