@@ -549,7 +549,7 @@ unset command
 
 
 # Modifiers
-alias -g G=" | grep -E "
+alias -g G=" | grep -iP "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
