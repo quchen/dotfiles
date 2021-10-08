@@ -3,7 +3,7 @@ echo "│ Loading .zshrc │"
 echo "╰────────────────╯"
 
 zshLoadLog() {
-    for i in $(/usr/bin/seq 1 "$1"); do
+    for i in {1..$(($1 * 4))}; do
         echo -n " "
     done
     shift
@@ -15,7 +15,7 @@ zshLoadLog() {
 ###  Patterns  ################################################################
 ###############################################################################
 
-zshLoadLog 4 "Pattern configuration"
+zshLoadLog 1 "Pattern configuration"
 
 # Case-insensitive globbing
 setopt NO_CASE_GLOB
@@ -37,7 +37,7 @@ setopt EXTENDED_GLOB
 ###  Environment  #############################################################
 ###############################################################################
 
-zshLoadLog 4 "Environment, PATH business"
+zshLoadLog 1 "Environment, PATH business"
 
 export EDITOR=vim
 export PAGER=less
@@ -48,7 +48,7 @@ PATH=""
 MANPATH=""
 
 addToPath() {
-    [[ -d "$1" ]] && PATH="$1:$PATH" # || zshLoadLog 8 "$1 does not exist – skip PATH entry"
+    [[ -d "$1" ]] && PATH="$1:$PATH" # || zshLoadLog 2 "$1 does not exist – skip PATH entry"
 }
 addToPath "/usr/local/sbin"
 addToPath "/usr/local/bin"
@@ -86,7 +86,7 @@ unset addToPath
 ###  History  #################################################################
 ###############################################################################
 
-zshLoadLog 4 "History configuration"
+zshLoadLog 1 "History configuration"
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -106,7 +106,7 @@ setopt HIST_IGNORE_SPACE # Don’t add files with leading space to history
 ###  Completion  ##############################################################
 ###############################################################################
 
-zshLoadLog 4 "Autocompletion"
+zshLoadLog 1 "Autocompletion"
 
 # I don't understand this section very well.
 
@@ -141,13 +141,11 @@ setopt rm_star_silent
 
 
 
-
-
 ###############################################################################
 ###  Key bindings  ############################################################
 ###############################################################################
 
-zshLoadLog 4 "Key bindings"
+zshLoadLog 1 "Key bindings"
 
 # Vi bindings
 bindkey -v
@@ -209,7 +207,7 @@ fi
 ###  Command customization  ###################################################
 ###############################################################################
 
-zshLoadLog 4 "Command customization"
+zshLoadLog 1 "Command customization"
 
 # ZSH »time« builtin (!)
 TIMEFMT=$'CPU seconds %U\nReal time   %E'
@@ -233,7 +231,7 @@ export ZSH_SUBSHELL_COUNT
 ###  Dirstack  ################################################################
 ###############################################################################
 
-zshLoadLog 4 "Dirstack"
+zshLoadLog 1 "Dirstack"
 
 # Jump back <num> times using cd -<num>
 DIRSTACKFILE="$HOME/.zsh/dirs"
@@ -259,7 +257,7 @@ setopt RM_STAR_WAIT # 10 second waiting period before deleting *
 ###  Coloured man pages  ######################################################
 ###############################################################################
 
-zshLoadLog 4 "Colored manpages"
+zshLoadLog 1 "Colored manpages"
 
 # Credits to http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
 
@@ -281,7 +279,7 @@ man() {
 ###  Prompt  ##################################################################
 ###############################################################################
 
-zshLoadLog 4 "Prompt"
+zshLoadLog 1 "Prompt"
 
 autoload -Uz promptinit
 promptinit
@@ -330,7 +328,6 @@ prompt_dir() {
     prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
 
-PROMPT_TAGS:=
 prompt_tags() {
     isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && PROMPT_TAGS+=('AWS')
     isset "B2_APPLICATION_KEY_ID" && isset "B2_APPLICATION_KEY" && PROMPT_TAGS+=('B2')
@@ -365,7 +362,6 @@ prompt_status() {
     [[ $1 -ne 0 ]] && SYMBOLS+="%{%F{black}%}$1"
     # [[ $UID -eq 0 ]] && SYMBOLS+="%{%F{yellow}%}⚡"
     [[ -n "$SYMBOLS" ]] && prompt_segment red default "$SYMBOLS"
-
 }
 prompt_whoami() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
@@ -407,7 +403,7 @@ PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
 ###  Plugins  #################################################################
 ###############################################################################
 
-zshLoadLog 4 "Plugins"
+zshLoadLog 1 "Plugins"
 
 fzf-autojump-widget() {
     cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
@@ -430,35 +426,35 @@ loadPlugins() {
 
     plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "Autojump"
+        zshLoadLog 2 "Autojump"
         AUTOJUMP_INSTALLED=true
         source "$plugin"
         # Alias to disable autojump, useful to call before running cd in shell
         # one-liners that would pollute the Autojump db
         alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
     else
-        zshLoadLog 8 "(Autojump plugin configured in .zshrc, but not found)"
+        zshLoadLog 2 "(Autojump plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "Syntax highlighting"
+        zshLoadLog 2 "Syntax highlighting"
         source "$plugin"
     else
-        zshLoadLog 8 "(ZSH syntax highlghting plugin configured in .zshrc, but not found)"
+        zshLoadLog 2 "(ZSH syntax highlghting plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "Better vi mode"
+        zshLoadLog 2 "Better vi mode"
         source "$plugin"
     else
-        zshLoadLog 8 "(ZSH vi plugin configured in .zshrc, but not found)"
+        zshLoadLog 2 "(ZSH vi plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.fzf.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "fzf – Fuzzy Finder"
+        zshLoadLog 2 "fzf – Fuzzy Finder"
         FUZZYFINDER_INSTALLED=true
         source "$plugin"
 
@@ -476,19 +472,19 @@ loadPlugins() {
         FZF_ALT_C_OPTS="--preview '$LIST_DIR_CONTENTS'"
         FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
     else
-        zshLoadLog 8 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
+        zshLoadLog 2 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 8 "ZSH+FZF autocompletion"
+        zshLoadLog 2 "ZSH+FZF autocompletion"
         source "$plugin"
     else
-        zshLoadLog 8 "(ZSH+FZF plugin configured in .zshrc, but not found)"
+        zshLoadLog 2 "(ZSH+FZF plugin configured in .zshrc, but not found)"
     fi
 
     if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
-        zshLoadLog 8 "Fuzzyfinder + Autojump <3"
+        zshLoadLog 2 "Fuzzyfinder + Autojump <3"
         zle -N fzf-autojump-widget
         bindkey '^P' fzf-autojump-widget
     fi
@@ -503,7 +499,7 @@ loadPlugins && unset loadPlugins
 ###  Installed programs  ######################################################
 ###############################################################################
 
-zshLoadLog 4 "Installed programs"
+zshLoadLog 1 "Installed programs"
 checkInstalled() {
     local programExecutable=$1
     local installationCommand=$2
@@ -513,7 +509,7 @@ checkInstalled() {
     else
         installed="[ ]"
     fi
-    zshLoadLog 8 "$installed $programExecutable ($installationCommand)"
+    zshLoadLog 2 "$installed $programExecutable ($installationCommand)"
 }
 
 checkInstalled "jq" "jq"
@@ -528,7 +524,7 @@ unset checkInstalled
 ###  Aliases  ################################################################
 ###############################################################################
 
-zshLoadLog 4 "Aliases"
+zshLoadLog 1 "Aliases"
 
 # Autocompletion for aliases
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
@@ -548,18 +544,17 @@ unset dots
 unset command
 
 
-# Modifiers
 alias -g G=" | grep -iP "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
 alias -g TB=" | nc termbin.com 9999 | clipboard "
 
-# List files
 LS_COMMON="--group-directories-first --color=always"
 alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
 alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
 alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
+unset LS_COMMON
 
 alias g=git
 alias depp=git
@@ -575,14 +570,14 @@ sublimeAdd() {
 }
 alias sa=sublimeAdd
 
-atomAdd() {
+codeAdd() {
     if [[ "$#" -ne 0 ]]; then
-        atom -a "$@"
+        code -a "$@"
     else
-        atom -a .
+        code -a .
     fi
 }
-alias aa=atomAdd
+alias ca=codeAdd
 
 alias r=ranger
 
@@ -592,17 +587,10 @@ alias ta="tig --all"
 alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
 
-alias ghci-core="ghci -ddump-simpl \
-                      -dsuppress-idinfo \
-                      -dsuppress-coercions \
-                      -dsuppress-type-applications \
-                      -dsuppress-uniques \
-                      -dsuppress-module-prefixes"
-
 # Re-sourcing shortcut
 alias zz="source $HOME/.zshrc"
 # Edit shortcut
-alias ze="$EDITOR $HOME/.zshrc && zz"
+alias ze="$EDITOR \"\$HOME\"/.zshrc && zz"
 
 md() {
     mkdir -p "$@" && cd "$1"
