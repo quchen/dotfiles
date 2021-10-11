@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]]; then
+    notify-send 'Done'
+elif [[ $1 == 0 ]]; then
+    notify-send --icon=info 'Success'
+else
+    notify-send --icon=error "Failure ($*)"
+fi
