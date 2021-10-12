@@ -27,5 +27,17 @@
             "TEMP=$(mktemp -d)",
             "trap \"rm -rf '\\$TEMP'\" EXIT"
         ]
+    },
+    "length": {
+        "prefix": "length",
+        "body": [
+            "\"${#array[@]}\""
+        ]
+    },
+    "isset": {
+        "prefix": "isset",
+        "body": [
+            "[ ! -z ${var+x} ]"
+        ]
     }
 }
