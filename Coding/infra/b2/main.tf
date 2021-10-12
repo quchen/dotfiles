@@ -61,6 +61,11 @@ module "root_key" {
   name   = "s3-compatible"
 }
 
+module "pineapple_root_key" {
+  source = "./modules/root_key"
+  name   = "pineapple"
+}
+
 module "key_2020-phantom-linux_backup" {
   source    = "./modules/backup_key"
   name      = "2020-phantom-linux-for-backup-personal-quchen"
