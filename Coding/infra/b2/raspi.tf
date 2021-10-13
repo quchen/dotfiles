@@ -12,6 +12,7 @@ resource "b2_bucket" "backup_raspi" {
 module "key_backup_2020-iot-raspi" {
   source    = "./modules/backup_key"
   name      = "2020-raspi-self-backup"
+  filename  = "pineapple/2020-raspi-self-backup.source"
   bucket_id = b2_bucket.backup_raspi.bucket_id
 }
 
@@ -19,5 +20,6 @@ module "key_backup_2020-iot-raspi" {
 module "key_backup_2020-iot-raspi_upload_backups" {
   source    = "./modules/backup_key"
   name      = "2020-raspi-backups-upload"
+  filename  = "pineapple/2020-raspi-backups-upload.source"
   bucket_id = null # allow access to all buckets
 }

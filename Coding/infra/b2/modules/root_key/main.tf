@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-variable "name" {
-  type = string
-}
-
 resource "b2_application_key" "key" {
   key_name = var.name
 
@@ -41,7 +37,7 @@ resource "b2_application_key" "key" {
 }
 
 resource "local_file" "credentials" {
-  filename = "${path.root}/credentials/root/${b2_application_key.key.key_name}.source"
+  filename = "${path.root}/credentials/root/${var.filename}"
   content  = <<EOF
 #!/usr/bin/env bash
 

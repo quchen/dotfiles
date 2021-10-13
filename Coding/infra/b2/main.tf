@@ -48,12 +48,14 @@ resource "b2_bucket" "backup_2014_windows" {
 }
 
 module "root_key" {
-  source = "./modules/root_key"
-  name   = "s3-compatible"
+  source   = "./modules/root_key"
+  name     = "s3-compatible"
+  filename = "s3-compatible.source"
 }
 
 module "key_2020-phantom-linux_backup" {
   source    = "./modules/backup_key"
   name      = "2020-phantom-linux-for-backup-personal-quchen"
+  filename  = "2020-phantom-linux-for-backup-personal-quchen.source"
   bucket_id = b2_bucket.backup_personal_quchen.bucket_id
 }
