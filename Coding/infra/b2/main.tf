@@ -1,26 +1,3 @@
-terraform {
-
-  required_version = ">= 1.0.0"
-  required_providers {
-    b2 = {
-      source = "Backblaze/b2"
-    }
-  }
-
-  backend "s3" {
-    bucket   = "tfstate"
-    key      = "terraform.tfstate"
-    region   = "eu-central-003"
-    endpoint = "s3.eu-central-003.backblazeb2.com"
-
-    skip_credentials_validation = true
-    skip_region_validation      = true
-  }
-}
-
-provider "b2" {
-}
-
 resource "b2_bucket" "tfstate" {
   bucket_name = "tfstate"
   bucket_type = "allPrivate"
@@ -35,7 +12,6 @@ resource "b2_bucket" "backup_personal_quchen" {
     days_from_hiding_to_deleting = 1
   }
 }
-
 
 resource "b2_bucket" "backup_2014_windows" {
   bucket_name = "backup-2014-windows-programs-movies-etc"
