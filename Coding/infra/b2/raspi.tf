@@ -8,11 +8,6 @@ resource "b2_bucket" "backup_raspi" {
   }
 }
 
-module "pineapple_root_key" {
-  source = "./modules/root_key"
-  name   = "pineapple"
-}
-
 # Key for Raspi’s own backups directly to B2
 module "key_backup_2020-iot-raspi" {
   source    = "./modules/backup_key"
