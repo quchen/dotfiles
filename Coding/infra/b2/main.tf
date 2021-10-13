@@ -36,15 +36,6 @@ resource "b2_bucket" "backup_personal_quchen" {
   }
 }
 
-resource "b2_bucket" "backup_raspi" {
-  bucket_name = "backup-2020-iot-raspi"
-  bucket_type = "allPrivate"
-
-  lifecycle_rules {
-    file_name_prefix             = ""
-    days_from_hiding_to_deleting = 1
-  }
-}
 
 resource "b2_bucket" "backup_2014_windows" {
   bucket_name = "backup-2014-windows-programs-movies-etc"
@@ -61,19 +52,8 @@ module "root_key" {
   name   = "s3-compatible"
 }
 
-module "pineapple_root_key" {
-  source = "./modules/root_key"
-  name   = "pineapple"
-}
-
 module "key_2020-phantom-linux_backup" {
   source    = "./modules/backup_key"
   name      = "2020-phantom-linux-for-backup-personal-quchen"
   bucket_id = b2_bucket.backup_personal_quchen.bucket_id
-}
-
-module "key_backup_2020-iot-raspi" {
-  source    = "./modules/backup_key"
-  name      = "2020-raspi-backup"
-  bucket_id = b2_bucket.backup_raspi.bucket_id
 }
