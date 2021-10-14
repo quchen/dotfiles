@@ -1,2 +1,2 @@
 #env
-LESS = --raw-control-chars --ignore-case --no-init
+LESS = --RAW-CONTROL-CHARS --ignore-case --tabs=4
