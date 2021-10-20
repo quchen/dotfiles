@@ -288,6 +288,7 @@ setopt PROMPT_SUBST
 # Fancy arrows supported by some fonts supported by WhatTheFont
 RIGHT_ARROW=""       # echo -e "\xEE\x82\xB0"
 RIGHT_ARROW_EMPTY="" # echo -e "\xEE\x82\xB1"
+RIGHT_ARROW_EMPTY_2="❯"
 LEFT_ARROW=""        # echo -e "\xEE\x82\xB2"
 LEFT_ARROW_EMPTY=""  # echo -e "\xEE\x82\xB3"
 
