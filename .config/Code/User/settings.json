@@ -62,5 +62,7 @@
     "git.ignoredRepositories": [
         "/home/main"
     ],
-    "security.workspace.trust.enabled": false
+    "security.workspace.trust.enabled": false,
+    "workbench.editor.limit.value": 5,
+    "workbench.editor.limit.enabled": true
 }
