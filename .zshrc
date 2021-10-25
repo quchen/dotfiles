@@ -333,9 +333,9 @@ prompt_tags() {
     local restic_tags=''
     isset "RESTIC_PASSWORD" && restic_tags+=p
     isset "RESTIC_REPOSITORY" && restic_tags+=r
-    [[ -n "$restic_tags" ]] && PROMPT_TAGS+="Restic[$restic_tags]"
+    [[ -n "$restic_tags" ]] && PROMPT_TAGS+=("Restic[$restic_tags]")
 
-    [[ "$ZSH_SUBSHELL_COUNT" -gt 0 ]] && PROMPT_TAGS+="zsh($ZSH_SUBSHELL_COUNT)"
+    [[ "$ZSH_SUBSHELL_COUNT" -gt 0 ]] && PROMPT_TAGS+=("zsh($ZSH_SUBSHELL_COUNT)")
 
     if [[ ${#PROMPT_TAGS[@]} -gt 0 ]]; then
         # Unique+sort array. Source: https://unix.stackexchange.com/a/167194/23666
