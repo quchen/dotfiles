@@ -14,6 +14,11 @@ set incsearch
 set hlsearch
 
 set rtp+=~/.vim/plugins/vim-sneak
-let g:sneak#s_next = 1 " Pressing s again will go to the next sneak
 helptags ~/.vim/plugins/vim-sneak/doc
+let g:sneak#s_next = 1 " Pressing s again will go to the next sneak
+
+set rtp+=~/.vim/plugins/vim-surround
+helptags ~/.vim/plugins/vim-surround/doc
+
+set rtp+=~/.vim/plugins/vim-repeat
 
