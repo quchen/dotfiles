@@ -19,6 +19,3 @@ source "$SCRIPT_DIR/credentials.source"
         "$@"
 )
 
-if [ ! -z ${RCLONE_REMOTE_BACKUP_LOCATION+x} ]; then
-    ( set -x;  rclone copy "$RESTIC_REPOSITORY" "$RCLONE_REMOTE_BACKUP_LOCATION" --progress )
-fi
