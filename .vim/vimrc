@@ -20,6 +20,7 @@ set rtp+=~/.vim/plugins/repeat
 set rtp+=~/.vim/plugins/easymotion
 helptags ~/.vim/plugins/easymotion/doc
 map <Leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_keys = 'asdfgqwertzuiopyxcvbnmhjkl'
 
 set rtp+=~/.vim/plugins/rainbow
 
