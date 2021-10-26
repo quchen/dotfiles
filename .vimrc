@@ -12,6 +12,7 @@ set cursorline
 set showmatch
 set incsearch
 set hlsearch
+set ignorecase
 
 let mapleader=","
 
