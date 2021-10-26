@@ -8,23 +8,23 @@ set expandtab tabstop=4 shiftwidth=4
 
 let mapleader=","
 
-set rtp+=~/.vim/plugins/vim-sneak
-helptags ~/.vim/plugins/vim-sneak/doc
+set rtp+=~/.vim/plugins/sneak
+helptags ~/.vim/plugins/sneak/doc
 let g:sneak#s_next = 1 " Pressing s again will go to the next sneak
 
-set rtp+=~/.vim/plugins/vim-surround
-helptags ~/.vim/plugins/vim-surround/doc
+set rtp+=~/.vim/plugins/surround
+helptags ~/.vim/plugins/surround/doc
 
-set rtp+=~/.vim/plugins/vim-repeat
+set rtp+=~/.vim/plugins/repeat
 
-set rtp+=~/.vim/plugins/vim-easymotion
-helptags ~/.vim/plugins/vim-easymotion/doc
+set rtp+=~/.vim/plugins/easymotion
+helptags ~/.vim/plugins/easymotion/doc
 map <Leader> <Plug>(easymotion-prefix)
 
-set rtp+=~/.vim/plugins/vim-rainbow
+set rtp+=~/.vim/plugins/rainbow
 
-set rtp+=~/.vim/plugins/vim-lightline
-helptags ~/.vim/plugins/vim-lightline/doc
+set rtp+=~/.vim/plugins/lightline
+helptags ~/.vim/plugins/lightline/doc
 set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'solarized',
