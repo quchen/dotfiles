@@ -197,10 +197,6 @@ fi
 
 
 
-
-
-
-
 ###############################################################################
 ###  Command customization  ###################################################
 ###############################################################################
@@ -447,6 +443,11 @@ loadPlugins() {
     if [[ -s "$plugin" ]]; then
         zshLoadLog 2 "Better vi mode"
         source "$plugin"
+
+        # Without this, the prompt will lose a line each time we switch Vi mode.
+        # I don’t quite understand how it works, but it gets the job done.
+        function zle-keymap-select() {}
+        zle -N zle-keymap-select
     else
         zshLoadLog 2 "(ZSH vi plugin configured in .zshrc, but not found)"
     fi
