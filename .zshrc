@@ -342,6 +342,8 @@ prompt_dir() {
 }
 
 prompt_tags() {
+    isset "PROMPT_TAGS" || PROMPT_TAGS=()
+
     isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && PROMPT_TAGS+=('AWS')
     isset "B2_APPLICATION_KEY_ID" && isset "B2_APPLICATION_KEY" && PROMPT_TAGS+=('B2')
 
