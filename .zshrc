@@ -11,6 +11,9 @@ zshLoadLog() {
 }
 
 
+export TERM="xterm-256color"
+
+
 ###############################################################################
 ###  Patterns  ################################################################
 ###############################################################################
@@ -28,8 +31,6 @@ setopt NUMERIC_GLOB_SORT
 # - Negate with ^
 # - Levenshtein: (#aX)foobar matches anything with distance X from foobar
 setopt EXTENDED_GLOB
-
-
 
 
 

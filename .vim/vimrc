@@ -1,18 +1,10 @@
 syntax enable
 filetype plugin on
 
-if has("gui_running")
-	set background=light
-	colorscheme solarized
-	set t_Co=16
-endif
-
 set number
 set cursorline
-set showmatch
-set incsearch
-set hlsearch
-set ignorecase
+set showmatch incsearch hlsearch ignorecase
+set expandtab tabstop=4 shiftwidth=4
 
 let mapleader=","
 
@@ -29,3 +21,12 @@ set rtp+=~/.vim/plugins/vim-easymotion
 helptags ~/.vim/plugins/vim-easymotion/doc
 map <Leader> <Plug>(easymotion-prefix)
 
+set rtp+=~/.vim/plugins/vim-rainbow
+
+set rtp+=~/.vim/plugins/vim-lightline
+helptags ~/.vim/plugins/vim-lightline/doc
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'background': 'light',
+      \ }
