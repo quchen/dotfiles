@@ -324,8 +324,6 @@ prompt_dir() {
     prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
 
-declare -x SHELL_NESTING
-SHELL_NESTING+=z
 prompt_tags() {
     isset "AWS_ACCESS_KEY_ID" && isset "AWS_SECRET_ACCESS_KEY" && PROMPT_TAGS+=('AWS')
     isset "B2_APPLICATION_KEY_ID" && isset "B2_APPLICATION_KEY" && PROMPT_TAGS+=('B2')
@@ -334,9 +332,6 @@ prompt_tags() {
     isset "RESTIC_PASSWORD" && restic_tags+=p
     isset "RESTIC_REPOSITORY" && restic_tags+=r
     [[ -n "$restic_tags" ]] && PROMPT_TAGS+=("Restic[$restic_tags]")
-
-    isset "TMUX_ACTIVE" && SHELL_NESTING+=t
-    [[ $SHELL_NESTING != z ]] && PROMPT_TAGS+=("[$SHELL_NESTING]")
 
     if [[ ${#PROMPT_TAGS[@]} -gt 0 ]]; then
         # Unique+sort array. Source: https://unix.stackexchange.com/a/167194/23666
