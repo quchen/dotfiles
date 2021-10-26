@@ -466,16 +466,6 @@ loadPlugins() {
         ZVM_VI_HIGHLIGHT_BACKGROUND="black"
         ZVM_VI_HIGHLIGHT_FOREGROUND="white"
         ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
-
-        # Without this, the prompt will lose a line each time we switch Vi mode.
-        # I don’t quite understand how it works, but it gets the job done.
-        # zle-keymap-select() {}
-
-        # function zle-line-init zle-keymap-select {
-        #     # zle .reset-prompt
-        # }
-        # zle -N zle-keymap-select
-        # zle -N zle-line-init
     else
         zshLoadLog 2 "(ZSH vi plugin configured in .zshrc, but not found)"
     fi
