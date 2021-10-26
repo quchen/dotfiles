@@ -10,8 +10,8 @@ color() {
 
 list_branches() (
     IFS=$'\n'
-    for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
-        if [[ $branch = remote* ]]; then
+    for branch in $(git branch --list --all --format "%(refname:lstrip=2)"); do
+        if [[ $branch = */* ]]; then
             color 31 "$branch:::$branch"
         else
             color 32 "$branch:::$branch"
