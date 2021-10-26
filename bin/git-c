@@ -8,7 +8,7 @@ color() {
     echo -e "\e[${color}m$*\e[m"
 }
 
-list_options() (
+list_branches() (
     IFS=$'\n'
     for branch in $(git branch --list --all | perl -pe 's/^[\s*]*//'); do
         if [[ $branch = remote* ]]; then
@@ -17,11 +17,17 @@ list_options() (
             color 32 "$branch:::$branch"
         fi
     done | grep -Ev "(->|detached)"
+)
 
+list_tags() (
+    IFS=$'\n'
     for tag in $(git tag); do
         color 34 "$tag:::$tag"
     done
+)
 
+list_commits() (
+    IFS=$'\n'
     LC_TIME=C
     for commit in $(git log --all --format="%h:::[%ad] %s" --date="format:%a, %Y-%m-%d %H:%M:%S"); do
         echo "$commit"
@@ -34,16 +40,16 @@ fzf_preview() {
 export -f fzf_preview
 
 fuzzy_find() {
-    cat - | fzf --ansi --no-sort --preview='bash -c "fzf_preview {}"' --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//'
+    cat - | fzf --height '33%' --ansi --no-sort --preview='bash -c "fzf_preview {}"' --with-nth=2.. --delimiter=":::" | perl -pe 's/:::.*$//'
 }
 
-main() (
+main() {
     # Make sure we’re in a Git repo
     git rev-parse --is-inside-work-tree >/dev/null
-    check_this_out="$(list_options | fuzzy_find)"
+    check_this_out="$( (list_branches ; list_tags) | fuzzy_find )"
     if [[ $? -eq 0 ]]; then
         git checkout "$check_this_out" "$@"
     fi
-)
+}
 
 main "$@"
