@@ -317,9 +317,26 @@ prompt_end() {
   CURRENT_BG=''
 }
 
+prompt_colorize() {
+    local fcolor=$1
+    local content=$2
+    echo -n "%{%F{$fcolor}%}$content%{%f%}"
+}
+
 isset() {
     eval [ ! -z '${'$1'+x}' ]
 }
+
+prompt_color_hash() {
+    local colors=(red blue green cyan yellow magenta)
+    local index=$(( $(echo "$1" | md5sum | tr 'abcdef' '012345' | tr -dc '[0-9]' | head -c8) % ${#colors[*]} + 1))
+    echo -n "$colors[$index]"
+}
+
+prompt_color_by_hash() {
+    prompt_colorize "$(prompt_color_hash "$1")" "$1"
+}
+
 prompt_dir() {
     prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
 }
@@ -342,11 +359,11 @@ prompt_tags() {
         ))"
         local joined
         printf -v 'joined' '%s, ' "${PROMPT_TAGS[@]}"
-        prompt_segment white black "${joined%, }"
+        echo -n "${joined%, }$SEGMENT_SEPARATOR"
     fi
 }
 prompt_time() {
-    prompt_segment black blue "$(date "+%H:%M:%S")"
+    echo -n "$(date "+%H:%M:%S")"
 }
 prompt_status() {
     local SYMBOLS
@@ -359,7 +376,10 @@ prompt_status() {
 }
 prompt_whoami() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-        prompt_segment blue black "%(!.%{%F{red}%}.)$USER@%m"
+        prompt_color_by_hash "$USER"
+        echo -n '@'
+        prompt_color_by_hash "$HOST"
+        echo -n "$SEGMENT_SEPARATOR"
     fi
 }
 prompt_bol() {
@@ -374,22 +394,20 @@ build_prompt() {
     RETVAL=$?
     SEGMENT_SEPARATOR=$RIGHT_ARROW
     prompt_status $RETVAL
-    prompt_whoami
     prompt_dir
-    prompt_tags
     prompt_end
 }
 build_rprompt() {
-    SEGMENT_SEPARATOR=$RIGHT_ARROW
-    prompt_time
+    SEGMENT_SEPARATOR=" $LEFT_ARROW_EMPTY "
+    prompt_tags
     prompt_whoami
-    prompt_end
+    prompt_time
 }
 
 # f/b/k: reset foreground/bold/background
 NEWLINE=$'\n'
-PROMPT='%{%f%b%k%}$(build_prompt)${NEWLINE}$(prompt_bol)'
-# RPROMPT='%{%f%b%k%}$(build_rprompt)'
+PROMPT='%{%f%b%k%}$(build_prompt) %{%f%b%k%}'
+RPROMPT='%{%f%b%k%}$(build_rprompt)%{%f%b%k%}'
 
 
 
@@ -451,8 +469,13 @@ loadPlugins() {
 
         # Without this, the prompt will lose a line each time we switch Vi mode.
         # I don’t quite understand how it works, but it gets the job done.
-        zle-keymap-select() {}
-        zle -N zle-keymap-select
+        # zle-keymap-select() {}
+
+        # function zle-line-init zle-keymap-select {
+        #     # zle .reset-prompt
+        # }
+        # zle -N zle-keymap-select
+        # zle -N zle-line-init
     else
         zshLoadLog 2 "(ZSH vi plugin configured in .zshrc, but not found)"
     fi
