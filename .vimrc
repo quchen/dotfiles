@@ -27,4 +27,5 @@ set rtp+=~/.vim/plugins/vim-repeat
 
 set rtp+=~/.vim/plugins/vim-easymotion
 helptags ~/.vim/plugins/vim-easymotion/doc
+map <Leader> <Plug>(easymotion-prefix)
 
