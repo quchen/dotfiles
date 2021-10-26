@@ -414,7 +414,6 @@ fzf-autojump-widget() {
         done | fzf +s --ansi
     )"
 }
-
 loadPlugins() {
     local plugin
 
@@ -443,9 +442,16 @@ loadPlugins() {
         zshLoadLog 2 "Better vi mode"
         source "$plugin"
 
+        ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
+        ZVM_INSERT_MODE_CURSOR="$ZVM_CURSOR_BEAM"
+        ZVM_NORMAL_MODE_CURSOR="$ZVM_CURSOR_BLOCK"
+        ZVM_VI_HIGHLIGHT_BACKGROUND="black"
+        ZVM_VI_HIGHLIGHT_FOREGROUND="white"
+        ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
+
         # Without this, the prompt will lose a line each time we switch Vi mode.
         # I don’t quite understand how it works, but it gets the job done.
-        function zle-keymap-select() {}
+        zle-keymap-select() {}
         zle -N zle-keymap-select
     else
         zshLoadLog 2 "(ZSH vi plugin configured in .zshrc, but not found)"
