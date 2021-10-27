@@ -1,16 +1,3 @@
-echo "╭────────────────╮"
-echo "│ Loading .zshrc │"
-echo "╰────────────────╯"
-
-zshLoadLog() {
-    for i in {1..$(($1 * 4))}; do
-        echo -n " "
-    done
-    shift
-    echo "• $*"
-}
-
-
 export TERM="xterm-256color"
 
 
@@ -49,7 +36,7 @@ PATH=""
 MANPATH=""
 
 addToPath() {
-    [[ -d "$1" ]] && PATH="$1:$PATH" # || zshLoadLog 2 "$1 does not exist – skip PATH entry"
+    [[ -d "$1" ]] && PATH="$1:$PATH"
 }
 addToPath "/usr/local/sbin"
 addToPath "/usr/local/bin"
@@ -292,29 +279,29 @@ LEFT_ARROW_EMPTY=""  # echo -e "\xEE\x82\xB3"
 
 
 
-CURRENT_BG='NONE'
+PROMPT_CURRENT_BG='NONE'
 prompt_segment() {
     local bg fg
     [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
     [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-    if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-        echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+    if [[ $PROMPT_CURRENT_BG != 'NONE' && $1 != $PROMPT_CURRENT_BG ]]; then
+        echo -n " %{$bg%F{$PROMPT_CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
     else
         echo -n "%{$bg%}%{$fg%} "
     fi
-    CURRENT_BG=$1
+    PROMPT_CURRENT_BG=$1
     [[ -n $3 ]] && echo -n $3
 }
 
 # End the prompt, closing any open segments
 prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  if [[ -n $PROMPT_CURRENT_BG ]]; then
+    echo -n " %{%k%F{$PROMPT_CURRENT_BG}%}$SEGMENT_SEPARATOR"
   else
     echo -n "%{%k%}"
   fi
   echo -n "%{%f%}"
-  CURRENT_BG=''
+  PROMPT_CURRENT_BG=''
 }
 
 prompt_colorize() {
@@ -575,6 +562,7 @@ for i in {2..5}; do
     dots="$dots."
     command="$command/.."
 done
+unset i
 unset dots
 unset command
 
@@ -585,16 +573,14 @@ alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
 alias -g RED="2> >(sed $'s,.*,\e[31m&\e[m,'>&2)"
 
-LS_COMMON="--group-directories-first --color=always"
-alias l="ls -lFh $LS_COMMON"  # Long view, no hidden
-alias ll="ls -lAh $LS_COMMON" # Long view, show hidden
-alias lh="ls -AF $LS_COMMON"  # Compact view, show hidden
+LS_COMMON="-l --group-directories-first --color=always --human-readable --file-type"
+alias l="ls $LS_COMMON"
+alias ll="ls $LS_COMMON --almost-all"
 unset LS_COMMON
 
 alias g=git
 alias depp=git
 alias pped=tig
-
 
 o() {
     if [[ "$#" -ne 0 ]]; then
@@ -605,23 +591,21 @@ o() {
 }
 
 alias s=subl
-sublimeAdd() {
+sa() {
     if [[ "$#" -ne 0 ]]; then
-        sublime -a "$@"
+        subl -a "$@"
     else
-        sublime -a .
+        subl -a .
     fi
 }
-alias sa=sublimeAdd
 
-codeAdd() {
+ca() {
     if [[ "$#" -ne 0 ]]; then
         code -a "$@"
     else
         code -a .
     fi
 }
-alias ca=codeAdd
 
 alias r=ranger
 
@@ -632,14 +616,10 @@ alias df='df -h' # Disk free, human readable
 alias du='du -hc' # Disk usage for folder, human readable
 
 # Re-sourcing shortcut
-alias zz="source $HOME/.zshrc"
+alias zz="source ~/.zshrc"
 # Edit shortcut
-alias ze="$EDITOR \"\$HOME\"/.zshrc && zz"
+alias ze="$EDITOR ~/.zshrc && zz"
 
 md() {
     mkdir -p "$@" && cd "$1"
 }
-
-echo "╭──────╮"
-echo "│ Done │"
-echo "╰──────╯"
