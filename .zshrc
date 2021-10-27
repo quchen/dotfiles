@@ -298,7 +298,10 @@ prompt_color_by_hash() {
 }
 
 prompt_dir() {
-    prompt_segment black white '%~' # pwd with $HOME abbreviated as ~
+    local current_dir() { print -Pn '%~' }
+    local replace_slashes() { sed -e "s/\// %{%F{blue}%}${RIGHT_ARROW_EMPTY_2}%{%F{white}%} /g" }
+    prompt_segment black white ""
+    current_dir | replace_slashes
 }
 
 prompt_tags() {
@@ -325,7 +328,7 @@ prompt_tags() {
     fi
 }
 prompt_time() {
-    echo -n "$(date "+%H:%M:%S")"
+    echo -n "%*"
 }
 prompt_status() {
     local SYMBOLS
@@ -338,9 +341,9 @@ prompt_status() {
 }
 prompt_whoami() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-        prompt_color_by_hash "$USER"
+        prompt_color_by_hash "%n" # user
         echo -n '@'
-        prompt_color_by_hash "$HOST"
+        prompt_color_by_hash "%m" # host
         echo -n "$SEGMENT_SEPARATOR"
     fi
 }
