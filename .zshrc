@@ -261,13 +261,13 @@ prompt_segment() {
 
 # End the prompt, closing any open segments
 prompt_end() {
-  if [[ -n $PROMPT_CURRENT_BG ]]; then
-    echo -n " %{%k%F{$PROMPT_CURRENT_BG}%}$SEGMENT_SEPARATOR"
-  else
-    echo -n "%{%k%}"
-  fi
-  echo -n "%{%f%}"
-  PROMPT_CURRENT_BG=''
+    if [[ -n $PROMPT_CURRENT_BG ]]; then
+        echo -n " %{%k%F{$PROMPT_CURRENT_BG}%}$SEGMENT_SEPARATOR"
+    else
+        echo -n "%{%k%}"
+    fi
+        echo -n "%{%f%}"
+    PROMPT_CURRENT_BG=''
 }
 
 prompt_colorize() {
@@ -510,7 +510,6 @@ unset i
 unset dots
 unset command
 
-
 alias -g G=" | grep -iP "
 alias -g L=" | less "
 alias -g LC=" | wc -l "
@@ -559,13 +558,10 @@ alias r=ranger
 
 alias ta="tig --all"
 
-# Disk usage
 alias df='df -h' # Disk free, human readable
-alias du='du -hc' # Disk usage for folder, human readable
+alias du='du -shc' # Disk usage for folder, human readable
 
-# Re-sourcing shortcut
 alias zz="source ~/.zshrc"
-# Edit shortcut
 alias ze="$EDITOR ~/.zshrc && zz"
 
 md() {
