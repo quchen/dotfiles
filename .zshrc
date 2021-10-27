@@ -299,9 +299,10 @@ prompt_color_by_hash() {
 
 prompt_dir() {
     local current_dir() { print -Pn '%~' }
+    local remove_root_slash() { sed -e "s/^\///" }
     local replace_slashes() { sed -e "s/\// %{%F{blue}%}${RIGHT_ARROW_EMPTY_2}%{%F{white}%} /g" }
     prompt_segment black white ""
-    current_dir | replace_slashes
+    current_dir | remove_root_slash | replace_slashes
 }
 
 prompt_tags() {
