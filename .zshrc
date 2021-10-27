@@ -395,7 +395,7 @@ NEWLINE=$'\n'
 PROMPT='%{%f%b%k%}$(build_prompt) %{%f%b%k%}'
 RPROMPT='%{%f%b%k%}$(build_rprompt)%{%f%b%k%}'
 
-TMOUT=1
+# TMOUT=1
 TRAPALRM() {
     if ! [[ "$WIDGET" =~ ^(complete-word|fzf-)  ]]; then
         zle reset-prompt
