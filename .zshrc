@@ -88,10 +88,6 @@ setopt HIST_IGNORE_SPACE # Don’t add files with leading space to history
 
 # I don't understand this section very well.
 
-# Some third party completions, e.g. Cabal, GHC
-# Taken from e.g. https://github.com/zsh-users/zsh-completions
-fpath=($HOME/Programs/zsh-completions/src $fpath)
-
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 
@@ -135,7 +131,6 @@ bindkey '^R' history-incremental-search-backward
 typeset -A key
 
 key[Home]=${terminfo[khome]}
-
 key[End]=${terminfo[kend]}
 key[Insert]=${terminfo[kich1]}
 key[Delete]=${terminfo[kdch1]}
@@ -182,18 +177,6 @@ fi
 # ZSH »time« builtin (!)
 TIMEFMT=$'CPU seconds %U\nReal time   %E'
 
-
-
-###############################################################################
-###  Count subshells  #########################################################
-###############################################################################
-
-if [[ -z "$ZSH_SUBSHELL_COUNT" ]]; then
-    ZSH_SUBSHELL_COUNT=0
-else
-    ((ZSH_SUBSHELL_COUNT++))
-fi
-export ZSH_SUBSHELL_COUNT
 
 
 
