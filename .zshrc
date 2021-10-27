@@ -385,82 +385,69 @@ TRAPALRM() {
 ###  Plugins  #################################################################
 ###############################################################################
 
+plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
+if [[ -s "$plugin" ]]; then
+    AUTOJUMP_INSTALLED=true
+    source "$plugin"
+    # Alias to disable autojump, useful to call before running cd in shell
+    # one-liners that would pollute the Autojump db
+    alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
+fi
+
+plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -s "$plugin" ]]; then
+    source "$plugin"
+fi
+
+plugin="$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+if [[ -s "$plugin" ]]; then
+    source "$plugin"
+
+    ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
+    ZVM_INSERT_MODE_CURSOR="$ZVM_CURSOR_BEAM"
+    ZVM_NORMAL_MODE_CURSOR="$ZVM_CURSOR_BLOCK"
+    ZVM_VI_HIGHLIGHT_BACKGROUND="black"
+    ZVM_VI_HIGHLIGHT_FOREGROUND="white"
+    ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
+fi
+
+plugin="$HOME/.fzf.zsh"
+if [[ -s "$plugin" ]]; then
+    FUZZYFINDER_INSTALLED=true
+    source "$plugin"
+
+    FZF_DEFAULT_OPTS='--prompt="λ. "'
+
+    # Search history with ^R
+    bindkey '^R' fzf-history-widget
+    # Insert files
+    bindkey '^K' fzf-file-widget
+    # cd to subdir (»J«oin)
+    bindkey '^J' fzf-cd-widget
+
+    LIST_DIR_CONTENTS='ls --almost-all --group-directories-first --color=always {}'
+    LIST_FILE_CONTENTS='head -n128 {}'
+    FZF_ALT_C_OPTS="--preview '$LIST_DIR_CONTENTS'"
+    FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
+fi
+
+plugin="$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
+if [[ -s "$plugin" ]]; then
+    source "$plugin"
+fi
+
 fzf-autojump-widget() {
     cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
     local ret=$?
     zle reset-prompt
     return $ret
 }
+if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
+    zle -N fzf-autojump-widget
+    bindkey '^P' fzf-autojump-widget
+fi
 
-::() {
-    cd "$(
-        while [ "$(pwd)" != / ]; do
-            pwd
-            cd ..
-        done | fzf +s --ansi
-    )"
-}
-loadPlugins() {
-    local plugin
-
-    plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
-    if [[ -s "$plugin" ]]; then
-        AUTOJUMP_INSTALLED=true
-        source "$plugin"
-        # Alias to disable autojump, useful to call before running cd in shell
-        # one-liners that would pollute the Autojump db
-        alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
-    fi
-
-    plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    if [[ -s "$plugin" ]]; then
-        source "$plugin"
-    fi
-
-    plugin="$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-    if [[ -s "$plugin" ]]; then
-        source "$plugin"
-
-        ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
-        ZVM_INSERT_MODE_CURSOR="$ZVM_CURSOR_BEAM"
-        ZVM_NORMAL_MODE_CURSOR="$ZVM_CURSOR_BLOCK"
-        ZVM_VI_HIGHLIGHT_BACKGROUND="black"
-        ZVM_VI_HIGHLIGHT_FOREGROUND="white"
-        ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
-    fi
-
-    plugin="$HOME/.fzf.zsh"
-    if [[ -s "$plugin" ]]; then
-        FUZZYFINDER_INSTALLED=true
-        source "$plugin"
-
-        FZF_DEFAULT_OPTS='--prompt="λ. "'
-
-        # Search history with ^R
-        bindkey '^R' fzf-history-widget
-        # Insert files
-        bindkey '^K' fzf-file-widget
-        # cd to subdir (»J«oin)
-        bindkey '^J' fzf-cd-widget
-
-        LIST_DIR_CONTENTS='ls --almost-all --group-directories-first --color=always {}'
-        LIST_FILE_CONTENTS='head -n128 {}'
-        FZF_ALT_C_OPTS="--preview '$LIST_DIR_CONTENTS'"
-        FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
-    fi
-
-    plugin="$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
-    if [[ -s "$plugin" ]]; then
-        source "$plugin"
-    fi
-
-    if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
-        zle -N fzf-autojump-widget
-        bindkey '^P' fzf-autojump-widget
-    fi
-
-}
-loadPlugins && unset loadPlugins
+unset plugin
 
 
 
@@ -498,13 +485,11 @@ checkProgramEnv() {
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
 
 # "multi-.. aliases"
-# ..2 = cd ../..
 # ...= cd ../../..
 dots=..
 command=..
 for i in {2..5}; do
     alias "$dots=cd $command"
-    alias "..$i=cd $command"
     dots="$dots."
     command="$command/.."
 done
@@ -526,46 +511,25 @@ unset LS_COMMON
 alias g=git
 alias depp=git
 alias pped=tig
-
-o() {
-    if [[ "$#" -ne 0 ]]; then
-        xdg-open "$@"
-    else
-        xdg-open .
-    fi
-}
-
-jq() {
-    env jq --indent 4 "$@"
-}
-
 alias s=subl
-sa() {
-    if [[ "$#" -ne 0 ]]; then
-        subl -a "$@"
-    else
-        subl -a .
-    fi
-}
-
-ca() {
-    if [[ "$#" -ne 0 ]]; then
-        code -a "$@"
-    else
-        code -a .
-    fi
-}
-
 alias r=ranger
-
 alias ta="tig --all"
-
 alias df='df -h' # Disk free, human readable
 alias du='du -shc' # Disk usage for folder, human readable
-
 alias zz="source ~/.zshrc"
-alias ze="$EDITOR ~/.zshrc && zz"
+alias ze="\"$EDITOR\" ~/.zshrc && zz"
 
-md() {
-    mkdir -p "$@" && cd "$1"
+o() { [[ "$#" -ne 0 ]] && xdg-open "$@" || xdg-open . }
+jq() { env jq --indent 4 "$@" }
+sa() { [[ "$#" -ne 0 ]] && subl -a "$@" || subl -a . }
+ca() { [[ "$#" -ne 0 ]] && code -a "$@" || code -a . }
+::() {
+    cd "$(
+        while [ "$(pwd)" != / ]; do
+            pwd
+            cd ..
+        done | fzf +s --ansi
+    )"
 }
+
+md() { mkdir -p "$@" && cd "$1" }
