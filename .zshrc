@@ -327,14 +327,21 @@ isset() {
     eval [ ! -z '${'$1'+x}' ]
 }
 
-prompt_color_hash() {
-    local colors=(red blue green cyan yellow magenta)
-    local index=$(( $(echo "$1" | md5sum | tr 'abcdef' '012345' | tr -dc '[0-9]' | head -c8) % ${#colors[*]} + 1))
-    echo -n "$colors[$index]"
+prompt_color_picker() {
+    local query=$(tr -dc '[:graph:]' <<< "$1")
+    if [[ $query == "main" ]]; then
+        echo -n 'blue'
+    elif [[ $query == "pi" ]]; then
+        echo -n 'green'
+    else
+        local colors=(red blue green cyan yellow magenta)
+        local index=$(( $(md5sum <<<"x$query" | tr -dc '[0-9]' | head -c8) % ${#colors[*]} + 1))
+        echo -n "$colors[$index]"
+    fi
 }
 
 prompt_color_by_hash() {
-    prompt_colorize "$(prompt_color_hash "$1")" "$1"
+    prompt_colorize "$(prompt_color_picker "$1")" "$1"
 }
 
 prompt_dir() {
