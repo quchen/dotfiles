@@ -281,28 +281,48 @@ isset() {
 }
 
 prompt_color_picker() {
-    local query=$(tr -dc '[:graph:]' <<< "$1")
+    local query=$(tr -dc '[:print:]' <<<"$*")
     if [[ $query == "main" ]]; then
         echo -n 'blue'
     elif [[ $query == "pi" ]]; then
         echo -n 'green'
     else
         local colors=(red blue green cyan yellow magenta)
-        local index=$(( $(md5sum <<<"x$query" | tr -dc '[0-9]' | head -c8) % ${#colors[*]} + 1))
+        local hash=$( md5sum <<<"x$query" | tr -dc '[0-9]' | head -c8 )
+        local index=$(( ${hash} % ${#colors[*]} + 1))
         echo -n "$colors[$index]"
     fi
 }
 
-prompt_color_by_hash() {
+prompt_color_word_by_hash() {
     prompt_colorize "$(prompt_color_picker "$1")" "$1"
 }
 
 prompt_dir() {
-    local current_dir() { print -Pn '%~' }
-    local remove_root_slash() { sed -e "s/^\///" }
-    local replace_slashes() { sed -e "s/\// %{%F{blue}%}${RIGHT_ARROW_EMPTY_2}%{%F{white}%} /g" }
     prompt_segment black white ""
-    current_dir | remove_root_slash | replace_slashes
+    {
+        # pwd
+        print -Pn '%~'
+    } | {
+        # Remove leading / (root dir)
+        sed -e "s/^\///"
+    } | {
+        if "${colorize_prompt_segments:-false}"; then
+            # Colorize path components by hash
+            dir=$(cat)
+            result=()
+            dir_segments=("${(@s,/,)dir}")
+            for segment in "${dir_segments[@]}"; do
+                result+=("$(prompt_color_word_by_hash "$segment")")
+            done
+            echo -n ${(j:/:)result}
+        else
+            cat
+        fi
+    } | {
+        # Intersperse with fancy symbol
+        sed -e "s/\// %{%F{blue}%}${RIGHT_ARROW_EMPTY_2}%{%F{white}%} /g"
+    }
 }
 
 prompt_tags() {
