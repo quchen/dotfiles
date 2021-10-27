@@ -5,8 +5,6 @@ export TERM="xterm-256color"
 ###  Patterns  ################################################################
 ###############################################################################
 
-zshLoadLog 1 "Pattern configuration"
-
 # Case-insensitive globbing
 setopt NO_CASE_GLOB
 
@@ -24,8 +22,6 @@ setopt EXTENDED_GLOB
 ###############################################################################
 ###  Environment  #############################################################
 ###############################################################################
-
-zshLoadLog 1 "Environment, PATH business"
 
 export EDITOR=vim
 export PAGER=less
@@ -72,8 +68,6 @@ unset NIXMAN
 ###  History  #################################################################
 ###############################################################################
 
-zshLoadLog 1 "History configuration"
-
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh/history
@@ -91,8 +85,6 @@ setopt HIST_IGNORE_SPACE # Don’t add files with leading space to history
 ###############################################################################
 ###  Completion  ##############################################################
 ###############################################################################
-
-zshLoadLog 1 "Autocompletion"
 
 # I don't understand this section very well.
 
@@ -130,8 +122,6 @@ setopt rm_star_silent
 ###############################################################################
 ###  Key bindings  ############################################################
 ###############################################################################
-
-zshLoadLog 1 "Key bindings"
 
 # Vi bindings
 bindkey -v
@@ -189,8 +179,6 @@ fi
 ###  Command customization  ###################################################
 ###############################################################################
 
-zshLoadLog 1 "Command customization"
-
 # ZSH »time« builtin (!)
 TIMEFMT=$'CPU seconds %U\nReal time   %E'
 
@@ -212,8 +200,6 @@ export ZSH_SUBSHELL_COUNT
 ###############################################################################
 ###  Dirstack  ################################################################
 ###############################################################################
-
-zshLoadLog 1 "Dirstack"
 
 # Jump back <num> times using cd -<num>
 DIRSTACKFILE="$HOME/.zsh/dirs"
@@ -239,8 +225,6 @@ setopt RM_STAR_WAIT # 10 second waiting period before deleting *
 ###  Coloured man pages  ######################################################
 ###############################################################################
 
-zshLoadLog 1 "Colored manpages"
-
 # Credits to http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
 
 man() {
@@ -260,8 +244,6 @@ man() {
 ###############################################################################
 ###  Prompt  ##################################################################
 ###############################################################################
-
-zshLoadLog 1 "Prompt"
 
 autoload -Uz promptinit
 promptinit
@@ -419,8 +401,6 @@ TRAPALRM() {
 ###  Plugins  #################################################################
 ###############################################################################
 
-zshLoadLog 1 "Plugins"
-
 fzf-autojump-widget() {
     cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
     local ret=$?
@@ -441,27 +421,20 @@ loadPlugins() {
 
     plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 2 "Autojump"
         AUTOJUMP_INSTALLED=true
         source "$plugin"
         # Alias to disable autojump, useful to call before running cd in shell
         # one-liners that would pollute the Autojump db
         alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
-    else
-        zshLoadLog 2 "(Autojump plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 2 "Syntax highlighting"
         source "$plugin"
-    else
-        zshLoadLog 2 "(ZSH syntax highlghting plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 2 "Better vi mode"
         source "$plugin"
 
         ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
@@ -470,13 +443,10 @@ loadPlugins() {
         ZVM_VI_HIGHLIGHT_BACKGROUND="black"
         ZVM_VI_HIGHLIGHT_FOREGROUND="white"
         ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
-    else
-        zshLoadLog 2 "(ZSH vi plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.fzf.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 2 "fzf – Fuzzy Finder"
         FUZZYFINDER_INSTALLED=true
         source "$plugin"
 
@@ -493,20 +463,14 @@ loadPlugins() {
         LIST_FILE_CONTENTS='head -n128 {}'
         FZF_ALT_C_OPTS="--preview '$LIST_DIR_CONTENTS'"
         FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
-    else
-        zshLoadLog 2 "(Fuzzy Finder plugin configured in .zshrc, but not found)"
     fi
 
     plugin="$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
     if [[ -s "$plugin" ]]; then
-        zshLoadLog 2 "ZSH+FZF autocompletion"
         source "$plugin"
-    else
-        zshLoadLog 2 "(ZSH+FZF plugin configured in .zshrc, but not found)"
     fi
 
     if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
-        zshLoadLog 2 "Fuzzyfinder + Autojump <3"
         zle -N fzf-autojump-widget
         bindkey '^P' fzf-autojump-widget
     fi
@@ -521,7 +485,6 @@ loadPlugins && unset loadPlugins
 ###  Installed programs  ######################################################
 ###############################################################################
 
-zshLoadLog 1 "Installed programs"
 checkInstalled() {
     local programExecutable=$1
     local installationCommand=$2
@@ -531,7 +494,6 @@ checkInstalled() {
     else
         installed="[ ]"
     fi
-    zshLoadLog 2 "$installed $programExecutable ($installationCommand)"
 }
 
 checkInstalled "jq" "jq"
@@ -545,8 +507,6 @@ unset checkInstalled
 ###############################################################################
 ###  Aliases  ################################################################
 ###############################################################################
-
-zshLoadLog 1 "Aliases"
 
 # Autocompletion for aliases
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
