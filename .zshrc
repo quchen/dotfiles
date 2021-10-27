@@ -470,20 +470,22 @@ loadPlugins && unset loadPlugins
 ###############################################################################
 
 checkInstalled() {
-    local programExecutable=$1
-    local installationCommand=$2
-    local installed
-    if which "$programExecutable" > /dev/null; then
-        installed="[x]"
+    local program=$1; shift
+    local howToInstall=$1; shift
+
+    local installed=$?
+
+    if which "$program" > /dev/null; then
+        echo "[x] $program"
     else
-        installed="[ ]"
+        echo "[ ] $program – install with $howToInstall"
     fi
 }
 
-checkInstalled "jq" "jq"
-checkInstalled "inotifywait" "apt install inotify-tools"
-unset isInstalled
-unset checkInstalled
+checkProgramEnv() {
+    checkInstalled jq "apt-get install jq"
+    checkInstalled inotifywait "apt-get install inotify-tools"
+}
 
 
 
