@@ -362,9 +362,9 @@ prompt_status() {
 }
 prompt_whoami() {
     if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-        prompt_color_by_hash "%n" # user
+        prompt_color_word_by_hash "$USER"
         echo -n '@'
-        prompt_color_by_hash "%m" # host
+        prompt_color_word_by_hash "$HOST"
         echo -n "$SEGMENT_SEPARATOR"
     fi
 }
