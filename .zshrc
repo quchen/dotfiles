@@ -595,6 +595,15 @@ alias g=git
 alias depp=git
 alias pped=tig
 
+
+o() {
+    if [[ "$#" -ne 0 ]]; then
+        xdg-open "$@"
+    else
+        xdg-open .
+    fi
+}
+
 alias s=subl
 sublimeAdd() {
     if [[ "$#" -ne 0 ]]; then
