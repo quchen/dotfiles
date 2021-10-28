@@ -6,6 +6,10 @@ isset() {
     eval [ ! -z '${'$1'+x}' ]
 }
 
+is_installed() {
+    which "$1" >/dev/null
+}
+
 
 ###############################################################################
 ###  Patterns  ################################################################
@@ -398,7 +402,9 @@ build_rprompt() {
 # f/b/k: reset foreground/bold/background
 NEWLINE=$'\n'
 PROMPT='%{%f%b%k%}$(build_prompt) %{%f%b%k%}'
-RPROMPT='%{%f%b%k%}$(build_rprompt)%{%f%b%k%}'
+if ! isset "TMUX"; then
+    RPROMPT='%{%f%b%k%}$(build_rprompt)%{%f%b%k%}'
+fi
 
 # TMOUT=1
 TRAPALRM() {
@@ -582,6 +588,10 @@ md() { mkdir -p "$@" && cd "$1" }
 
 export TERM="xterm-256color"
 
-if which tmux >/dev/null && ! isset "TMUX"; then
-    tmux new -s "tmux-auto-$(petname --separator '-')" && exit
+if is_installed "tmux" && ! isset "TMUX"; then
+    if petname=$(petname --separator '-'); then
+        tmux new -s "_$petname"
+    else
+        tmux new
+    fi && exit
 fi
