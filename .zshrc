@@ -534,10 +534,17 @@ alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
 alias -g RED="2> >(sed $'s,.*,\e[31m&\e[m,'>&2)"
 
-LS_COMMON="-l --group-directories-first --color=always --human-readable --file-type"
-alias l="ls $LS_COMMON"
-alias ll="ls $LS_COMMON --almost-all"
-unset LS_COMMON
+if which exa >/dev/null; then
+    EXA_COMMON="--long --classify --header --time-style long-iso --group-directories-first --group"
+    alias l="exa $EXA_COMMON"
+    alias ll="exa $EXA_COMMON --all"
+    unset EXA_COMMON
+else
+    LS_COMMON="-l --group-directories-first --color=always --human-readable --file-type"
+    alias l="ls $LS_COMMON"
+    alias ll="ls $LS_COMMON --almost-all"
+    unset LS_COMMON
+fi
 
 alias g=git
 alias depp=git
