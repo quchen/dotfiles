@@ -507,6 +507,8 @@ checkInstalled() {
 checkProgramEnv() {
     checkInstalled jq "apt-get install jq"
     checkInstalled inotifywait "apt-get install inotify-tools"
+    checkInstalled exa "apt-get install exa"
+    checkInstalled rg "apt-get install ripgrep"
 }
 
 
