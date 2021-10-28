@@ -1,0 +1,2 @@
+guake --save-preferences FILENAME
+guake --restore-preferences FILENAME
