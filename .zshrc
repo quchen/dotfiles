@@ -535,7 +535,7 @@ unset dots
 unset command
 
 if which rg >/dev/null; then
-    alias -g G=" | rg --smart-case --trim "
+    alias -g G=" | rg --smart-case "
 else
     alias -g G=" | grep --ignore-case --perl-regexp "
 fi
