@@ -585,15 +585,15 @@ md() { mkdir -p "$@" && cd "$1" }
 
 
 ###############################################################################
-###  Always start Tmux  #######################################################
+###  Tmux  ####################################################################
 ###############################################################################
 
 export TERM="xterm-256color"
 
-if is_installed "tmux" && ! isset "TMUX"; then
-    if petname=$(petname --separator '-'); then
-        tmux new -s "_$petname"
-    else
-        tmux new
-    fi && exit
-fi
+# if is_installed "tmux" && ! isset "TMUX"; then
+#     if petname=$(petname --separator '-'); then
+#         env tmux new -s "_$petname"
+#     else
+#         env tmux new
+#     fi && exit
+# fi
