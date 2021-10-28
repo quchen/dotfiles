@@ -62,6 +62,9 @@ NIXMAN="$HOME/.nix-profile/share/man"
 [[ -e "$NIXMAN" ]] && MANPATH="$NIXMAN:$MANPATH"
 unset NIXMAN
 
+export BAT_THEME='Solarized (light)'
+export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
+
 
 
 ###############################################################################
@@ -521,7 +524,11 @@ unset i
 unset dots
 unset command
 
-alias -g G=" | grep -iP "
+if which rg >/dev/null; then
+    alias -g G=" | rg --smart-case --trim "
+else
+    alias -g G=" | grep --ignore-case --perl-regexp "
+fi
 alias -g L=" | less "
 alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
