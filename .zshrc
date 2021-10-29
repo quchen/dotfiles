@@ -578,7 +578,7 @@ ca() { [[ "$#" -ne 0 ]] && code -a "$@" || code -a . }
         done | fzf +s --ansi
     )"
 }
-
++x() { chmod +x "$@" }
 md() { mkdir -p "$@" && cd "$1" }
 
 
