@@ -36,36 +36,41 @@ setopt EXTENDED_GLOB
 export EDITOR=vim
 export PAGER=less
 
-declare -Ux PATH # U = no duplicates, x = export
-PATH=""
-add_to_path() { [[ -d "$1" ]] && PATH="$1:$PATH" }
-add_to_path "/usr/local/sbin"
-add_to_path "/usr/local/bin"
-add_to_path "/usr/sbin"
-add_to_path "/usr/bin"
-add_to_path "/sbin"
-add_to_path "/bin"
-add_to_path "/usr/games"
-add_to_path "/usr/local/games"
-for bindir in $(find "$HOME/bin" -type d); add_to_path "$bindir"
-add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/.cargo/bin"
-add_to_path "$HOME/.cabal/bin"
-add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/.stack/bin"
-unset add_to_path
+{
+    declare -Ux PATH # U = no duplicates, x = export
+    PATH=""
+    add_to_path() { [[ -d "$1" ]] && PATH="$1:$PATH" }
+    add_to_path "/usr/local/sbin"
+    add_to_path "/usr/local/bin"
+    add_to_path "/usr/sbin"
+    add_to_path "/usr/bin"
+    add_to_path "/sbin"
+    add_to_path "/bin"
+    add_to_path "/usr/games"
+    add_to_path "/usr/local/games"
+    for bindir in $(find "$HOME/bin" -type d); add_to_path "$bindir"
+    add_to_path "$HOME/.local/bin"
+    add_to_path "$HOME/.cargo/bin"
+    add_to_path "$HOME/.cabal/bin"
+    add_to_path "$HOME/.local/bin"
+    add_to_path "$HOME/.stack/bin"
+    unfunction add_to_path
+}
 
-NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
-[[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
-unset NIXPROFILE
+(){
+    local NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
+    [[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
+}
 
-declare -Ux MANPATH
-MANPATH=':' # see `man manpath`: suffix colon means $MANPATH is prepended to /etc/manpath.config
-add_to_manpath() { [[ -d "$1" ]] && MANPATH="$1:$MANPATH" }
-add_to_manpath "$HOME/.nix-profile/share/man"
-add_to_manpath "$HOME/Programs/zoxide/man"
-for mandir in $(find "$HOME/Programs" -type d -name man); add_to_manpath "$mandir"
-unset add_to_manpath
+{
+    declare -Ux MANPATH
+    MANPATH=':' # see `man manpath`: suffix colon means $MANPATH is prepended to /etc/manpath.config
+    add_to_manpath() { [[ -d "$1" ]] && MANPATH="$1:$MANPATH" }
+    add_to_manpath "$HOME/.nix-profile/share/man"
+    add_to_manpath "$HOME/Programs/zoxide/man"
+    for mandir in $(find "$HOME/Programs" -type d -name man); add_to_manpath "$mandir"
+    unfunction add_to_manpath
+}
 
 
 
@@ -158,7 +163,6 @@ key[PageDown]=${terminfo[knp]}
 [[ -n "${key[Right]}"    ]]  && bindkey "${key[Right]}"    forward-char
 [[ -n "${key[PageUp]}"   ]]  && bindkey "${key[PageUp]}"   beginning-of-buffer-or-history
 [[ -n "${key[PageDown]}" ]]  && bindkey "${key[PageDown]}" end-of-buffer-or-history
-
 unset key
 
 # Finally, make sure the terminal is in application mode, when zle is
@@ -421,14 +425,14 @@ TRAPALRM() {
 ###  Plugins  #################################################################
 ###############################################################################
 
-load_plugin() {
+__load_plugin() {
     local plugin=${1?"Plugin name parameter missing"}
     [[ -s "$plugin" ]] && source "$plugin" || return 1
 }
 
-load_plugin "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+__load_plugin "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-if load_plugin "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"; then
+if __load_plugin "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"; then
     ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
     ZVM_INSERT_MODE_CURSOR="$ZVM_CURSOR_BEAM"
     ZVM_NORMAL_MODE_CURSOR="$ZVM_CURSOR_BLOCK"
@@ -437,7 +441,7 @@ if load_plugin "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"; then
     ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
 fi
 
-if load_plugin "$HOME/.fzf.zsh"; then
+if __load_plugin "$HOME/.fzf.zsh"; then
     FUZZYFINDER_INSTALLED=true
 
     FZF_DEFAULT_OPTS='--prompt="λ. "'
@@ -455,14 +459,12 @@ if load_plugin "$HOME/.fzf.zsh"; then
     FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
 fi
 
-load_plugin "$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
-
 if is_installed zoxide; then
     eval "$(zoxide init zsh --cmd j)"
 
     j+() { [ $# -eq 0 ] && zoxide add . || zoxide add "$@" }
     j-() { [ $# -eq 0 ] && zoxide remove -- . || zoxide remove -- "$@" }
-elif load_plugin "$HOME/.autojump/etc/profile.d/autojump.sh"; then
+elif __load_plugin "$HOME/.autojump/etc/profile.d/autojump.sh"; then
     # Alias to disable autojump, useful to call before running cd in shell
     # one-liners that would pollute the Autojump db
     alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
@@ -482,7 +484,7 @@ elif load_plugin "$HOME/.autojump/etc/profile.d/autojump.sh"; then
     fi
 fi
 
-unset load_plugin
+unfunction __load_plugin
 
 
 
@@ -491,7 +493,7 @@ unset load_plugin
 ###############################################################################
 
 check_tooling() {
-    check_tooling_single() {
+    __check_tooling_single() {
         local program=$1; shift
         local howToInstall=$1; shift
 
@@ -507,6 +509,7 @@ check_tooling() {
     check_tooling_single inotifywait "apt-get install inotify-tools"
     check_tooling_single exa "apt-get install exa"
     check_tooling_single rg "apt-get install ripgrep"
+    unfunction __check_tooling_single
 }
 
 
@@ -519,20 +522,19 @@ check_tooling() {
 # Autocompletion for aliases
 unsetopt COMPLETE_ALIASES # Yes, *un*set. Wat
 
-# "multi-.. aliases"
-# ...= cd ../../..
-dots=..
-command=..
-for i in {2..5}; do
-    alias "$dots=cd $command"
-    dots="$dots."
-    command="$command/.."
-done
-unset i
-unset dots
-unset command
+(){
+    # "multi-.. aliases"
+    # ...= cd ../../..
+    local dots=..
+    local dir=..
+    for i in {2..5}; do
+        alias "$dots=cd $dir"
+        dots="$dots."
+        dir="$dir/.."
+    done
+}
 
-if which rg >/dev/null; then
+if is_installed rg; then
     alias -g G=" | rg --smart-case "
 else
     alias -g G=" | grep --ignore-case --perl-regexp "
@@ -542,17 +544,17 @@ alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
 alias -g RED="2> >(sed $'s,.*,\e[31m&\e[m,'>&2)"
 
-if which exa >/dev/null; then
-    EXA_COMMON="--long --classify --header --time-style long-iso --group-directories-first --group"
-    alias l="exa $EXA_COMMON"
-    alias ll="exa $EXA_COMMON --all"
-    unset EXA_COMMON
-else
-    LS_COMMON="-l --group-directories-first --color=always --human-readable --file-type"
-    alias l="ls $LS_COMMON"
-    alias ll="ls $LS_COMMON --almost-all"
-    unset LS_COMMON
-fi
+(){
+    if which exa >/dev/null; then
+        local exa_common="--long --classify --header --time-style long-iso --group-directories-first --group"
+        alias l="exa $exa_common"
+        alias ll="exa $exa_common --all"
+    else
+        local ls_common="-l --group-directories-first --color=always --human-readable --file-type"
+        alias l="ls $ls_common"
+        alias ll="ls $ls_common --almost-all"
+    fi
+}
 
 alias g=git
 alias depp=git
