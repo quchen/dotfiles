@@ -420,15 +420,14 @@ TRAPALRM() {
 ###  Plugins  #################################################################
 ###############################################################################
 
-plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [[ -s "$plugin" ]]; then
-    source "$plugin"
-fi
+load_plugin() {
+    local plugin=$1; shift
+    [[ -s "$plugin" ]] && source "$plugin" || return 1
+}
 
-plugin="$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-if [[ -s "$plugin" ]]; then
-    source "$plugin"
+load_plugin "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+if load_plugin "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"; then
     ZVM_LINE_INIT_MODE="$ZVM_MODE_INSERT"
     ZVM_INSERT_MODE_CURSOR="$ZVM_CURSOR_BEAM"
     ZVM_NORMAL_MODE_CURSOR="$ZVM_CURSOR_BLOCK"
@@ -437,10 +436,8 @@ if [[ -s "$plugin" ]]; then
     ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
 fi
 
-plugin="$HOME/.fzf.zsh"
-if [[ -s "$plugin" ]]; then
+if load_plugin "$HOME/.fzf.zsh"; then
     FUZZYFINDER_INSTALLED=true
-    source "$plugin"
 
     FZF_DEFAULT_OPTS='--prompt="λ. "'
 
@@ -457,22 +454,20 @@ if [[ -s "$plugin" ]]; then
     FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
 fi
 
-plugin="$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
-if [[ -s "$plugin" ]]; then
-    source "$plugin"
-fi
+load_plugin "$HOME/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
 
 if is_installed zoxide; then
-    eval "$(zoxide init zsh --cmd j --hook none)"
-else
-    plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
-    if [[ -s "$plugin" ]]; then
-        AUTOJUMP_INSTALLED=true
-        source "$plugin"
-        # Alias to disable autojump, useful to call before running cd in shell
-        # one-liners that would pollute the Autojump db
-        alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
-    fi
+    eval "$(zoxide init zsh --cmd j)"
+
+    j+() { [ $# -eq 0 ] && zoxide add . || zoxide add "$@" }
+    j-() { [ $# -eq 0 ] && zoxide remove -- . || zoxide remove -- "$@" }
+elif load_plugin "$HOME/.autojump/etc/profile.d/autojump.sh"; then
+    # Alias to disable autojump, useful to call before running cd in shell
+    # one-liners that would pollute the Autojump db
+    alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
+
+    j+() { [ $# -eq 0 ] && autojump --increase 100 || autojump --increase "$1" }
+    j-() { [ $# -eq 0 ] && autojump --decrease 100 || autojump --decrease "$1" }
 
     fzf-autojump-widget() {
         cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
@@ -480,13 +475,13 @@ else
         zle reset-prompt
         return $ret
     }
-    if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
+    if "${FUZZYFINDER_INSTALLED-false}"; then
         zle -N fzf-autojump-widget
         bindkey '^P' fzf-autojump-widget
     fi
 fi
 
-unset plugin
+unset load_plugin
 
 
 
