@@ -420,13 +420,18 @@ TRAPALRM() {
 ###  Plugins  #################################################################
 ###############################################################################
 
-plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
-if [[ -s "$plugin" ]]; then
-    AUTOJUMP_INSTALLED=true
-    source "$plugin"
-    # Alias to disable autojump, useful to call before running cd in shell
-    # one-liners that would pollute the Autojump db
-    alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
+if is_installed zoxide; then
+    echo "zoxide"
+    eval "$(zoxide init zsh --cmd j --hook none)"
+else
+    plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
+    if [[ -s "$plugin" ]]; then
+        AUTOJUMP_INSTALLED=true
+        source "$plugin"
+        # Alias to disable autojump, useful to call before running cd in shell
+        # one-liners that would pollute the Autojump db
+        alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
+    fi
 fi
 
 plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
