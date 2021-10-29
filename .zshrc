@@ -492,9 +492,7 @@ check_tooling() {
         local program=$1; shift
         local howToInstall=$1; shift
 
-        local installed=$?
-
-        if which "$program" > /dev/null; then
+        if is_installed "$program"; then
             echo "[x] $program"
         else
             echo "[ ] $program – $howToInstall"
@@ -542,7 +540,7 @@ alias -g C=" | sponge >(clipboard)"
 alias -g RED="2> >(sed $'s,.*,\e[31m&\e[m,'>&2)"
 
 (){
-    if which exa >/dev/null; then
+    if is_installed exa; then
         local exa_common="--long --classify --header --time-style long-iso --group-directories-first --group"
         alias l="exa $exa_common"
         alias ll="exa $exa_common --all"
