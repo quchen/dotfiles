@@ -472,15 +472,10 @@ elif __load_plugin "$HOME/.autojump/etc/profile.d/autojump.sh"; then
     j+() { [ $# -eq 0 ] && autojump --increase 100 || autojump --increase "$1" }
     j-() { [ $# -eq 0 ] && autojump --decrease 100 || autojump --decrease "$1" }
 
-    fzf-autojump-widget() {
-        cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
-        local ret=$?
-        zle reset-prompt
-        return $ret
-    }
     if "${FUZZYFINDER_INSTALLED-false}"; then
-        zle -N fzf-autojump-widget
-        bindkey '^P' fzf-autojump-widget
+        ji() {
+            cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
+        }
     fi
 fi
 
