@@ -501,13 +501,13 @@ check_tooling() {
             echo "[ ] $program – $howToInstall"
         fi
     }
-    __check_tooling_single fzf "sudo apt-get install fzf"
-    __check_tooling_single jq "apt-get install jq"
+    __check_tooling_single exa         "apt-get install exa"
+    __check_tooling_single fzf         "sudo apt-get install fzf"
     __check_tooling_single inotifywait "apt-get install inotify-tools"
-    __check_tooling_single exa "apt-get install exa"
-    __check_tooling_single rg "apt-get install ripgrep"
-    __check_tooling_single sponge "apt-get install moreutils"
-    __check_tooling_single zoxide "curl -sS https://webinstall.dev/zoxide | bash"
+    __check_tooling_single jq          "apt-get install jq"
+    __check_tooling_single rg          "apt-get install ripgrep"
+    __check_tooling_single sponge      "apt-get install moreutils"
+    __check_tooling_single zoxide      "curl -sS https://webinstall.dev/zoxide | bash"
     unfunction __check_tooling_single
 }
 
