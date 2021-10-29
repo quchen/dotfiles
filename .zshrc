@@ -509,6 +509,7 @@ check_tooling() {
     check_tooling_single inotifywait "apt-get install inotify-tools"
     check_tooling_single exa "apt-get install exa"
     check_tooling_single rg "apt-get install ripgrep"
+    check_tooling_single sponge "apt-get install moreutils"
     unfunction __check_tooling_single
 }
 
