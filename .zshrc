@@ -54,6 +54,7 @@ export PAGER=less
     add_to_path "$HOME/.cabal/bin"
     add_to_path "$HOME/.local/bin"
     add_to_path "$HOME/.stack/bin"
+    add_to_path "$HOME/.fzf/bin"
     unfunction add_to_path
 }
 
@@ -441,7 +442,7 @@ if __load_plugin "$HOME/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"; then
     ZVM_VI_HIGHLIGHT_EXTRASTYLE="bold,underline"
 fi
 
-if __load_plugin "$HOME/.fzf.zsh"; then
+if __load_plugin "$HOME/.fzf/shell/key-bindings.zsh"; then
     FUZZYFINDER_INSTALLED=true
 
     FZF_DEFAULT_OPTS='--prompt="λ. "'
@@ -478,6 +479,8 @@ elif __load_plugin "$HOME/.autojump/etc/profile.d/autojump.sh"; then
         }
     fi
 fi
+
+__load_plugin "$HOME/.fzf/shell/completion.zsh"
 
 unfunction __load_plugin
 
