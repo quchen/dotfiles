@@ -507,7 +507,7 @@ check_tooling() {
     __check_tooling_single jq          "apt-get install jq"
     __check_tooling_single rg          "apt-get install ripgrep"
     __check_tooling_single sponge      "apt-get install moreutils"
-    __check_tooling_single zoxide      "curl -sS https://webinstall.dev/zoxide | bash"
+    __check_tooling_single zoxide      "DL manually from https://github.com/ajeetdsouza/zoxide, the webinstaller is a dotfile-modifying shitscript"
     unfunction __check_tooling_single
 }
 
