@@ -578,6 +578,7 @@ ca() { [[ "$#" -ne 0 ]] && code -a "$@" || code -a . }
 }
 +x() { chmod +x "$@" }
 md() { mkdir -p "$@" && cd "$1" }
+trash() { gio trash "$@" }
 
 
 
