@@ -420,20 +420,6 @@ TRAPALRM() {
 ###  Plugins  #################################################################
 ###############################################################################
 
-if is_installed zoxide; then
-    echo "zoxide"
-    eval "$(zoxide init zsh --cmd j --hook none)"
-else
-    plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
-    if [[ -s "$plugin" ]]; then
-        AUTOJUMP_INSTALLED=true
-        source "$plugin"
-        # Alias to disable autojump, useful to call before running cd in shell
-        # one-liners that would pollute the Autojump db
-        alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
-    fi
-fi
-
 plugin="$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 if [[ -s "$plugin" ]]; then
     source "$plugin"
@@ -476,15 +462,28 @@ if [[ -s "$plugin" ]]; then
     source "$plugin"
 fi
 
-fzf-autojump-widget() {
-    cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
-    local ret=$?
-    zle reset-prompt
-    return $ret
-}
-if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
-    zle -N fzf-autojump-widget
-    bindkey '^P' fzf-autojump-widget
+if is_installed zoxide; then
+    eval "$(zoxide init zsh --cmd j --hook none)"
+else
+    plugin="$HOME/.autojump/etc/profile.d/autojump.sh"
+    if [[ -s "$plugin" ]]; then
+        AUTOJUMP_INSTALLED=true
+        source "$plugin"
+        # Alias to disable autojump, useful to call before running cd in shell
+        # one-liners that would pollute the Autojump db
+        alias jno='{ chpwd_functions=(${chpwd_functions[@]/autojump_chpwd}) }'
+    fi
+
+    fzf-autojump-widget() {
+        cd "$(cat "$HOME/.local/share/autojump/autojump.txt" | sort -nr | awk -F '\t' '{print $NF}' | fzf +s)"
+        local ret=$?
+        zle reset-prompt
+        return $ret
+    }
+    if "${FUZZYFINDER_INSTALLED-false}" && "${AUTOJUMP_INSTALLED-false}"; then
+        zle -N fzf-autojump-widget
+        bindkey '^P' fzf-autojump-widget
+    fi
 fi
 
 unset plugin
