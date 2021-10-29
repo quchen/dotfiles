@@ -501,6 +501,7 @@ check_tooling() {
             echo "[ ] $program – $howToInstall"
         fi
     }
+    __check_tooling_single fzf "sudo apt-get install fzf"
     __check_tooling_single jq "apt-get install jq"
     __check_tooling_single inotifywait "apt-get install inotify-tools"
     __check_tooling_single exa "apt-get install exa"
