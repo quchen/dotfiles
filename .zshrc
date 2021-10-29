@@ -37,43 +37,36 @@ export EDITOR=vim
 export PAGER=less
 
 declare -Ux PATH # U = no duplicates, x = export
-declare -Ux MANPATH
 PATH=""
-MANPATH=""
-
-addToPath() {
-    [[ -d "$1" ]] && PATH="$1:$PATH"
-}
-addToPath "/usr/local/sbin"
-addToPath "/usr/local/bin"
-addToPath "/usr/sbin"
-addToPath "/usr/bin"
-addToPath "/sbin"
-addToPath "/bin"
-addToPath "/usr/games"
-addToPath "/usr/local/games"
-for bindir in $(find "$HOME/bin" -type d); do
-    addToPath "$bindir"
-done
-addToPath "$HOME/.local/bin"
-addToPath "$HOME/.cargo/bin"
-addToPath "$HOME/.cabal/bin"
-addToPath "$HOME/.local/bin"
-addToPath "$HOME/.stack/bin"
-addToPath "$HOME/.ghcup/bin"
-
-unset addToPath
+add_to_path() { [[ -d "$1" ]] && PATH="$1:$PATH" }
+add_to_path "/usr/local/sbin"
+add_to_path "/usr/local/bin"
+add_to_path "/usr/sbin"
+add_to_path "/usr/bin"
+add_to_path "/sbin"
+add_to_path "/bin"
+add_to_path "/usr/games"
+add_to_path "/usr/local/games"
+for bindir in $(find "$HOME/bin" -type d); add_to_path "$bindir"
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.cargo/bin"
+add_to_path "$HOME/.cabal/bin"
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.stack/bin"
+unset add_to_path
 
 NIXPROFILE="$HOME/.nix-profile/etc/profile.d/nix.sh"
 [[ -e "$NIXPROFILE" ]] && source "$NIXPROFILE"
 unset NIXPROFILE
 
-NIXMAN="$HOME/.nix-profile/share/man"
-[[ -e "$NIXMAN" ]] && MANPATH="$NIXMAN:$MANPATH"
-unset NIXMAN
+declare -Ux MANPATH
+MANPATH=':' # see `man manpath`: suffix colon means $MANPATH is prepended to /etc/manpath.config
+add_to_manpath() { [[ -d "$1" ]] && MANPATH="$1:$MANPATH" }
+add_to_manpath "$HOME/.nix-profile/share/man"
+add_to_manpath "$HOME/Programs/zoxide/man"
+for mandir in $(find "$HOME/Programs" -type d -name man); add_to_manpath "$mandir"
+unset add_to_manpath
 
-export BAT_THEME='Solarized (light)'
-export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
 
 
@@ -189,6 +182,14 @@ fi
 
 # ZSH »time« builtin (!)
 TIMEFMT=$'CPU seconds %U\nReal time   %E'
+
+if is_installed bat; then
+    export BAT_THEME='Solarized (light)'
+fi
+
+if is_installed rg; then
+    export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
+fi
 
 
 
