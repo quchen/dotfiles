@@ -502,7 +502,7 @@ check_tooling() {
         if which "$program" > /dev/null; then
             echo "[x] $program"
         else
-            echo "[ ] $program – install with $howToInstall"
+            echo "[ ] $program – $howToInstall"
         fi
     }
     __check_tooling_single jq "apt-get install jq"
