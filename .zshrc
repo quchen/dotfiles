@@ -582,7 +582,13 @@ ca() { [[ "$#" -ne 0 ]] && code -a "$@" || code -a . }
 +x() { chmod +x "$@" }
 md() { mkdir -p "$@" && cd "$1" }
 trash() { gio trash "$@" }
-
+tmux() {
+    if [[ $# -eq 0 ]] && petname=$(petname --separator '-'); then
+        env tmux new -s "_$petname"
+    else
+        env tmux "$@"
+    fi
+}
 
 
 ###############################################################################
@@ -590,11 +596,3 @@ trash() { gio trash "$@" }
 ###############################################################################
 
 export TERM="xterm-256color"
-
-# if is_installed "tmux" && ! isset "TMUX"; then
-#     if petname=$(petname --separator '-'); then
-#         env tmux new -s "_$petname"
-#     else
-#         env tmux new
-#     fi && exit
-# fi
