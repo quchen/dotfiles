@@ -134,9 +134,6 @@ setopt rm_star_silent
 # Vi bindings
 bindkey -v
 
-# Search history with ^R
-bindkey '^R' history-incremental-search-backward
-
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
@@ -458,7 +455,11 @@ if __load_plugin "$HOME/.fzf/shell/key-bindings.zsh"; then
     LIST_FILE_CONTENTS='head -n128 {}'
     FZF_ALT_C_OPTS="--preview '$LIST_DIR_CONTENTS'"
     FZF_CTRL_T_OPTS="--preview 'if [[ -f {} ]]; then $LIST_FILE_CONTENTS; elif [[ -d {} ]]; then $LIST_DIR_CONTENTS; fi'"
+else
+    # Fall back to ZSH’s standard history search. Ugh
+    bindkey '^R' history-incremental-search-backward
 fi
+
 
 if is_installed zoxide; then
     eval "$(zoxide init zsh --cmd j)"
