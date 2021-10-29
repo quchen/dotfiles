@@ -422,7 +422,7 @@ TRAPALRM() {
 ###############################################################################
 
 load_plugin() {
-    local plugin=$1; shift
+    local plugin=${1?"Plugin name parameter missing"}
     [[ -s "$plugin" ]] && source "$plugin" || return 1
 }
 
@@ -486,29 +486,27 @@ unset load_plugin
 
 
 
-
 ###############################################################################
 ###  Installed programs  ######################################################
 ###############################################################################
 
-checkInstalled() {
-    local program=$1; shift
-    local howToInstall=$1; shift
+check_tooling() {
+    check_tooling_single() {
+        local program=$1; shift
+        local howToInstall=$1; shift
 
-    local installed=$?
+        local installed=$?
 
-    if which "$program" > /dev/null; then
-        echo "[x] $program"
-    else
-        echo "[ ] $program – install with $howToInstall"
-    fi
-}
-
-checkProgramEnv() {
-    checkInstalled jq "apt-get install jq"
-    checkInstalled inotifywait "apt-get install inotify-tools"
-    checkInstalled exa "apt-get install exa"
-    checkInstalled rg "apt-get install ripgrep"
+        if which "$program" > /dev/null; then
+            echo "[x] $program"
+        else
+            echo "[ ] $program – install with $howToInstall"
+        fi
+    }
+    check_tooling_single jq "apt-get install jq"
+    check_tooling_single inotifywait "apt-get install inotify-tools"
+    check_tooling_single exa "apt-get install exa"
+    check_tooling_single rg "apt-get install ripgrep"
 }
 
 
