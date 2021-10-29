@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(readlink -f "$(dirname "$0")")"
+
+guake --restore-preferences "$SCRIPT_DIR/exported-config"
