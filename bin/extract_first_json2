@@ -9,26 +9,41 @@ import sys
 import json
 from typing import *
 
+
 def drop_until(delimiter, input):
     return itertools.dropwhile(lambda char: char != delimiter, input)
 
-def decode_json_prefix(input: str) -> Optional[Any]:
+
+def decode_json_prefix(input: str):
     try:
         decoder = json.JSONDecoder()
-        result, _end_offset = decoder.raw_decode(s=input)
-        return result
+        valid_json, _end_offset = decoder.raw_decode(s=input)
+        return json.dumps(valid_json)
     except json.JSONDecodeError:
         return None
+
+def extract_first_valid_json(input: str):
+    while(input != ''):
+        if input[0] != '{':
+            input = ''.join(drop_until('{', input))
+        valid_json = decode_json_prefix(input)
+        if valid_json is not None:
+            return valid_json
+        input = ''.join(drop_until('{', input[1:]))
+    return None
+
 
 def stdin_firehose() -> str:
     return ''.join(fileinput.input())
 
-curly_string = stdin_firehose()
-while(curly_string != ''):
-    print(f"[[[{curly_string}]]]")
-    if success := decode_json_prefix(curly_string):
-        print("Success!")
-        print(success)
+
+def main():
+    input = stdin_firehose()
+    if result := extract_first_valid_json(input):
+        print(result)
         sys.exit(0)
-    curly_string = ''.join(drop_until('{', curly_string[1:]))
-sys.exit(1)
+    else:
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()
