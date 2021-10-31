@@ -17,8 +17,8 @@ def drop_until(delimiter, input):
 def decode_json_prefix(input: str):
     try:
         decoder = json.JSONDecoder()
-        valid_json, _end_offset = decoder.raw_decode(s=input)
-        return json.dumps(valid_json)
+        valid_json, end_offset = decoder.raw_decode(s=input)
+        return json.dumps(valid_json), end_offset
     except json.JSONDecodeError:
         return None
 
@@ -26,9 +26,9 @@ def extract_first_valid_json(input: str):
     while(input != ''):
         if input[0] != '{':
             input = ''.join(drop_until('{', input))
-        valid_json = decode_json_prefix(input)
-        if valid_json is not None:
-            return valid_json
+        result = decode_json_prefix(input)
+        if result is not None:
+            return result
         input = ''.join(drop_until('{', input[1:]))
     return None
 
@@ -39,8 +39,10 @@ def stdin_firehose() -> str:
 
 def main():
     input = stdin_firehose()
-    if result := extract_first_valid_json(input):
-        print(result)
+    result = extract_first_valid_json(input)
+    if result is not None:
+        valid_json, end_offset = result
+        print(valid_json)
         sys.exit(0)
     else:
         sys.exit(1)
