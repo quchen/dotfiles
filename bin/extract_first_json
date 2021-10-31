@@ -1,61 +1,105 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-set -euo pipefail
-shopt -s extglob
+import itertools
+import sys
+import json
+import argparse
+from typing import *
 
-drop_until_first_curly() {
-    local input=$(cat)
-    echo "${input##*([^{])}"
-}
+def drop_until(delimiter, input):
+    return itertools.dropwhile(lambda char: char != delimiter, input)
 
-extract_valid_json() {
-    jq 2> /dev/null || true
-}
 
-is_empty() {
-    [[ -z $1 ]]
-}
+def decode_json_prefix(input: str) -> Optional[Tuple[str, str]]:
+    try:
+        decoder = json.JSONDecoder()
+        valid_json, end_offset = decoder.raw_decode(s=input)
+        remaining_input = input[end_offset:]
+        return valid_json, remaining_input
+    except json.JSONDecodeError:
+        return None
 
-extract_first_json() {
-    input=$(cat)
-    while ! is_empty "$input"; do
-        input=$(drop_until_first_curly <<<"$input")
-        json=$(extract_valid_json <<<"$input")
-        if is_empty "$json"; then
-            input=${input:1}
-        else
-            jq -s '.[0]' <<<"$json"
-            return 0
-        fi
-    done
-    return 1
-}
+def extract_first_valid_json(input: str) -> Optional[Tuple[str, str]]:
+    while input != '':
+        if input[0] != '{':
+            input = ''.join(drop_until('{', input))
+        result = decode_json_prefix(input)
+        if result is not None:
+            return result
+        input = ''.join(drop_until('{', input[1:]))
+    return None
 
-test() {
-    local input=$1
-    local actual=$(extract_first_json <<<"$input" | jq -c)
-    shift
-    local expected=$(echo "$1" | jq -c)
-    shift
-    if [[ $actual == $expected ]]; then
-        echo -e "\e[32mSuccess:\e[m \e[34m$input\e[m ==> \e[34m$actual\e[m"
-        return 0
-    else
-        echo -e "\e[31mFailure:\e[m \e[34m$input\e[m should decode to \e[34m$expected\e[m, but got \e[34m$actual\e[m"
-        return 1
-    fi
-}
+def extract_all_valid_json(input: str, report_empty_objects: bool) -> List[str]:
+    all_jsons_str = []
+    while input != '':
+        result = extract_first_valid_json(input)
+        if result is not None:
+            valid_json, remaining_input = result
+            if valid_json or report_empty_objects:
+                all_jsons_str.append(json.dumps(valid_json))
+            input = remaining_input
+        else:
+            break
+    return all_jsons_str
 
-if [[ $# -ne 0 ]] && [[ $1 == "test" ]]; then
-    set +e
-    test '123'                                                 ''
-    test '"hello"'                                             ''
-    test '{"hello": 123}'                                      '{"hello": 123}'
-    test 'Leading gibberish {"hello": 123}'                    '{"hello": 123}'
-    test '{"hello": 123} trailing gibberish'                   '{"hello": 123}'
-    test 'Leading gibberish {"hello": 123} trailing gibberish' '{"hello": 123}'
-    test 'Gibberish with { {"hello": 123} gibberish'           '{"hello": 123}'
-    test 'Multiple valid documents {}{} gibberish'             '{}'
-else
-    extract_first_json
-fi
+
+
+def all_stdin() -> str:
+    return ''.join(sys.stdin)
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description = "Find all contained JSON documents inside STDIN")
+    parser.add_argument("--empty-objects", action="store_true", help="Report even empty JSON objects")
+    parser.add_argument("--tests", action="store_true", help="Run testsuite instead of analyzing input")
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+
+    if args.tests:
+        print("Running testsuite")
+        testsuite()
+    else:
+        input = all_stdin()
+        result = extract_all_valid_json(input, report_empty_objects=args.empty_objects)
+        if len(result) > 0:
+            print('\n'.join(result))
+            sys.exit(0)
+        else:
+            sys.exit(1)
+
+
+def test(input, report_empty_objects, expected):
+    actual = list(map(lambda x: json.loads(x), extract_all_valid_json(input, report_empty_objects=report_empty_objects)))
+    expected = json.loads(expected)
+
+    if actual != expected:
+        print(f"FAIL: {input}\n\tActual: {actual}\n\tExpected: {expected}")
+        return True
+    else:
+        print(f"Success: {input}\n\tFound: {actual}")
+        return False
+
+
+def testsuite():
+    any_errors = False
+    any_errors |= test('123'                                                 , False, '[]')
+    any_errors |= test('"hello"'                                             , False, '[]')
+    any_errors |= test('{"hello": 123}'                                      , False, '[{"hello": 123}]')
+    any_errors |= test('Leading gibberish {"hello": 123}'                    , False, '[{"hello": 123}]')
+    any_errors |= test('{"hello": 123} trailing gibberish'                   , False, '[{"hello": 123}]')
+    any_errors |= test('Leading gibberish {"hello": 123} trailing gibberish' , False, '[{"hello": 123}]')
+    any_errors |= test('Gibberish with { {"hello": 123} gibberish'           , False, '[{"hello": 123}]')
+    any_errors |= test('Ignore empty objects {}{} gibberish'                 , False, '[]')
+    any_errors |= test('Show empty objects {}{} gibberish'                   , True,  '[{}, {}]')
+    any_errors |= test('Show {} empty objects {"hello": 123} {}gibberish'    , True,  '[{}, {"hello": 123}, {}]')
+    sys.exit(1 if any_errors else 0)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit(1)
