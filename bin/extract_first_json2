@@ -42,7 +42,7 @@ def extract_all_valid_json(input: str):
             all_jsons.append(valid_json)
             input = remaining_input
         else:
-            return []
+            break
     return all_jsons
 
 
@@ -66,9 +66,9 @@ def test(input, expected):
     expected = json.loads(expected)
 
     if actual != expected:
-        print(f"FAIL\n\t{input}\n\tActual: {actual}\n\tExpected: {expected}")
+        print(f"FAIL: {input}\n\tActual: {actual}\n\tExpected: {expected}")
     else:
-        print(f"Success: {input}")
+        print(f"Success: {input}\n\tFound: {actual}")
 
 
 def testsuite():
@@ -79,8 +79,11 @@ def testsuite():
     test('{"hello": 123} trailing gibberish'                   , '[{"hello": 123}]')
     test('Leading gibberish {"hello": 123} trailing gibberish' , '[{"hello": 123}]')
     test('Gibberish with { {"hello": 123} gibberish'           , '[{"hello": 123}]')
-    test('Multiple valid documents {}{} gibberish'             , '[{}]')
+    test('Multiple valid documents {}{} gibberish'             , '[{}, {}]')
 
 
 if __name__ == '__main__':
-    testsuite()
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit(1)
