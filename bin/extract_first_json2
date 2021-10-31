@@ -18,12 +18,13 @@ def decode_json_prefix(input: str):
     try:
         decoder = json.JSONDecoder()
         valid_json, end_offset = decoder.raw_decode(s=input)
-        return json.dumps(valid_json), end_offset
+        remaining_input = input[end_offset:]
+        return json.dumps(valid_json), remaining_input
     except json.JSONDecodeError:
         return None
 
 def extract_first_valid_json(input: str):
-    while(input != ''):
+    while input != '':
         if input[0] != '{':
             input = ''.join(drop_until('{', input))
         result = decode_json_prefix(input)
@@ -32,6 +33,19 @@ def extract_first_valid_json(input: str):
         input = ''.join(drop_until('{', input[1:]))
     return None
 
+def extract_all_valid_json(input: str):
+    all_jsons = []
+    while input != '':
+        result = extract_first_valid_json(input)
+        if result is not None:
+            valid_json, remaining_input = result
+            all_jsons.append(valid_json)
+            input = remaining_input
+        else:
+            return []
+    return all_jsons
+
+
 
 def stdin_firehose() -> str:
     return ''.join(fileinput.input())
@@ -39,13 +53,34 @@ def stdin_firehose() -> str:
 
 def main():
     input = stdin_firehose()
-    result = extract_first_valid_json(input)
-    if result is not None:
-        valid_json, end_offset = result
-        print(valid_json)
+    result = extract_all_valid_json(input)
+    if len(result) > 0:
+        print('\n'.join(result))
         sys.exit(0)
     else:
         sys.exit(1)
 
+
+def test(input, expected):
+    actual = list(map(lambda x: json.loads(x), extract_all_valid_json(input)))
+    expected = json.loads(expected)
+
+    if actual != expected:
+        print(f"FAIL\n\t{input}\n\tActual: {actual}\n\tExpected: {expected}")
+    else:
+        print(f"Success: {input}")
+
+
+def testsuite():
+    test('123'                                                 , '[]')
+    test('"hello"'                                             , '[]')
+    test('{"hello": 123}'                                      , '[{"hello": 123}]')
+    test('Leading gibberish {"hello": 123}'                    , '[{"hello": 123}]')
+    test('{"hello": 123} trailing gibberish'                   , '[{"hello": 123}]')
+    test('Leading gibberish {"hello": 123} trailing gibberish' , '[{"hello": 123}]')
+    test('Gibberish with { {"hello": 123} gibberish'           , '[{"hello": 123}]')
+    test('Multiple valid documents {}{} gibberish'             , '[{}]')
+
+
 if __name__ == '__main__':
-    main()
+    testsuite()
