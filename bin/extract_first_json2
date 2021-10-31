@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+# { gibberish() {cat /dev/urandom | tr -dc '[:print:]' | head -c"${1:-100}"}; gibberish; jq -nMcj '{hello: {world: 123}}'; gibberish }
+
+
+import fileinput
+import itertools
+import sys
+import json
+from typing import *
+
+def drop_until(delimiter, input):
+    return itertools.dropwhile(lambda char: char != delimiter, input)
+
+def decode_json_prefix(input: str) -> Optional[Any]:
+    try:
+        decoder = json.JSONDecoder()
+        result, _end_offset = decoder.raw_decode(s=input)
+        return result
+    except json.JSONDecodeError:
+        return None
+
+def stdin_firehose() -> str:
+    return ''.join(fileinput.input())
+
+curly_string = stdin_firehose()
+while(curly_string != ''):
+    print(f"[[[{curly_string}]]]")
+    if success := decode_json_prefix(curly_string):
+        print("Success!")
+        print(success)
+        sys.exit(0)
+    curly_string = ''.join(drop_until('{', curly_string[1:]))
+sys.exit(1)
