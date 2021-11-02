@@ -1,0 +1,17 @@
+{
+    "if main": {
+        "prefix": "ifmain",
+        "body": [
+            "if __name__ == '__main__':",
+            "    main()"
+        ]
+    },
+    "Logger config": {
+        "prefix": "logger config",
+        "body": [
+            "logging.basicConfig(",
+            "    format='[%(levelname)s] %(message)s [%(module)s:%(lineno)s]',",
+            "    level=logging.INFO)"
+        ]
+    }
+}
