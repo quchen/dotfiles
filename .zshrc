@@ -547,7 +547,7 @@ alias zz="source ~/.zshrc"
 alias ze="\"$EDITOR\" ~/.zshrc && zz"
 
 o() { [[ "$#" -ne 0 ]] && xdg-open "$@" || xdg-open . }
-jq() { env jq --indent 4 "$@" }
+jq() { command jq --indent 4 "$@" }
 sa() { [[ "$#" -ne 0 ]] && subl -a "$@" || subl -a . }
 ca() { [[ "$#" -ne 0 ]] && code -a "$@" || code -a . }
 ::() {
@@ -563,9 +563,9 @@ md() { mkdir -p "$@" && cd "$1" }
 trash() { gio trash "$@" }
 tmux() {
     if [[ $# -eq 0 ]] && petname=$(petname --separator '-'); then
-        env tmux new -s "_$petname"
+        command tmux new -s "_$petname"
     else
-        env tmux "$@"
+        command tmux "$@"
     fi
 }
 man() {
@@ -581,34 +581,17 @@ man() {
     local reset=$'\e[0m'
     local bold=$'\e[1m'
     local underline=$'\e[4m'
+    local black=$'\e[30m' red=$'\e[31m' green=$'\e[32m' yellow=$'\e[33m' blue=$'\e[34m' cyan=$'\e[35m' magenta=$'\e[36m' white=$'\e[37m'
+    local black_bg=$'\e[40m' red_bg=$'\e[41m' green_bg=$'\e[42m' yellow_bg=$'\e[43m' blue_bg=$'\e[44m' cyan_bg=$'\e[45m' magenta_bg=$'\e[46m' white_bg=$'\e[47m'
 
-    local black=$'\e[30m'
-    local red=$'\e[31m'
-    local green=$'\e[32m'
-    local yellow=$'\e[33m'
-    local blue=$'\e[34m'
-    local cyan=$'\e[35m'
-    local magenta=$'\e[36m'
-    local white=$'\e[37m'
-
-    local black_bg=$'\e[40m'
-    local red_bg=$'\e[41m'
-    local green_bg=$'\e[42m'
-    local yellow_bg=$'\e[43m'
-    local blue_bg=$'\e[44m'
-    local cyan_bg=$'\e[45m'
-    local magenta_bg=$'\e[46m'
-    local white_bg=$'\e[47m'
-
-    env                                       \
-        LESS_TERMCAP_mb=$bold$red             \
-        LESS_TERMCAP_md=$bold$red             \
-        LESS_TERMCAP_me=$reset                \
-        LESS_TERMCAP_so=$bold$yellow$white_bg \
-        LESS_TERMCAP_se=$reset                \
-        LESS_TERMCAP_us=$bold$blue$underline  \
-        LESS_TERMCAP_ue=$reset                \
-        man "$@"
+    LESS_TERMCAP_mb=$bold$red             \
+    LESS_TERMCAP_md=$bold$red             \
+    LESS_TERMCAP_me=$reset                \
+    LESS_TERMCAP_so=$bold$yellow$white_bg \
+    LESS_TERMCAP_se=$reset                \
+    LESS_TERMCAP_us=$bold$blue$underline  \
+    LESS_TERMCAP_ue=$reset                \
+    command man "$@"
 }
 
 
