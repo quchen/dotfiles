@@ -95,6 +95,7 @@ def testsuite():
     any_errors |= test('Ignore empty objects {}{} gibberish'                 , False, '[]')
     any_errors |= test('Show empty objects {}{} gibberish'                   , True,  '[{}, {}]')
     any_errors |= test('Show {} empty objects {"hello": 123} {}gibberish'    , True,  '[{}, {"hello": 123}, {}]')
+    any_errors |= test('Multiple {"hello": 123} jsons {"world": 567} gibberish' , False, '[{"hello": 123}, {"world": 567}]')
     sys.exit(1 if any_errors else 0)
 
 
