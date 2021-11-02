@@ -6,11 +6,12 @@ import json
 import argparse
 from typing import *
 
+
 def drop_until(delimiter, input):
     return itertools.dropwhile(lambda char: char != delimiter, input)
 
 
-def decode_json_prefix(input: str) -> Optional[Tuple[str, str]]:
+def decode_json_prefix(input: str) -> Optional[Tuple[Any, int]]:
     try:
         decoder = json.JSONDecoder()
         valid_json, end_offset = decoder.raw_decode(s=input)
@@ -19,29 +20,24 @@ def decode_json_prefix(input: str) -> Optional[Tuple[str, str]]:
     except json.JSONDecodeError:
         return None
 
-def extract_first_valid_json(input: str) -> Optional[Tuple[str, str]]:
-    while input != '':
+
+def extract_all_valid_json(input: str, report_empty_objects: bool) -> List[Any]:
+    all_jsons = []
+    while len(input) > 0:
+        # Ensure we’re starting at a curly. Python’s JSON library would otherwise
+        # report e.g. "hello" as valid JSON.
         if input[0] != '{':
             input = ''.join(drop_until('{', input))
-        result = decode_json_prefix(input)
-        if result is not None:
-            return result
-        input = ''.join(drop_until('{', input[1:]))
-    return None
-
-def extract_all_valid_json(input: str, report_empty_objects: bool) -> List[str]:
-    all_jsons_str = []
-    while input != '':
-        result = extract_first_valid_json(input)
-        if result is not None:
-            valid_json, remaining_input = result
+        try:
+            valid_json, input = decode_json_prefix(input)
             if valid_json or report_empty_objects:
-                all_jsons_str.append(json.dumps(valid_json))
-            input = remaining_input
-        else:
-            break
-    return all_jsons_str
+                all_jsons.append(valid_json)
+        except TypeError:
+            # Even though input started with a curly, it doesn’t have a valid JSON
+            # prefix. Happens when there’s a random curly, which we’ll drop here.
+            input = input[1:]
 
+    return all_jsons
 
 
 def all_stdin() -> str:
@@ -65,14 +61,14 @@ def main():
         input = all_stdin()
         result = extract_all_valid_json(input, report_empty_objects=args.empty_objects)
         if len(result) > 0:
-            print('\n'.join(result))
+            print('\n'.join(map(lambda x: json.dumps(x), result)))
             sys.exit(0)
         else:
             sys.exit(1)
 
 
 def test(input, report_empty_objects, expected):
-    actual = list(map(lambda x: json.loads(x), extract_all_valid_json(input, report_empty_objects=report_empty_objects)))
+    actual = extract_all_valid_json(input, report_empty_objects=report_empty_objects)
     expected = json.loads(expected)
 
     if actual != expected:
