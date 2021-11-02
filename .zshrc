@@ -570,14 +570,44 @@ tmux() {
 }
 man() {
     # Colored manpages! Credits to http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
-    env                                         \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m")    \
-        LESS_TERMCAP_md=$(printf "\e[1;31m")    \
-        LESS_TERMCAP_me=$(printf "\e[0m")       \
-        LESS_TERMCAP_se=$(printf "\e[0m")       \
-        LESS_TERMCAP_so=$(printf "\e[1;47;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m")       \
-        LESS_TERMCAP_us=$(printf "\e[1;32m")    \
+    # mb: Start blinking
+    # md: Start bold mode
+    # me: End all mode like so, us, mb, md and mr
+    # so: Start standout mode
+    # se: End standout mode
+    # us: Start underlining
+    # ue: End underlining
+
+    local reset=$'\e[0m'
+    local bold=$'\e[1m'
+    local underline=$'\e[4m'
+
+    local black=$'\e[30m'
+    local red=$'\e[31m'
+    local green=$'\e[32m'
+    local yellow=$'\e[33m'
+    local blue=$'\e[34m'
+    local cyan=$'\e[35m'
+    local magenta=$'\e[36m'
+    local white=$'\e[37m'
+
+    local black_bg=$'\e[40m'
+    local red_bg=$'\e[41m'
+    local green_bg=$'\e[42m'
+    local yellow_bg=$'\e[43m'
+    local blue_bg=$'\e[44m'
+    local cyan_bg=$'\e[45m'
+    local magenta_bg=$'\e[46m'
+    local white_bg=$'\e[47m'
+
+    env                                       \
+        LESS_TERMCAP_mb=$bold$red             \
+        LESS_TERMCAP_md=$bold$red             \
+        LESS_TERMCAP_me=$reset                \
+        LESS_TERMCAP_so=$bold$yellow$white_bg \
+        LESS_TERMCAP_se=$reset                \
+        LESS_TERMCAP_us=$bold$blue$underline  \
+        LESS_TERMCAP_ue=$reset                \
         man "$@"
 }
 
