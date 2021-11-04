@@ -42,7 +42,13 @@ take_screenshot() (
             xfce4-screenshooter --fullscreen --clipboard --save "$png"
             local jpg=$(compress_to_jpg "$png")
             notify-send --expire-time=5000 "Fullscreen" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")\n»$petname«"
-
+            ;;
+        window)
+            notify-send --expire-time=5000 'Single window screenshot in 5 seconds!'
+            local png="$path/$file.png"
+            xfce4-screenshooter --window --clipboard --delay 5 --save "$png"
+            local jpg=$(compress_to_jpg "$png")
+            notify-send --expire-time=5000 "Single window" "PNG: $(size_human "$png") → clipboard\nJPG: $(size_human "$jpg")\n»$petname«"
             ;;
         *)
             echo "Unknown mode: $mode" >&2
