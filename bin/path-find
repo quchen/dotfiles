@@ -7,7 +7,7 @@ query="$*"
     IFS=:
     for entry in $PATH; do
         file="$entry/$query"
-        if [[ -f "$file" ]]; then
+        if [[ -f $file && -x $file ]]; then
             ((i++))
             echo "$i: $file"
         fi
@@ -15,4 +15,3 @@ query="$*"
 ) | column -ts:
 
 [[ $i -gt 0 ]]
-
