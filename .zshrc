@@ -481,6 +481,7 @@ check_tooling() {
             echo "[ ] $program – $howToInstall"
         fi
     }
+    __check_tooling_single delta       "https://github.com/dandavison/delta#installation"
     __check_tooling_single exa         "apt-get install exa"
     __check_tooling_single fzf         "sudo apt-get install fzf"
     __check_tooling_single inotifywait "apt-get install inotify-tools"
