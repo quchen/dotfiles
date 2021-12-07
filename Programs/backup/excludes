@@ -17,6 +17,7 @@ $HOME/.zoom
 $HOME/Downloads
 $HOME/snap
 $HOME/temp
+$HOME/.local/share/Steam/steamapps/common
 
 .stack-work
 .terraform
