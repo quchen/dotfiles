@@ -5,8 +5,10 @@ set -euo pipefail
 export TEMP="$HOME/temp"
 
 if ! which trash > /dev/null; then
-    echo "No trash command installed!"
-    exit 1
+    echo "No trash command installed!, using gio trash"
+    trash() {
+        gio trash "$@"
+    }
 fi
 
 delete() {
@@ -14,6 +16,7 @@ delete() {
     echo "trash \$TEMP${filename#"$TEMP"}"
     trash "$filename"
 }
+export -f trash
 export -f delete
 
 find "$TEMP" -mindepth 1 -maxdepth 1 -mtime +10 -print0 | xargs -0 -I {} bash -c "delete '{}'"
