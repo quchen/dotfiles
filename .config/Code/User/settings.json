@@ -63,5 +63,7 @@
     "workbench.enableExperiments": false,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 24,
-    "haskell.plugin.hlint.diagnosticsOn": false
+    "haskell.plugin.hlint.diagnosticsOn": false,
+    "svg.preview.mode": "svg",
+    "haskell.plugin.ghcide-completions.config.autoExtendOn": false
 }
