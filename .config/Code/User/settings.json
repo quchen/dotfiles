@@ -38,8 +38,6 @@
     "security.workspace.trust.banner": "never",
     "security.workspace.trust.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
-    "telemetry.enableCrashReporter": false,
-    "telemetry.enableTelemetry": false,
     "telemetry.telemetryLevel": "off",
     "terraform.languageServer": {
         "args": [
