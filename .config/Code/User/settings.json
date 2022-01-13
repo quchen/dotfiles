@@ -64,5 +64,6 @@
     "haskell.plugin.hlint.diagnosticsOn": false,
     "haskell.plugin.ghcide-completions.config.autoExtendOn": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "svg.preview.mode": "svg"
+    "svg.preview.mode": "svg",
+    "update.mode": "manual"
 }
