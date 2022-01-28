@@ -20,9 +20,15 @@
         ],
     },
     "deriving": {
-        "prefix": "LANG",
+        "prefix": "deriving",
         "body": [
             "deriving (Eq, Ord, Show)",
+        ],
+    },
+    "OPTIONS_GHC": {
+        "prefix": "OPTIONS_GHC",
+        "body": [
+            "{-# OPTIONS_GHC $1 #-}",
         ],
     }
 }
