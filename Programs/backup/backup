@@ -19,4 +19,4 @@ source "$SCRIPT_DIR/credentials.source"
         "$@"
 )
 
-./copy_to_pi
+"$SCRIPT_DIR"/copy_to_pi
