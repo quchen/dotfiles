@@ -113,13 +113,14 @@
     dt      = difftool --dir-diff
     mt      = mergetool --no-prompt
     re      = rebase
-    rem     = rebase -i origin/master
     s       = status --short --branch
     sup     = submodule update
     unstage = reset HEAD --
     untrack = rm --cached
     up      = pull --rebase
     fa      = fetch --all
+    re-upstream = rebase -i @{upstream}
+    reset-up = reset --hard @{upstream}
 
     seziere                    = bisect
     zweig                      = branch
