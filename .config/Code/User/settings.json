@@ -40,12 +40,12 @@
     "security.workspace.trust.untrustedFiles": "open",
     "telemetry.telemetryLevel": "off",
     "terraform.languageServer": {
+        "external": true,
+        "pathToBinary": "",
         "args": [
             "serve"
         ],
-        "external": true,
         "maxNumberOfProblems": 100,
-        "pathToBinary": "",
         "trace.server": "off"
     },
     "window.menuBarVisibility": "toggle",
@@ -68,5 +68,6 @@
     "update.mode": "manual",
     "haskell.plugin.importLens.codeLensOn": false,
     "haskell.plugin.refineImports.globalOn": false,
-    "haskell.plugin.importLens.codeActionsOn": false
+    "haskell.plugin.importLens.codeActionsOn": false,
+    "terraform.codelens.referenceCount": true
 }
