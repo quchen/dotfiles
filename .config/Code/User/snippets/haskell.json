@@ -30,5 +30,11 @@
         "body": [
             "{-# OPTIONS_GHC $1 #-}",
         ],
+    },
+    "import": {
+        "prefix": "imq",
+        "body": [
+            "import qualified ",
+        ],
     }
 }

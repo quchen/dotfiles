@@ -65,5 +65,8 @@
     "haskell.plugin.ghcide-completions.config.autoExtendOn": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "svg.preview.mode": "svg",
-    "update.mode": "manual"
+    "update.mode": "manual",
+    "haskell.plugin.importLens.codeLensOn": false,
+    "haskell.plugin.refineImports.globalOn": false,
+    "haskell.plugin.importLens.codeActionsOn": false
 }
