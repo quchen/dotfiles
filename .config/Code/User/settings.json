@@ -53,7 +53,7 @@
     "window.zoomLevel": 1,
     "workbench.colorTheme": "Solarized Light",
     "workbench.editor.limit.enabled": true,
-    "workbench.editor.limit.value": 5,
+    "workbench.editor.limit.value": 8,
     "workbench.editor.tabCloseButton": "off",
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter.notebook.ipynb"
