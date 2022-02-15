@@ -328,6 +328,11 @@ prompt_tags() {
     isset "RESTIC_REPOSITORY" && restic_tags+=r
     [[ -n "$restic_tags" ]] && PROMPT_TAGS+=("Restic[$restic_tags]")
 
+    local git_environment=''
+    isset "GIT_AUTHOR_DATE" && git_environment+=A
+    isset "GIT_COMMITTER_DATE" && git_environment+=C
+    [[ -n "$git_environment" ]] && PROMPT_TAGS+=("Git[$git_environment]")
+
     if [[ ${#PROMPT_TAGS[@]} -gt 0 ]]; then
         # Unique+sort array. Source: https://unix.stackexchange.com/a/167194/23666
         eval "PROMPT_TAGS=($(
