@@ -69,5 +69,6 @@
     "haskell.plugin.importLens.codeLensOn": false,
     "haskell.plugin.refineImports.globalOn": false,
     "haskell.plugin.importLens.codeActionsOn": false,
-    "terraform.codelens.referenceCount": true
+    "terraform.codelens.referenceCount": true,
+    "haskell.formattingProvider": "stylish-haskell"
 }
