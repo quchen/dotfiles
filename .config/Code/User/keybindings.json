@@ -182,7 +182,8 @@
     },
     {
         "key": "ctrl+shift+w",
-        "command": "workbench.action.closeAllEditors"
+        "command": "workbench.action.closeAllEditors",
+        "when": "groupEditorsCount <= 1"
     },
     {
         "key": "ctrl+k ctrl+w",
@@ -478,5 +479,10 @@
         "key": "f5",
         "command": "-workbench.action.debug.continue",
         "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "ctrl+shift+w",
+        "command": "workbench.action.closeOtherEditors",
+        "when": "groupEditorsCount > 1"
     }
 ]
