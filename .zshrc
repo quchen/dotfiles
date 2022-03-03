@@ -48,6 +48,7 @@ export PAGER=less
     add_to_path "/bin"
     add_to_path "/usr/games"
     add_to_path "/usr/local/games"
+    add_to_path "/snap/bin"
     for bindir in $(find "$HOME/bin" -type d); add_to_path "$bindir"
     add_to_path "$HOME/.local/bin"
     add_to_path "$HOME/.cargo/bin"
