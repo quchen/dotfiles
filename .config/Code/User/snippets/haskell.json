@@ -37,6 +37,13 @@
             "{-# OPTIONS_GHC $0 #-}",
         ],
     },
+    "OPTIONS_HADDOCK": {
+        "prefix": "OPTIONS_HADDOCK",
+        "body": [
+            "{-# OPTIONS_HADDOCK $0 #-}",
+        ],
+        "description": "e.g. {-# OPTIONS_HADDOCK hide, ignore-exports, show-extensions #-}"
+    },
     "import": {
         "prefix": "imq",
         "body": [
