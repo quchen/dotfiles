@@ -531,6 +531,8 @@ fi
 alias -g L=" | less "
 alias -g LC=" | wc -l "
 alias -g C=" | sponge >(clipboard)"
+alias -g CC=" |& sponge >(clipboard)"
+alias -g F=" | fzf"
 alias -g RED="2> >(sed $'s,.*,\e[31m&\e[m,'>&2)"
 
 (){
