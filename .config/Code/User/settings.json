@@ -72,5 +72,6 @@
     "haskell.formattingProvider": "stylish-haskell",
     "[haskell]": {
         "editor.defaultFormatter": "haskell.haskell"
-    }
+    },
+    "gcode.general.units": "Metric"
 }
