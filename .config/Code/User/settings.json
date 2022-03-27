@@ -73,5 +73,6 @@
     "[haskell]": {
         "editor.defaultFormatter": "haskell.haskell"
     },
-    "gcode.general.units": "Metric"
+    "gcode.general.units": "Metric",
+    "editor.detectIndentation": false
 }
