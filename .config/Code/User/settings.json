@@ -74,5 +74,14 @@
         "editor.defaultFormatter": "haskell.haskell"
     },
     "gcode.general.units": "Metric",
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "explorer.decorations.badges": false,
+    "explorer.incrementalNaming": "smart",
+    "svg.preview.autoShow": true,
+    "svg.preview.viewMode": "oneByOne",
+    "workbench.colorCustomizations": {
+        "comment": "See https://code.visualstudio.com/api/references/theme-color",
+        "editor.selectionBackground": "#f0d9ae",
+        "editor.selectionHighlightBorder": "#5b8b95",
+    }
 }
