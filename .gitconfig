@@ -18,7 +18,7 @@
 [merge]
     tool = meld
 [push]
-    default = upstream
+    default = current
 [rebase]
     autoStash = true
 [rerere]
