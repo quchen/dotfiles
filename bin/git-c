@@ -9,14 +9,15 @@ color() {
 }
 
 list_branches() (
-    IFS=$'\n'
-    for branch in $(git branch --list --all --format "%(refname:lstrip=2)"); do
-        if [[ $branch = */* ]]; then
-            color 31 "$branch:::$branch"
-        else
-            color 32 "$branch:::$branch"
-        fi
-    done | grep -Ev "(->|detached)"
+    {
+        IFS=$'\n'
+        for local_branch in $(git branch --list --format "%(refname:lstrip=2)"); do
+            color 32 "$local_branch:::$local_branch"
+        done
+        for remote_branch in $(git branch --list --remotes --format "%(refname:lstrip=2)"); do
+            color 31 "$remote_branch:::$remote_branch"
+        done
+    } | grep -Ev "(->|detached)"
 )
 
 list_tags() (
