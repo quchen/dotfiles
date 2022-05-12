@@ -83,5 +83,16 @@
         "comment": "See https://code.visualstudio.com/api/references/theme-color",
         "editor.selectionBackground": "#f0d9ae",
         "editor.selectionHighlightBorder": "#5b8b95",
-    }
+    },
+    "editor.guides.bracketPairs": "active",
+    "editor.language.colorizedBracketPairs": [
+        ["[", "]"],
+        ["(", ")"],
+        ["{", "}"],
+        ["»", "«"],
+        ["›", "‹"],
+    ],
+    "editor.unicodeHighlight.includeComments": true,
+    "editor.unicodeHighlight.nonBasicASCII": true,
+    "editor.guides.bracketPairsHorizontal": false
 }
