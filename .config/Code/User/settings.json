@@ -1,4 +1,8 @@
 {
+    "[haskell]": {
+        "editor.defaultFormatter": "haskell.haskell"
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
@@ -6,14 +10,28 @@
     "editor.comments.ignoreEmptyLines": false,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorSurroundingLines": 5,
+    "editor.detectIndentation": false,
     "editor.dragAndDrop": false,
     "editor.folding": false,
     "editor.fontFamily": "'Iosevka Expanded', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.guides.bracketPairsHorizontal": false,
+    "editor.language.colorizedBracketPairs": [
+        ["[", "]"],
+        ["(", ")"],
+        ["{", "}"],
+        ["»", "«"],
+        ["›", "‹"]
+    ],
     "editor.minimap.showSlider": "always",
     "editor.multiCursorModifier": "ctrlCmd",
+    "editor.unicodeHighlight.includeComments": true,
+    "editor.unicodeHighlight.nonBasicASCII": true,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
+    "explorer.decorations.badges": false,
+    "explorer.incrementalNaming": "smart",
     "explorer.openEditors.sortOrder": "alphabetical",
     "extensions.ignoreRecommendations": true,
     "files.associations": {
@@ -24,12 +42,17 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
+    "gcode.general.statusBars.enabled": false,
+    "gcode.general.units": "Metric",
     "git.autoRepositoryDetection": "openEditors",
     "git.confirmSync": false,
     "git.countBadge": "tracked",
-    "git.ignoredRepositories": [
-        "/home/main"
-    ],
+    "git.ignoredRepositories": ["/home/main"],
+    "haskell.formattingProvider": "stylish-haskell",
+    "haskell.plugin.ghcide-completions.config.autoExtendOn": false,
+    "haskell.plugin.importLens.codeActionsOn": false,
+    "haskell.plugin.importLens.codeLensOn": false,
+    "haskell.plugin.refineImports.globalOn": false,
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
@@ -38,18 +61,26 @@
     "security.workspace.trust.banner": "never",
     "security.workspace.trust.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
+    "svg.preview.autoShow": true,
+    "svg.preview.mode": "svg",
+    "svg.preview.viewMode": "oneByOne",
     "telemetry.telemetryLevel": "off",
+    "terraform.codelens.referenceCount": true,
     "terraform.languageServer": {
+        "args": ["serve"],
         "external": true,
         "pathToBinary": "",
-        "args": [
-            "serve"
-        ],
         "trace.server": "off"
     },
+    "update.mode": "manual",
     "window.menuBarVisibility": "toggle",
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
     "window.zoomLevel": 1,
+    "workbench.colorCustomizations": {
+        "comment": "See https://code.visualstudio.com/api/references/theme-color",
+        "editor.selectionBackground": "#f0d9ae",
+        "editor.selectionHighlightBorder": "#5b8b95"
+    },
     "workbench.colorTheme": "Solarized Light",
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.value": 8,
@@ -59,40 +90,5 @@
     },
     "workbench.enableExperiments": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.tree.indent": 24,
-    "haskell.plugin.ghcide-completions.config.autoExtendOn": false,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "svg.preview.mode": "svg",
-    "update.mode": "manual",
-    "haskell.plugin.importLens.codeLensOn": false,
-    "haskell.plugin.refineImports.globalOn": false,
-    "haskell.plugin.importLens.codeActionsOn": false,
-    "terraform.codelens.referenceCount": true,
-    "haskell.formattingProvider": "stylish-haskell",
-    "[haskell]": {
-        "editor.defaultFormatter": "haskell.haskell"
-    },
-    "gcode.general.units": "Metric",
-    "editor.detectIndentation": false,
-    "explorer.decorations.badges": false,
-    "explorer.incrementalNaming": "smart",
-    "svg.preview.autoShow": true,
-    "svg.preview.viewMode": "oneByOne",
-    "workbench.colorCustomizations": {
-        "comment": "See https://code.visualstudio.com/api/references/theme-color",
-        "editor.selectionBackground": "#f0d9ae",
-        "editor.selectionHighlightBorder": "#5b8b95",
-    },
-    "editor.guides.bracketPairs": "active",
-    "editor.language.colorizedBracketPairs": [
-        ["[", "]"],
-        ["(", ")"],
-        ["{", "}"],
-        ["»", "«"],
-        ["›", "‹"],
-    ],
-    "editor.unicodeHighlight.includeComments": true,
-    "editor.unicodeHighlight.nonBasicASCII": true,
-    "editor.guides.bracketPairsHorizontal": false,
-    "gcode.general.statusBars.enabled": false
+    "workbench.tree.indent": 24
 }
