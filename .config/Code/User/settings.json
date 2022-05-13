@@ -94,5 +94,6 @@
     ],
     "editor.unicodeHighlight.includeComments": true,
     "editor.unicodeHighlight.nonBasicASCII": true,
-    "editor.guides.bracketPairsHorizontal": false
+    "editor.guides.bracketPairsHorizontal": false,
+    "gcode.general.statusBars.enabled": false
 }
