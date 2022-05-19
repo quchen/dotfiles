@@ -79,7 +79,14 @@
     "workbench.colorCustomizations": {
         "comment": "See https://code.visualstudio.com/api/references/theme-color",
         "editor.selectionBackground": "#f0d9ae",
-        "editor.selectionHighlightBorder": "#5b8b95"
+        "editor.selectionHighlightBorder": "#5b8b95",
+        "editorBracketHighlight.foreground1": "#5d81b4",
+        "editorBracketHighlight.foreground2": "#eb6235",
+        "editorBracketHighlight.foreground3": "#8eb031",
+        "editorBracketHighlight.foreground4": "#e09b24",
+        "editorBracketHighlight.foreground5": "#8678b2",
+        "editorBracketHighlight.foreground6": "#c46e1a",
+        "editorBracketHighlight.unexpectedBracket.foreground": "#f700ff",
     },
     "workbench.colorTheme": "Solarized Light",
     "workbench.editor.limit.enabled": true,
