@@ -10,7 +10,6 @@
     "editor.comments.ignoreEmptyLines": false,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorSurroundingLines": 16,
-    "editor.detectIndentation": false,
     "editor.dragAndDrop": false,
     "editor.folding": false,
     "editor.fontFamily": "'Iosevka Expanded', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
@@ -25,7 +24,7 @@
         ["›", "‹"]
     ],
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.unicodeHighlight.includeComments": true,
+    "editor.unicodeHighlight.includeComments": false,
     "editor.unicodeHighlight.nonBasicASCII": false,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
@@ -64,14 +63,8 @@
     "svg.preview.viewMode": "oneByOne",
     "telemetry.telemetryLevel": "off",
     "terraform.codelens.referenceCount": true,
-    "terraform.languageServer": {
-        "args": ["serve"],
-        "external": true,
-        "pathToBinary": "",
-        "trace.server": "off"
-    },
     "window.menuBarVisibility": "toggle",
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+    "window.title": "${dirty}${activeEditorMedium}",
     "window.zoomLevel": 1,
     "workbench.colorCustomizations": {
         "comment": "See https://code.visualstudio.com/api/references/theme-color",
@@ -111,10 +104,13 @@
     "workbench.list.smoothScrolling": true,
     "workbench.tips.enabled": false,
     "workbench.tree.renderIndentGuides": "always",
-    "breadcrumbs.filePath": "last",
-    "breadcrumbs.enabled": false,
     "workbench.editor.autoLockGroups": {},
     "window.enableMenuBarMnemonics": false,
     "explorer.decorations.badges": false,
-    "update.mode": "manual"
+    "update.mode": "manual",
+    "breadcrumbs.enabled": false,
+    "breadcrumbs.filePath": "last",
+    "git.confirmForcePush": false,
+    "terraform.languageServer.enable": true,
+    "terraform.languageServer.path": ""
 }
