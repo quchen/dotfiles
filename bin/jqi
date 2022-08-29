@@ -9,4 +9,4 @@ fi
 
 file="${1:?Filename missing}"
 shift
-jq "$@" < "$file" | sponge "$file"
+jq --indent 4 "$@" < "$file" | sponge "$file"
