@@ -15,6 +15,7 @@ source "$SCRIPT_DIR/credentials.source"
         --exclude-if-present ".nobackup"             \
         --with-atime                                 \
         --one-file-system                            \
+        --compression max                            \
         "$HOME"                                      \
         "$@"
 )
