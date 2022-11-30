@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+export RESTIC_PASSWORD=${restic_pass:?"Restic password missing. Forgot sourcing credentials file?"}
+
+export RESTIC_COMPRESSION='max'
+export RESTIC_REPOSITORY='/media/main/tng-backup/restic/backup-tng'
+RESTIC_HOSTNAME='tng-2021-dell'
+export RESTIC_COMPRESSION='max'
