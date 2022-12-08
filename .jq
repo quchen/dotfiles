@@ -144,3 +144,10 @@ def csv2json:
 def subjson:
     capture("(?<jsonCandidate>\\{.+\\})") | .jsonCandidate | fromjson
     ;
+
+def hms:
+      (. / 60/60 | floor) as $h
+    | (. % (60*60) / 60 | floor) as $m
+    | (. % 60 | round) as $s
+    | "\($h)h \($m)m \($s)s"
+    ;
