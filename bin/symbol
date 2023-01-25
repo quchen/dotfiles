@@ -2499,6 +2499,7 @@ Arχiv ::: Arχiv – Arxiv
 〚 ::: 〚 – latex llbracket
 〛 ::: 〛 – latex rrbracket
 ﹨ ::: ﹨ – latex smallsetminus
+⌬ ::: ⌬ – benzol benzene
 
 
 :t let a x=(x,x);b=a.a;c=b.b in c()                             ::: Ackermann type
