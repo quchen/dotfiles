@@ -8,6 +8,7 @@ source "$SCRIPT_DIR/credentials.source"
 
 (
     set -x
+
     restic backup                                    \
         --exclude-file       "$SCRIPT_DIR/excludes"  \
         --iexclude-file      "$SCRIPT_DIR/iexcludes" \
@@ -18,6 +19,13 @@ source "$SCRIPT_DIR/credentials.source"
         --compression max                            \
         "$HOME"                                      \
         "$@"
+
+    restic forget                 \
+        --host "$RESTIC_HOSTNAME" \
+        --keep-within-monthly 1y  \
+        --keep-within-weekly 1m   \
+        --keep-within-daily 7d    \
+        --keep-within 1d
 )
 
 "$SCRIPT_DIR"/copy_to_pi
