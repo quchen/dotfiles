@@ -1,5 +1,4 @@
-$HOME/.atom/.apm
-$HOME/.atom/.node-gyp
+$HOME/.atom
 $HOME/.cabal
 $HOME/.cache
 $HOME/.cargo
@@ -8,7 +7,9 @@ $HOME/.config/Microsoft/Microsoft Teams/skylib
 $HOME/.config/Signal/attachments.noindex
 $HOME/.ghcup
 $HOME/.gradle
+$HOME/.local/share/Steam/steamapps/common
 $HOME/.local/share/Trash
+$HOME/.Mathematica/Paclets
 $HOME/.npm
 $HOME/.rustup
 $HOME/.stack
@@ -17,7 +18,8 @@ $HOME/.zoom
 $HOME/Downloads
 $HOME/snap
 $HOME/temp
-$HOME/.local/share/Steam/steamapps/common
 
 .stack-work
 .terraform
+
+node_modules
