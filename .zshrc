@@ -493,7 +493,7 @@ check_tooling() {
     __check_tooling_single bat         "DL manually from https://github.com/sharkdp/bat"
     __check_tooling_single delta       "https://github.com/dandavison/delta#installation"
     __check_tooling_single exa         "apt-get install exa"
-    __check_tooling_single fd          "apt-get install fd-find"
+    __check_tooling_single fd          "apt-get install fd-find => installs fdfind, symlink it manually to fd"
     __check_tooling_single fzf         "sudo apt-get install fzf"
     __check_tooling_single inotifywait "apt-get install inotify-tools"
     __check_tooling_single jq          "apt-get install jq"
