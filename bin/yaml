@@ -13,7 +13,7 @@ else
     script_run_in_pipeline=false
 fi
 
-yq r - \
+yq e - \
     --indent 4 \
     $(if $script_run_in_pipeline; then echo --colors; fi) \
     --prettyPrint \
