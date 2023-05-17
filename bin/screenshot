@@ -34,7 +34,7 @@ take_screenshot() (
             local txt="$path/$file.txt"
             local content=$(xfce4-screenshooter --region --open cat | tesseract stdin stdout -l eng+deu | tr -dc '[:print:]')
             echo "$content" > "$txt"
-            echo "$content" | clipboard
+            echo "$content" | cb
             notify-send --expire-time=5000 "OCR" "$(size_human "$txt") → clipboard\n»$petname«\n\n$content"
             ;;
         fullscreen)
