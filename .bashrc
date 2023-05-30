@@ -216,3 +216,4 @@ if [[ -e "$localBashrc" ]]; then
 fi
 unset localBashrc
 
+. "$HOME/.cargo/env"
