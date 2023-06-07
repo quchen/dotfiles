@@ -46,10 +46,12 @@ def trim: ltrim | rtrim;
 
 # Useful for converting external things to JSON using a simple interchange format,
 #
-# foo/bar: hello
-# foo/qux: world
+# {
+#     "foo/bar": "hello",
+#     "foo/qux": "world"
+# }
 # ===>
-# expand_object(":"; "/")
+# expand_object
 # ===>
 # {
 #     "foo": {
@@ -57,42 +59,56 @@ def trim: ltrim | rtrim;
 #         "qux": "world"
 #     }
 # }
-def expand_object(sep_path_elements; sep_path_from_data):
-    def expandPaths(sep):
-        (.path | split(sep)) as $path
-        | .value as $value
-        | {}
-        | setpath($path; $value)
-        ;
-
+#
+# Does not support arrays, and decodes everything to objects, because of the following ambiguity:
+#
+# {
+#     "foo/0": "hello",
+#     "foo/1": "world"
+# }
+#
+# This could either be
+#
+# { "foo": ["hello", "world"] }
+#
+# or
+#
+# {
+#     "foo": {
+#         "0": "hello",
+#         "1": "world"
+#     }
+# }
+def expand_object(sep_path_elements):
     def build_object:
         reduce .[] as $entry ({}; setpath($entry | .path; $entry | .value))
         ;
 
-    split("\n")
-    | map( trim
-         | select(length > 0)
-         | splitOnFirst(sep_path_from_data)
-         | { path: .before | trim | split(sep_path_elements)
-           , value: .after | trim
-           }
-         )
+    .
+    | to_entries
+    | map(
+        { path: .key | split(sep_path_elements)
+        , value: .value
+        })
     | build_object
     ;
-def expand_object: expand_object("/"; ":");
+def expand_object: expand_object("/");
 
 # Inverse of expand_object when there are no arrays.
-def collapse_object(sep_path_elements; sep_path_from_data):
+def collapse_object(sep_path_elements):
     . as $input
     | [paths]
     | map(
         { path: join(sep_path_elements), value: (. as $dot | $input | getpath($dot)) }
-        | if .value | type | . != "array" and . != "object" then . else empty end
-        | "\(.path)\(sep_path_from_data)\(.value)"
+        | if .value | type | . != "array" and . != "object"
+            then .
+            else empty
+            end
+        | { key: .path, value }
         )
-    | join("\n")
+    | from_entries
     ;
-def collapse_object: collapse_object("/"; ": ");
+def collapse_object: collapse_object("/");
 
 # Histogram function from the Jq Cookbook
 # https://github.com/stedolan/jq/wiki/Cookbook
