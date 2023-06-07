@@ -17,6 +17,7 @@ source "$SCRIPT_DIR/credentials.source"
         --with-atime                                 \
         --one-file-system                            \
         --compression max                            \
+        --cleanup-cache                              \
         "$HOME"                                      \
         "$@"
 
