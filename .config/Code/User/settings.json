@@ -132,4 +132,5 @@
     "javascript.autoClosingTags": false,
     "breadcrumbs.enabled": false,
     "diffEditor.ignoreTrimWhitespace": false,
+    "git.inputValidationSubjectLength": 9000,
 }
