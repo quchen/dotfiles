@@ -7,12 +7,14 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source "$SCRIPT_DIR/credentials.source"
 source "$SCRIPT_DIR/config.source"
 
-if ! cat /proc/mounts | grep '/media/main/tng-backup'; then
-    echo "Mount disk"
-    udisksctl mount -b /dev/disk/by-id/usb-WD_Elements_10B8_57583531453934444C4D5430-0:0-part1
-fi
+function ensure_mount() {
+    if [[ ! -d '/media/main/tng-backup/restic/backup-tng' ]]; then
+        echo "Mount disk"
+        udisksctl mount -b /dev/disk/by-id/usb-WD_Elements_10B8_57583531453934444C4D5430-0:0-part1
+    fi
+}
 
-(
+function write_backup() (
     set -x
 
     restic backup                                    \
@@ -35,4 +37,10 @@ fi
         --keep-within 1d
 )
 
-"$SCRIPT_DIR"/copy_to_pi
+function copy_to_pi() {
+    rclone sync --progress "/media/main/tng-backup/restic/backup-tng" pineapple-sftp:"/storage/logical-pipefish-2tb-hdd/restic/backup-tng"
+}
+
+ensure_mount
+write_backup
+copy_to_pi
