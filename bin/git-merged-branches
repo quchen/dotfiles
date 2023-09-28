@@ -17,15 +17,5 @@ def get_merged_branches():
 
     return branches_to_drop
 
-def drop_branches(branches_to_drop):
-    returncode = 0
-    for branch_to_drop in branches_to_drop:
-        shell = run(["git", "branch", "-d", branch_to_drop], capture_output=True, text=True)
-        if(shell.returncode != 0):
-            print(f"Error deleting branch '{branch_to_drop}'. Git error: {shell.stderr.strip()}", file=stderr)
-            returncode = 1
-        else:
-            print(f"Merged branch deleted: {branch_to_drop}")
-    exit(returncode)
-
-drop_branches(get_merged_branches())
+for branch in get_merged_branches():
+    print(branch)
