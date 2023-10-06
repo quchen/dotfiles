@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import json
+import math
+
+raw_colors = [
+    ["a", [0.368417, 0.506779, 0.709798]],
+    ["a", [0.880722, 0.611041, 0.142051]],
+    ["a", [0.560181, 0.691569, 0.194885]],
+    ["a", [0.922526, 0.385626, 0.209179]],
+    ["a", [0.528488, 0.470624, 0.701351]],
+    ["a", [0.772079, 0.431554, 0.102387]],
+    ["a", [0.363898, 0.618501, 0.782349]],
+    ["a", [1, 0.75, 0]],
+    ["a", [0.647624, 0.37816, 0.614037]],
+    ["a", [0.571589, 0.586483, 0]],
+    ["a", [0.915, 0.3325, 0.2125]],
+    ["a", [0.40082222609352647, 0.5220066643438841, 0.85]],
+    ["a", [0.9728288904374106, 0.621644452187053, 0.07336199581899142]],
+    ["a", [0.736782672705901, 0.358, 0.5030266573755369]],
+    ["a", [0.28026441037696703, 0.715, 0.4292089322474965]],
+]
+
+def frac_to_hex(frac):
+    return "%0.2x" % (math.floor( frac*255 ))
+
+def frac_to_dec(frac):
+    return "%0.2d" % (math.floor( frac*255 ))
+
+def rgb_frac_to_rgb_hex(rgbFrac):
+    [r,g,b] = rgbFrac
+    return f"#{frac_to_hex(r)}{frac_to_hex(g)}{frac_to_hex(b)}"
+
+def format_with_color(rgbFrac, text):
+    [r,g,b] = map(frac_to_dec, rgbFrac)
+    return f'\033[38;2;{r};{g};{b}m{text}\033[0m'
+
+for [name, rgbFrac] in raw_colors:
+    [r,g,b] = rgbFrac
+    hex = f"#{frac_to_hex(r)}{frac_to_hex(g)}{frac_to_hex(b)}"
+    print(f"{format_with_color(rgbFrac, hex)}")
