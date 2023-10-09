@@ -2,6 +2,16 @@
     "[haskell]": {
         "editor.defaultFormatter": "haskell.haskell"
     },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.defaultFormatter": null,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
@@ -11,7 +21,7 @@
     "editor.cursorSurroundingLines": 16,
     "editor.dragAndDrop": false,
     "editor.folding": false,
-    "editor.fontFamily": "'Iosevka Expanded', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontFamily": "'Iosevka Expanded', 'Comic Shanns Regular', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
     "editor.language.colorizedBracketPairs": [
         [
@@ -42,9 +52,7 @@
     "explorer.confirmDragAndDrop": false,
     "explorer.incrementalNaming": "smart",
     "explorer.openEditors.sortOrder": "alphabetical",
-    "extensions.ignoreRecommendations": true,
     "files.associations": {
-        "*.sonnet": "jsonnet",
         "*.hcl": "terraform"
     },
     "files.autoSave": "onFocusChange",
@@ -75,7 +83,7 @@
     "telemetry.telemetryLevel": "off",
     "terraform.codelens.referenceCount": true,
     "window.menuBarVisibility": "toggle",
-    "window.title": "${dirty}${activeEditorMedium}",
+    "window.title": "${folderName}/${activeEditorMedium}",
     "workbench.colorCustomizations": {
         "comment": "See https://code.visualstudio.com/api/references/theme-color",
         "editor.selectionBackground": "#f0d9ae",
@@ -86,7 +94,13 @@
         "editorBracketHighlight.foreground4": "#e09b24",
         "editorBracketHighlight.foreground5": "#8678b2",
         "editorBracketHighlight.foreground6": "#c46e1a",
-        "editorBracketHighlight.unexpectedBracket.foreground": "#f700ff"
+        "editorBracketHighlight.unexpectedBracket.foreground": "#f700ff",
+        "editorInlayHint.foreground": "#949494",
+        "editorInlayHint.background": "#00000000",
+        "editorInlayHint.typeForeground": "#949494",
+        "editorInlayHint.typeBackground": "#00000000",
+        "editorInlayHint.parameterForeground": "#949494",
+        "editorInlayHint.parameterBackground": "#00000000"
     },
     "workbench.colorTheme": "Solarized Light",
     "workbench.editor.limit.enabled": true,
@@ -118,19 +132,25 @@
     "window.enableMenuBarMnemonics": false,
     "explorer.decorations.badges": false,
     "update.mode": "manual",
-    "breadcrumbs.filePath": "last",
     "git.confirmForcePush": false,
     "terraform.languageServer.enable": true,
     "terraform.languageServer.path": "",
-    "indentRainbow.excludedLanguages": [
-        "hy",
-        "plaintext"
-    ],
     "editor.guides.bracketPairs": true,
-    "indentRainbow.errorColor": "rgba(128,32,32,0.03)",
     "typescript.autoClosingTags": false,
     "javascript.autoClosingTags": false,
-    "breadcrumbs.enabled": false,
+    "breadcrumbs.enabled": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "git.inputValidationSubjectLength": 9000,
+    "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "always",
+    "editor.inlayHints.fontSize": 10,
+    "playwright.reuseBrowser": true,
+    "extensions.ignoreRecommendations": true,
+    "jest.autoRun": {},
+    "search.smartCase": true,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "markdown.preview.scrollPreviewWithEditor": false,
+    "markdown.preview.scrollEditorWithPreview": false
 }
