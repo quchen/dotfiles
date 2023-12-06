@@ -5,23 +5,29 @@ set -euo pipefail
 WACOMSCREEN=$(xrandr --listactivemonitors | grep -Eo '(DisplayPort|DP|HDMI|DVI)-[0-9]' | head -1)
 echo "Using screen connected to $WACOMSCREEN"
 
-xsetwacom set "Wacom Intuos Pro M Finger touch" MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pen stylus"   MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pen eraser"   MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pen cursor"   MapToOutput "$WACOMSCREEN"
-xsetwacom set "Wacom Intuos Pro M Pad pad"      MapToOutput "$WACOMSCREEN"
+touch="Wacom Intuos Pro M Finger touch"
+pen="Wacom Intuos Pro M Pen stylus"
+eraser="Wacom Intuos Pro M Pen eraser"
+cursor="Wacom Intuos Pro M Pen cursor"
+pad="Wacom Intuos Pro M Pad pad"
 
-xsetwacom set "Wacom Intuos Pro M Finger touch" touch off
+xsetwacom set "$touch"  MapToOutput "$WACOMSCREEN"
+xsetwacom set "$pen"    MapToOutput "$WACOMSCREEN"
+xsetwacom set "$eraser" MapToOutput "$WACOMSCREEN"
+xsetwacom set "$cursor" MapToOutput "$WACOMSCREEN"
+xsetwacom set "$pad"    MapToOutput "$WACOMSCREEN"
+
+xsetwacom set "$touch" touch off
 
 
 
 configure_stylus_buttons() {
 
     # front button
-    xsetwacom set "Wacom Intuos Pro M Pen stylus" "Button" "2" "button +3" # right click
+    xsetwacom set "$pen" "Button" "2" "button +3" # right click
 
     # back button
-    xsetwacom set "Wacom Intuos Pro M Pen stylus" "Button" "3" "button +2 " # middle click
+    xsetwacom set "$pen" "Button" "3" "button +2 " # middle click
 }
 configure_stylus_buttons
 
@@ -30,29 +36,31 @@ configure_stylus_buttons
 configure_pad_buttons() {
 
     # Top column
-    xsetwacom set "Wacom Intuos Pro M Pad pad" Button 2  "key +space"       # Krita: pan
-    xsetwacom set "Wacom Intuos Pro M Pad pad" Button 3  "key +ctrl +space" # Krita: zoom
-    xsetwacom set "Wacom Intuos Pro M Pad pad" Button 8  "button +3"        # Krita: right click tap to open selctor
-    xsetwacom set "Wacom Intuos Pro M Pad pad" Button 9  "key +ctrl z -ctrl" # Undo
+    xsetwacom set "$pad" Button 2  "key +space"        # Krita: pan
+    xsetwacom set "$pad" Button 3  "key +ctrl +space"  # Krita: zoom
+    xsetwacom set "$pad" Button 8  "key +shift +space" # Krita: rotate
+    xsetwacom set "$pad" Button 9  "key +ctrl z -ctrl" # Undo
 
     # Center circle
-    # xsetwacom set "Wacom Intuos Pro M Pad pad" Button 1  "key 1"
+    # xsetwacom set "$pad" Button 1  "key 1"
 
     # Bottom column
-    # xsetwacom set "Wacom Intuos Pro M Pad pad" Button 10 "key a"
-    # xsetwacom set "Wacom Intuos Pro M Pad pad" Button 11 "key b"
-    # xsetwacom set "Wacom Intuos Pro M Pad pad" Button 12 "key c"
-    # xsetwacom set "Wacom Intuos Pro M Pad pad" Button 13 "key d"
+    xsetwacom set "$pad" Button 10 "key l" # Krita: lasso (in my config)
+    xsetwacom set "$pad" Button 11 "key +ctrl +shift a" # Krita: deselect all
+    # xsetwacom set "$pad" Button 12 "key c"
+    # xsetwacom set "$pad" Button 13 "key d"
 }
 configure_pad_buttons
 
+
+
 print_settings() {
     {
-        xsetwacom -s get "Wacom Intuos Pro M Finger touch" all
-        xsetwacom -s get "Wacom Intuos Pro M Pen stylus"   all
-        xsetwacom -s get "Wacom Intuos Pro M Pen eraser"   all
-        xsetwacom -s get "Wacom Intuos Pro M Pen cursor"   all
-        xsetwacom -s get "Wacom Intuos Pro M Pad pad"      all
+        xsetwacom -s get "$touch"  all
+        xsetwacom -s get "$pen"    all
+        xsetwacom -s get "$eraser" all
+        xsetwacom -s get "$cursor" all
+        xsetwacom -s get "$pad"    all
     } 2>&1 | grep -v 'does not exist' | perl -pe 's/(Pro M )([^"]+)(")/\1\033[34m\2\033[m\3/g'
 }
 print_settings
