@@ -8,4 +8,8 @@ set tree-view   = line-number:yes,interval=5 mode author:full file-size date:def
 
 set mailmap = true
 
+set line-graphics = utf-8
+
+set truncation-delimiter = utf-8
+
 bind main c !git checkout %(commit)
