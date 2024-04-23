@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-guake
+# Guake is already running via system
+# guake
