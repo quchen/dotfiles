@@ -38,7 +38,6 @@ export PAGER=less
 
 {
     declare -Ux PATH # U = no duplicates, x = export
-    PATH=""
     add_to_path() { [[ -d "$1" ]] && PATH="$1:$PATH" }
     add_to_path "/usr/local/sbin"
     add_to_path "/usr/local/bin"
