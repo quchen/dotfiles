@@ -56,9 +56,9 @@ export PAGER=less
     add_to_path "$HOME/.local/bin"
     add_to_path "$HOME/.stack/bin"
     add_to_path "$HOME/.ghcup/bin"
+    add_to_path "$HOME/.ghcup/env"
     add_to_path "$HOME/.fzf/bin"
     unfunction add_to_path
-    [ -f "/home/main/.ghcup/env" ] && source "/home/main/.ghcup/env" # ghcup-env
 }
 
 (){
