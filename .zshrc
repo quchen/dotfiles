@@ -319,6 +319,8 @@ prompt_dir() {
     }
 }
 
+export shell_stack="Z${shell_stack}"
+
 prompt_tags() {
     isset "PROMPT_TAGS" || PROMPT_TAGS=()
 
@@ -335,6 +337,10 @@ prompt_tags() {
     isset "GIT_AUTHOR_DATE" && git_environment+=A
     isset "GIT_COMMITTER_DATE" && git_environment+=C
     [[ -n "$git_environment" ]] && PROMPT_TAGS+=("Git[$git_environment]")
+
+    if [[ $shell_stack != 'Z' ]]; then
+        PROMPT_TAGS+=($shell_stack)
+    fi
 
     if [[ ${#PROMPT_TAGS[@]} -gt 0 ]]; then
         # Unique+sort array. Source: https://unix.stackexchange.com/a/167194/23666
