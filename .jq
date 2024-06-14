@@ -110,6 +110,18 @@ def collapse_object(sep_path_elements):
     ;
 def collapse_object: collapse_object("/");
 
+# Sorted nub
+def snub(by):
+    group_by(by) | map(.[0])
+    ;
+
+def snub: snub(.);
+
+def shist(by):
+    group_by(by) | map({element: .[0], count: length}) | sort_by(.count);
+
+def shist: shist(.);
+
 # Histogram function from the Jq Cookbook
 # https://github.com/stedolan/jq/wiki/Cookbook
 
