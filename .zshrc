@@ -532,7 +532,7 @@ if is_installed rg; then
 else
     alias -g G=" | grep --ignore-case --perl-regexp "
 fi
-alias -g L=" | less "
+alias -g L=" |& less "
 alias -g LC=" | wc -l "
 alias -g C=" | sponge >(cb)"
 alias -g CC=" |& sponge >(cb)"
