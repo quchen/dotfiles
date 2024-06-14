@@ -18,6 +18,7 @@ $HOME/.zoom
 $HOME/Downloads
 $HOME/snap
 $HOME/temp
+$HOME/VirtualBox VMs
 
 .stack-work
 .terraform
