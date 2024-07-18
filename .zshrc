@@ -568,11 +568,10 @@ alias du='du -shc' # Disk usage for folder, human readable
 alias zz="source ~/.zshrc"
 alias ze="\"$EDITOR\" ~/.zshrc && zz"
 
-o() { [[ "$#" -ne 0 ]] && xdg-open "$@" || xdg-open . }
+o() { xdg-open "${@:-.}" }
 jq() { command jq --indent 4 "$@" }
-sa() { [[ "$#" -ne 0 ]] && subl -a "$@" || subl -a . }
-ca() { [[ "$#" -ne 0 ]] && code --add "$@" || code --add . }
-cn() { [[ "$#" -ne 0 ]] && code --new-window "$@" || code --new-window . }
+ca() { code --add "${@:-.}" }
+cn() { code --new-window "${@:-.}" }
 ::() {
     cd "$(
         while [ "$(pwd)" != / ]; do
