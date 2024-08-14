@@ -118,7 +118,6 @@
   "editor.inlayHints.fontSize": 10,
   "playwright.reuseBrowser": true,
   "extensions.ignoreRecommendations": true,
-  "jest.autoRun": {},
   "search.smartCase": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
   "[json]": {
@@ -127,5 +126,17 @@
   "markdown.preview.scrollPreviewWithEditor": false,
   "markdown.preview.scrollEditorWithPreview": false,
   "workbench.editor.tabActionCloseVisibility": false,
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+    "editor.formatOnSave": false
+  }
 }
